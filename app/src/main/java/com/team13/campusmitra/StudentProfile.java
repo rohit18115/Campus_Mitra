@@ -2,18 +2,13 @@ package com.team13.campusmitra;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Intent;
 import android.os.Bundle;
 
-public class SplashActivity extends AppCompatActivity {
+public class StudentProfile extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        Intent intent = new Intent(getApplicationContext(), SignIn.class);
-
-        startActivity(intent);
-        finish();
+        setContentView(R.layout.activity_student_profile);
     }
 }
