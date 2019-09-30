@@ -18,12 +18,28 @@
         android:paddingLeft="32dp"
         android:paddingRight="32dp">
 
+<!--        <TextView-->
+<!--            android:id="@+id/textView"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:fontFamily="sans-serif"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="Choose a User Type"-->
+<!--            android:textStyle="bold"/>-->
+
+        <Spinner
+            android:id="@+id/type_of_profile_spinner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:entries="@array/type_of_profile"
+            android:fontFamily="sans-serif"
+            android:prompt="@string/type_of_profile_prompt" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content" >
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/signup_text1"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:fontFamily="sans-serif"
@@ -38,6 +54,7 @@
             android:layout_height="wrap_content" >
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/signup_text2"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:fontFamily="sans-serif"
@@ -52,24 +69,11 @@
             android:layout_height="wrap_content" >
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/signup_text3"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:fontFamily="sans-serif"
-                android:hint="Password"
-                android:inputType="textPassword"
-                android:maxLines="1"
-                android:textSize="16sp" />
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" >
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:fontFamily="sans-serif"
-                android:hint="Password"
+                android:hint="Confirm Password"
                 android:inputType="textPassword"
                 android:maxLines="1"
                 android:textSize="16sp" />
@@ -84,6 +88,7 @@
             android:orientation="vertical">
 
             <Button
+                android:id="@+id/signup_button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="16dp"
@@ -94,6 +99,7 @@
                 android:textStyle="bold" />
 
             <Button
+                android:id="@+id/signin_button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="16dp"

@@ -32,6 +32,7 @@
             android:layout_height="wrap_content" >
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/text_email"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:fontFamily="sans-serif"
@@ -46,6 +47,7 @@
             android:layout_height="wrap_content" >
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/text_password"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:fontFamily="sans-serif"
@@ -64,6 +66,7 @@
             android:orientation="vertical">
 
             <Button
+                android:id="@+id/signin_button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="16dp"
@@ -74,6 +77,7 @@
                 android:textSize="16dp" />
 
             <TextView
+                android:id="@+id/forgot_password"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
@@ -85,6 +89,7 @@
                 android:textColor="#0341fc" />
 
             <Button
+                android:id="@+id/signup_button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="16dp"
