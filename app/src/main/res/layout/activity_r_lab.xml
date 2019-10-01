@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+
+    <TextView
+        android:id="@+id/r_lab_et1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:textSize="30sp"
+        android:inputType="textPersonName"
+        android:gravity="center"
+        android:text="Lab Number - "
+        android:background="#40E0D0"
+        android:paddingBottom="15dp"
+        android:paddingTop ="15dp"
+        android:textStyle="bold"
+        android:textColor="#FFFFFF"/>
+
+    <ImageView
+        android:id="@+id/r_lab_iv1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:src="@drawable/lab_sample"
+        android:paddingBottom="10dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:paddingTop="10dp"
+        android:adjustViewBounds="true"
+        android:layout_below="@id/r_lab_et1"/>
+    <TextView
+        android:id="@+id/r_lab_et2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:textStyle="bold"
+        android:textSize="25sp"
+        android:inputType="textPersonName"
+        android:paddingLeft="10dp"
+        android:text="Prof : Dr Mayank Vats"
+        android:layout_below="@id/r_lab_iv1"
+        android:textColor="#000000"/>
+    <fragment
+        android:name="com.team13.campusmitra.Project_list"
+        android:id="@+id/r_lab_frag1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/r_lab_et2"
+        android:paddingBottom="10dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:paddingTop="10dp"/>
+
+</RelativeLayout>
