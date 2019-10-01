@@ -2,8 +2,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.team13.campusmitra">
 
-    <uses-permission android:name="android.permission.INTERNET"/>
-
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -11,14 +9,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
-        <activity android:name=".LabsRecyclerView"></activity>
+        <activity android:name=".NewDashboard"></activity>
+        <activity android:name=".LabsRecyclerView" />
         <activity android:name=".VerifyActivity" />
-        <activity android:name=".Dashboard" />
-
-        <activity android:name=".StudentProfile"></activity>
+        <activity android:name=".StudentProfile" />
         <activity android:name=".UserProfile" />
-
         <activity android:name=".SignUp" />
         <activity
             android:name=".SplashActivity"
@@ -31,5 +26,7 @@
         </activity>
         <activity android:name=".SignIn" />
     </application>
+
+    <uses-permission android:name="android.permission.INTERNET" />
 
 </manifest>

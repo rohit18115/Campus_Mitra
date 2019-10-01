@@ -1,6 +1,7 @@
 package com.team13.campusmitra;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,7 +12,7 @@ public class SplashActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        Intent intent = new Intent(getApplicationContext(), SignIn.class);
+        Intent intent = new Intent(getApplicationContext(), LabsRecyclerView.class);
 
         startActivity(intent);
         finish();
