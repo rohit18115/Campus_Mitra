@@ -9,7 +9,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".NewDashboard"></activity>
+        <activity android:name=".ResearchLabsRecyclerView"></activity>
+        <activity android:name=".NewDashboard" />
         <activity android:name=".LabsRecyclerView" />
         <activity android:name=".VerifyActivity" />
         <activity android:name=".StudentProfile" />

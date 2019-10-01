@@ -3,12 +3,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".LabsRecyclerView">
+    tools:context=".ResearchLabsRecyclerView">
 
     <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/labs_recycler_view" >
+        android:id="@+id/research_labs_recycler_view" >
     </androidx.recyclerview.widget.RecyclerView>
 
 </RelativeLayout>

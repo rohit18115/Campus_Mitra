@@ -7,10 +7,14 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
-public class LabsRecyclerView extends AppCompatActivity {
+public class ResearchLabsRecyclerView extends AppCompatActivity  {
 
     private static final String TAG = "LabsRecyclerView";
 
@@ -47,8 +51,10 @@ public class LabsRecyclerView extends AppCompatActivity {
     private void initRecycler() {
         Log.d(TAG, "initComponents: started");
         RecyclerView recyclerView = findViewById(R.id.labs_recycler_view);
-        LabsRecyclerViewAdaptor adapter = new LabsRecyclerViewAdaptor(labNumber,count, address,imageUrls, this);
+        ResearchLabsRecyclerViewAdaptor adapter = new ResearchLabsRecyclerViewAdaptor(labNumber,count, address,imageUrls, this);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
     }
+
 }
+
