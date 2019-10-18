@@ -4,11 +4,13 @@ import android.content.Context;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 import com.google.firebase.auth.FirebaseUser;
 
 public class SignupAction {
@@ -16,10 +18,12 @@ public class SignupAction {
     private String email;
     private String password;
     private FirebaseAuth firebaseAuth;
-    public SignupAction(Context context, String email, String password) {
+    private AppCompatActivity activity;
+    public SignupAction(Context context, String email, String password,AppCompatActivity activity) {
         this.context = context;
         this.email = email;
         this.password = password;
+        this.activity = activity;
         firebaseAuth = FirebaseAuth.getInstance();
     }
     static int signupFlag = -1;
@@ -34,6 +38,13 @@ public class SignupAction {
                     final FirebaseUser user= firebaseAuth.getCurrentUser();
                     user.sendEmailVerification();
                     signupFlag =  0;
+                }
+                else{
+                    if(task.getException() instanceof FirebaseAuthUserCollisionException){
+                        //This -2 signifies that the user already exists
+                        signupFlag =-2;
+
+                    }
                 }
             }
         });

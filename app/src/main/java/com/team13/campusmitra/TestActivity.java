@@ -9,6 +9,7 @@ import android.widget.Toast;
 
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.team13.campusmitra.actions.LoginAction;
 import com.team13.campusmitra.actions.SignupAction;
 import com.team13.campusmitra.dataholder.Student;
 
@@ -29,16 +30,22 @@ public class TestActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 //insert("nikks95","nikks@gmail.com","Mt18129",0);
-                doSignup("nikkstheroc95@gmail.com","12345678");
+                //doSignup("nikhilgola21@gmail.com","12345678");
+                doLogin("nikhilgola21@gmail.com","12345678");
             }
         });
     }
+
     private void doSignup(String email,String pass){
-        SignupAction action = new SignupAction(this,email,pass);
-        if(action.doSignup()==0){
-            Toast.makeText(this,"Success",Toast.LENGTH_LONG).show();
-            System.out.println("Success");
-        }
+        SignupAction action = new SignupAction(this,email,pass,this);
+        int i = action.doSignup();
+    }
+    private void doLogin(String email,String pass){
+        LoginAction action = new LoginAction(this,email,pass,this);
+
+        action.doLcgin();
+
+
     }
     private void insert(String username, String useremail, String rollnum,int utype){
        // String uid = databaseReference.push().getKey();
