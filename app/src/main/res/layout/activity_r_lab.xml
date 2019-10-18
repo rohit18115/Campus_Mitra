@@ -1,4 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="10dp"
+    android:fillViewport="false">
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -31,6 +37,7 @@
         android:paddingRight="10dp"
         android:paddingTop="10dp"
         android:adjustViewBounds="true"
+        android:background="@drawable/image_rounded"
         android:layout_below="@id/r_lab_et1"/>
     <TextView
         android:id="@+id/r_lab_et2"
@@ -56,3 +63,4 @@
         android:paddingTop="10dp"/>
 
 </RelativeLayout>
+</ScrollView>

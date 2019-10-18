@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "910191803003",
+    "firebase_url": "https://campusmitra-6f8ad.firebaseio.com",
+    "project_id": "campusmitra-6f8ad",
+    "storage_bucket": "campusmitra-6f8ad.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:910191803003:android:6577715ab49de129c940de",
+        "android_client_info": {
+          "package_name": "com.team13.campusmitra"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "910191803003-fqbavai7vpphfl8faq1qiujlej3ruet2.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.team13.campusmitra",
+            "certificate_hash": "3ab2d2565ff71aa82c3f49ec89f6d556071828f5"
+          }
+        },
+        {
+          "client_id": "910191803003-dmbbh1r7ekcd6vb94br7pv92ipqph75l.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDztzFTgCUGgIkQvKsGeTt4tAn5GBSpHG0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "910191803003-dmbbh1r7ekcd6vb94br7pv92ipqph75l.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
