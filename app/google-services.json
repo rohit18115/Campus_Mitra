@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "910191803003-agb7m8h9mtrhpshnrertm31mg2o92kaa.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.team13.campusmitra",
+            "certificate_hash": "8995f94b7e2d5e80b76fd948be5f44ba0827e59a"
+          }
+        },
+        {
           "client_id": "910191803003-fqbavai7vpphfl8faq1qiujlej3ruet2.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
