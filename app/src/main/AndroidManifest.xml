@@ -9,7 +9,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ResearchLabsRecyclerView"></activity>
+        <activity android:name=".OCRActivity"></activity>
+        <activity android:name=".ResearchLabsRecyclerView" />
         <activity android:name=".NewDashboard" />
         <activity android:name=".LabsRecyclerView" />
         <activity android:name=".VerifyActivity" />
@@ -26,9 +27,14 @@
             </intent-filter>
         </activity>
         <activity android:name=".SignIn" />
-        <activity android:name=".R_Lab"
-            android:exported="true"></activity>
+        <activity
+            android:name=".R_Lab"
+            android:exported="true" />
     </application>
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.CAMERA" />
 
     <uses-permission android:name="android.permission.INTERNET" />
 
