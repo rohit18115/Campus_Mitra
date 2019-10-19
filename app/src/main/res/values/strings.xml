@@ -8,5 +8,7 @@
         <item>Student</item>
         <item>Faculty</item>
     </string-array>
+    <string name="title_activity_test">test</string>
+    <string name="search">Search</string>
 
 </resources>
