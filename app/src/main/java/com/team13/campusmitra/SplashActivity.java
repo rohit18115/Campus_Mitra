@@ -10,8 +10,25 @@ public class SplashActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Intent intent = new Intent(getApplicationContext(), UserProfile.class);
-        startActivity(intent);
-        finish();
+
+        Thread timer = new Thread() {
+
+            public void run() {
+                try {
+                    sleep(1500);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                } finally {
+                    Intent intent = new Intent(getApplicationContext(), SignIn.class);
+                    startActivity(intent);
+                    finish();
+                }
+            }
+        };
+        timer.start();
+
+
     }
+
 }
+
