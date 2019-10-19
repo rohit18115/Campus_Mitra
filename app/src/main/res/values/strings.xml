@@ -2,6 +2,7 @@
     <string name="app_name">Campus Mitra</string>
 
     <string name="type_of_profile_prompt">User Type</string>
+    <string name="roomnumber">RoomNumber</string>
 
     <string-array name="type_of_profile">
         <item>Student</item>
