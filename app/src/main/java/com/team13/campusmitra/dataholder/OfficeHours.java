@@ -22,6 +22,15 @@ public class OfficeHours implements Serializable {
         this.startTime = startTime;
         this.endTime = endTime;
         this.venue = venue;
+        this.dnd = 0;
+    }
+
+    public OfficeHours(String day, String startTime, String endTime, String venue, int dnd) {
+        this.day = day;
+        this.startTime = startTime;
+        this.endTime = endTime;
+        this.venue = venue;
+        this.dnd = dnd;
     }
 
     public String getDay() {

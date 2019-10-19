@@ -3,23 +3,33 @@ package com.team13.campusmitra.dataholder;
 import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Student extends User implements Serializable {
-
+public class Student  implements Serializable {
+    private String userID;
     private String rollNumber;
     private String enrollCourse;
     private String areaOfInterest;
     private String resumeURL;
     private ArrayList<String> courses;
 
-    public Student()
-    {
-        super();
+    public Student() {
+        courses = new ArrayList<>();
     }
-    public Student(String userId, String userName, String userFirstName, String userLastName, String gender, String dob, int userType, String userEmail, String userPersonalMail, int profileCompleteCount, long lastLoginTimeStamp, int activeStatus, String imageUrl, String rollNumber, String enrollCourse) {
-        super(userId, userName, userFirstName, userLastName, gender, dob, userType, userEmail, userPersonalMail, profileCompleteCount, lastLoginTimeStamp, activeStatus, imageUrl);
+
+    public Student(String userID, String rollNumber, String enrollCourse, String areaOfInterest, String resumeURL, ArrayList<String> courses) {
+        this.userID = userID;
         this.rollNumber = rollNumber;
         this.enrollCourse = enrollCourse;
-        courses = new ArrayList<>();
+        this.areaOfInterest = areaOfInterest;
+        this.resumeURL = resumeURL;
+        this.courses = courses;
+    }
+
+    public String getUserID() {
+        return userID;
+    }
+
+    public void setUserID(String userID) {
+        this.userID = userID;
     }
 
     public String getRollNumber() {

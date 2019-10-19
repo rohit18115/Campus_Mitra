@@ -3,7 +3,8 @@ package com.team13.campusmitra.dataholder;
 import java.io.Serializable;
 import java.util.ArrayList;
 
-public class ResearchLab extends Room implements Serializable {
+public class ResearchLab implements Serializable {
+    private  String roomID;
     private String researchLabName;
     private String imageURL;
     private String videoURL;
@@ -11,10 +12,22 @@ public class ResearchLab extends Room implements Serializable {
     private String webPageURL;
     private ArrayList<String> projects;
 
-    public ResearchLab(){
+    public ResearchLab(String roomID){
+        this.roomID = roomID;
         mentors = new ArrayList<>();
         projects= new ArrayList<>();
     }
+
+    public ResearchLab(String roomID, String researchLabName, String imageURL, String videoURL, ArrayList<String> mentors, String webPageURL, ArrayList<String> projects) {
+        this.roomID = roomID;
+        this.researchLabName = researchLabName;
+        this.imageURL = imageURL;
+        this.videoURL = videoURL;
+        this.mentors = mentors;
+        this.webPageURL = webPageURL;
+        this.projects = projects;
+    }
+
     public void addProject(String project){
         projects.add(project);
     }
@@ -27,16 +40,7 @@ public class ResearchLab extends Room implements Serializable {
     public void removeMentor(String mentorID){
         mentors.remove(mentorID);
     }
-    public ResearchLab(String researchLabName, String imageURL, String videoURL, ArrayList<String> mentors, String webPageURL, ArrayList<String> projects) {
-        this.researchLabName = researchLabName;
-        this.imageURL = imageURL;
-        this.videoURL = videoURL;
-        this.mentors = mentors;
-        this.webPageURL = webPageURL;
-        this.projects = projects;
-    }
-
-    public String getResearchLabName() {
+       public String getResearchLabName() {
         return researchLabName;
     }
 
@@ -84,13 +88,4 @@ public class ResearchLab extends Room implements Serializable {
         this.projects = projects;
     }
 
-    public ResearchLab(String roomID, String roomNumber, String roomBuilding, int roomType, String roomImageURL, String roomDescription, String researchLabName, String imageURL, String videoURL, ArrayList<String> mentors, String webPageURL, ArrayList<String> projects) {
-        super(roomID, roomNumber, roomBuilding, roomType, roomImageURL, roomDescription);
-        this.researchLabName = researchLabName;
-        this.imageURL = imageURL;
-        this.videoURL = videoURL;
-        this.mentors = mentors;
-        this.webPageURL = webPageURL;
-        this.projects = projects;
-    }
 }

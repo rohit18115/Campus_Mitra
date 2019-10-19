@@ -9,6 +9,11 @@ public class Room implements Serializable {
     private int roomType;
     private String roomImageURL;
     private String roomDescription; // Can be used as the flags like Cleaning, Maintainance etc.
+    private int capacity;
+    private String roomNotes;
+    private String labName;
+    private int systemCount;
+
 
     public Room() {
     }
