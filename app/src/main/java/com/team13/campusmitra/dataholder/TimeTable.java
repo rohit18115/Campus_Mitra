@@ -1,8 +1,9 @@
 package com.team13.campusmitra.dataholder;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class TimeTable {
+public class TimeTable  implements Serializable {
     private ArrayList<TimeTableElement> timeTable;
 
     public TimeTable(ArrayList<TimeTableElement> timeTable) {

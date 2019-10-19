@@ -1,6 +1,8 @@
 package com.team13.campusmitra.dataholder;
 
-public class TimeTableElement {
+import java.io.Serializable;
+
+public class TimeTableElement implements Serializable {
     private String timeTableID;
     private String courseID;
     private String startTime;

@@ -1,6 +1,8 @@
 package com.team13.campusmitra.dataholder;
 
-public class OfficeHours {
+import java.io.Serializable;
+
+public class OfficeHours implements Serializable {
     private String day;
     private String startTime;
     private String endTime;

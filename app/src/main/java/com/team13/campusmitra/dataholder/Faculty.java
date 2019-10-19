@@ -1,8 +1,9 @@
 package com.team13.campusmitra.dataholder;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Faculty extends User {
+public class Faculty extends User implements Serializable {
     private String designation;
     private String joinedDate;
     private int avalability;

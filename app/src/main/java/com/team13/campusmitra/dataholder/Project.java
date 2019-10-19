@@ -1,8 +1,9 @@
 package com.team13.campusmitra.dataholder;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Project {
+public class Project implements Serializable {
     private String projectName;
     private String projectDescription;
     private ArrayList<String> members;
