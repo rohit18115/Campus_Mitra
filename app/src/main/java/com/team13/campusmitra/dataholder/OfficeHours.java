@@ -1,6 +1,8 @@
 package com.team13.campusmitra.dataholder;
 
-public class OfficeHours {
+import java.io.Serializable;
+
+public class OfficeHours implements Serializable {
     private String day;
     private String startTime;
     private String endTime;
@@ -20,6 +22,15 @@ public class OfficeHours {
         this.startTime = startTime;
         this.endTime = endTime;
         this.venue = venue;
+        this.dnd = 0;
+    }
+
+    public OfficeHours(String day, String startTime, String endTime, String venue, int dnd) {
+        this.day = day;
+        this.startTime = startTime;
+        this.endTime = endTime;
+        this.venue = venue;
+        this.dnd = dnd;
     }
 
     public String getDay() {

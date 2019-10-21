@@ -1,8 +1,10 @@
 package com.team13.campusmitra.dataholder;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Faculty extends User {
+public class Faculty implements Serializable {
+    private String userID;
     private String designation;
     private String joinedDate;
     private int avalability;
@@ -11,17 +13,22 @@ public class Faculty extends User {
     private String roomid;
     private ArrayList<String> domains;
 
-    public Faculty(){
-        super();
-    }
-    public Faculty(String userId, String userName, String userFirstName, String userLastName, String gender, String dob, int userType, String userEmail, String userPersonalMail, int profileCompleteCount, long lastLoginTimeStamp, int activeStatus, String imageUrl, String designation, String joinedDate) {
-        super(userId, userName, userFirstName, userLastName, gender, dob, userType, userEmail, userPersonalMail, profileCompleteCount, lastLoginTimeStamp, activeStatus, imageUrl);
-        this.designation = designation;
-        officeHours =  new ArrayList<>();
+    public Faculty() {
+        officeHours = new ArrayList<>();
         coursesTaken = new ArrayList<>();
-        domains = new ArrayList<>();
-        this.joinedDate = joinedDate;
     }
+
+    public Faculty(String userID, String designation, String joinedDate, int avalability, ArrayList<OfficeHours> officeHours, ArrayList<String> coursesTaken, String roomid, ArrayList<String> domains) {
+        this.userID = userID;
+        this.designation = designation;
+        this.joinedDate = joinedDate;
+        this.avalability = avalability;
+        this.officeHours = officeHours;
+        this.coursesTaken = coursesTaken;
+        this.roomid = roomid;
+        this.domains = domains;
+    }
+
     public void addDomains(String domain){
         domains.add(domain);
     }

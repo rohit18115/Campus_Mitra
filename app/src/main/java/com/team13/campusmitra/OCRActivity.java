@@ -1,5 +1,6 @@
 package com.team13.campusmitra;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import androidx.annotation.NonNull;
@@ -7,12 +8,16 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
 import android.Manifest;
+import android.content.DialogInterface;
 import android.content.pm.PackageManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.SparseArray;
+import android.view.LayoutInflater;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -20,26 +25,46 @@ import com.google.android.gms.vision.CameraSource;
 import com.google.android.gms.vision.Detector;
 import com.google.android.gms.vision.text.TextBlock;
 import com.google.android.gms.vision.text.TextRecognizer;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.ValueEventListener;
+import com.team13.campusmitra.dataholder.Room;
+import com.team13.campusmitra.firebaseassistant.FirebaseRoomHelper;
 
-import org.json.JSONObject;
-
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.io.OutputStreamWriter;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.net.URLEncoder;
+import java.util.ArrayList;
 import java.util.StringTokenizer;
 public class OCRActivity extends AppCompatActivity {
     SurfaceView cameraView;
     TextView textView;
     CameraSource cameraSource;
 
+    boolean flag = false;
     final int RequestCameraPermissionID =1001;
+    ArrayList<Room> rooms;
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        rooms = new ArrayList<>();
+        FirebaseRoomHelper helper = new FirebaseRoomHelper();
+        DatabaseReference reference = helper.getReference();
+        reference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                rooms.clear();
+                for (DataSnapshot snapshot:dataSnapshot.getChildren()){
+                    Room room = snapshot.getValue(Room.class);
+                    rooms.add(room);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
@@ -124,26 +149,20 @@ public class OCRActivity extends AppCompatActivity {
                                     //stringBuilder.append("\n");
                                 }
                                 StringTokenizer tokenizer = new StringTokenizer(stringBuilder.toString()," ");
-                                String s="B-140";
                                 String ss="";
                                 int i=0;
-                                boolean flag = false;
+                               // boolean flag = false;
                                 while(tokenizer.hasMoreElements() && flag==false){
                                     ss = tokenizer.nextToken();
-                                    i++;
-                                    //System.out.println(ss+" and  "+s);
-                                    if(ss.equals(s)){
-                                        System.out.println("YES");
-                                        textView.setText(ss);
+                                    Room r = searchKey(ss);
+                                    if(r!=null){
+                                        textView.setText("YESSSSSS");
+                                        System.out.println(r);
                                         flag=true;
-                                        new OCRaction().execute(ss);
-
-                                    }
-                                    else{
-                                        ss="";
+                                        showRoomDialog(r);
                                     }
                                 }
-                                textView.setText(stringBuilder.toString());
+                               // textView.setText(stringBuilder.toString());
                             }
                         });
                     }
@@ -151,55 +170,40 @@ public class OCRActivity extends AppCompatActivity {
             });
         }
     }
-}
+    private Room searchKey(String s){
+        Room result = null;
 
-class OCRaction extends AsyncTask<String,String, JSONObject>{
-    @Override
-    protected void onPreExecute() {
-        super.onPreExecute();
+        for(Room room:rooms){
+            if(s.toLowerCase().equals(room.getRoomNumber().toLowerCase())){
+                return room;
+            }
+        }
+        return  result;
     }
-
-    @Override
-    protected void onPostExecute(JSONObject s) {
-        super.onPostExecute(s);
-        System.out.println(s.toString());
-    }
-
-    @Override
-    protected JSONObject doInBackground(String... strings) {
-        String roomnumber = strings[0];
-        StringBuilder stringBuilder = new StringBuilder();
-        String link = URLHolder.URL+"getspecificroom.php";
-
-        try {
-            URL url = new URL(link);
-            HttpURLConnection http = (HttpURLConnection) url.openConnection();
-            http.setRequestMethod("GET");
-            http.setDoInput(true);
-            http.setDoOutput(true);
-            OutputStream outputStream = http.getOutputStream();
-            BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(outputStream,"UTF-8"));
-            String urlData = URLEncoder.encode("roomnumber","UTF-8")+"="+URLEncoder.encode(roomnumber,"UTF-8");
-            writer.write(urlData);
-            writer.flush();
-            writer.close();
-            outputStream.close();
-
-            InputStream inputStream = http.getInputStream();
-            BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream,"ISO-8859-1"));
-            String line = "";
-            while((line=reader.readLine())!=null){
-                stringBuilder.append(line);
+    private void showRoomDialog(Room room){
+        AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
+        LayoutInflater inflater= getLayoutInflater();
+        final View view = inflater.inflate(R.layout.dialog_ocr_room,null);
+        alertDialog.setView(view);
+        TextView roomnumber = view.findViewById(R.id.ocr_room_no_dialog_tv);
+        TextView roomBuilding = view.findViewById(R.id.ocr_room_building_dialog_tv);
+        Button btn = view.findViewById(R.id.ocr_room_dialog_btn);
+        btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
 
             }
-            reader.close();
-            inputStream.close();
-            http.disconnect();
-            return new JSONObject(stringBuilder.toString());
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return null;
+        });
+        roomnumber.setText(room.getRoomNumber());
+        roomBuilding.setText(room.getRoomBuilding());
+        alertDialog.setTitle("Room Information");
+        alertDialog.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                flag = false;
+            }
+        });
+        AlertDialog dialog = alertDialog.create();
+        dialog.show();
     }
 }
