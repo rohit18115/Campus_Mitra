@@ -5,7 +5,7 @@ android {
     buildToolsVersion "29.0.1"
     defaultConfig {
         applicationId "com.team13.campusmitra"
-        minSdkVersion 21
+        minSdkVersion 24
         targetSdkVersion 29
         versionCode 1
         versionName "1.0"
@@ -40,7 +40,20 @@ dependencies {
     implementation 'androidx.cardview:cardview:1.0.0'
 
     implementation 'com.google.android.gms:play-services-vision:18.0.0'
+    implementation 'com.github.bumptech.glide:glide:4.10.0'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.10.0'
 
+    //image circle view
+    implementation 'de.hdodenhof:circleimageview:3.0.1'
 
+}
+repositories{
+    maven {
+        url 'http://dl.bintray.com/amulyakhare/maven'
+    }
+}
+
+dependencies {
+    compile 'com.amulyakhare:com.amulyakhare.textdrawable:1.0.1'
 }
 apply plugin: 'com.google.gms.google-services'
