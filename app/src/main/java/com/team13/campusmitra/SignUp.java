@@ -30,7 +30,7 @@ import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 import com.google.firebase.auth.FirebaseAuthWeakPasswordException;
 import com.google.firebase.auth.FirebaseUser;
 
-public class SignUp extends AppCompatActivity{
+public class SignUp extends AppCompatActivity {
 
     TextInputEditText etEmail, etpswd, etcnfmpswd;
     TextView tvSignIn;
@@ -57,7 +57,7 @@ public class SignUp extends AppCompatActivity{
         mAuth = FirebaseAuth.getInstance();
         //mAuth.signOut();
 
-        SpannableString spannableString =new SpannableString("Already have an account? Sign In here");
+        SpannableString spannableString = new SpannableString("Already have an account? Sign In here");
         spannableString.setSpan(new ClickableSpan() {
             @Override
             public void onClick(@NonNull View view) {
@@ -74,24 +74,23 @@ public class SignUp extends AppCompatActivity{
         btnSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                try{
+                try {
                     email = etEmail.getText().toString().trim();
                     pswd = etpswd.getText().toString().trim();
                     cnfmpswd = etcnfmpswd.getText().toString().trim();
-                }catch (NullPointerException e){
+                } catch (NullPointerException e) {
                     Log.d(TAG, " Null pointer exception ");
                 }
 
-                if(email.isEmpty()){
+                if (email.isEmpty()) {
                     etEmail.setError("email cannot be empty", null);
-                }else if(!email.contains("@iiitd.ac.in")){
+                } else if (!email.contains("@iiitd.ac.in")) {
                     etEmail.setError("enter your iiitd email", null);
-                }
-                else if(pswd.isEmpty()){
+                } else if (pswd.isEmpty()) {
                     etpswd.setError("please enter valid password", null);
-                }else if(!pswd.equals(cnfmpswd)){
+                } else if (!pswd.equals(cnfmpswd)) {
                     etcnfmpswd.setError("password do not match", null);
-                }else{
+                } else {
                     createAccount(email, pswd);
                     hideKeyBoard();
                 }
@@ -100,7 +99,7 @@ public class SignUp extends AppCompatActivity{
 
     }
 
-    void createAccount(String email, String password){
+    void createAccount(String email, String password) {
         progressBar.setIndeterminate(true);
         progressBar.setVisibility(View.VISIBLE);
         mAuth.createUserWithEmailAndPassword(email, password)
@@ -113,26 +112,32 @@ public class SignUp extends AppCompatActivity{
                             final FirebaseUser user = mAuth.getCurrentUser();
                             verifyEmail(user);
                             Snackbar snackbar = Snackbar.make(coordinatorLayout, "Verification email sent to" + user.getEmail(), Snackbar.LENGTH_SHORT);
-                            snackbar.show();
-                            mAuth.signOut();
-                            progressBar.setVisibility(View.GONE);
-                            Intent intent = new Intent(new Intent(SignUp.this, SignIn.class));
-                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                            startActivity(intent);
+                            snackbar.addCallback(new Snackbar.Callback() {
+
+                                @Override
+                                public void onDismissed(Snackbar snackbar, int event) {
+                                    //see Snackbar.Callback docs for event details
+                                    mAuth.signOut();
+                                    progressBar.setVisibility(View.GONE);
+                                    Intent intent = new Intent(new Intent(SignUp.this, SignIn.class));
+                                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                    startActivity(intent);
+                                }
+                            });
+
                             //updateUI(user);
                         } else {
                             // If sign in fails, display a message to the user.
                             try {
                                 Log.w(TAG, "createUserWithEmail:failure", task.getException());
                                 throw task.getException();
-                            }catch (FirebaseAuthUserCollisionException e){
+                            } catch (FirebaseAuthUserCollisionException e) {
                                 Snackbar snackbar = Snackbar.make(coordinatorLayout, "User Already Exists", Snackbar.LENGTH_SHORT);
                                 snackbar.show();
-                            }catch (FirebaseAuthWeakPasswordException e){
+                            } catch (FirebaseAuthWeakPasswordException e) {
                                 Snackbar snackbar = Snackbar.make(coordinatorLayout, "Password should be at least 6 characters", Snackbar.LENGTH_SHORT);
                                 snackbar.show();
-                            }
-                            catch (Exception e) {
+                            } catch (Exception e) {
                                 e.printStackTrace();
                             }
                             progressBar.setVisibility(View.GONE);
@@ -164,7 +169,7 @@ public class SignUp extends AppCompatActivity{
         });
     }
 
-    public void hideKeyBoard(){
+    public void hideKeyBoard() {
         InputMethodManager inputManager = (InputMethodManager)
                 getSystemService(Context.INPUT_METHOD_SERVICE);
 

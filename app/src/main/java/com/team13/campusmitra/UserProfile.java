@@ -25,14 +25,12 @@ import com.google.firebase.auth.GoogleAuthProvider;
 
 public class UserProfile extends AppCompatActivity {
 
-    private FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        mAuth = FirebaseAuth.getInstance();
-        mAuth.signOut();
+
     }
 }
 

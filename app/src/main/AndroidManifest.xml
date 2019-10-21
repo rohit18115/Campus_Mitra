@@ -14,7 +14,8 @@
         <activity android:name=".UserProfile" />
         <activity android:name=".VerifyActivity" />
         <activity android:name=".Dashboard" />
-        <activity android:name=".SignUp" />
+        <activity android:name=".SignUp"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".SplashActivity"
             android:theme="@style/SplashTheme">
