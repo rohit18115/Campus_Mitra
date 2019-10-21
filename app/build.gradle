@@ -57,6 +57,7 @@ dependencies {
 
     //image circle view
     implementation 'de.hdodenhof:circleimageview:3.0.1'
+    implementation 'com.amulyakhare:com.amulyakhare.textdrawable:1.0.1'
 
 }
 repositories{
@@ -65,7 +66,4 @@ repositories{
     }
 }
 
-dependencies {
-    compile 'com.amulyakhare:com.amulyakhare.textdrawable:1.0.1'
-}
 apply plugin: 'com.google.gms.google-services'
