@@ -60,7 +60,7 @@ public class SignIn extends AppCompatActivity {
         progressBar = findViewById(R.id.progressbar_signin);
 
         //highlighting and creating link to the "sign up" text
-        SpannableString spannableString =new SpannableString("No account? Sign Up here");
+        SpannableString spannableString = new SpannableString("No account? Sign Up here");
         spannableString.setSpan(new ClickableSpan() {
             @Override
             public void onClick(@NonNull View view) {
@@ -74,19 +74,19 @@ public class SignIn extends AppCompatActivity {
         tvSignUp.setText(spannableString);
         tvSignUp.setMovementMethod(LinkMovementMethod.getInstance());
 
-        SpannableString spannableStringForgotPswd =new SpannableString("Forgot Password");
+        SpannableString spannableStringForgotPswd = new SpannableString("Forgot Password");
         spannableStringForgotPswd.setSpan(new ClickableSpan() {
             @Override
             public void onClick(@NonNull View view) {
                 String forgotpswdemail = etEmail.getText().toString().trim();
                 hideKeyBoard();
-                if(forgotpswdemail.isEmpty()){
+                if (forgotpswdemail.isEmpty()) {
                     Snackbar snackbar = Snackbar.make(coordinatorLayout, "Enter email to reset password", Snackbar.LENGTH_SHORT);
                     snackbar.show();
                     etEmail.setError("Enter email to reset password");
-                }else if(!forgotpswdemail.contains("@iiitd.ac.in")){
+                } else if (!forgotpswdemail.contains("@iiitd.ac.in")) {
                     etEmail.setError("Enter IIITD email only ");
-                }else{
+                } else {
                     forgotPswd(forgotpswdemail);
                 }
             }
@@ -98,7 +98,7 @@ public class SignIn extends AppCompatActivity {
         etEmail.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View view, boolean b) {
-                if(hasWindowFocus()){
+                if (hasWindowFocus()) {
                     etEmail.setError(null);
                 }
             }
@@ -110,25 +110,24 @@ public class SignIn extends AppCompatActivity {
                 try {
                     email = etEmail.getText().toString().trim();
                     pswd = etPswd.getText().toString().trim();
-                }catch (NullPointerException e ){
+                } catch (NullPointerException e) {
                     Log.d(TAG, "Null pointer exception: ");
                 }
-                if(email.isEmpty()){
+                if (email.isEmpty()) {
                     etEmail.setError("email cannot be empty");
-                }
-                else if(!email.contains("@iiitd.ac.in")){
-                    etEmail.setError("Enter IIITD email only",null);
+                } else if (!email.contains("@iiitd.ac.in")) {
+                    etEmail.setError("Enter IIITD email only", null);
                     etEmail.requestFocus();
                     hideKeyBoard();
-                }else if(pswd.isEmpty()){
+                } else if (pswd.isEmpty()) {
                     etPswd.setError("Password cannot be empty", null);
                     etPswd.requestFocus();
-                }else{
-                    if(!CheckInternet(getApplicationContext())){
+                } else {
+                    if (!CheckInternet(getApplicationContext())) {
                         Snackbar snackbar = Snackbar.make(coordinatorLayout, "No internet Connection", Snackbar.LENGTH_SHORT);
                         snackbar.show();
                         hideKeyBoard();
-                    }else {
+                    } else {
                         loginUser(email, pswd);
                         hideKeyBoard();
                     }
@@ -139,6 +138,7 @@ public class SignIn extends AppCompatActivity {
         });
 
     }
+
     @Override
     public void onStart() {
         super.onStart();
@@ -147,7 +147,8 @@ public class SignIn extends AppCompatActivity {
         //updateUI(currentUser);
 
     }
-    private void loginUser(String email, String password){
+
+    private void loginUser(String email, String password) {
         progressBar.setIndeterminate(true);
         progressBar.setVisibility(View.VISIBLE);
         mAuth.signInWithEmailAndPassword(email, password)
@@ -161,19 +162,17 @@ public class SignIn extends AppCompatActivity {
                             progressBar.setVisibility(View.GONE);
                             updateUI(user);
                         } else {
-                            try{
+                            try {
                                 throw task.getException();
-                            }
-                            catch(FirebaseAuthInvalidCredentialsException e) {
+                            } catch (FirebaseAuthInvalidCredentialsException e) {
                                 progressBar.setVisibility(View.GONE);
                                 Snackbar snackbar = Snackbar.make(coordinatorLayout, "email or password incorrect", Snackbar.LENGTH_SHORT);
                                 snackbar.show();
-                            }catch (FirebaseTooManyRequestsException e){
+                            } catch (FirebaseTooManyRequestsException e) {
                                 progressBar.setVisibility(View.GONE);
                                 Snackbar snackbar = Snackbar.make(coordinatorLayout, "too many invalid login Attempts please try later", Snackbar.LENGTH_SHORT);
                                 snackbar.show();
-                            }
-                            catch (Exception e) {
+                            } catch (Exception e) {
                                 e.printStackTrace();
                             }
                             // If sign in fails, display a message to the user.
@@ -187,13 +186,13 @@ public class SignIn extends AppCompatActivity {
                 });
     }
 
-    void updateUI(final FirebaseUser user){
-        if(user != null){
-            if(user.isEmailVerified()) {
+    void updateUI(final FirebaseUser user) {
+        if (user != null) {
+            if (user.isEmailVerified()) {
                 Intent intent = new Intent(SignIn.this, UserProfile.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent);
-            }else {
+            } else {
                 Snackbar snackbar = Snackbar.make(coordinatorLayout, "email not verified", Snackbar.LENGTH_LONG)
                         .setAction("Send Verification email", new View.OnClickListener() {
                             @Override
@@ -228,8 +227,8 @@ public class SignIn extends AppCompatActivity {
             }
         });
     }
-    public static boolean CheckInternet(Context context)
-    {
+
+    public static boolean CheckInternet(Context context) {
         ConnectivityManager connec = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
         android.net.NetworkInfo wifi = connec.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
         android.net.NetworkInfo mobile = connec.getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
@@ -237,7 +236,7 @@ public class SignIn extends AppCompatActivity {
         return wifi.isConnected() || mobile.isConnected();
     }
 
-    public void hideKeyBoard(){
+    public void hideKeyBoard() {
         InputMethodManager inputManager = (InputMethodManager)
                 getSystemService(Context.INPUT_METHOD_SERVICE);
 
@@ -247,15 +246,15 @@ public class SignIn extends AppCompatActivity {
         }
     }
 
-    void forgotPswd(final String email){
+    void forgotPswd(final String email) {
         mAuth.sendPasswordResetEmail(email).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
-                if(task.isSuccessful()){
+                if (task.isSuccessful()) {
                     Snackbar snackbar = Snackbar.make(coordinatorLayout, "Reset password link send to" + email, Snackbar.LENGTH_SHORT);
                     snackbar.show();
-                }else{
-                    Log.d(TAG, "onFailure: "+task.getException());
+                } else {
+                    Log.d(TAG, "onFailure: " + task.getException());
                 }
             }
         });
