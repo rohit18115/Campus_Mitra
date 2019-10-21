@@ -53,13 +53,15 @@
          <TextView
              android:layout_width="wrap_content"
              android:layout_height="wrap_content"
-             android:text="Start Time">
+             android:text="Start Time"
+             android:id="@+id/tt_add_startTime">
 
          </TextView>
          <TextView
              android:layout_width="wrap_content"
              android:layout_height="wrap_content"
              android:text="End Time"
+             android:id="@+id/tt_add_end_time"
              android:layout_marginLeft="20dp"
              >
 
@@ -73,7 +75,8 @@
          </TextView>
          <Spinner
              android:layout_width="wrap_content"
-             android:layout_height="wrap_content"></Spinner>
+             android:layout_height="wrap_content"
+             android:id="@+id/tt_add_day"></Spinner>
      </LinearLayout>
      <LinearLayout
          android:layout_width="match_parent"
@@ -88,7 +91,8 @@
          <Spinner
              android:layout_width="wrap_content"
              android:layout_height="wrap_content"
-             android:layout_marginLeft="20dp">
+             android:layout_marginLeft="20dp"
+             android:id="@+id/tt_add_room">
 
          </Spinner>
      </LinearLayout>
@@ -108,10 +112,12 @@
      </LinearLayout>
  </LinearLayout>
 </RelativeLayout>
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:padding="10dp">
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scrollbars="vertical"
+            android:id="@+id/tt_recyclerView">
 
-    </ScrollView>
+        </androidx.recyclerview.widget.RecyclerView>
+
 </LinearLayout>

@@ -17,12 +17,23 @@ public class Course implements Serializable {
         this.offering = null;
     }
 
+    public Course(String courseCode, String courseName, String coursePrequisite, String offering) {
+        this.courseCode = courseCode;
+        this.courseName = courseName;
+        this.coursePrequisite = coursePrequisite;
+        this.offering = offering;
+    }
+
     public Course(String courseID, String courseCode, String courseName, String coursePrequisite, String offering) {
         this.courseID = courseID;
         this.courseCode = courseCode;
         this.courseName = courseName;
         this.coursePrequisite = coursePrequisite;
         this.offering = offering;
+    }
+
+    public Course() {
+
     }
 
     public String getCourseID() {
