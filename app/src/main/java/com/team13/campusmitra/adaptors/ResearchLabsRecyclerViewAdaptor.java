@@ -5,12 +5,12 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.AppCompatImageView;
 import androidx.appcompat.widget.AppCompatTextView;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -38,7 +38,7 @@ public class ResearchLabsRecyclerViewAdaptor extends RecyclerView.Adapter<Resear
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_listitems,parent,false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.labs_listitems,parent,false);
         ViewHolder holder = new ViewHolder(view);
         return holder;
     }
@@ -78,7 +78,7 @@ public class ResearchLabsRecyclerViewAdaptor extends RecyclerView.Adapter<Resear
         AppCompatTextView tv1;
         AppCompatTextView tv2;
         AppCompatTextView tv3;
-        LinearLayout layout;
+        CardView layout;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);

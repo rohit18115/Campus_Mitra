@@ -1,6 +1,7 @@
 package com.team13.campusmitra;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -50,7 +51,10 @@ public class ResearchLabsRecyclerView extends AppCompatActivity  {
         RecyclerView recyclerView = findViewById(R.id.labs_recycler_view);
         ResearchLabsRecyclerViewAdaptor adapter = new ResearchLabsRecyclerViewAdaptor(labNumber,count, address,imageUrls, this);
         recyclerView.setAdapter(adapter);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
+        recyclerView.setLayoutManager(layoutManager);
+        DividerItemDecoration did = new DividerItemDecoration(this,layoutManager.getOrientation());
+        recyclerView.addItemDecoration(did);
     }
 
 }

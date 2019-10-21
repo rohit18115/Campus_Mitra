@@ -23,16 +23,15 @@
         <activity android:name=".TestActivity" />
         <activity android:name=".OCRActivity" />
         <activity android:name=".ResearchLabsRecyclerView" />
-        <activity android:name=".SplashActivity" />
+        <activity android:name=".NewDashboard" />
         <activity android:name=".LabsRecyclerView" />
-        <activity android:name=".VerifyActivity" />
         <activity android:name=".StudentProfile" />
         <activity android:name=".UserProfile" />
         <activity
             android:name=".Add_Project"
             android:exported="true"/>
         <activity android:name=".SignUp" />
-        <activity android:name=".NewDashboard">
+        <activity android:name=".SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
