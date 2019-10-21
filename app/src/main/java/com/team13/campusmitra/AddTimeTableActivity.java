@@ -11,9 +11,11 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.SearchView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -44,6 +46,8 @@ public class AddTimeTableActivity extends AppCompatActivity {
     Spinner roomSpinner;
     Button addButton;
     TimeTableElement bufferElement;
+    SearchView searchView;
+    TimetableRecylerViewAdaptor adaptor;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -71,6 +75,7 @@ public class AddTimeTableActivity extends AppCompatActivity {
         courseSpinner = findViewById(R.id.add_tt_course_spinner);
         roomSpinner = findViewById(R.id.tt_add_room);
         addButton = findViewById(R.id.add_tt_btn);
+        searchView = findViewById(R.id.tt_add_sv);
         days = getDays();
 
         startTimeTv.setOnClickListener(new View.OnClickListener() {
@@ -94,7 +99,10 @@ public class AddTimeTableActivity extends AppCompatActivity {
                     String day = (String)daySpinner.getSelectedItem();
                     String stTime = startTimeTv.getText().toString();
                     String enTime = endTimeTv.getText().toString();
-
+                    if(!(stTime.contains(":")&&enTime.contains(":"))){
+                        Toast.makeText(getApplicationContext(),"Please Select Time",Toast.LENGTH_LONG).show();
+                        return;
+                    }
                     FirebaseTimeTableHelper helper = new FirebaseTimeTableHelper();
 
                     bufferElement = new TimeTableElement(courseID,stTime,enTime,roomID,day);
@@ -102,10 +110,78 @@ public class AddTimeTableActivity extends AppCompatActivity {
 
             }
         });
+
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String s) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String s) {
+                filterResult(s);
+                return false;
+            }
+        });
+
+        loadDays();
+        loadData();
+
+    }
+    private void filterResult(String text){
+        ArrayList<TimeTableElement> fiteredTT = new ArrayList<>();
+        for(TimeTableElement element: timeTable){
+            if(getCourseName(element.getCourseID(),courses).toLowerCase().contains(text.toLowerCase())
+                    || getCourseCode(element.getCourseID(),courses).toLowerCase().contains(text.toLowerCase())
+                    || getRoomNumber(element.getRoomID(),rooms).toLowerCase().contains(text.toLowerCase())){
+                fiteredTT.add(element);
+            }
+        }
+        Object[] objects = fiteredTT.toArray();
+        if(objects.length>0)
+        adaptor.filter(Arrays.copyOf(objects,objects.length,TimeTableElement[].class));
+
+
+    }
+    private String getRoomBuilding(String key,ArrayList<Room> r){
+        for(Room room:r){
+            if(room.getRoomID().equals(key)){
+                return room.getRoomBuilding();
+            }
+        }
+        return "";
+    }
+    private String getRoomNumber(String key,ArrayList<Room> r){
+        for(Room room:r){
+            if(room.getRoomID().equals(key)){
+                return room.getRoomNumber();
+            }
+        }
+        return "";
+    }
+    private String getCourseCode(String key,ArrayList<Course> c){
+        //String result;
+        for(Course course:c){
+            if(course.getCourseID().equals(key)){
+                return course.getCourseCode();
+            }
+        }
+        return "";
+    }
+    private String getCourseName(String key,ArrayList<Course> c){
+        //String result;
+        for(Course course:c){
+            if(course.getCourseID().equals(key)){
+                return course.getCourseName();
+            }
+        }
+        return "";
+    }
+    private void loadDays(){
         ArrayAdapter<String> areasAdapter = new ArrayAdapter<String>(AddTimeTableActivity.this, android.R.layout.simple_spinner_item, days);
         areasAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         daySpinner.setAdapter(areasAdapter);
-        loadData();
+
 
     }
     @Override
@@ -195,7 +271,7 @@ public class AddTimeTableActivity extends AppCompatActivity {
     private void loadRecyclerView(){
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.tt_recyclerView);
         Object[] objects = timeTable.toArray();
-        TimetableRecylerViewAdaptor adaptor = new TimetableRecylerViewAdaptor(Arrays.copyOf(objects,objects.length,TimeTableElement[].class),rooms,courses);
+        adaptor = new TimetableRecylerViewAdaptor(Arrays.copyOf(objects,objects.length,TimeTableElement[].class),rooms,courses,this,this);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(adaptor);

@@ -23,5 +23,12 @@ public class FirebaseTimeTableHelper {
         firebaseDatabase.child(uid).setValue(element);
         Toast.makeText(context,"Timetable Record added successfully!!",Toast.LENGTH_SHORT).show();
     }
+    public void updateTimeTable(Context context, TimeTableElement element){
+        String uid = element.getTimeTableID();
+        element.setTimeTableID(uid);
+        firebaseDatabase.child(uid).setValue(element);
+        Toast.makeText(context,"Timetable Record updated successfully!!",Toast.LENGTH_SHORT).show();
+    }
+
 
 }
