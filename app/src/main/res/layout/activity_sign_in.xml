@@ -35,8 +35,6 @@
             android:inputType="textEmailAddress"
             />
 
-    </com.google.android.material.textfield.TextInputLayout>
-
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -58,6 +56,18 @@
 
     </com.google.android.material.textfield.TextInputLayout>
 
+        <TextView
+            android:layout_marginTop="4dp"
+            android:id="@+id/tv_forgot_password"
+            android:autoLink="none"
+            android:textColor="@android:color/black"
+            android:textColorLink="@color/colorPrimaryDark"
+            android:linksClickable="true"
+            android:layout_gravity="end"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            />
+
     <Button
         android:id="@+id/btn_sign_in"
         style="@style/Widget.MaterialComponents.Button.Icon"
@@ -71,16 +81,26 @@
 
         />
 
-    <TextView
-        android:layout_marginTop="4dp"
-        android:id="@+id/tv_sign_up"
-        android:autoLink="none"
-        android:textColor="@android:color/black"
-        android:textColorLink="@color/colorPrimaryDark"
-        android:linksClickable="true"
-        android:layout_gravity="center"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        />
+    </com.google.android.material.textfield.TextInputLayout>
+        <TextView
+            android:layout_marginTop="4dp"
+            android:id="@+id/tv_sign_up"
+            android:autoLink="none"
+            android:textColor="@android:color/black"
+            android:textColorLink="@color/colorPrimaryDark"
+            android:linksClickable="true"
+            android:layout_gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            />
+
+        <ProgressBar
+            android:visibility="gone"
+            android:id="@+id/progressbar_signin"
+            android:layout_gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+
 </LinearLayout>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -6,6 +6,8 @@ import androidx.coordinatorlayout.widget.CoordinatorLayout;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.opengl.Visibility;
 import android.os.Bundle;
 import android.text.SpannableString;
 import android.text.Spanned;
@@ -16,6 +18,7 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -36,6 +39,7 @@ public class SignIn extends AppCompatActivity {
     private TextInputEditText etEmail, etPswd;
     private String TAG = "Sign In Activity";
     private String email, pswd;
+    private ProgressBar progressBar;
     CoordinatorLayout coordinatorLayout;
 
     @Override
@@ -48,23 +52,57 @@ public class SignIn extends AppCompatActivity {
 
         //Initializing views
         TextView tvSignUp = findViewById(R.id.tv_sign_up);
+        TextView tvForgotPswd = findViewById(R.id.tv_forgot_password);
         etEmail = findViewById(R.id.et_email);
         etPswd = findViewById(R.id.et_pswd);
         btSignIn = findViewById(R.id.btn_sign_in);
         coordinatorLayout = findViewById(R.id.coordinator_layout);
+        progressBar = findViewById(R.id.progressbar_signin);
 
         //highlighting and creating link to the "sign up" text
         SpannableString spannableString =new SpannableString("No account? Sign Up here");
         spannableString.setSpan(new ClickableSpan() {
             @Override
             public void onClick(@NonNull View view) {
-                startActivity(new Intent(SignIn.this, SignUp.class));
+                Intent intent = new Intent(SignIn.this, SignUp.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(intent);
+                startActivity(intent);
             }
         }, 12, 19, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
 
         tvSignUp.setText(spannableString);
         tvSignUp.setMovementMethod(LinkMovementMethod.getInstance());
 
+        SpannableString spannableStringForgotPswd =new SpannableString("Forgot Password");
+        spannableStringForgotPswd.setSpan(new ClickableSpan() {
+            @Override
+            public void onClick(@NonNull View view) {
+                String forgotpswdemail = etEmail.getText().toString().trim();
+                hideKeyBoard();
+                if(forgotpswdemail.isEmpty()){
+                    Snackbar snackbar = Snackbar.make(coordinatorLayout, "Enter email to reset password", Snackbar.LENGTH_SHORT);
+                    snackbar.show();
+                    etEmail.setError("Enter email to reset password");
+                }else if(!forgotpswdemail.contains("@iiitd.ac.in")){
+                    etEmail.setError("Enter IIITD email only ");
+                }else{
+                    forgotPswd(forgotpswdemail);
+                }
+            }
+        }, 0, 15, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+        tvForgotPswd.setText(spannableStringForgotPswd);
+        tvForgotPswd.setMovementMethod(LinkMovementMethod.getInstance());
+
+        etEmail.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean b) {
+                if(hasWindowFocus()){
+                    etEmail.setError(null);
+                }
+            }
+        });
         //signIn button onclick listener
         btSignIn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -81,16 +119,20 @@ public class SignIn extends AppCompatActivity {
                 else if(!email.contains("@iiitd.ac.in")){
                     etEmail.setError("Enter IIITD email only",null);
                     etEmail.requestFocus();
+                    hideKeyBoard();
                 }else if(pswd.isEmpty()){
                     etPswd.setError("Password cannot be empty", null);
                     etPswd.requestFocus();
                 }else{
-                    loginUser(email,pswd );
-                    InputMethodManager inputManager = (InputMethodManager)
-                            getSystemService(Context.INPUT_METHOD_SERVICE);
+                    if(!CheckInternet(getApplicationContext())){
+                        Snackbar snackbar = Snackbar.make(coordinatorLayout, "No internet Connection", Snackbar.LENGTH_SHORT);
+                        snackbar.show();
+                        hideKeyBoard();
+                    }else {
+                        loginUser(email, pswd);
+                        hideKeyBoard();
+                    }
 
-                    inputManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(),
-                            InputMethodManager.HIDE_NOT_ALWAYS);
                 }
 
             }
@@ -102,37 +144,41 @@ public class SignIn extends AppCompatActivity {
         super.onStart();
         // Check if user is signed in (non-null) and update UI accordingly.
         FirebaseUser currentUser = mAuth.getCurrentUser();
-        updateUI(currentUser);
+        //updateUI(currentUser);
 
     }
     private void loginUser(String email, String password){
+        progressBar.setIndeterminate(true);
+        progressBar.setVisibility(View.VISIBLE);
         mAuth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
-
                             Log.d(TAG, "signInWithEmail:success");
                             FirebaseUser user = mAuth.getCurrentUser();
+                            progressBar.setVisibility(View.GONE);
                             updateUI(user);
                         } else {
                             try{
                                 throw task.getException();
                             }
                             catch(FirebaseAuthInvalidCredentialsException e) {
+                                progressBar.setVisibility(View.GONE);
                                 Snackbar snackbar = Snackbar.make(coordinatorLayout, "email or password incorrect", Snackbar.LENGTH_SHORT);
                                 snackbar.show();
                             }catch (FirebaseTooManyRequestsException e){
+                                progressBar.setVisibility(View.GONE);
                                 Snackbar snackbar = Snackbar.make(coordinatorLayout, "too many invalid login Attempts please try later", Snackbar.LENGTH_SHORT);
                                 snackbar.show();
                             }
-
                             catch (Exception e) {
                                 e.printStackTrace();
                             }
                             // If sign in fails, display a message to the user.
                             Log.w(TAG, "signInWithEmail:failure", task.getException());
+                            progressBar.setVisibility(View.GONE);
                             updateUI(null);
                         }
 
@@ -161,19 +207,55 @@ public class SignIn extends AppCompatActivity {
     }
 
     void verifyEmail(final FirebaseUser user) {
+        progressBar.setIndeterminate(true);
+        progressBar.setVisibility(View.VISIBLE);
         user.sendEmailVerification().addOnCompleteListener(this, new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 if (task.isSuccessful()) {
+                    progressBar.setVisibility(View.GONE);
                     Toast.makeText(SignIn.this,
                             "Verification email sent to " + user.getEmail(),
                             Toast.LENGTH_SHORT).show();
 
                 } else {
+                    progressBar.setVisibility(View.GONE);
                     Log.e(TAG, "sendEmailVerification", task.getException());
                     Toast.makeText(SignIn.this,
                             "Failed to send verification email.",
                             Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+    }
+    public static boolean CheckInternet(Context context)
+    {
+        ConnectivityManager connec = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        android.net.NetworkInfo wifi = connec.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
+        android.net.NetworkInfo mobile = connec.getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
+
+        return wifi.isConnected() || mobile.isConnected();
+    }
+
+    public void hideKeyBoard(){
+        InputMethodManager inputManager = (InputMethodManager)
+                getSystemService(Context.INPUT_METHOD_SERVICE);
+
+        if (inputManager != null) {
+            inputManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(),
+                    InputMethodManager.HIDE_NOT_ALWAYS);
+        }
+    }
+
+    void forgotPswd(final String email){
+        mAuth.sendPasswordResetEmail(email).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                if(task.isSuccessful()){
+                    Snackbar snackbar = Snackbar.make(coordinatorLayout, "Reset password link send to" + email, Snackbar.LENGTH_SHORT);
+                    snackbar.show();
+                }else{
+                    Log.d(TAG, "onFailure: "+task.getException());
                 }
             }
         });

@@ -32,7 +32,7 @@ public class UserProfile extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         mAuth = FirebaseAuth.getInstance();
-        //mAuth.signOut();
+        mAuth.signOut();
     }
 }
 
