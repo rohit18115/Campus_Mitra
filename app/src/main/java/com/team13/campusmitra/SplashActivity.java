@@ -35,7 +35,7 @@ public class SplashActivity extends AppCompatActivity {
                     }else{
                         sleep(1000);
 
-                        startActivity(new Intent(SplashActivity.this, ResearchLabsRecyclerView.class));
+                        startActivity(new Intent(SplashActivity.this, LabsRecyclerView.class));
                     }
                 } catch (InterruptedException e) {
                     e.printStackTrace();
