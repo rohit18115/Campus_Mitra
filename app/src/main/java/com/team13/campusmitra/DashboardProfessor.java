@@ -6,12 +6,13 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
-public class NewDashboard extends AppCompatActivity {
+public class DashboardProfessor extends AppCompatActivity {
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_new_dashboard);
+        setContentView(R.layout.activity_dashboard_professor);
     }
     public void send_to_scan(View view)
     {
