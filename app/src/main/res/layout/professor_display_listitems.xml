@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/pdl_layout">
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginBottom="20dp" >
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/pdl_image"
+            android:src="@mipmap/ic_launcher"
+            android:backgroundTint="@color/Green"
+            android:scaleType="fitXY"
+            android:adjustViewBounds="true"
+            android:layout_gravity="center"
+            android:padding="6dp">
+        </androidx.appcompat.widget.AppCompatImageView>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="2"
+            android:paddingLeft="4dp"
+            android:paddingRight="4dp">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/pdl_text1"
+                android:textColor="#000000"
+                android:paddingLeft="8dp"
+                android:text="Lab: "
+                android:layout_weight="1" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/pdl_text2"
+                android:textColor="#000000"
+                android:text="Occupancy: "
+                android:layout_weight="1" />
+
+        </LinearLayout>
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/pdl_text3"
+            android:paddingLeft="12dp"
+            android:paddingRight="4dp"
+            android:textColor="#000000"
+            android:paddingBottom="4dp"
+            android:text="Address: " />
+
+    </LinearLayout>
+</androidx.cardview.widget.CardView>
