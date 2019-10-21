@@ -4,9 +4,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
+
+import com.team13.campusmitra.adaptors.LabsRecyclerViewAdaptor;
 
 import java.util.ArrayList;
 

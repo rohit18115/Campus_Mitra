@@ -1,13 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.team13.campusmitra">
-
+  
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.CAMERA" />
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+    
 
     <application
         android:allowBackup="true"
@@ -16,6 +12,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
         <activity android:name=".DashboardAdmin"></activity>
         <activity android:name=".DashboardProfessor" />
         <activity android:name=".SelectCoursesRecyclerViewAdaptor" />
@@ -28,18 +25,41 @@
         <activity android:name=".VerifyActivity" />
         <activity android:name=".StudentProfile" />
         <activity android:name=".UserProfile" />
-        <activity android:name=".SignUp" />
-        <activity android:name=".NewDashboard">
+            
+        <activity android:name=".SignUp"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".SplashActivity"
+            android:theme="@style/SplashTheme">
+
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".SignIn" />
+
+        <activity android:name=".OCRActivity" />
+        <activity android:name=".ResearchLabsRecyclerView" />
+        <activity android:name=".NewDashboard" />
+        <activity android:name=".LabsRecyclerView" />
+
         <activity
             android:name=".R_Lab"
             android:exported="true" />
-    </application>
 
+
+        <activity android:name=".SignIn"
+            android:screenOrientation="portrait" />
+
+    </application>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+
+    <uses-permission android:name="android.permission.INTERNET" />
+  
 </manifest>
