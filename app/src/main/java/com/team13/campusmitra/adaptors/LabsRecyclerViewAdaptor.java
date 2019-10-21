@@ -13,23 +13,18 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.team13.campusmitra.R;
+import com.team13.campusmitra.dataholder.Room;
 
 import java.util.ArrayList;
 
 public class LabsRecyclerViewAdaptor extends RecyclerView.Adapter<LabsRecyclerViewAdaptor.ViewHolder> {
     private static final String TAG = "LabsRecyclerViewAdaptor";
 
-    private ArrayList<String> labNumber;
-    private ArrayList<String> count;
-    private ArrayList<String> address;
-    private ArrayList<String> imageUrls;
+    private ArrayList<Room> items;
     private Context mContext;
 
-    public LabsRecyclerViewAdaptor(ArrayList<String> labNumber, ArrayList<String> count, ArrayList<String> address, ArrayList<String> imageUrls, Context mContext) {
-        this.labNumber = labNumber;
-        this.count = count;
-        this.address = address;
-        this.imageUrls = imageUrls;
+    public LabsRecyclerViewAdaptor(ArrayList<Room> items, Context mContext) {
+        this.items = items;
         this.mContext = mContext;
     }
 
@@ -44,19 +39,20 @@ public class LabsRecyclerViewAdaptor extends RecyclerView.Adapter<LabsRecyclerVi
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Log.d(TAG, "onBindViewHolder: called");
+        final Room room = items.get(position);
         Glide.with(mContext)
                 .asBitmap()
-                .load(imageUrls.get(position))
+                .load(room.getRoomImageURL())
                 .placeholder(R.drawable.ic_loading)
                 .into(holder.image);
-        holder.tv1.setText(labNumber.get(position));
-        holder.tv2.setText(count.get(position));
-        holder.tv3.setText(address.get(position));
+        holder.tv1.setText("Lab: "+room.getRoomNumber());
+        holder.tv2.setText("Capacity: "+room.getCapacity());
+        holder.tv3.setText("Situated at "+room.getRoomBuilding()+" System Count: "+room.getSystemCount());
     }
 
     @Override
     public int getItemCount() {
-        return imageUrls.size();
+        return items.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {

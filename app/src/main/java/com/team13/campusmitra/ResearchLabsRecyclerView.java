@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.util.Log;
 
 import com.team13.campusmitra.adaptors.ResearchLabsRecyclerViewAdaptor;
+import com.team13.campusmitra.dataholder.Room;
 
 import java.util.ArrayList;
 
@@ -16,10 +17,7 @@ public class ResearchLabsRecyclerView extends AppCompatActivity  {
 
     private static final String TAG = "LabsRecyclerView";
 
-    private ArrayList<String> labNumber = new ArrayList<>();
-    private ArrayList<String> count = new ArrayList<>();
-    private ArrayList<String> address = new ArrayList<>();
-    private ArrayList<String> imageUrls = new ArrayList<>();
+    private ArrayList<Room> items = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,21 +33,16 @@ public class ResearchLabsRecyclerView extends AppCompatActivity  {
 
         Log.d(TAG, "initImage: started");
         String url = "https://drive.google.com/uc?export=download&id=1y72ODb4maSRFbO-rjuJTVIEJC20LUmti";
-        String labNum = "A-403";
-        String occupancy = "40";
-        String addr = "Situated at RnD Block, 4th Floor, System Count: 10";
+        Room room = new Room("123","A-403","RnD Block",0,url,"",40,"","",10);
         for (int i = 0; i < 15; i++) {
-            imageUrls.add(url);
-            labNumber.add(labNum);
-            count.add(occupancy);
-            address.add(addr);
+            items.add(room);
         }
     }
 
     private void initRecycler() {
         Log.d(TAG, "initComponents: started");
         RecyclerView recyclerView = findViewById(R.id.labs_recycler_view);
-        ResearchLabsRecyclerViewAdaptor adapter = new ResearchLabsRecyclerViewAdaptor(labNumber,count, address,imageUrls, this);
+        ResearchLabsRecyclerViewAdaptor adapter = new ResearchLabsRecyclerViewAdaptor(items, this);
         recyclerView.setAdapter(adapter);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
