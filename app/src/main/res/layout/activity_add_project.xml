@@ -1,14 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:paddingLeft="16dp"
-    android:paddingRight="16dp" >
 
 
-    <LinearLayout
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
@@ -27,7 +21,7 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/text_project_name"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:fontFamily="sans-serif"
                 android:hint="Project-Name"
                 android:maxLines="1"
@@ -40,33 +34,36 @@
         <EditText
             android:id="@+id/text_desc"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:fontFamily="sans-serif"
             android:hint="Description"
             android:textSize="16sp"
             />
         </com.google.android.material.textfield.TextInputLayout>
         <LinearLayout
+            android:id="@+id/proj_sub_item"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:paddingTop="20dp"
             android:paddingBottom="15dp">
+
             <TextView
-                android:id="@+id/member"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:id="@+id/project_member"
+                android:layout_width="248dp"
+                android:layout_height="38dp"
                 android:fontFamily="sans-serif"
-                android:text= "Add Project Members "
-                android:textSize="16sp"
-                />
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:text = "Add Project Members"
+                android:textSize="16sp" />
 
             <ImageView
                 android:id="@+id/add_mem"
                 android:layout_width="50dp"
-                android:layout_height="20dp"
+                android:layout_height="37dp"
                 android:paddingLeft="20dp"
-                android:paddingTop="3dp"
+                android:layout_gravity="left"
                 android:src="@drawable/add_plus" />
 
         </LinearLayout>
@@ -74,7 +71,7 @@
         <EditText
             android:id="@+id/text_mem1"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:fontFamily="sans-serif"
             android:textSize="16sp" />
 
@@ -92,5 +89,3 @@
 
 
     </LinearLayout>
-
-</LinearLayout>
