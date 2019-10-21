@@ -21,23 +21,26 @@
         <activity android:name=".SelectCoursesRecyclerViewAdaptor" />
         <activity android:name=".SelectCoursesRecyclerView" />
         <activity android:name=".TestActivity">
+
+        </activity>
+        <activity android:name=".OCRActivity" />
+        <activity android:name=".ResearchLabsRecyclerView" />
+        <activity android:name=".NewDashboard" />
+        <activity android:name=".LabsRecyclerView" />
+        <!--<activity android:name=".VerifyActivity" />-->
+        <activity android:name=".StudentProfile" />
+        <activity android:name=".UserProfile" />
+        <activity android:name=".Add_Project"
+            android:exported="true"/>
+        <activity android:name=".SignUp" />
+        <activity android:name=".SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".OCRActivity" />
-        <activity android:name=".ResearchLabsRecyclerView" />
-        <activity android:name=".NewDashboard" />
-        <activity android:name=".SplashActivity" />
-        <activity android:name=".LabsRecyclerView" />
-        <activity android:name=".VerifyActivity" />
-        <activity android:name=".StudentProfile" />
-        <activity android:name=".UserProfile" />
-        <activity android:name=".Add_Project"
-            android:exported="true"/>
-        <activity android:name=".SignUp" />
+        <activity android:name=".SignIn" />
         <activity
             android:name=".R_Lab"
             android:exported="true" />
