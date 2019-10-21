@@ -65,7 +65,7 @@ public class Projects_Adapter extends RecyclerView.Adapter<Projects_Adapter.Proj
             img = itemView.findViewById(R.id.item_iv1);
             txt = itemView.findViewById(R.id.item_tv1);
             sub_part_tv1 = itemView.findViewById(R.id.sub_item_desc);
-            sub_part_tv2 = itemView.findViewById(R.id.sub_item_link);
+            sub_part_tv2 = itemView.findViewById(R.id.sub_item_memb);
             subItem = itemView.findViewById(R.id.sub_item);
             push_icon = itemView.findViewById(R.id.push_icon);
         }

@@ -53,11 +53,12 @@
             android:text="explanation of the project here"
             android:textSize="24sp"/>
         <TextView
-            android:id="@+id/sub_item_link"
-            android:text="Project link: http://ddddd"
+            android:id="@+id/sub_item_memb"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:text="Members: "
             android:textSize="24sp"/>
+
     </LinearLayout>
 
 </LinearLayout>
