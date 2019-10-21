@@ -5,7 +5,12 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
-
+    <View
+        android:id="@+id/item_divider"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginBottom="10dp"
+        android:background="#D3D3D3" />
     <LinearLayout
         android:id="@+id/sub_item_above"
         android:layout_width="match_parent"
@@ -18,8 +23,6 @@
             android:layout_height="60dp"
             android:paddingLeft="5dp"
             android:paddingRight="5dp"
-            android:paddingTop="5dp"
-            android:paddingBottom="5dp"
             android:src="@drawable/project_icon_1"/>
         <TextView
             android:id="@+id/item_tv1"
@@ -30,6 +33,13 @@
             android:textSize="24sp"
             android:paddingLeft="16dp"
             android:text="Project name" />
+        <ImageView
+            android:id="@+id/push_icon"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:paddingRight="15dp"
+            android:layout_gravity="center"
+            android:src="@drawable/push_down"/>
     </LinearLayout>
     <LinearLayout
         android:id="@+id/sub_item"
