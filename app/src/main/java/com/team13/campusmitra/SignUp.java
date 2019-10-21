@@ -112,6 +112,8 @@ public class SignUp extends AppCompatActivity{
                             Log.d(TAG, "createUserWithEmail:success");
                             final FirebaseUser user = mAuth.getCurrentUser();
                             verifyEmail(user);
+                            Snackbar snackbar = Snackbar.make(coordinatorLayout, "Verification email sent to" + user.getEmail(), Snackbar.LENGTH_SHORT);
+                            snackbar.show();
                             mAuth.signOut();
                             progressBar.setVisibility(View.GONE);
                             Intent intent = new Intent(new Intent(SignUp.this, SignIn.class));
