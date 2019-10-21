@@ -1,22 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/super_item"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="horizontal">
+    android:layout_height="wrap_content">
 
-    <ImageView
-        android:id="@+id/item_iv1"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:id="@+id/sub_item_above"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:src="@drawable/logo_sample"/>
-    <TextView
-        android:id="@+id/item_tv1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_weight="1"
-        android:textSize="24sp"
-        android:paddingLeft="16dp"
-        android:text="Project name"
-        />
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/item_iv1"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
+            android:src="@drawable/project_icon_1"/>
+        <TextView
+            android:id="@+id/item_tv1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:textSize="24sp"
+            android:paddingLeft="16dp"
+            android:text="Project name" />
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/sub_item"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/sub_item_desc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="explanation of the project here"
+            android:textSize="24sp"/>
+        <TextView
+            android:id="@+id/sub_item_link"
+            android:text="Project link: http://ddddd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="24sp"/>
+    </LinearLayout>
+
 </LinearLayout>
