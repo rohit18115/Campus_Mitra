@@ -27,7 +27,8 @@
         <activity android:name=".LabsRecyclerView" />
         <activity android:name=".StudentProfile" />
         <activity android:name=".UserProfile" />
-        <activity android:name=".Add_Project"
+        <activity
+            android:name=".Add_Project"
             android:exported="true"/>
         <activity android:name=".SignUp" />
         <activity android:name=".SplashActivity">

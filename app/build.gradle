@@ -66,4 +66,10 @@ repositories{
     }
 }
 
+<<<<<<< HEAD
+dependencies {
+    implementation 'com.amulyakhare:com.amulyakhare.textdrawable:1.0.1'
+}
+=======
+>>>>>>> a7c63d1fff15dbc8a79a32f614281d614aa3a390
 apply plugin: 'com.google.gms.google-services'
