@@ -38,7 +38,9 @@ dependencies {
     annotationProcessor 'com.github.bumptech.glide:compiler:4.10.0'
     implementation 'com.wdullaer:materialdatetimepicker:3.6.4'
     implementation 'androidx.cardview:cardview:1.0.0'
+
     implementation 'com.google.android.gms:play-services-vision:18.0.0'
+
 
 }
 apply plugin: 'com.google.gms.google-services'
