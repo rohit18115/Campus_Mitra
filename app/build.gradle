@@ -51,6 +51,10 @@ dependencies {
     implementation 'androidx.cardview:cardview:1.0.0'
 
     implementation 'com.google.android.gms:play-services-vision:18.0.0'
+    implementation 'com.android.support:appcompat-v7:22.0.0'
+
+    implementation 'de.hdodenhof:circleimageview:3.0.1'
+
     implementation 'com.github.bumptech.glide:glide:4.10.0'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.10.0'
     implementation 'com.amulyakhare:com.amulyakhare.textdrawable:1.0.1'
@@ -63,6 +67,7 @@ repositories {
         url 'http://dl.bintray.com/amulyakhare/maven'
     }
 }
+
 
 dependencies {
     compile 'com.amulyakhare:com.amulyakhare.textdrawable:1.0.1'

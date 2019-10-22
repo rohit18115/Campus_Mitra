@@ -4,7 +4,7 @@
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
 
-    android:layout_margin="10dp"
+    android:layout_margin="5dp"
     android:id="@+id/co_element_rl">
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
@@ -17,7 +17,7 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:padding="10dp">
+            android:padding="5dp">
             <ImageView
                 android:layout_width="40dp"
                 android:layout_height="40dp"
@@ -46,7 +46,7 @@
                     android:text="10:30"
                     android:layout_weight="1"
                     android:gravity="center"
-                    android:textStyle="bold"/>
+                    />
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
@@ -54,7 +54,7 @@
                     android:text="12:30"
                     android:layout_weight="1"
                     android:gravity="center"
-                    android:textStyle="bold"/>
+                   />
             </LinearLayout>
 
         </RelativeLayout>

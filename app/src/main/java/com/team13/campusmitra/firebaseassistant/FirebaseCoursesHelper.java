@@ -22,5 +22,11 @@ public class FirebaseCoursesHelper {
         firebaseDatabase.child(uid).setValue(course);
         Toast.makeText(context,"Course added successfully!!",Toast.LENGTH_SHORT).show();
     }
+    public void updateCourse(Context context, Course course){
+        String uid = course.getCourseID();
+        course.setCourseID(uid);
+        firebaseDatabase.child(uid).setValue(course);
+        Toast.makeText(context,"Course updated successfully!!",Toast.LENGTH_SHORT).show();
+    }
 
 }

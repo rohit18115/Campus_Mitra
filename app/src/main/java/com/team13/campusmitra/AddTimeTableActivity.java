@@ -2,6 +2,7 @@ package com.team13.campusmitra;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -53,6 +54,7 @@ public class AddTimeTableActivity extends AppCompatActivity {
     SearchView searchView;
     ProgressBar progressBar1,progressBar2;
     TimetableRecylerViewAdaptor adaptor;
+    CardView cardView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -80,11 +82,13 @@ public class AddTimeTableActivity extends AppCompatActivity {
         courseSpinner = findViewById(R.id.add_tt_course_spinner);
         roomSpinner = findViewById(R.id.tt_add_room);
         addButton = findViewById(R.id.add_tt_btn);
+        cardView = findViewById(R.id.tt_add_cardview);
         searchView = findViewById(R.id.tt_add_sv);
         progressBar1 = findViewById(R.id.tt_add_progress1);
         progressBar2 = findViewById(R.id.tt_add_progress2);
         progressBar1.setVisibility(View.VISIBLE);
         progressBar2.setVisibility(View.VISIBLE);
+
         days = getDays();
 
         startTimeTv.setOnClickListener(new View.OnClickListener() {
@@ -130,6 +134,19 @@ public class AddTimeTableActivity extends AppCompatActivity {
             public boolean onQueryTextChange(String s) {
                 filterResult(s);
                 return false;
+            }
+        });
+        searchView.setOnCloseListener(new SearchView.OnCloseListener() {
+            @Override
+            public boolean onClose() {
+                cardView.setVisibility(View.VISIBLE);
+                return false;
+            }
+        });
+        searchView.setOnSearchClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                cardView.setVisibility(View.GONE);
             }
         });
 

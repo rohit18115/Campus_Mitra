@@ -10,6 +10,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
+            android:id="@+id/co_add_card"
+            android:visibility="visible"
             android:background="@drawable/roundcorners">
             <RelativeLayout
                 android:layout_width="match_parent"
