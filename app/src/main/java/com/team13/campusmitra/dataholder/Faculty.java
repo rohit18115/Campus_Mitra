@@ -7,10 +7,11 @@ public class Faculty implements Serializable {
     private String userID;
     private String designation;
     private String joinedDate;
-    private int avalability;
+    private int availability;
     private ArrayList<OfficeHours> officeHours;
     private ArrayList<String> coursesTaken;
     private String roomid;
+    private String department;
     private ArrayList<String> domains;
 
     public Faculty() {
@@ -18,14 +19,15 @@ public class Faculty implements Serializable {
         coursesTaken = new ArrayList<>();
     }
 
-    public Faculty(String userID, String designation, String joinedDate, int avalability, ArrayList<OfficeHours> officeHours, ArrayList<String> coursesTaken, String roomid, ArrayList<String> domains) {
+    public Faculty(String userID, String designation, String joinedDate, int availability, ArrayList<OfficeHours> officeHours, ArrayList<String> coursesTaken, String roomid, String department, ArrayList<String> domains) {
         this.userID = userID;
         this.designation = designation;
         this.joinedDate = joinedDate;
-        this.avalability = avalability;
+        this.availability = availability;
         this.officeHours = officeHours;
         this.coursesTaken = coursesTaken;
         this.roomid = roomid;
+        this.department = department;
         this.domains = domains;
     }
 
@@ -63,12 +65,12 @@ public class Faculty implements Serializable {
         this.joinedDate = joinedDate;
     }
 
-    public int getAvalability() {
-        return avalability;
+    public int getAvailability() {
+        return availability;
     }
 
-    public void setAvalability(int avalability) {
-        this.avalability = avalability;
+    public void setAvailability(int availability) {
+        this.availability = availability;
     }
 
     public ArrayList<OfficeHours> getOfficeHours() {
@@ -101,5 +103,13 @@ public class Faculty implements Serializable {
 
     public void setDomains(ArrayList<String> domains) {
         this.domains = domains;
+    }
+
+    public String getDepartment() {
+        return department;
+    }
+
+    public void setDepartment(String department) {
+        this.department = department;
     }
 }
