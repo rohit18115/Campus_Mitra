@@ -38,6 +38,7 @@ public class FacultyProfile extends AppCompatActivity implements View.OnClickLis
     TextView Day;
     TextView venue;
     WeekAdapter venueadapter;
+    TextView display_courses;
     TextView Time;
     int num=0;
     @Override
@@ -45,6 +46,7 @@ public class FacultyProfile extends AppCompatActivity implements View.OnClickLis
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_faculty_profile);
         Day = findViewById(R.id.FPTVday);
+        display_courses = (TextView)findViewById(R.id.FPTVdisplay_courses);
         setOfficeHours = findViewById(R.id.setOfficeHours);
         courseTaken = findViewById(R.id.FPCourseTaken);
         setOfficeHours.setOnClickListener(this);
@@ -56,6 +58,14 @@ public class FacultyProfile extends AppCompatActivity implements View.OnClickLis
         builder.setCancelable(true);
         builder.setView(listView);
         dialog = builder.create();
+        if (savedInstanceState == null) {
+            Bundle courses = getIntent().getExtras();
+            if(courses == null) {
+                display_courses= null;
+            } else {
+                display_courses.setText(courses.getString("selected_course_code"));
+            }
+        }
 
     }
 
@@ -77,7 +87,7 @@ public class FacultyProfile extends AppCompatActivity implements View.OnClickLis
         sharedPreferences = getSharedPreferences("MY_DAY", MODE_PRIVATE);
     }
     private void initToolbar(){
-        getSupportActionBar().setTitle("Week");
+        getSupportActionBar().setTitle("Faculty Profile");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
     private void setupListView() {
@@ -186,5 +196,6 @@ public class FacultyProfile extends AppCompatActivity implements View.OnClickLis
 
 
         }
+
     }
 }
