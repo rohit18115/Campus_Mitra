@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Color;
 import android.icu.util.Calendar;
 import android.os.Bundle;
@@ -13,16 +14,17 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class UserProfile extends AppCompatActivity implements DatePickerDialog.OnDateSetListener {
+public class UserProfile extends AppCompatActivity implements View.OnClickListener, DatePickerDialog.OnDateSetListener {
 
     DatePickerDialog datePickerDialog ;
     int Year, Month, Day, Hour, Minute;
     Calendar calendar ;
-
+    Button next;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_profile);
+        next = findViewById(R.id.UPnext);
         final Button button_datepicker = (Button) findViewById(R.id.button_datepicker);
         button_datepicker.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -44,6 +46,7 @@ public class UserProfile extends AppCompatActivity implements DatePickerDialog.O
                 datePickerDialog.show(getFragmentManager(), "DatePickerDialog");
             }
         });
+        next.setOnClickListener(this);
     }
     @Override
     public void onDateSet(DatePickerDialog view, int Year, int Month, int Day) {
@@ -58,4 +61,12 @@ public class UserProfile extends AppCompatActivity implements DatePickerDialog.O
     }
 
 
+    @Override
+    public void onClick(View v) {
+        switch(v.getId()){
+            case R.id.UPnext :
+                Intent intent1 = new Intent(UserProfile.this, StudentProfile.class);
+                startActivity(intent1);
+        }
+    }
 }

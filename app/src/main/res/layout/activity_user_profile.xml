@@ -142,7 +142,7 @@
                     android:orientation="vertical">
 
                     <Button
-                        android:id="@+id/next"
+                        android:id="@+id/UPnext"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="16dp"
