@@ -8,6 +8,7 @@
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -15,8 +16,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".AddTimeTableActivity"></activity>
-        <activity android:name=".DashboardAdmin"></activity>
+        <activity android:name=".AddCourseActivity"></activity>
+        <activity android:name=".AddTimeTableActivity" />
+        <activity android:name=".DashboardAdmin" />
         <activity android:name=".DashboardProfessor" />
         <activity android:name=".SelectCoursesRecyclerViewAdaptor" />
         <activity android:name=".SelectCoursesRecyclerView" />
@@ -30,16 +32,14 @@
         <activity android:name=".OCRActivity" />
         <activity android:name=".ResearchLabsRecyclerView" />
         <activity android:name=".NewDashboard" />
-        <activity android:name=".LabsRecyclerView" />
-        <!--<activity android:name=".VerifyActivity" />-->
+        <activity android:name=".LabsRecyclerView" /> <!-- <activity android:name=".VerifyActivity" /> -->
         <activity android:name=".StudentProfile" />
         <activity android:name=".UserProfile" />
-        <activity android:name=".Add_Project"
-            android:exported="true"/>
+        <activity
+            android:name=".Add_Project"
+            android:exported="true" />
         <activity android:name=".SignUp" />
-        <activity android:name=".SplashActivity">
-
-        </activity>
+        <activity android:name=".SplashActivity"></activity>
         <activity android:name=".SignIn" />
         <activity
             android:name=".R_Lab"
