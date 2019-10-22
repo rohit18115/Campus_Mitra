@@ -1,11 +1,13 @@
 package com.team13.campusmitra;
 
-import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+
+import androidx.appcompat.app.AppCompatActivity;
+
 import android.widget.TextView;
 
 public class StudentProfile extends AppCompatActivity implements View.OnClickListener {
@@ -35,5 +37,11 @@ public class StudentProfile extends AppCompatActivity implements View.OnClickLis
                 Intent intent1 = new Intent(StudentProfile.this, SelectCoursesRecyclerView.class);
                 startActivity(intent1);
         }
+
+        Bundle courses = getIntent().getExtras();
+        display_courses = findViewById(R.id.display_courses);
+        display_courses.setText(courses.getString("selected_course_code"));
+
     }
 }
+

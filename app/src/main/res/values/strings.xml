@@ -2,13 +2,20 @@
     <string name="app_name">Campus Mitra</string>
 
     <string name="type_of_profile_prompt">User Type</string>
+    <string name="roomnumber">RoomNumber</string>
 
+    <string name="title_activity_test">test</string>
+    <string name="search">Search</string>
+    <string name="add_new_timetable_element">Add new TimeTable Element</string>
+    <string name="add_new_course">Add New Course</string>
+    <string name="select_attribute_to_edit">Select Attribute to edit:</string>
+    <string name="enter_new_value_here">Enter new value here...</string>
+    <string name="update">UPDATE</string>
+    <string name="delete">Delete</string>
     <string-array name="type_of_profile">
         <item>Student</item>
         <item>Faculty</item>
     </string-array>
-    <string name="title_activity_test">test</string>
-    <string name="search">Search</string>
 
     <string-array name="Week">
         <item> Monday </item>

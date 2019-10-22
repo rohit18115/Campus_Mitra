@@ -1,26 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/UPLL1"
-    android:background="@color/Green">
-    <androidx.cardview.widget.CardView
-        xmlns:card_view="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/UPCV"
-        android:layout_margin="10dp"
-        android:layout_gravity="center"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        card_view:cardCornerRadius="16dp"
-        card_view:cardElevation="10dp">
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:paddingLeft="16dp"
-            android:paddingRight="16dp" >
+    android:orientation="vertical"
+    >
 
+<<<<<<< HEAD
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -160,5 +146,7 @@
         </RelativeLayout>
 
     </androidx.cardview.widget.CardView>
+=======
+>>>>>>> 61ccccb20aaf2470dc940ac1f481aa1d2b25eb81
 
 </LinearLayout>

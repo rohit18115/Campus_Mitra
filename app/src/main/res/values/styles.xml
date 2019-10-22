@@ -6,10 +6,15 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+<<<<<<< HEAD
+=======
+        <item name="android:textColor">#131212</item>
+
+>>>>>>> 61ccccb20aaf2470dc940ac1f481aa1d2b25eb81
     </style>
 
     <style name="SplashTheme" parent="Theme.AppCompat.NoActionBar">
-        <item name="android:windowBackground">@drawable/background</item>
+
     </style>
 
     <style name="ActionBarCompat">

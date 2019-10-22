@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#008577</color>
-    <color name="colorPrimaryDark">#00574B</color>
-    <color name="colorAccent">#D81B60</color>
+    <color name="colorPrimary">#0097a7</color>
+    <color name="colorPrimaryDark">#006978</color>
+    <color name="colorAccent">#56c8d8</color>
     <color name="Green">#3FAEA8</color>
-    <color name="Grey">#58595B</color>
+    <color name="Grey">#58595B</color>xx`
     <color name="LightGrey">#6D6E72</color>
+<<<<<<< HEAD
     <color name="white">#FFFFFF</color>
 
 
@@ -28,6 +29,8 @@
         <item>#cccccc</item>
         <item>#888888</item>
     </string-array>
+=======
+>>>>>>> 61ccccb20aaf2470dc940ac1f481aa1d2b25eb81
 
 
 </resources>

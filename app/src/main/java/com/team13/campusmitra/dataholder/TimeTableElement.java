@@ -19,6 +19,17 @@ public class TimeTableElement implements Serializable {
         this.day = day;
     }
 
+    public TimeTableElement(String courseID, String startTime, String endTime, String roomID, String day) {
+        this.courseID = courseID;
+        this.startTime = startTime;
+        this.endTime = endTime;
+        this.roomID = roomID;
+        this.day = day;
+    }
+
+    public TimeTableElement() {
+    }
+
     public String getDay() {
         return day;
     }

@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:layout_width="400dp"
+            android:layout_height="wrap_content"
+            android:text="@string/roomnumber"
+            android:padding="5dp"
+            android:layout_centerHorizontal="true"
+            android:textSize="40sp"
+            android:textAlignment="center"
+            android:id="@+id/ocr_room_no_dialog_tv">
+
+        </TextView>
+    </RelativeLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="5dp"
+        android:layout_marginTop="5dp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Building: "
+            android:textSize="24sp">
+
+        </TextView>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Room building here "
+            android:textSize="24sp"
+            android:id="@+id/ocr_room_building_dialog_tv"
+            android:textStyle="bold">
+
+        </TextView>
+
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_margin="10dp"
+        android:padding="10dp"
+        android:gravity="right">
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="bottom"
+            android:textStyle="bold"
+            android:text="Show more Info"
+            android:textColor="@color/mdtp_white"
+            android:background="@color/colorAccent"
+            android:layout_gravity="center"
+            android:textAlignment="center"
+            android:id="@+id/ocr_room_dialog_btn"
+            android:textSize="24sp">
+
+        </Button>
+    </LinearLayout>
+</LinearLayout>
