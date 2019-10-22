@@ -30,6 +30,8 @@ public class StudentExternalDisplay extends AppCompatActivity {
 
     protected void loadData() {
 
+
+
     }
 
 

@@ -35,7 +35,7 @@ public class SplashActivity extends AppCompatActivity {
                     }else{
                         sleep(1000);
 
-                        startActivity(new Intent(SplashActivity.this, NavDrawerProf.class));
+                        startActivity(new Intent(SplashActivity.this, UserListDisplayActivity.class));
                     }
                 } catch (InterruptedException e) {
                     e.printStackTrace();
