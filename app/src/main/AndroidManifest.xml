@@ -8,6 +8,12 @@
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -16,21 +22,23 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
-        <activity android:name=".UserListDisplayActivity"></activity>
-        <activity android:name=".AddCourseActivity"></activity>
+        <activity android:name=".ApproveFacultyActivity"></activity>
+        <activity android:name=".UserListDisplayActivity" />
+        <activity android:name=".AddCourseActivity" />
         <activity android:name=".AddTimeTableActivity" />
         <activity android:name=".DashboardAdmin" />
         <activity android:name=".DashboardProfessor" />
         <activity android:name=".SelectCoursesRecyclerViewAdaptor" />
         <activity android:name=".SelectCoursesRecyclerView" />
-        <activity android:name=".TestActivity"></activity>
-        <activity android:name=".SplashActivity">
+        <activity android:name=".TestActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity android:name=".SplashActivity">
+
         </activity>
         <activity android:name=".OCRActivity" />
         <activity android:name=".ResearchLabsRecyclerView" />
@@ -47,12 +55,5 @@
             android:name=".R_Lab"
             android:exported="true" />
     </application>
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.CAMERA" />
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
-
-    <uses-permission android:name="android.permission.INTERNET" />
 
 </manifest>
