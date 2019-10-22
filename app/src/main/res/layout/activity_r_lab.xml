@@ -4,21 +4,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:layout_marginLeft="20dp"
+    android:layout_marginRight="20dp"
     >
-
-    <TextView
-        android:id="@+id/r_lab_et1"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textSize="25sp"
-        android:gravity="center"
-        android:text="Lab Number - 404"
-        android:background="@color/colorPrimaryDark"
-        android:paddingBottom="8dp"
-        android:paddingTop ="8dp"
-        android:fontFamily="sans-serif"
-        android:textStyle="bold"
-        android:textColor="#FFFFFF"/>
 
     <ImageView
         android:id="@+id/r_lab_iv1"
@@ -30,15 +18,33 @@
         android:paddingRight="10dp"
         android:paddingTop="10dp" />
     <TextView
+        android:id="@+id/r_lab_et1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="22sp"
+        android:gravity="center"
+        android:text="Lab Number - 404"
+        android:paddingBottom="8dp"
+        android:paddingTop ="8dp"
+        android:fontFamily="sans-serif"
+        android:textStyle="bold"
+        android:textColor="#000000"/>
+    <View
+        android:id="@+id/item_divider"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginBottom="7dp"
+        android:background="@color/colorPrimaryDark" />
+    <TextView
         android:id="@+id/r_lab_et2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textStyle="bold"
         android:fontFamily="sans-serif"
-        android:textSize="22sp"
+        android:textSize="18sp"
         android:paddingLeft="10dp"
         android:text="Prof : Dr Mayank Vats"
-        android:textColor="@color/colorPrimaryDark"/>
+        android:textColor="#000000"/>
     <TextView
         android:id="@+id/r_lab_et3"
         android:layout_width="wrap_content"
@@ -46,10 +52,22 @@
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
         android:paddingLeft="10dp"
+        android:textSize="18sp"
         android:fontFamily="sans-serif"
-        android:textColor="@color/colorPrimaryDark"
+        android:textColor="#000000"
         android:text="Your Added Link Shows Here"
         android:gravity="center" />
+    <Button
+        android:id="@+id/add_proj_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="16dp"
+        android:layout_marginLeft="16dp"
+        android:fontFamily="sans-serif"
+        style="@style/Widget.MaterialComponents.Button.Icon"
+        android:text="Add Project"
+        android:textStyle="bold"
+        android:textSize="16dp" />
     <fragment
         android:name="com.team13.campusmitra.Project_list"
         android:id="@+id/r_lab_frag1"

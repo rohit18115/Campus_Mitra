@@ -25,6 +25,8 @@
         <activity android:name=".SelectCoursesRecyclerViewAdaptor" />
         <activity android:name=".SelectCoursesRecyclerView" />
         <activity android:name=".TestActivity"></activity>
+        <activity android:name=".Regular_Labs"
+            android:exported="true"></activity>
         <activity android:name=".SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

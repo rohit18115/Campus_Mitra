@@ -3,6 +3,7 @@ package com.team13.campusmitra.adaptors;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -11,16 +12,18 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.team13.campusmitra.ProjectModel;
 import com.team13.campusmitra.R;
+import com.team13.campusmitra.dataholder.Project;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
 public class Projects_Adapter extends RecyclerView.Adapter<Projects_Adapter.Projects_ViewHolder> {
     //private String[] data;
-    private List<ProjectModel> data;
+    private List<Project> data;
 
     //private static final String TAG = "Research Labs Project Adapter";
-    public Projects_Adapter(List<ProjectModel> data){
+    public Projects_Adapter(List<Project> data){
         this.data = data;
     }
 
@@ -34,7 +37,7 @@ public class Projects_Adapter extends RecyclerView.Adapter<Projects_Adapter.Proj
 
     @Override
     public void onBindViewHolder(@NonNull Projects_ViewHolder holder, final int position) {
-        final ProjectModel current = data.get(position);
+        final Project current = data.get(position);
         holder.bind(current);
         //boolean expanded;
         holder.itemView.setOnClickListener(new View.OnClickListener(){
@@ -69,17 +72,21 @@ public class Projects_Adapter extends RecyclerView.Adapter<Projects_Adapter.Proj
             subItem = itemView.findViewById(R.id.sub_item);
             push_icon = itemView.findViewById(R.id.push_icon);
         }
-        private void bind(ProjectModel current) {
+        private void bind(Project current) {
             boolean expanded = current.isExpanded();
             if(expanded)
                 push_icon.setImageResource(R.drawable.push_up);
             else
                 push_icon.setImageResource(R.drawable.push_down);
             subItem.setVisibility(expanded ? View.VISIBLE : View.GONE);
-            txt.setText(current.getTitle());
-            img.setImageResource(current.getImg());
-            sub_part_tv1.setText(current.getDesc());
-            sub_part_tv2.setText(current.getLink());
+            txt.setText(current.getProjectName());
+            img.setImageResource(R.drawable.project_icon_1);//current.getProjectImageURL());
+            sub_part_tv1.setText(current.getProjectDescription());
+            ArrayList<String> mem =  current.getMembers();
+            String mem_list = "";
+            for(int i=0;i< mem.size();i++)
+                mem_list = mem_list+", "+mem.get(i);
+            sub_part_tv2.setText(mem_list);
         }
     }
 
