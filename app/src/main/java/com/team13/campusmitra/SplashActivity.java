@@ -20,6 +20,7 @@ public class SplashActivity extends AppCompatActivity {
 
         mAuth = FirebaseAuth.getInstance();
         final FirebaseUser currentUser = mAuth.getCurrentUser();
+        mAuth.signOut();
         progressBar = findViewById(R.id.progressbar_splash_screen);
         Thread timer = new Thread() {
             public void run() {
