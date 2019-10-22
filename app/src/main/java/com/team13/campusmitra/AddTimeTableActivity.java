@@ -6,9 +6,12 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.TimePickerDialog;
+import android.content.Context;
 import android.icu.util.Calendar;
 import android.os.Bundle;
 import android.view.View;
+import android.view.animation.AnimationUtils;
+import android.view.animation.LayoutAnimationController;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ProgressBar;
@@ -281,7 +284,17 @@ public class AddTimeTableActivity extends AppCompatActivity {
         adaptor = new TimetableRecylerViewAdaptor(Arrays.copyOf(objects,objects.length,TimeTableElement[].class),rooms,courses,this,this);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        loadAdaptorToRecyclerView(recyclerView,adaptor);
+        //recyclerView.setAdapter(adaptor);
+    }
+    private void loadAdaptorToRecyclerView(RecyclerView recyclerView,TimetableRecylerViewAdaptor adaptor){
+        Context context = recyclerView.getContext();
+        LayoutAnimationController controller = null;
+        controller = AnimationUtils.loadLayoutAnimation(context,R.anim.layout_anim_fall_down);
         recyclerView.setAdapter(adaptor);
+        recyclerView.setLayoutAnimation(controller);
+        recyclerView.getAdapter().notifyDataSetChanged();
+        recyclerView.scheduleLayoutAnimation();
     }
    // private int mYear, mMonth, mDay, mHour, mMinute;
     private String getTime(final TextView textView){
