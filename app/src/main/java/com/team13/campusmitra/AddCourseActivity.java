@@ -2,6 +2,7 @@ package com.team13.campusmitra;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -13,6 +14,7 @@ import android.view.animation.LayoutAnimationController;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
+import android.widget.SearchView;
 import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
@@ -34,6 +36,8 @@ public class AddCourseActivity extends AppCompatActivity {
     ProgressBar progressBar;
     RecyclerView recyclerView;
     ArrayList<Course> courses;
+    SearchView searchView;
+    CardView cardView;
 
     AddCourseRecyclerViewAdaptor adaptor;
     @Override
@@ -50,6 +54,8 @@ public class AddCourseActivity extends AppCompatActivity {
         offeringET = findViewById(R.id.co_add_et_off);
         addCourseBTN = findViewById(R.id.co_add_btn);
         progressBar = findViewById(R.id.co_add_progress2);
+        searchView = findViewById(R.id.co_add_sv);
+        cardView = findViewById(R.id.co_add_card);
         courses = new ArrayList<>();
         recyclerView = findViewById(R.id.co_recyclerView);
         addCourseBTN.setOnClickListener(new View.OnClickListener() {
@@ -70,6 +76,57 @@ public class AddCourseActivity extends AppCompatActivity {
                 }
             }
         });
+        searchView.setOnSearchClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                cardView.setVisibility(View.GONE);
+            }
+        });
+        searchView.setOnCloseListener(new SearchView.OnCloseListener() {
+            @Override
+            public boolean onClose() {
+                cardView.setVisibility(View.VISIBLE);
+                return false;
+            }
+        });
+        searchView.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean b) {
+                if(b){
+                    cardView.setVisibility(View.GONE);
+                }
+                else{
+                    cardView.setVisibility(View.VISIBLE);
+                }
+            }
+        });
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String s) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String s) {
+                filterText(s);
+                return false;
+            }
+        });
+    }
+    private void filterText(String s){
+        ArrayList<Course> course = new ArrayList<>();
+        for(Course c:courses){
+            if(c.getCourseName().toLowerCase().contains(s.toLowerCase())
+                    ||c.getCourseCode().toLowerCase().contains(s.toLowerCase())
+                    ||c.getOffering().toLowerCase().contains(s.toLowerCase())
+                    ||c.getCoursePrequisite().toLowerCase().contains(s.toLowerCase())){
+                course.add(c);
+            }
+        }
+        Object[] objects = course.toArray();
+        if(objects.length>0)
+            adaptor.filter(Arrays.copyOf(objects,objects.length,Course[].class));
+
     }
     private boolean checkEditText(EditText et){
         if(et.getText().length()<=1){
@@ -103,7 +160,7 @@ public class AddCourseActivity extends AppCompatActivity {
     }
     private void loadRecyclerView(){
         Object[] objects = courses.toArray();
-        adaptor = new AddCourseRecyclerViewAdaptor(Arrays.copyOf(objects,objects.length, Course[].class));
+        adaptor = new AddCourseRecyclerViewAdaptor(Arrays.copyOf(objects,objects.length, Course[].class),this);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         loadAdaptorToRecyclerView(recyclerView,adaptor);
