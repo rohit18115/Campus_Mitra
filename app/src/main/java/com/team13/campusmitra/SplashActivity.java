@@ -31,7 +31,7 @@ public class SplashActivity extends AppCompatActivity {
                     if(currentUser != null && currentUser.isEmailVerified()){
                         sleep(1000);
 
-                        startActivity(new Intent(SplashActivity.this, UserProfile.class));
+                        startActivity(new Intent(SplashActivity.this, NewDashboard.class));
                     }else{
                         sleep(1000);
 
