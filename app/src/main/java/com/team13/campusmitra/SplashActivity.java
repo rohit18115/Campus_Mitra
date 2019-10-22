@@ -29,13 +29,13 @@ public class SplashActivity extends AppCompatActivity {
                     if(currentUser != null && currentUser.isEmailVerified()){
                         sleep(1000);
 
-                        startActivity(new Intent(SplashActivity.this, NavDrawerProf.class));
+                        startActivity(new Intent(SplashActivity.this, StudentProfile.class));
                         
 
                     }else{
                         sleep(1000);
 
-                        startActivity(new Intent(SplashActivity.this, NavDrawerProf.class));
+                        startActivity(new Intent(SplashActivity.this, StudentProfile.class));
                     }
                 } catch (InterruptedException e) {
                     e.printStackTrace();

@@ -25,7 +25,7 @@ public class StudentProfile extends AppCompatActivity implements View.OnClickLis
             if(courses == null) {
                 display_courses= null;
             } else {
-                display_courses.setText(courses.getString("selected_course_code"));
+                display_courses.setText(courses.getString("selected_course_Name"));
             }
         }
     }
