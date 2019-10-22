@@ -68,7 +68,7 @@
                         />
                     <TextView
 
-                        android:text="Edit Classrooms"
+                        android:text="Edit Rooms"
                         android:textSize="14sp"
                         android:layout_marginTop="12dp"
                         android:layout_width="wrap_content"
@@ -93,17 +93,19 @@
                     android:gravity="center">
 
                     <ImageView
-                        android:src="@drawable/course"
                         android:layout_width="80dp"
                         android:layout_height="80dp"
-                        />
+                        android:onClick="sendToCourse"
+                        android:src="@drawable/course" />
+
                     <TextView
 
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="12dp"
+                        android:onClick="sendToCourse"
                         android:text="Edit Courses"
-                        android:textSize="14sp"
-                        android:layout_marginTop="12dp"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
+                        android:textSize="14sp" />
                 </LinearLayout>
 
 
@@ -126,17 +128,19 @@
                     android:gravity="center">
 
                     <ImageView
-                        android:src="@drawable/timetable"
                         android:layout_width="80dp"
                         android:layout_height="80dp"
-                        />
+                        android:onClick="sendToTimetable"
+                        android:src="@drawable/timetable" />
+
                     <TextView
 
-                        android:text="Edit Timetable"
-                        android:textSize="14sp"
-                        android:layout_marginTop="12dp"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="12dp"
+                        android:onClick="sendToTimetable"
+                        android:text="Edit Timetable"
+                        android:textSize="14sp" />
                 </LinearLayout>
 
 
