@@ -10,5 +10,15 @@
     </string-array>
     <string name="title_activity_test">test</string>
     <string name="search">Search</string>
+    <string name="type_of_room_prompt">Room Type</string>
+    <string-array name="type_of_room">
+
+    <item>Lecture Room</item>
+    <item>Discussion Room</item>
+    <item>Meeting Room</item>
+    <item>Faculty Office</item>
+    <item>Lab</item>
+
+</string-array>
 
 </resources>

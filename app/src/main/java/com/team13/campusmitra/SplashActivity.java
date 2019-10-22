@@ -12,7 +12,7 @@ public class SplashActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        Intent intent = new Intent(getApplicationContext(), ResearchLabsRecyclerView.class);
+        Intent intent = new Intent(getApplicationContext(), Rooms.class);
 
         startActivity(intent);
         finish();

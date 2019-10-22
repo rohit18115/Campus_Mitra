@@ -14,8 +14,41 @@ public class Room implements Serializable {
     private String labName;
     private int systemCount;
 
+    public Room(String roomID, String roomNumber, String roomBuilding, int roomType, String roomImageURL, String roomDescription, int capacity) {
+        this.roomID = roomID;
+        this.roomNumber = roomNumber;
+        this.roomBuilding = roomBuilding;
+        this.roomType = roomType;
+        this.roomImageURL = roomImageURL;
+        this.roomDescription = roomDescription;
+        this.capacity = capacity;
+    }
+
+    public Room(String roomID, String roomNumber, String roomBuilding, int roomType, String roomImageURL, String roomDescription, int capacity, String labName, int systemCount) {
+        this.roomID = roomID;
+        this.roomNumber = roomNumber;
+        this.roomBuilding = roomBuilding;
+        this.roomType = roomType;
+        this.roomImageURL = roomImageURL;
+        this.roomDescription = roomDescription;
+        this.capacity = capacity;
+        this.labName = labName;
+        this.systemCount = systemCount;
+    }
+
     public int getCapacity() {
         return capacity;
+    }
+
+    public Room(String roomID, String roomNumber, String roomBuilding, int roomType, String roomImageURL, String roomDescription, int capacity, String roomNotes) {
+        this.roomID = roomID;
+        this.roomNumber = roomNumber;
+        this.roomBuilding = roomBuilding;
+        this.roomType = roomType;
+        this.roomImageURL = roomImageURL;
+        this.roomDescription = roomDescription;
+        this.capacity = capacity;
+        this.roomNotes = roomNotes;
     }
 
     public void setCapacity(int capacity) {
@@ -48,6 +81,18 @@ public class Room implements Serializable {
 
     public Room(String roomID, String roomNumber, String roomBuilding, int roomType, String roomImageURL, String roomDescription, int capacity, String roomNotes, String labName, int systemCount) {
         this.roomID = roomID;
+        this.roomNumber = roomNumber;
+        this.roomBuilding = roomBuilding;
+        this.roomType = roomType;
+        this.roomImageURL = roomImageURL;
+        this.roomDescription = roomDescription;
+        this.capacity = capacity;
+        this.roomNotes = roomNotes;
+        this.labName = labName;
+        this.systemCount = systemCount;
+    }
+
+    public Room(String roomNumber, String roomBuilding, int roomType, String roomImageURL, String roomDescription, int capacity, String roomNotes, String labName, int systemCount) {
         this.roomNumber = roomNumber;
         this.roomBuilding = roomBuilding;
         this.roomType = roomType;
