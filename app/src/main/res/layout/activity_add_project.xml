@@ -4,6 +4,8 @@
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="32dp"
@@ -16,42 +18,85 @@
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingBottom="15dp">
+            android:paddingBottom="15dp"
+            android:textColorHint="@color/colorPrimaryDark"
+            >
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/text_project_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="sans-serif"
+                app:backgroundTint="@color/colorPrimaryDark"
                 android:hint="Project-Name"
+                android:textColor="@color/colorPrimaryDark"
                 android:maxLines="1"
                 android:textSize="16sp" />
         </com.google.android.material.textfield.TextInputLayout>
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingBottom="15dp">
+            android:paddingBottom="15dp"
+            android:textColorHint="@color/colorPrimaryDark">
         <EditText
             android:id="@+id/text_desc"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="sans-serif"
             android:hint="Description"
+            app:backgroundTint="@color/colorPrimaryDark"
+            android:textColor="@color/colorPrimaryDark"
             android:textSize="16sp"
             />
         </com.google.android.material.textfield.TextInputLayout>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:id="@+id/proj_sub_item2"
+        android:paddingTop="20dp">
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="15dp"
+            android:textColorHint="@color/colorPrimaryDark">
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/project_imageURL"
+                android:layout_width="170dp"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorPrimaryDark"
+                android:fontFamily="sans-serif"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                app:backgroundTint="@color/colorPrimaryDark"
+                android:hint = "(optional*)"
+                android:textSize="16sp" />
+        </com.google.android.material.textfield.TextInputLayout>
+        <Button
+            android:id="@+id/add_image_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="16dp"
+            android:layout_marginLeft="16dp"
+            android:fontFamily="sans-serif"
+            style="@style/Widget.MaterialComponents.Button.Icon"
+            android:text="Upload"
+            android:textStyle="bold"
+            android:textSize="16dp" />
+    </LinearLayout>
         <LinearLayout
-            android:id="@+id/proj_sub_item"
+            android:id="@+id/proj_sub_item1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:paddingTop="20dp"
-            android:paddingBottom="15dp">
+            >
 
             <TextView
                 android:id="@+id/project_member"
-                android:layout_width="248dp"
+                android:layout_width="200dp"
                 android:layout_height="38dp"
+                android:textColor="@color/colorPrimaryDark"
                 android:fontFamily="sans-serif"
                 android:layout_gravity="center"
                 android:layout_weight="1"
@@ -60,21 +105,31 @@
 
             <ImageView
                 android:id="@+id/add_mem"
-                android:layout_width="50dp"
-                android:layout_height="37dp"
-                android:paddingLeft="20dp"
-                android:layout_gravity="left"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_marginLeft="20dp"
+                android:paddingTop="2dp"
+                android:paddingLeft="2dp"
+                android:paddingRight="2dp"
+                android:paddingBottom="2dp"
                 android:src="@drawable/add_plus" />
 
         </LinearLayout>
 
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="20dp"
+        android:textColorHint="@color/colorPrimaryDark">
         <EditText
             android:id="@+id/text_mem1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="sans-serif"
+            android:hint = "Member 1"
+            app:backgroundTint="@color/colorPrimaryDark"
             android:textSize="16sp" />
-
+    </com.google.android.material.textfield.TextInputLayout>
         <Button
             android:id="@+id/add_btn"
             android:layout_width="match_parent"
@@ -82,6 +137,7 @@
             android:layout_marginRight="16dp"
             android:layout_marginLeft="16dp"
             android:fontFamily="sans-serif"
+            style="@style/Widget.MaterialComponents.Button.Icon"
             android:text="Add Project"
             android:textStyle="bold"
             android:textSize="16dp" />
