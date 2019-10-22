@@ -166,8 +166,6 @@ public class AddTimeTableActivity extends AppCompatActivity {
         Object[] objects = fiteredTT.toArray();
         if(objects.length>0)
         adaptor.filter(Arrays.copyOf(objects,objects.length,TimeTableElement[].class));
-
-
     }
     private String getRoomBuilding(String key,ArrayList<Room> r){
         for(Room room:r){
