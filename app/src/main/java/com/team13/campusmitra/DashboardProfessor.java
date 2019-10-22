@@ -19,6 +19,6 @@ public class DashboardProfessor extends AppCompatActivity {
         Intent intent = new Intent(getApplicationContext(), OCRActivity.class);
 
         startActivity(intent);
-        finish();
+
     }
 }
