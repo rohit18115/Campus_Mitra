@@ -2,8 +2,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.team13.campusmitra">
 
-    <uses-permission android:name="android.permission.INTERNET" />
-
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -12,39 +10,54 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".OpenDialogue"></activity>
+        <activity android:name=".ApproveFacultyActivity"></activity>
+        <activity android:name=".FacultyExternalDisplayActivity"></activity>
+        <activity android:name=".StudentExternalDisplay" />
+        <activity android:name=".UserListDisplayActivity" />
+        <activity android:name=".AddCourseActivity" />
+        <activity android:name=".AddTimeTableActivity" />
+        <activity android:name=".DashboardAdmin" />
+        <activity android:name=".DashboardProfessor" />
         <activity android:name=".SelectCoursesRecyclerViewAdaptor" />
         <activity android:name=".SelectCoursesRecyclerView" />
-        <activity android:name=".TestActivity">
-
-        </activity>
-        <activity android:name=".OCRActivity" />
-        <activity android:name=".ResearchLabsRecyclerView" />
-        <activity android:name=".NewDashboard" />
-        <activity android:name=".LabsRecyclerView" />
-        <activity android:name=".VerifyActivity" />
-        <activity android:name=".StudentProfile" />
-        <activity android:name=".UserProfile" />
-        <activity android:name=".SignUp" />
-        <activity
-            android:name=".SplashActivity"
-            android:theme="@style/SplashTheme">
+        <activity android:name=".TestActivity" />
+        <activity android:name=".FacultyCourseTakenRecyclerView"></activity>
+        <activity android:name=".FacultyProfile" />
+        <activity android:name=".SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".OCRActivity" />
+        <activity android:name=".ResearchLabsRecyclerView" />
+        <activity android:name=".NewDashboard" />
+        <activity android:name=".LabsRecyclerView" /> <!-- <activity android:name=".VerifyActivity" /> -->
+        <activity android:name=".StudentProfile" />
+        <activity android:name=".UserProfile" />
+        <activity
+            android:name=".Add_Project"
+            android:exported="true" />
+        <activity android:name=".SignUp" />
         <activity android:name=".SignIn" />
         <activity
             android:name=".R_Lab"
             android:exported="true" />
     </application>
 
+    <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.INTERNET" />
-
     <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+
+    <uses-permission android:name="android.permission.INTERNET" />
 
 </manifest>

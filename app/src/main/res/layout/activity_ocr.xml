@@ -6,12 +6,18 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".OCRActivity">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorPrimaryDark"
+        android:padding="20dp">
     <SurfaceView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:padding="10dp"
         android:id="@+id/surface_view"
         ></SurfaceView>
+    </LinearLayout>
     <TextView
         android:id="@+id/text_view"
         android:text="No Text"

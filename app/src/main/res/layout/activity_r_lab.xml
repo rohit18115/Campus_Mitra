@@ -13,9 +13,10 @@
         android:textSize="25sp"
         android:gravity="center"
         android:text="Lab Number - 404"
-        android:background="#40E0D0"
-        android:paddingBottom="10dp"
-        android:paddingTop ="10dp"
+        android:background="@color/colorPrimaryDark"
+        android:paddingBottom="8dp"
+        android:paddingTop ="8dp"
+        android:fontFamily="sans-serif"
         android:textStyle="bold"
         android:textColor="#FFFFFF"/>
 
@@ -33,10 +34,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textStyle="bold"
-        android:textSize="25sp"
+        android:fontFamily="sans-serif"
+        android:textSize="22sp"
         android:paddingLeft="10dp"
         android:text="Prof : Dr Mayank Vats"
-        android:textColor="#000000"/>
+        android:textColor="@color/colorPrimaryDark"/>
     <TextView
         android:id="@+id/r_lab_et3"
         android:layout_width="wrap_content"
@@ -44,8 +46,9 @@
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
         android:paddingLeft="10dp"
+        android:fontFamily="sans-serif"
+        android:textColor="@color/colorPrimaryDark"
         android:text="Your Added Link Shows Here"
-        android:textAppearance="?android:attr/textAppearanceLarge"
         android:gravity="center" />
     <fragment
         android:name="com.team13.campusmitra.Project_list"

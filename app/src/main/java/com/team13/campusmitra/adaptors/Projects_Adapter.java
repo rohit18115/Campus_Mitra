@@ -1,7 +1,5 @@
-package com.team13.campusmitra;
+package com.team13.campusmitra.adaptors;
 
-import android.util.Log;
-import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +9,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.team13.campusmitra.ProjectModel;
 import com.team13.campusmitra.R;
 
 import java.util.List;
@@ -57,7 +56,7 @@ public class Projects_Adapter extends RecyclerView.Adapter<Projects_Adapter.Proj
     }
 
     public class Projects_ViewHolder extends RecyclerView.ViewHolder{
-        private ImageView img;
+        private ImageView img, push_icon;
         private TextView txt;
         private View subItem;
         private TextView sub_part_tv1, sub_part_tv2;
@@ -66,12 +65,16 @@ public class Projects_Adapter extends RecyclerView.Adapter<Projects_Adapter.Proj
             img = itemView.findViewById(R.id.item_iv1);
             txt = itemView.findViewById(R.id.item_tv1);
             sub_part_tv1 = itemView.findViewById(R.id.sub_item_desc);
-            sub_part_tv2 = itemView.findViewById(R.id.sub_item_link);
+            sub_part_tv2 = itemView.findViewById(R.id.sub_item_memb);
             subItem = itemView.findViewById(R.id.sub_item);
+            push_icon = itemView.findViewById(R.id.push_icon);
         }
         private void bind(ProjectModel current) {
             boolean expanded = current.isExpanded();
-
+            if(expanded)
+                push_icon.setImageResource(R.drawable.push_up);
+            else
+                push_icon.setImageResource(R.drawable.push_down);
             subItem.setVisibility(expanded ? View.VISIBLE : View.GONE);
             txt.setText(current.getTitle());
             img.setImageResource(current.getImg());

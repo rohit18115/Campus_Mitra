@@ -9,18 +9,22 @@ public class Student  implements Serializable {
     private String enrollCourse;
     private String areaOfInterest;
     private String resumeURL;
+    private String admissionYear;
+    private String department;
     private ArrayList<String> courses;
 
     public Student() {
         courses = new ArrayList<>();
     }
 
-    public Student(String userID, String rollNumber, String enrollCourse, String areaOfInterest, String resumeURL, ArrayList<String> courses) {
+    public Student(String userID, String rollNumber, String enrollCourse, String areaOfInterest, String resumeURL, String admissionYear, String department, ArrayList<String> courses) {
         this.userID = userID;
         this.rollNumber = rollNumber;
         this.enrollCourse = enrollCourse;
         this.areaOfInterest = areaOfInterest;
         this.resumeURL = resumeURL;
+        this.admissionYear = admissionYear;
+        this.department = department;
         this.courses = courses;
     }
 
@@ -76,5 +80,21 @@ public class Student  implements Serializable {
     }
     public void removeCourse(String course){
         courses.remove(course);
+    }
+
+    public String getAdmissionYear() {
+        return admissionYear;
+    }
+
+    public void setAdmissionYear(String admissionYear) {
+        this.admissionYear = admissionYear;
+    }
+
+    public String getDepartment() {
+        return department;
+    }
+
+    public void setDepartment(String department) {
+        this.department = department;
     }
 }
