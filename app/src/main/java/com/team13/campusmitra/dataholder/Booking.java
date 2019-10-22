@@ -10,6 +10,7 @@ public class Booking implements Serializable {
     private String endTime;
     private String description;
     private String userID;
+    private String bookingStatus;
     public Booking(){
         bookingID=null;
         roomID=null;
@@ -18,6 +19,7 @@ public class Booking implements Serializable {
         endTime=null;
         description=null;
         userID=null;
+        bookingStatus = null;
     }
     public Booking(String bookingID, String roomID, String date, String startTime, String endTime, String description, String userID) {
         this.bookingID = bookingID;
@@ -84,4 +86,8 @@ public class Booking implements Serializable {
     public void setUserID(String userID) {
         this.userID = userID;
     }
+
+    public String getBookingStatus() { return bookingStatus; }
+
+    public void setBookingStatus(String bookingStatus) { this.bookingStatus = bookingStatus; }
 }
