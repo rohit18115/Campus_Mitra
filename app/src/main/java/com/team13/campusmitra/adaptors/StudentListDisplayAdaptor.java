@@ -5,7 +5,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Filter;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -21,22 +20,19 @@ import com.team13.campusmitra.dataholder.Student;
 import com.team13.campusmitra.dataholder.User;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class StudentListDisplayAdaptor extends RecyclerView.Adapter<StudentListDisplayAdaptor.ViewHolder> {
     private static final String TAG = "LabsRecyclerViewAdaptor";
 
-    private ArrayList<User> items,itemsFull;
-    private ArrayList<Student> students,studentsFull;
+    private ArrayList<User> items;
+    private ArrayList<Student> students;
     private Context mContext;
 
     public StudentListDisplayAdaptor(ArrayList<User> items, ArrayList<Student> students, Context mContext) {
         this.items = items;
         this.students = students;
-        itemsFull = new ArrayList<>(items);
-        studentsFull = new ArrayList<>(students);
         this.mContext = mContext;
     }
 
@@ -59,7 +55,7 @@ public class StudentListDisplayAdaptor extends RecyclerView.Adapter<StudentListD
                 .placeholder(R.drawable.ic_loading)
                 .into(holder.image);
         holder.tv1.setText(user.getUserFirstName() + " " + user.getUserLastName());
-        holder.tv2.setText(student.getDepartment());
+        holder.tv2.setText("Department");
         holder.tv3.setText(user.getUserEmail());
         holder.layout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -96,40 +92,4 @@ public class StudentListDisplayAdaptor extends RecyclerView.Adapter<StudentListD
             layout = itemView.findViewById((R.id.sdl_layout));
         }
     }
-    public Filter getFilter(){
-        return nameFilter;
-    }
-    private Filter nameFilter = new Filter() {
-        @Override
-        protected FilterResults performFiltering(CharSequence constraint) {
-            List<User> filteredList = new ArrayList<>();
-
-            if (constraint == null || constraint.length() == 0){
-                filteredList.addAll(itemsFull);
-            }
-            else{
-                String filterPattern = constraint.toString().toLowerCase().trim();
-
-                for (User item : itemsFull){
-                    if (item.getUserFirstName().toLowerCase().contains(filterPattern) || item.getUserLastName().toLowerCase().contains(filterPattern)){
-                        filteredList.add(item);
-                    }
-                }
-            }
-
-            FilterResults results = new FilterResults();
-            results.values = filteredList;
-
-            return results;
-        }
-
-        @Override
-        protected void publishResults(CharSequence constraint, FilterResults results) {
-            items.clear();
-            items.addAll((List) results.values);
-            notifyDataSetChanged();
-
-        }
-    };
-
 }

@@ -2,11 +2,6 @@ package com.team13.campusmitra;
 
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
-import android.view.inputmethod.EditorInfo;
-import android.widget.SearchView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.DividerItemDecoration;
@@ -28,7 +23,7 @@ public class UserListDisplayActivity extends AppCompatActivity {
     private ArrayList<User> items = new ArrayList<>();
     private ArrayList<Student> students = new ArrayList<>();
     private ArrayList<Faculty> profs = new ArrayList<>();
-    private int type = 1;
+    private int type = 0;
     private ProfListDisplayAdaptor profAdaptor;
     private StudentListDisplayAdaptor studentAdaptor;
 
@@ -52,15 +47,9 @@ public class UserListDisplayActivity extends AppCompatActivity {
         user.setUserFirstName("Rohit");
         user.setUserLastName("Arora");
         user.setUserEmail("rohit18115@iiitd.ac.in");
-        User user1 = new User();
-        user1.setUserFirstName("Himanshi");
-        user1.setUserLastName("Singh");
-        user1.setUserEmail("himanshi18073@iiitd.ac.in");
         Faculty prof = new Faculty();
         for (int i = 0; i < 15; i++) {
             items.add(user);
-            profs.add(prof);
-            items.add(user1);
             profs.add(prof);
         }
     }
@@ -74,15 +63,9 @@ public class UserListDisplayActivity extends AppCompatActivity {
         user.setUserFirstName("Himanshi");
         user.setUserLastName("Singh");
         user.setUserEmail("himanshi18073@iiitd.ac.in");
-        User user1 = new User();
-        user1.setUserFirstName("Rohit");
-        user1.setUserLastName("Arora");
-        user1.setUserEmail("rohit18115@iiitd.ac.in");
         Student student = new Student();
         for (int i = 0; i < 15; i++) {
             items.add(user);
-            students.add(student);
-            items.add(user1);
             students.add(student);
         }
     }
@@ -103,39 +86,7 @@ public class UserListDisplayActivity extends AppCompatActivity {
         DividerItemDecoration did = new DividerItemDecoration(this,layoutManager.getOrientation());
         recyclerView.addItemDecoration(did);
     }
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.menu_selectcourse, menu);
-
-        MenuItem searchItem = menu.findItem(R.id.SCapp_bar_search);
-        SearchView searchView = (SearchView) searchItem.getActionView();
-
-        searchView.setImeOptions(EditorInfo.IME_ACTION_DONE);
-
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String query) {
-                return false;
-            }
-
-            @Override
-            public boolean onQueryTextChange(String newText) {
-                if(type==0) {
-                    studentAdaptor.getFilter().filter(newText);
-                    return false;
-                }
-                else{
-                    profAdaptor.getFilter().filter(newText);
-                    return false;
-                }
-
-            }
-        });
-        return true;
-    }
 
 
 
 }
-
-

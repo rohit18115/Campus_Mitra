@@ -20,7 +20,6 @@ public class SplashActivity extends AppCompatActivity {
 
         mAuth = FirebaseAuth.getInstance();
         final FirebaseUser currentUser = mAuth.getCurrentUser();
-        mAuth.signOut();
         progressBar = findViewById(R.id.progressbar_splash_screen);
         Thread timer = new Thread() {
             public void run() {
@@ -30,13 +29,13 @@ public class SplashActivity extends AppCompatActivity {
                     if(currentUser != null && currentUser.isEmailVerified()){
                         sleep(1000);
 
-                        startActivity(new Intent(SplashActivity.this, UserListDisplayActivity.class));
+                        startActivity(new Intent(SplashActivity.this, NavDrawerProf.class));
                         
 
                     }else{
                         sleep(1000);
 
-                        startActivity(new Intent(SplashActivity.this, UserListDisplayActivity.class));
+                        startActivity(new Intent(SplashActivity.this, NavDrawerProf.class));
                     }
                 } catch (InterruptedException e) {
                     e.printStackTrace();

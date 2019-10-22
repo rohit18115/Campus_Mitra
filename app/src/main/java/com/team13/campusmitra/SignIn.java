@@ -116,7 +116,7 @@ public class SignIn extends AppCompatActivity {
                 if (email.isEmpty()) {
                     etEmail.setError("email cannot be empty");
                 } else if (!email.contains("@iiitd.ac.in")) {
-                    etEmail.setError("Enter IIITD email only");
+                    etEmail.setError("Enter IIITD email only", null);
                     etEmail.requestFocus();
                     hideKeyBoard();
                 } else if (pswd.isEmpty()) {

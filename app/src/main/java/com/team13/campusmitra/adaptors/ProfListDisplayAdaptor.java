@@ -5,7 +5,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Filter;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -20,22 +19,19 @@ import com.team13.campusmitra.dataholder.Faculty;
 import com.team13.campusmitra.dataholder.User;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class ProfListDisplayAdaptor extends RecyclerView.Adapter<ProfListDisplayAdaptor.ViewHolder> {
     private static final String TAG = "LabsRecyclerViewAdaptor";
 
-    private ArrayList<User> items,itemsFull;
-    private ArrayList<Faculty> profs,profsFull;
+    private ArrayList<User> items;
+    private ArrayList<Faculty> profs;
     private Context mContext;
 
     public ProfListDisplayAdaptor(ArrayList<User> items, ArrayList<Faculty> profs, Context mContext) {
         this.items = items;
         this.profs = profs;
-        itemsFull = new ArrayList<>(items);
-        profsFull = new ArrayList<>(profs);
         this.mContext = mContext;
     }
 
@@ -95,40 +91,5 @@ public class ProfListDisplayAdaptor extends RecyclerView.Adapter<ProfListDisplay
             layout = itemView.findViewById((R.id.pdl_layout));
         }
     }
-    public Filter getFilter(){
-        return nameFilter;
-    }
-    private Filter nameFilter = new Filter() {
-        @Override
-        protected FilterResults performFiltering(CharSequence constraint) {
-            List<User> filteredList = new ArrayList<>();
-
-            if (constraint == null || constraint.length() == 0){
-                filteredList.addAll(itemsFull);
-            }
-            else{
-                String filterPattern = constraint.toString().toLowerCase().trim();
-
-                for (User item : itemsFull){
-                    if (item.getUserFirstName().toLowerCase().contains(filterPattern) || item.getUserLastName().toLowerCase().contains(filterPattern)){
-                        filteredList.add(item);
-                    }
-                }
-            }
-
-            FilterResults results = new FilterResults();
-            results.values = filteredList;
-
-            return results;
-        }
-
-        @Override
-        protected void publishResults(CharSequence constraint, FilterResults results) {
-            items.clear();
-            items.addAll((List) results.values);
-            notifyDataSetChanged();
-
-        }
-    };
 }
 
