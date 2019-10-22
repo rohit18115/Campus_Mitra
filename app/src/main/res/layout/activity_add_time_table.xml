@@ -6,10 +6,21 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".AddTimeTableActivity">
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:background="@drawable/roundcorners">
 <RelativeLayout
-
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:padding="10dp">
+    <ProgressBar
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:id="@+id/tt_add_progress1"></ProgressBar>
  <LinearLayout
      android:layout_width="match_parent"
      android:layout_height="wrap_content"
@@ -20,6 +31,8 @@
          android:layout_width="wrap_content"
          android:layout_height="wrap_content"
          android:padding="10dp"
+         android:textStyle="bold"
+         android:textSize="18sp"
          android:text="@string/add_new_timetable_element">
 
      </TextView>
@@ -105,8 +118,12 @@
          <Button
              android:layout_width="wrap_content"
              android:layout_height="wrap_content"
-             android:layout_marginRight="40dp"
+             android:layout_marginRight="20dp"
              android:text="Add to TimeTable"
+             android:textStyle="bold"
+             android:padding="10dp"
+             android:textColor="@color/mdtp_white"
+             android:background="@drawable/button_background"
              android:id="@+id/add_tt_btn">
 
          </Button>
@@ -114,6 +131,8 @@
  </LinearLayout>
 
 </RelativeLayout>
+
+    </androidx.cardview.widget.CardView>
     <SearchView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -122,12 +141,22 @@
         android:id="@+id/tt_add_sv"
         >
     </SearchView>
-        <androidx.recyclerview.widget.RecyclerView
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true"
+            android:id="@+id/tt_add_progress2"></ProgressBar>
+    <androidx.recyclerview.widget.RecyclerView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:scrollbars="vertical"
             android:id="@+id/tt_recyclerView">
 
         </androidx.recyclerview.widget.RecyclerView>
+    </RelativeLayout>
 
 </LinearLayout>

@@ -5,7 +5,14 @@
     android:layout_margin="10dp"
     android:background="@color/mdtp_white"
     android:id="@+id/tt_element_rl">
-
+<androidx.cardview.widget.CardView
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="5dp"
+    android:background="@drawable/list_border">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
     <ImageView
         android:layout_width="80dp"
         android:layout_height="80dp"
@@ -77,5 +84,6 @@
             android:gravity="center"
             android:textStyle="bold"/>
     </LinearLayout>
-
+    </RelativeLayout>
+</androidx.cardview.widget.CardView>
 </RelativeLayout>
