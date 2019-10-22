@@ -116,7 +116,7 @@ public class TestActivity extends AppCompatActivity {
         finish();
     }
     private void addTT(){
-        Intent intent = new Intent(this,AddCourseActivity.class);
+        Intent intent = new Intent(this,ApproveFacultyActivity.class);
         startActivity(intent);
         finish();
     }

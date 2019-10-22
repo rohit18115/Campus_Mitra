@@ -16,6 +16,16 @@
         <item>Student</item>
         <item>Faculty</item>
     </string-array>
+    <string name="type_of_room_prompt">Room Type</string>
+    <string-array name="type_of_room">
+
+    <item>Lecture Room</item>
+    <item>Discussion Room</item>
+    <item>Meeting Room</item>
+    <item>Faculty Office</item>
+    <item>Lab</item>
+
+</string-array>
 
     <string-array name="Week">
         <item> Monday </item>

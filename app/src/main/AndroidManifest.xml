@@ -10,6 +10,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
+        <activity android:name=".OpenDialogue"></activity>
+        <activity android:name=".ApproveFacultyActivity"></activity>
         <activity android:name=".FacultyExternalDisplayActivity"></activity>
         <activity android:name=".StudentExternalDisplay" />
         <activity android:name=".UserListDisplayActivity" />
@@ -35,6 +37,7 @@
         <activity android:name=".LabsRecyclerView" /> <!-- <activity android:name=".VerifyActivity" /> -->
         <activity android:name=".StudentProfile" />
         <activity android:name=".UserProfile" />
+        <activity android:name=".Rooms" />
         <activity
             android:name=".Add_Project"
             android:exported="true" />
