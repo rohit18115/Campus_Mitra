@@ -9,6 +9,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".OpenDialogue"></activity>
         <activity android:name=".ApproveFacultyActivity"></activity>
         <activity android:name=".FacultyExternalDisplayActivity"></activity>
         <activity android:name=".StudentExternalDisplay" />

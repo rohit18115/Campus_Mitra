@@ -22,7 +22,6 @@ public class SplashActivity extends AppCompatActivity {
         final FirebaseUser currentUser = mAuth.getCurrentUser();
         progressBar = findViewById(R.id.progressbar_splash_screen);
         Thread timer = new Thread() {
-
             public void run() {
                 progressBar.setIndeterminate(true);
                 progressBar.setVisibility(View.VISIBLE);
