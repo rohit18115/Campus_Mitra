@@ -4,8 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".NewDashboard"
-    android:background="@drawable/iiitd_logo">
+    tools:context=".NewDashboard">
 
     <LinearLayout
         android:orientation="vertical"
@@ -30,14 +29,15 @@
                 android:layout_width="62dp"
                 android:layout_height="62dp"
                 android:layout_alignParentRight="true"
-                android:src="@drawable/tchr" />
+                android:src="@drawable/studnt" />
         </RelativeLayout>
 
 
 
 
         <GridLayout
-            android:rowCount="2"
+            android:layout_marginTop="25sp"
+            android:rowCount="5"
             android:columnCount="2"
             android:alignmentMode="alignMargins"
             android:columnOrderPreserved="false"
@@ -49,6 +49,7 @@
                 android:layout_height="wrap_content"
                 android:layout_columnWeight="1"
                 android:layout_rowWeight="1"
+
                 app:cardElevation="6dp"
                 app:cardCornerRadius="12dp" >
 
@@ -56,6 +57,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:orientation="vertical"
+
                     android:padding="16dp"
                     android:gravity="center">
 
@@ -86,6 +88,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:orientation="vertical"
+
                     android:padding="16dp"
                     android:gravity="center">
 
@@ -102,6 +105,201 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
                 </LinearLayout>
+
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_columnWeight="1"
+                android:layout_rowWeight="1"
+                app:cardElevation="6dp"
+                app:cardCornerRadius="12dp" >
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+
+                    android:orientation="vertical"
+                    android:padding="16dp"
+                    android:gravity="center">
+
+                    <ImageView
+                        android:src="@drawable/timetable"
+                        android:layout_width="80dp"
+                        android:layout_height="80dp"
+                        />
+                    <TextView
+
+                        android:text="Timetable"
+                        android:textSize="14sp"
+                        android:layout_marginTop="12dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
+
+
+            </androidx.cardview.widget.CardView>
+            <androidx.cardview.widget.CardView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_columnWeight="1"
+                android:layout_rowWeight="1"
+                app:cardElevation="6dp"
+                app:cardCornerRadius="12dp" >
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+
+                    android:orientation="vertical"
+                    android:padding="16dp"
+                    android:gravity="center">
+
+                    <ImageView
+                        android:src="@drawable/appt"
+                        android:layout_width="80dp"
+                        android:layout_height="80dp"
+                        />
+                    <TextView
+
+                        android:text="Book Appointment"
+                        android:textSize="14sp"
+                        android:layout_marginTop="12dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
+
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_columnWeight="1"
+                android:layout_rowWeight="1"
+                app:cardElevation="6dp"
+                app:cardCornerRadius="12dp" >
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:padding="16dp"
+                    android:gravity="center">
+
+                    <ImageView
+                        android:src="@drawable/labs"
+                        android:layout_width="80dp"
+                        android:layout_height="80dp"
+                        />
+                    <TextView
+
+                        android:text="Know your Labs"
+                        android:textSize="14sp"
+                        android:layout_marginTop="12dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
+
+
+            </androidx.cardview.widget.CardView>
+            <androidx.cardview.widget.CardView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_columnWeight="1"
+                android:layout_rowWeight="1"
+                app:cardElevation="6dp"
+                app:cardCornerRadius="12dp" >
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:padding="16dp"
+                    android:gravity="center">
+
+                    <ImageView
+                        android:src="@drawable/occupancy"
+                        android:layout_width="80dp"
+                        android:layout_height="80dp"
+                        />
+                    <TextView
+
+                        android:text="Find Occupancy"
+                        android:textSize="14sp"
+                        android:layout_marginTop="12dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
+
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_columnWeight="1"
+                android:layout_rowWeight="1"
+                app:cardElevation="6dp"
+                app:cardCornerRadius="12dp" >
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:padding="16dp"
+                    android:gravity="center">
+
+                    <ImageView
+                        android:src="@drawable/task"
+                        android:layout_width="80dp"
+                        android:layout_height="80dp"
+                        />
+                    <TextView
+
+                        android:text="Today's task"
+                        android:textSize="14sp"
+                        android:layout_marginTop="12dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
+
+
+            </androidx.cardview.widget.CardView>
+            <androidx.cardview.widget.CardView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_columnWeight="1"
+                android:layout_rowWeight="1"
+                app:cardElevation="6dp"
+                app:cardCornerRadius="12dp" >
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:padding="16dp"
+                    android:gravity="center">
+
+                    <ImageView
+                        android:src="@drawable/scan1"
+                        android:layout_width="80dp"
+                        android:layout_height="80dp"
+                        android:onClick="send_to_scan"
+                        tools:ignore="OnClick" />
+                    <TextView
+
+                        android:text="Scan"
+                        android:textSize="14sp"
+                        android:layout_marginTop="12dp"
+                        android:layout_width="wrap_content"
+                        android:onClick="send_to_scan"
+                        android:layout_height="wrap_content"
+                        tools:ignore="OnClick" />
+                </LinearLayout>
+
 
             </androidx.cardview.widget.CardView>
         </GridLayout>

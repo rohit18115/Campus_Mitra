@@ -9,8 +9,8 @@
         android:id="@+id/item_divider"
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:layout_marginBottom="10dp"
-        android:background="#D3D3D3" />
+        android:layout_marginBottom="7dp"
+        android:background="@color/colorPrimaryDark" />
     <LinearLayout
         android:id="@+id/sub_item_above"
         android:layout_width="match_parent"
@@ -21,8 +21,11 @@
             android:id="@+id/item_iv1"
             android:layout_width="60dp"
             android:layout_height="60dp"
-            android:paddingLeft="5dp"
-            android:paddingRight="5dp"
+            android:paddingLeft="2dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginBottom="3dp"
+            android:paddingRight="2dp"
+            android:background="@drawable/image_border"
             android:src="@drawable/project_icon_1"/>
         <TextView
             android:id="@+id/item_tv1"
@@ -30,16 +33,25 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_weight="1"
-            android:textSize="24sp"
+            android:textColor="#000000"
+            android:fontFamily="sans-serif"
+            android:gravity="left"
+            android:textSize="20sp"
             android:paddingLeft="16dp"
             android:text="Project name" />
         <ImageView
             android:id="@+id/push_icon"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:paddingRight="15dp"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:paddingTop="2dp"
+            android:paddingLeft="2dp"
+            android:paddingRight="2dp"
+            android:paddingBottom="2dp"
+            android:layout_marginRight="15dp"
+            android:background="@drawable/image_border"
             android:layout_gravity="center"
-            android:src="@drawable/push_down"/>
+            android:src="@drawable/push_down"
+            />
     </LinearLayout>
     <LinearLayout
         android:id="@+id/sub_item"
@@ -50,14 +62,19 @@
             android:id="@+id/sub_item_desc"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:fontFamily="sans-serif"
+            android:textColor="#000000"
             android:text="explanation of the project here"
-            android:textSize="24sp"/>
+            android:textSize="20sp"/>
         <TextView
-            android:id="@+id/sub_item_link"
-            android:text="Project link: http://ddddd"
+            android:id="@+id/sub_item_memb"
             android:layout_width="wrap_content"
+            android:textColor="#000000"
+            android:fontFamily="sans-serif"
             android:layout_height="wrap_content"
-            android:textSize="24sp"/>
+            android:text="Members: "
+            android:textSize="20sp"/>
+
     </LinearLayout>
 
 </LinearLayout>

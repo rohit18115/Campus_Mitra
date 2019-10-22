@@ -16,8 +16,10 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.team13.campusmitra.actions.LoginAction;
 import com.team13.campusmitra.actions.SignupAction;
+import com.team13.campusmitra.dataholder.Course;
 import com.team13.campusmitra.dataholder.Room;
 import com.team13.campusmitra.dataholder.Student;
+import com.team13.campusmitra.firebaseassistant.FirebaseCoursesHelper;
 import com.team13.campusmitra.firebaseassistant.FirebaseRoomHelper;
 
 import java.util.ArrayList;
@@ -44,7 +46,9 @@ public class TestActivity extends AppCompatActivity {
                 //doSignup("nikhilgola21@gmail.com","12345678");
                 //doLogin("nikhilgola21@gmail.com","12345678");
                 //addRoom();
-                launchOCR();
+                //launchOCR();
+                addTT();
+               // addCourse();
             }
         });
     }
@@ -100,10 +104,23 @@ public class TestActivity extends AppCompatActivity {
         helper.addRoom(this,room);
         System.out.println(rooms);
     }
+    private void addCourse(){
+
+         Course c = new Course("CSE-536", "Machine Learning(PG)", "Probability and Stats", "Monsoon") ;
+        FirebaseCoursesHelper helper = new FirebaseCoursesHelper();
+        helper.addCourse(this,c);
+    }
     private void launchOCR(){
         Intent intent = new Intent(this,OCRActivity.class);
         startActivity(intent);
         finish();
     }
+    private void addTT(){
+        Intent intent = new Intent(this,ApproveFacultyActivity.class);
+        startActivity(intent);
+        finish();
+    }
+
+
 
 }

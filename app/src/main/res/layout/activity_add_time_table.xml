@@ -1,14 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".AddTimeTableActivity">
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:id="@+id/tt_add_cardview"
+        android:background="@drawable/roundcorners">
 <RelativeLayout
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:padding="10dp">
+    <ProgressBar
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:id="@+id/tt_add_progress1">
+
+    </ProgressBar>
  <LinearLayout
      android:layout_width="match_parent"
      android:layout_height="wrap_content"
@@ -19,6 +34,8 @@
          android:layout_width="wrap_content"
          android:layout_height="wrap_content"
          android:padding="10dp"
+         android:textStyle="bold"
+         android:textSize="18sp"
          android:text="@string/add_new_timetable_element">
 
      </TextView>
@@ -53,13 +70,15 @@
          <TextView
              android:layout_width="wrap_content"
              android:layout_height="wrap_content"
-             android:text="Start Time">
+             android:text="Start Time"
+             android:id="@+id/tt_add_startTime">
 
          </TextView>
          <TextView
              android:layout_width="wrap_content"
              android:layout_height="wrap_content"
              android:text="End Time"
+             android:id="@+id/tt_add_end_time"
              android:layout_marginLeft="20dp"
              >
 
@@ -73,7 +92,8 @@
          </TextView>
          <Spinner
              android:layout_width="wrap_content"
-             android:layout_height="wrap_content"></Spinner>
+             android:layout_height="wrap_content"
+             android:id="@+id/tt_add_day"></Spinner>
      </LinearLayout>
      <LinearLayout
          android:layout_width="match_parent"
@@ -88,7 +108,8 @@
          <Spinner
              android:layout_width="wrap_content"
              android:layout_height="wrap_content"
-             android:layout_marginLeft="20dp">
+             android:layout_marginLeft="20dp"
+             android:id="@+id/tt_add_room">
 
          </Spinner>
      </LinearLayout>
@@ -100,18 +121,45 @@
          <Button
              android:layout_width="wrap_content"
              android:layout_height="wrap_content"
-             android:layout_marginRight="40dp"
+             android:layout_marginRight="20dp"
              android:text="Add to TimeTable"
+             android:textStyle="bold"
+             android:padding="10dp"
+             android:textColor="@color/mdtp_white"
+             android:background="@drawable/button_background"
              android:id="@+id/add_tt_btn">
 
          </Button>
      </LinearLayout>
  </LinearLayout>
-</RelativeLayout>
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:padding="10dp">
 
-    </ScrollView>
+</RelativeLayout>
+
+    </androidx.cardview.widget.CardView>
+    <SearchView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:queryHint="Search for Course"
+        android:id="@+id/tt_add_sv"
+        >
+    </SearchView>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true"
+            android:id="@+id/tt_add_progress2"></ProgressBar>
+    <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scrollbars="vertical"
+            android:id="@+id/tt_recyclerView">
+
+        </androidx.recyclerview.widget.RecyclerView>
+    </RelativeLayout>
+
 </LinearLayout>

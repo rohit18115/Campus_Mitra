@@ -6,7 +6,7 @@ android {
     buildToolsVersion "29.0.1"
     defaultConfig {
         applicationId "com.team13.campusmitra"
-        minSdkVersion 21
+        minSdkVersion 24
         targetSdkVersion 29
         versionCode 1
         versionName "1.0"
@@ -30,7 +30,6 @@ dependencies {
     implementation 'com.google.firebase:firebase-storage:19.1.0'
 
 
-
     implementation 'com.google.android.gms:play-services-auth:17.0.0'
 
     implementation 'com.google.firebase:firebase-core:17.2.0'
@@ -52,7 +51,30 @@ dependencies {
     implementation 'androidx.cardview:cardview:1.0.0'
 
     implementation 'com.google.android.gms:play-services-vision:18.0.0'
+    implementation 'com.android.support:appcompat-v7:22.0.0'
 
+    implementation 'de.hdodenhof:circleimageview:3.0.1'
+
+    implementation 'com.github.bumptech.glide:glide:4.10.0'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.10.0'
+    implementation 'com.amulyakhare:com.amulyakhare.textdrawable:1.0.1'
+    //image circle view
+    implementation 'de.hdodenhof:circleimageview:3.0.1'
+    implementation 'androidx.appcompat:appcompat:+'
+    implementation 'androidx.constraintlayout:constraintlayout:+'
 
 }
+repositories {
+    maven {
+        url 'http://dl.bintray.com/amulyakhare/maven'
+    }
+}
+
+
+dependencies {
+    implementation 'com.amulyakhare:com.amulyakhare.textdrawable:1.0.1'
+}
 apply plugin: 'com.google.gms.google-services'
+
+
+
