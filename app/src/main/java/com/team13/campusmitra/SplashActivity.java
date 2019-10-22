@@ -1,12 +1,11 @@
 package com.team13.campusmitra;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ProgressBar;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -35,10 +34,8 @@ public class SplashActivity extends AppCompatActivity {
                     }else{
                         sleep(1000);
 
-<<<<<<< HEAD
         Intent intent = new Intent(getApplicationContext(), FacultyProfile.class);
-=======
-                        startActivity(new Intent(SplashActivity.this, UserListDisplayActivity.class));
+                        startActivity(new Intent(SplashActivity.this, FacultyProfile.class));
                     }
                 } catch (InterruptedException e) {
                     e.printStackTrace();
@@ -50,7 +47,6 @@ public class SplashActivity extends AppCompatActivity {
         timer.start();
 
         progressBar.setVisibility(View.GONE);
->>>>>>> 61ccccb20aaf2470dc940ac1f481aa1d2b25eb81
 
     }
 

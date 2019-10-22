@@ -29,7 +29,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class FacultyProfile extends AppCompatActivity implements View.OnClickListener, TimePickerDialog.OnTimeSetListener {
-    Button setOfficeHours;
+    Button setOfficeHours, courseTaken;
     private ListView listView;
     public static SharedPreferences sharedPreferences;
     public static String SEL_DAY;
@@ -46,7 +46,9 @@ public class FacultyProfile extends AppCompatActivity implements View.OnClickLis
         setContentView(R.layout.activity_faculty_profile);
         Day = findViewById(R.id.FPTVday);
         setOfficeHours = findViewById(R.id.setOfficeHours);
+        courseTaken = findViewById(R.id.FPCourseTaken);
         setOfficeHours.setOnClickListener(this);
+        courseTaken.setOnClickListener(this);
         initToolbar();
         setupUIViews();
         setupListView();
@@ -177,6 +179,12 @@ public class FacultyProfile extends AppCompatActivity implements View.OnClickLis
         switch(v.getId()){
             case R.id.setOfficeHours :
                 dialog.show();
+
+            case R.id.FPCourseTaken:
+                Intent intent1 = new Intent(FacultyProfile.this, FacultyCourseTakenRecyclerView.class);
+                startActivity(intent1);
+
+
         }
     }
 }

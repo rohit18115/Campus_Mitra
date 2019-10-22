@@ -1,11 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/FPRL1"
+    android:orientation="vertical"
     android:background="#FFFFFF">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_centerHorizontal="true"
+        android:layout_margin = "30dp"
+        android:id="@+id/FPCIV"
+        android:src="@mipmap/ic_launcher_round"
+        />
 
 
 <!--    <ListView-->
@@ -28,18 +37,10 @@
         android:layout_marginTop="32dp"
         android:id="@+id/FPLL2"
         android:orientation="vertical"
+        android:layout_below="@+id/FPCIV"
         android:paddingLeft="32dp"
         android:paddingRight="32dp">
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:layout_width="150dp"
-            android:layout_height="150dp"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
-            android:id="@+id/FPCIV"
-            android:layout_margin="30dp"
-            android_src="@mipmap/ic_launcher_round"
-            app:civ_border_width="4dp"
-            app:civ_border_color="#000000"/>
+
 
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
@@ -165,4 +166,4 @@
     </LinearLayout>
 
 
-</LinearLayout>
+</RelativeLayout>

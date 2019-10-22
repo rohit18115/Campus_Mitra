@@ -45,8 +45,8 @@ public class FacultyCourseTakenRecyclerView extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_faculty_course_taken_recycler_view);
         Log.d(TAG, "onCreate: started");
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+//        Toolbar toolbar = findViewById(R.id.toolbar);
+//        setSupportActionBar(toolbar);
 
         fab = findViewById(R.id.fab);
 
