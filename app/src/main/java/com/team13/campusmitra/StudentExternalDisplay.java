@@ -1,10 +1,23 @@
 package com.team13.campusmitra;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatTextView;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.ProgressBar;
+import android.widget.Toast;
+
+import com.bumptech.glide.Glide;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.ValueEventListener;
+import com.team13.campusmitra.dataholder.Student;
+import com.team13.campusmitra.dataholder.User;
+import com.team13.campusmitra.firebaseassistant.FirebaseStudentHelper;
+import com.team13.campusmitra.firebaseassistant.FirebaseUserHelper;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -18,6 +31,8 @@ public class StudentExternalDisplay extends AppCompatActivity {
     AppCompatTextView interests;
     ProgressBar pb;
 
+    private String userId;
+
     protected void initComponent() {
         image = findViewById(R.id.ase_profile_image);
         name = findViewById(R.id.ase_profile_name);
@@ -29,8 +44,53 @@ public class StudentExternalDisplay extends AppCompatActivity {
     }
 
     protected void loadData() {
+        FirebaseUserHelper helper = new FirebaseUserHelper();
+        DatabaseReference reference = helper.getReference();
+        reference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for(DataSnapshot snapshot:dataSnapshot.getChildren()){
+                    User user = snapshot.getValue(User.class);
+                    if(user.getUserId().equals(userId)) {
+                        Log.d("lololo", "onDataChange: " + user.getUserLastName());
+                        Glide.with(StudentExternalDisplay.this)
+                                .asBitmap()
+                                .load(user.getImageUrl())
+                                .placeholder(R.drawable.ic_loading)
+                                .into(image);
+                        name.setText(user.getUserFirstName() + " " + user.getUserLastName());
+                        email.setText(user.getUserEmail());
+                    }
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
 
+            }
 
+        });
+
+        FirebaseStudentHelper helper2 = new FirebaseStudentHelper();
+        DatabaseReference reference2 = helper2.getReference();
+        reference2.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for(DataSnapshot snapshot:dataSnapshot.getChildren()){
+                    Student student = snapshot.getValue(Student.class);
+                    if(student.getUserID().equals(userId)) {
+                        Log.d("lololo", "onDataChange: " + student.getUserID());
+//                        dept.setText();
+//                        courses.setText();
+//                        interests.setText();
+                    }
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+
+        });
 
     }
 
@@ -39,7 +99,17 @@ public class StudentExternalDisplay extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_student_external_display);
-
+        if (savedInstanceState == null) {
+            Bundle id = getIntent().getExtras();
+            if(id == null) {
+                Toast toast = Toast.makeText(this, "Error: No UserID found", Toast.LENGTH_SHORT);
+                toast.show();
+            } else {
+               userId = id.getString("UserID");
+            }
+        }
         initComponent();
+        loadData();
     }
+
 }

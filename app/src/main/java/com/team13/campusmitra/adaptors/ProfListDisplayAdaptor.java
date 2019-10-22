@@ -51,7 +51,7 @@ public class ProfListDisplayAdaptor extends RecyclerView.Adapter<ProfListDisplay
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Log.d(TAG, "onBindViewHolder: called");
         final User user = items.get(position);
-        final Faculty prof = profs.get(position);
+        //final Faculty prof = profs.get(position);
         Glide.with(mContext)
                 .asBitmap()
                 .load(user.getImageUrl())
