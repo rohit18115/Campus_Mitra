@@ -47,8 +47,8 @@ public class Appointment implements Serializable {
         return time;
     }
 
-    public void setTime(String time) {
-        this.time = time;
+    public void setTime(String startTime) {
+        this.time = startTime;
     }
 
     public String getDescription() {
@@ -72,7 +72,7 @@ public class Appointment implements Serializable {
         this.userID1 = null;
         this.userID2 =null;
         this.date = null;
-        this.time = null;
+        time =null;
         this.description = null;
         this.appointmentStatus = null;
     }

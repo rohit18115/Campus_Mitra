@@ -60,6 +60,8 @@ dependencies {
     implementation 'com.amulyakhare:com.amulyakhare.textdrawable:1.0.1'
     //image circle view
     implementation 'de.hdodenhof:circleimageview:3.0.1'
+    implementation 'androidx.appcompat:appcompat:+'
+    implementation 'androidx.constraintlayout:constraintlayout:+'
 
 }
 repositories {
@@ -70,23 +72,9 @@ repositories {
 
 
 dependencies {
-    compile 'com.amulyakhare:com.amulyakhare.textdrawable:1.0.1'
+    implementation 'com.amulyakhare:com.amulyakhare.textdrawable:1.0.1'
 }
 apply plugin: 'com.google.gms.google-services'
 
-dependencies {
-    implementation 'androidx.appcompat:appcompat:+'
-    implementation 'androidx.constraintlayout:constraintlayout:+'
-}
 
-dependencies {
 
-    implementation 'androidx.legacy:legacy-support-v4:+'
-    implementation 'com.google.android.material:material:+'
-    implementation 'androidx.appcompat:appcompat:+'
-    implementation 'androidx.constraintlayout:constraintlayout:+'
-    implementation 'androidx.navigation:navigation-fragment:+'
-    implementation 'androidx.navigation:navigation-ui:+'
-    implementation 'androidx.lifecycle:lifecycle-extensions:+'
-
-}

@@ -111,20 +111,6 @@ public class SignUp extends AppCompatActivity {
                             Log.d(TAG, "createUserWithEmail:success");
                             final FirebaseUser user = mAuth.getCurrentUser();
                             verifyEmail(user);
-                            Snackbar snackbar = Snackbar.make(coordinatorLayout, "Verification email sent to" + user.getEmail(), Snackbar.LENGTH_SHORT);
-                            snackbar.addCallback(new Snackbar.Callback() {
-
-                                @Override
-                                public void onDismissed(Snackbar snackbar, int event) {
-                                    //see Snackbar.Callback docs for event details
-                                    mAuth.signOut();
-                                    progressBar.setVisibility(View.GONE);
-                                    Intent intent = new Intent(new Intent(SignUp.this, SignIn.class));
-                                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                                    startActivity(intent);
-                                }
-                            });
-
                             //updateUI(user);
                         } else {
                             // If sign in fails, display a message to the user.
@@ -156,9 +142,28 @@ public class SignUp extends AppCompatActivity {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 if (task.isSuccessful()) {
-                    Toast.makeText(SignUp.this,
-                            "Verification email sent to " + user.getEmail(),
-                            Toast.LENGTH_SHORT).show();
+                    Snackbar snackbar = Snackbar.make(coordinatorLayout, "Verification email sent to" + user.getEmail(), Snackbar.LENGTH_SHORT);
+                    snackbar.show();
+
+                    snackbar.addCallback(new Snackbar.Callback() {
+
+                        @Override
+                        public void onDismissed(Snackbar snackbar, int event) {
+                            if (event == Snackbar.Callback.DISMISS_EVENT_TIMEOUT || event == DISMISS_EVENT_SWIPE || event == DISMISS_EVENT_MANUAL) {
+                                Intent intent = new Intent(new Intent(SignUp.this, SignIn.class));
+                                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                startActivity(intent);
+                            }
+                        }
+
+                        @Override
+                        public void onShown(Snackbar snackbar) {
+                            mAuth.signOut();
+                            progressBar.setVisibility(View.GONE);
+                        }
+                    });
+
+
                 } else {
                     Log.e(TAG, "sendEmailVerification", task.getException());
                     Toast.makeText(SignUp.this,
