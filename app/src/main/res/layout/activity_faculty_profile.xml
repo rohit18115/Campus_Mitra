@@ -7,37 +7,18 @@
     android:orientation="vertical"
     android:background="#FFFFFF">
 
-    <de.hdodenhof.circleimageview.CircleImageView
-        android:layout_width="150dp"
-        android:layout_height="150dp"
-        android:layout_centerHorizontal="true"
-        android:layout_margin = "30dp"
-        android:id="@+id/FPCIV"
-        android:src="@mipmap/ic_launcher_round"
-        />
 
 
-<!--    <ListView-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="match_parent"-->
-<!--        android:layout_marginLeft="10dp"-->
-<!--        android:id="@+id/FPLVday"-->
-<!--        android:layout_marginRight="10dp"-->
-<!--        android:layout_marginTop="10dp"-->
-<!--        android:layout_marginBottom="10dp"-->
-<!--        android:dividerHeight="10dp"-->
-<!--        android:divider="@null">-->
-<!--    </ListView>-->
+
 
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="50dp"
         android:id="@+id/FPLL2"
         android:orientation="vertical"
-        android:layout_below="@+id/FPCIV"
         android:paddingLeft="32dp"
         android:paddingRight="32dp">
 
@@ -145,6 +126,16 @@
             android:text="Course Taken"
             android:textSize="16dp"
             android:textStyle="bold" />
+        <TextView
+            android:id="@+id/FPTVdisplay_courses"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            android:text="Courses selected"
+            android:textSize="16sp"/>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

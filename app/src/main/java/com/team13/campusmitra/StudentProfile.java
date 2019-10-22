@@ -38,9 +38,6 @@ public class StudentProfile extends AppCompatActivity implements View.OnClickLis
                 startActivity(intent1);
         }
 
-        Bundle courses = getIntent().getExtras();
-        display_courses = findViewById(R.id.display_courses);
-        display_courses.setText(courses.getString("selected_course_code"));
 
     }
 }
