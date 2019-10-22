@@ -189,7 +189,7 @@ public class SignIn extends AppCompatActivity {
     void updateUI(final FirebaseUser user) {
         if (user != null) {
             if (user.isEmailVerified()) {
-                Intent intent = new Intent(SignIn.this, UserProfile.class);
+                Intent intent = new Intent(SignIn.this, NewDashboard.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent);
             } else {
