@@ -6,11 +6,15 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.TimePickerDialog;
+import android.content.Context;
 import android.icu.util.Calendar;
 import android.os.Bundle;
 import android.view.View;
+import android.view.animation.AnimationUtils;
+import android.view.animation.LayoutAnimationController;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.SearchView;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -47,6 +51,7 @@ public class AddTimeTableActivity extends AppCompatActivity {
     Button addButton;
     TimeTableElement bufferElement;
     SearchView searchView;
+    ProgressBar progressBar1,progressBar2;
     TimetableRecylerViewAdaptor adaptor;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,6 +81,10 @@ public class AddTimeTableActivity extends AppCompatActivity {
         roomSpinner = findViewById(R.id.tt_add_room);
         addButton = findViewById(R.id.add_tt_btn);
         searchView = findViewById(R.id.tt_add_sv);
+        progressBar1 = findViewById(R.id.tt_add_progress1);
+        progressBar2 = findViewById(R.id.tt_add_progress2);
+        progressBar1.setVisibility(View.VISIBLE);
+        progressBar2.setVisibility(View.VISIBLE);
         days = getDays();
 
         startTimeTv.setOnClickListener(new View.OnClickListener() {
@@ -214,6 +223,7 @@ public class AddTimeTableActivity extends AppCompatActivity {
                 ArrayAdapter<String> areasAdapter = new ArrayAdapter<String>(AddTimeTableActivity.this, android.R.layout.simple_spinner_item, ar);
                 areasAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                 roomSpinner.setAdapter(areasAdapter);
+                progressBar1.setVisibility(View.GONE);
             }
 
             @Override
@@ -257,7 +267,7 @@ public class AddTimeTableActivity extends AppCompatActivity {
                 }
                 if(timeTable.size()>0)
                 loadRecyclerView();
-
+                progressBar2.setVisibility(View.GONE);
 
             }
 
@@ -274,7 +284,17 @@ public class AddTimeTableActivity extends AppCompatActivity {
         adaptor = new TimetableRecylerViewAdaptor(Arrays.copyOf(objects,objects.length,TimeTableElement[].class),rooms,courses,this,this);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        loadAdaptorToRecyclerView(recyclerView,adaptor);
+        //recyclerView.setAdapter(adaptor);
+    }
+    private void loadAdaptorToRecyclerView(RecyclerView recyclerView,TimetableRecylerViewAdaptor adaptor){
+        Context context = recyclerView.getContext();
+        LayoutAnimationController controller = null;
+        controller = AnimationUtils.loadLayoutAnimation(context,R.anim.layout_anim_fall_down);
         recyclerView.setAdapter(adaptor);
+        recyclerView.setLayoutAnimation(controller);
+        recyclerView.getAdapter().notifyDataSetChanged();
+        recyclerView.scheduleLayoutAnimation();
     }
    // private int mYear, mMonth, mDay, mHour, mMinute;
     private String getTime(final TextView textView){
