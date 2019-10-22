@@ -31,11 +31,11 @@ public class SplashActivity extends AppCompatActivity {
                     if(currentUser != null && currentUser.isEmailVerified()){
                         sleep(1000);
 
-                        startActivity(new Intent(SplashActivity.this, UserProfile.class));
+                        startActivity(new Intent(SplashActivity.this, NavDrawerAdmin.class));
                     }else{
                         sleep(1000);
 
-                        startActivity(new Intent(SplashActivity.this, UserListDisplayActivity.class));
+                        startActivity(new Intent(SplashActivity.this, NavDrawerAdmin.class));
                     }
                 } catch (InterruptedException e) {
                     e.printStackTrace();
