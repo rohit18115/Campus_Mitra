@@ -37,6 +37,7 @@
         <activity android:name=".LabsRecyclerView" /> <!-- <activity android:name=".VerifyActivity" /> -->
         <activity android:name=".StudentProfile" />
         <activity android:name=".UserProfile" />
+        <activity android:name=".Rooms" />
         <activity
             android:name=".Add_Project"
             android:exported="true" />
