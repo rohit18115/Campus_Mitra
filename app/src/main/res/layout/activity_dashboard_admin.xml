@@ -162,17 +162,19 @@
                     android:gravity="center">
 
                     <ImageView
-                        android:src="@drawable/tchr"
                         android:layout_width="80dp"
                         android:layout_height="80dp"
-                        />
+                        android:onClick="sendToApproveFaculty"
+                        android:src="@drawable/tchr" />
+
                     <TextView
 
-                        android:text="Approve Faculty"
-                        android:textSize="14sp"
-                        android:layout_marginTop="12dp"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="12dp"
+                        android:onClick="sendToApproveFaculty"
+                        android:text="Approve Faculty"
+                        android:textSize="14sp" />
                 </LinearLayout>
 
 

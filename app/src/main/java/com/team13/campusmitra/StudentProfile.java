@@ -15,6 +15,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.team13.campusmitra.dataholder.Student;
 import com.team13.campusmitra.firebaseassistant.FirebaseStudentHelper;
 import com.team13.campusmitra.firebaseassistant.FirebaseUserHelper;
+import com.team13.campusmitra.dataholder.User;
 
 public class StudentProfile extends AppCompatActivity implements View.OnClickListener {
     TextView display_courses;
@@ -22,6 +23,7 @@ public class StudentProfile extends AppCompatActivity implements View.OnClickLis
     TextView interests;
     TextView rollNo;
     Button select_courses;
+
     static final int PICK_CONTACT_REQUEST = 1;
 
     private void initComponents() {
@@ -45,7 +47,8 @@ public class StudentProfile extends AppCompatActivity implements View.OnClickLis
         //helper.addStudent(this,user);
     }
 
-
+    Intent intent;
+    User user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,6 +56,19 @@ public class StudentProfile extends AppCompatActivity implements View.OnClickLis
         setContentView(R.layout.activity_student_profile);
         select_courses = findViewById(R.id.selectcourses);
         select_courses.setOnClickListener(this);
+        display_courses = (TextView)findViewById(R.id.display_courses);
+
+        select_courses.setOnClickListener(this);
+        if (savedInstanceState == null) {
+            Bundle courses = getIntent().getExtras();
+            if(courses == null) {
+                display_courses= null;
+            } else {
+                display_courses.setText(courses.getString("selected_course_Name"));
+            }
+        }
+
+      //
     }
 
     @Override
