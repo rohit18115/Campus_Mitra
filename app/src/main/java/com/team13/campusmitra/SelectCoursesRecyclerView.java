@@ -57,12 +57,11 @@ public class SelectCoursesRecyclerView extends AppCompatActivity {
                     if (model.isSelected()) {
                         text += model.getCourseName()+"\n";
                     }
-
-                    Intent intent1 = new Intent(SelectCoursesRecyclerView.this, StudentProfile.class);
-                    intent1.putExtra("selected_course_Name",text);
-                    startActivity(intent1);
-
                 }
+                Intent intent1 = new Intent();
+                intent1.putExtra("selected_course_Name",text);
+                setResult(StudentProfile.RESULT_OK,intent1);
+                finish();
                 animateFab();
             }
         });

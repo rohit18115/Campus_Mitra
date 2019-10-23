@@ -7,6 +7,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.inputmethod.EditorInfo;
 import android.widget.SearchView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -42,8 +43,18 @@ public class UserListDisplayActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_list_display);
-
         Log.d(TAG, "onCreate: started");
+
+        if (savedInstanceState == null) {
+            Bundle id = getIntent().getExtras();
+            if(id == null) {
+                Toast toast = Toast.makeText(this, "Error: No UserType found", Toast.LENGTH_SHORT);
+                toast.show();
+            } else {
+                type = id.getInt("userType");
+            }
+        }
+
         if(type == 0)
            loadStudentData();
         else
