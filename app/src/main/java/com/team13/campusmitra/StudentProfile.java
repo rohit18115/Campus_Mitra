@@ -11,10 +11,40 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.widget.TextView;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.team13.campusmitra.dataholder.Student;
+import com.team13.campusmitra.firebaseassistant.FirebaseStudentHelper;
+import com.team13.campusmitra.firebaseassistant.FirebaseUserHelper;
+
 public class StudentProfile extends AppCompatActivity implements View.OnClickListener {
     TextView display_courses;
+    TextView department;
+    TextView interests;
+    TextView rollNo;
     Button select_courses;
     static final int PICK_CONTACT_REQUEST = 1;
+
+    private void initComponents() {
+        display_courses = findViewById(R.id.display_courses_id);
+        department = findViewById(R.id.department);
+        interests = findViewById(R.id.interests);
+        rollNo = findViewById(R.id.rollNumber);
+    }
+
+    private void getStudentObject() {
+        Student student = new Student();
+        student.setAreaOfInterest(interests.getText().toString());
+        student.setDepartment(department.getText().toString());
+        student.setRollNumber(rollNo.getText().toString());
+        student.setCourses(display_courses.getText().toString());
+        FirebaseAuth auth = FirebaseAuth.getInstance();
+        String uid = auth.getCurrentUser().getUid();
+        student.setUserID(uid);
+        FirebaseStudentHelper helper = new FirebaseStudentHelper();
+        //user.setProfileCompleteCount(user.getProfileCompleteCount()+1);
+        //helper.addStudent(this,user);
+    }
+
 
 
     @Override
@@ -22,7 +52,6 @@ public class StudentProfile extends AppCompatActivity implements View.OnClickLis
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_student_profile);
         select_courses = findViewById(R.id.selectcourses);
-        display_courses = (TextView)findViewById(R.id.display_courses_id);
         select_courses.setOnClickListener(this);
     }
 
