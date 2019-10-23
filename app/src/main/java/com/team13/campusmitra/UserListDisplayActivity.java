@@ -24,6 +24,8 @@ public class UserListDisplayActivity extends AppCompatActivity {
     private ArrayList<Student> students = new ArrayList<>();
     private ArrayList<Faculty> profs = new ArrayList<>();
     private int type = 0;
+    private ProfListDisplayAdaptor profAdaptor;
+    private StudentListDisplayAdaptor studentAdaptor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,16 +74,19 @@ public class UserListDisplayActivity extends AppCompatActivity {
         Log.d(TAG, "initComponents: started");
         RecyclerView recyclerView = findViewById(R.id.user_display_recycler_view);
         if(type == 0) {
-            StudentListDisplayAdaptor adaptor = new StudentListDisplayAdaptor(items,students,this);
-            recyclerView.setAdapter(adaptor);
+            studentAdaptor = new StudentListDisplayAdaptor(items,students,this);
+            recyclerView.setAdapter(studentAdaptor);
         }
         else {
-            ProfListDisplayAdaptor adaptor = new ProfListDisplayAdaptor(items,profs,this);
-            recyclerView.setAdapter(adaptor);
+            profAdaptor = new ProfListDisplayAdaptor(items,profs,this);
+            recyclerView.setAdapter(profAdaptor);
         }
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
         DividerItemDecoration did = new DividerItemDecoration(this,layoutManager.getOrientation());
         recyclerView.addItemDecoration(did);
     }
+
+
+
 }

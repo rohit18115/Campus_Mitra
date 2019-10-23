@@ -17,4 +17,22 @@
         <item>Faculty</item>
     </string-array>
 
+    <string-array name="Week">
+        <item> Monday </item>
+        <item> Tuesday </item>
+        <item> Wednesday </item>
+        <item> Thursday </item>
+        <item> Friday </item>
+        <item> Saturday </item>
+    </string-array>
+
+    <string-array name="Venue">
+        <item> "A-410"</item>
+        <item> "A-310" </item>
+        <item> "A-510" </item>
+        <item> "A-610" </item>
+        <item> "A-409"</item>
+
+    </string-array>
+
 </resources>

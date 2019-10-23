@@ -1,10 +1,215 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/UPLL1"
     android:orientation="vertical"
     >
+    <ProgressBar
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:id="@+id/UPpbar"
+        android:visibility="gone"></ProgressBar>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:layout_marginTop="35dp"
+                android:text="PROFILE"
+                android:fontFamily="sans-serif"
+                android:id="@+id/profile"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true" />
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/profile"
+        android:layout_margin = "20dp"
+        android:id="@+id/UPCIV"
+        android:src="@mipmap/ic_launcher_round"
+        />
+
+<ScrollView
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_below="@+id/UPCIV">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:id="@+id/UPLL2"
+                android:layout_below="@+id/UPCIV"
+                android:orientation="vertical"
+                android:paddingLeft="32dp"
+                android:paddingRight="32dp">
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:fontFamily="sans-serif"
+                        android:id="@+id/userName"
+                        android:hint="User Name"
+                        android:inputType="text"
+                        android:maxLines="1"
+                        android:textSize="16sp" />
+                </com.google.android.material.textfield.TextInputLayout>
 
 
-</LinearLayout>
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:fontFamily="sans-serif"
+                        android:id="@+id/firstName"
+                        android:hint="First Name"
+                        android:inputType="text"
+                        android:maxLines="1"
+                        android:textSize="16sp" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" >
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:fontFamily="sans-serif"
+                        android:hint="Last Name"
+                        android:id="@+id/lastName"
+                        android:inputType="text"
+                        android:maxLines="1"
+                        android:textSize="16sp" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <Button
+                    android:id="@+id/button_datepicker"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textStyle="bold"
+                    android:layout_marginTop="10dp"
+                    android:text="DOB"/>
+
+                <TextView
+                    android:id="@+id/text_datepicker"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginRight="8dp"
+                    android:text="Select Date of birth"
+                    android:textSize="16sp"/>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" >
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:fontFamily="sans-serif"
+                        android:hint="Optional Email"
+                        android:id="@+id/opt_email"
+                        android:inputType="textEmailAddress"
+                        android:maxLines="1"
+                        android:textSize="16sp" />
+                </com.google.android.material.textfield.TextInputLayout>
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="enter usert type"
+                    android:id="@+id/UPusertypeet"
+                    >
+
+                </EditText>
+                <RadioGroup
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/UPRBuserType"
+                    android:checkedButton="@+id/maleRadio"
+                    android:orientation="horizontal">
+                    <RadioButton
+                        android:id="@+id/UPfacultyRadio"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:text="Faculty"/>
+                    <RadioButton
+                        android:id="@+id/UPstudentRadio"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="30dp"
+                        android:text="Student"/>
+                </RadioGroup>
+                <TextView
+                    android:layout_marginTop="10dp"
+                    android:id="@+id/gender"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Gender"
+                    android:textSize="16sp"/>
+                <RadioGroup
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/gender_prof"
+                    android:checkedButton="@+id/maleRadio"
+                    android:orientation="horizontal">
+                    <RadioButton
+                        android:id="@+id/maleRadio"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:text="Male"/>
+                    <RadioButton
+                        android:id="@+id/femaleRadio"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="30dp"
+                        android:text="Female"/>
+                </RadioGroup>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginBottom="8dp"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <Button
+                        android:id="@+id/UPnext"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="16dp"
+                        android:layout_marginRight="16dp"
+                        android:fontFamily="sans-serif"
+                        android:text="Next"
+                        android:textSize="16dp"
+                        android:textStyle="bold" />
+
+
+                </LinearLayout>
+
+            </LinearLayout>
+</ScrollView>
+
+<TextView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:id="@+id/UPBuffer"
+    android:visibility="gone"></TextView>
+        </RelativeLayout>
