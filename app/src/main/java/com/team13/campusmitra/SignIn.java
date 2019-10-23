@@ -235,7 +235,7 @@ public class SignIn extends AppCompatActivity {
                             startActivity(intent);
 
                         }
-                        else if(myuser.getProfileCompleteCount()==1){
+                        else if(myuser.getProfileCompleteCount()==2){
                             if(myuser.getUserType()==0){
                                 Intent intent = new Intent(SignIn.this, StudentProfile.class);
                                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
@@ -265,6 +265,7 @@ public class SignIn extends AppCompatActivity {
                         else{
                             if(myuser.getUserType()==0){
                                 Intent intent = new Intent(SignIn.this,NewDashboard.class);
+                                intent.putExtra("MYKEY",myuser);
                                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                                 startActivity(intent);
                             }

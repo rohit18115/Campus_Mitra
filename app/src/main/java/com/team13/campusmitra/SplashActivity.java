@@ -40,7 +40,7 @@ public class SplashActivity extends AppCompatActivity {
                 progressBar.setVisibility(View.VISIBLE);
                 try {
                     if(currentUser != null && currentUser.isEmailVerified()){
-                        sleep(7000);
+
                         final FirebaseUser user= currentUser;
 //=============================================================================================================
                         //startActivity(new Intent(SplashActivity.this, DashboardAdmin.class));
@@ -55,7 +55,7 @@ public class SplashActivity extends AppCompatActivity {
                                     startActivity(intent);
 
                                 }
-                                else if(myuser.getProfileCompleteCount()==1){
+                                else if(myuser.getProfileCompleteCount()==2){
                                     if(myuser.getUserType()==0){
                                         Intent intent = new Intent(getApplicationContext(), StudentProfile.class);
                                         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
@@ -85,6 +85,7 @@ public class SplashActivity extends AppCompatActivity {
                                 else{
                                     if(myuser.getUserType()==0){
                                         Intent intent = new Intent(getApplicationContext(),NewDashboard.class);
+                                        intent.putExtra("MYKEY",myuser);
                                         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                                         startActivity(intent);
                                     }
@@ -102,6 +103,7 @@ public class SplashActivity extends AppCompatActivity {
 
                             }
                         });
+                        sleep(5000);
 //=============================================================================================================
                     }else{
                         sleep(1000);
