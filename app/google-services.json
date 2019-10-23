@@ -15,6 +15,22 @@
       },
       "oauth_client": [
         {
+          "client_id": "910191803003-vdcd7k9rog4do3lq3sio5aqgqmndc8kv.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.team13.campusmitra",
+            "certificate_hash": "58f9b9d2defdb62dc318d53b75e604cdea480065"
+          }
+        },
+        {
+          "client_id": "910191803003-4pt4tmema9h2hbm1mtmt3vv7r0jqf4g5.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.team13.campusmitra",
+            "certificate_hash": "cfa1f9a549d61db9d04591750444ccfd5aaeeccf"
+          }
+        },
+        {
           "client_id": "910191803003-agb7m8h9mtrhpshnrertm31mg2o92kaa.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
