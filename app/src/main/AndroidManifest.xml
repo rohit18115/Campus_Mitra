@@ -2,6 +2,19 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.team13.campusmitra">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -9,10 +22,14 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
-        <activity android:name=".OpenDialogue"></activity>
-        <activity android:name=".ApproveFacultyActivity"></activity>
-        <activity android:name=".FacultyExternalDisplayActivity"></activity>
+        <activity android:name=".StudentProfileDisplay" />
+        <activity
+            android:name=".NavDrawerProf"
+            android:label="@string/title_activity_nav_drawer_prof"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".OpenDialogue" />
+        <activity android:name=".ApproveFacultyActivity" />
+        <activity android:name=".FacultyExternalDisplayActivity" />
         <activity android:name=".StudentExternalDisplay" />
         <activity android:name=".UserListDisplayActivity" />
         <activity android:name=".AddCourseActivity" />
@@ -21,8 +38,10 @@
         <activity android:name=".DashboardProfessor" />
         <activity android:name=".SelectCoursesRecyclerViewAdaptor" />
         <activity android:name=".SelectCoursesRecyclerView" />
+
         <activity android:name=".TestActivity"></activity>
         <activity android:name=".FacultyCourseTakenRecyclerView"></activity>
+
         <activity android:name=".FacultyProfile" />
 
         <activity android:name=".SplashActivity">
@@ -38,6 +57,7 @@
         <activity android:name=".LabsRecyclerView" /> <!-- <activity android:name=".VerifyActivity" /> -->
         <activity android:name=".StudentProfile" />
         <activity android:name=".UserProfile" />
+        <activity android:name=".Rooms" />
         <activity
             android:name=".Add_Project"
             android:exported="true" />
@@ -49,18 +69,5 @@
         <activity android:name=".Regular_Labs"
             android:exported="true"/>
     </application>
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.CAMERA" />
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.CAMERA" />
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
-
-    <uses-permission android:name="android.permission.INTERNET" />
 
 </manifest>

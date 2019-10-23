@@ -8,6 +8,14 @@
     android:paddingLeft="16dp"
     tools:context=".StudentExternalDisplay">
 
+    <ProgressBar
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:id="@+id/ase_pb"
+        android:visibility="gone" />
+
     <de.hdodenhof.circleimageview.CircleImageView
         android:layout_width="150dp"
         android:layout_height="150dp"

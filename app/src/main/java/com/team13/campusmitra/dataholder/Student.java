@@ -11,13 +11,15 @@ public class Student  implements Serializable {
     private String resumeURL;
     private String admissionYear;
     private String department;
-    private ArrayList<String> courses;
+    //private ArrayList<String> courses;
+    private String courses;
 
     public Student() {
-        courses = new ArrayList<>();
+
+        //courses = new ArrayList<>();
     }
 
-    public Student(String userID, String rollNumber, String enrollCourse, String areaOfInterest, String resumeURL, String admissionYear, String department, ArrayList<String> courses) {
+    public Student(String userID, String rollNumber, String enrollCourse, String areaOfInterest, String resumeURL, String admissionYear, String department, String courses) {
         this.userID = userID;
         this.rollNumber = rollNumber;
         this.enrollCourse = enrollCourse;
@@ -68,19 +70,19 @@ public class Student  implements Serializable {
         this.resumeURL = resumeURL;
     }
 
-    public ArrayList<String> getCourses() {
-        return courses;
-    }
-
-    public void setCourses(ArrayList<String> courses) {
-        this.courses = courses;
-    }
-    public void addCourse(String course){
-        courses.add(course);
-    }
-    public void removeCourse(String course){
-        courses.remove(course);
-    }
+//    public ArrayList<String> getCourses() {
+//        return courses;
+//    }
+//
+//    public void setCourses(ArrayList<String> courses) {
+//        this.courses = courses;
+//    }
+//    public void addCourse(String course){
+//        courses.add(course);
+//    }
+//    public void removeCourse(String course){
+//        courses.remove(course);
+//    }
 
     public String getAdmissionYear() {
         return admissionYear;
@@ -96,5 +98,13 @@ public class Student  implements Serializable {
 
     public void setDepartment(String department) {
         this.department = department;
+    }
+
+    public String getCourses() {
+        return courses;
+    }
+
+    public void setCourses(String courses) {
+        this.courses = courses;
     }
 }

@@ -77,6 +77,7 @@ public class TimetableRecylerViewAdaptor extends RecyclerView.Adapter<TimetableR
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         final TimeTableElement element = elements[position];
+        //System.out.println(element.getCourseID());
         holder.courseId.setText(getCourseCode(element.getCourseID()));
         holder.courseName.setText(getCourseName(element.getCourseID()));
         holder.fromTime.setText(element.getStartTime());

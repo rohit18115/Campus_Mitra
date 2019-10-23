@@ -281,7 +281,7 @@ public class AddTimeTableActivity extends AppCompatActivity {
 
                 }
                 if(timeTable.size()>0)
-                loadRecyclerView();
+                    loadRecyclerView();
                 progressBar2.setVisibility(View.GONE);
 
             }

@@ -34,4 +34,8 @@ public class DashboardAdmin extends AppCompatActivity {
         startActivity(intent);
 
     }
+    public void sendToApproveFaculty(View view){
+        Intent intent = new Intent(getApplicationContext(),ApproveFacultyActivity.class);
+        startActivity(intent);
+    }
 }

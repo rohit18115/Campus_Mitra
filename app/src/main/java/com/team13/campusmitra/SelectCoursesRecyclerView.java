@@ -42,8 +42,6 @@ public class SelectCoursesRecyclerView extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_select_courses_recycler_view);
         Log.d(TAG, "onCreate: started");
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
 
         fab = findViewById(R.id.fab);
 
@@ -57,14 +55,13 @@ public class SelectCoursesRecyclerView extends AppCompatActivity {
 //                        .setAction("Action", null).show();
                 for (CourseSelectModel model : mModelList) {
                     if (model.isSelected()) {
-                        text += model.getCourseCode();
+                        text += model.getCourseName()+"\n";
                     }
-
-                    Intent intent1 = new Intent(SelectCoursesRecyclerView.this, StudentProfile.class);
-                    intent1.putExtra("selected_course_code",text);
-                    startActivity(intent1);
-
                 }
+                Intent intent1 = new Intent();
+                intent1.putExtra("selected_course_Name",text);
+                setResult(StudentProfile.RESULT_OK,intent1);
+                finish();
                 animateFab();
             }
         });
