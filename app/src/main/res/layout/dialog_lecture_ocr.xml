@@ -5,7 +5,7 @@
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/dialog_lab_ocr_labimage"
+        android:id="@+id/dialog_lecture_ocr_labimage"
         android:background="@color/white">
 
     </ImageView>
@@ -15,7 +15,7 @@
         android:layout_margin="5dp"
         android:background="@drawable/ic_cancel_black_24dp"
         android:layout_alignParentRight="true"
-        android:id="@+id/dialog_lab_ocr_cancel">
+        android:id="@+id/dialog_lecture_ocr_cancel">
 
     </ImageView>
 
@@ -23,13 +23,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="20dp"
-        android:layout_below="@+id/dialog_lab_ocr_labimage"
+        android:layout_below="@+id/dialog_lecture_ocr_labimage"
         android:background="@color/materialgreen"
         android:textColor="@color/white"
         android:text="@string/room_number_here"
         android:textSize="28sp"
         android:textStyle="bold"
-        android:id="@+id/dialog_lab_ocr_roomnumber">
+        android:id="@+id/dialog_lecture_ocr_roomnumber">
 
     </TextView>
     <LinearLayout
@@ -37,7 +37,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:layout_marginTop="10dp"
-        android:layout_below="@+id/dialog_lab_ocr_roomnumber">
+        android:layout_below="@+id/dialog_lecture_ocr_roomnumber">
         <LinearLayout
             android:layout_width="match_parent"
             android:paddingLeft="40dp"
@@ -59,7 +59,7 @@
                 android:textSize="12sp"
                 android:padding="5dp"
                 android:layout_marginLeft="50dp"
-                android:id="@+id/dialog_lab_ocr_roomtype">
+                android:id="@+id/dialog_lecture_ocr_roomtype">
 
             </TextView>
         </LinearLayout>
@@ -84,7 +84,7 @@
                 android:textSize="12sp"
                 android:padding="5dp"
                 android:layout_marginLeft="50dp"
-                android:id="@+id/dialog_lab_ocr_roombuilding">
+                android:id="@+id/dialog_lecture_ocr_roombuilding">
 
             </TextView>
         </LinearLayout>
@@ -99,18 +99,18 @@
             <ImageView
                 android:layout_width="20dp"
                 android:layout_height="20dp"
-                android:background="@drawable/ic_computer_black_24dp"
+                android:background="@drawable/ic_group_black_24dp"
                 >
 
             </ImageView>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="System count here"
+                android:text="Capacity here"
                 android:textSize="12sp"
                 android:padding="5dp"
                 android:layout_marginLeft="50dp"
-                android:id="@+id/dialog_lab_ocr_systemcount">
+                android:id="@+id/dialog_lecture_ocr_systemcount">
 
             </TextView>
         </LinearLayout>

@@ -189,7 +189,7 @@ public class OCRActivity extends AppCompatActivity {
     }
     private void launchRoom(int r,Room room){
         switch (r){
-            case 0: break;
+            case 0: popupLecture(room); break;
             case 1: break;
             case 2: break;
             case 3: break;
@@ -199,7 +199,7 @@ public class OCRActivity extends AppCompatActivity {
         }
     }
     private void popupLab(Room room){
-       popupManager = new PopupManager(this);
+        popupManager = new PopupManager(this);
         popupManager.setContentView(R.layout.dialog_lab_ocr);
         ImageView roomImage =popupManager.getDialog().findViewById(R.id.dialog_lab_ocr_labimage);
         ImageView cancel = popupManager.getDialog().findViewById(R.id.dialog_lab_ocr_cancel);
@@ -221,6 +221,38 @@ public class OCRActivity extends AppCompatActivity {
 
         TextView systemCount = popupManager.getDialog().findViewById(R.id.dialog_lab_ocr_systemcount);
         systemCount.setText("Total Number of Systems: "+room.getSystemCount());
+        popupManager.showPopUp();
+
+        Glide.with(this)
+                .asBitmap()
+                .load(room.getRoomImageURL())
+                .placeholder(R.drawable.ic_loading)
+                .into(roomImage);
+
+    }
+    private void popupLecture(Room room){
+        popupManager = new PopupManager(this);
+        popupManager.setContentView(R.layout.dialog_lecture_ocr);
+        ImageView roomImage =popupManager.getDialog().findViewById(R.id.dialog_lecture_ocr_labimage);
+        ImageView cancel = popupManager.getDialog().findViewById(R.id.dialog_lecture_ocr_cancel);
+        cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                flag=false;
+                popupManager.dismissPopUp();
+            }
+        });
+        TextView roomNumber = popupManager.getDialog().findViewById(R.id.dialog_lecture_ocr_roomnumber);
+        roomNumber.setText(room.getRoomNumber());
+
+        TextView roomType = popupManager.getDialog().findViewById(R.id.dialog_lecture_ocr_roomtype);
+        roomType.setText("Lecture Room");
+
+        TextView roombuilding = popupManager.getDialog().findViewById(R.id.dialog_lecture_ocr_roombuilding);
+        roombuilding.setText(room.getRoomBuilding());
+
+        TextView systemCount = popupManager.getDialog().findViewById(R.id.dialog_lecture_ocr_systemcount);
+        systemCount.setText("Capacity : "+room.getCapacity());
         popupManager.showPopUp();
 
         Glide.with(this)
