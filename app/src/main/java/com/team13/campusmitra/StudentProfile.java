@@ -56,7 +56,7 @@ public class StudentProfile extends AppCompatActivity implements View.OnClickLis
         setContentView(R.layout.activity_student_profile);
         select_courses = findViewById(R.id.selectcourses);
         select_courses.setOnClickListener(this);
-        display_courses = (TextView)findViewById(R.id.display_courses);
+       // display_courses = (TextView)findViewById(R.id.display_courses);
 
         select_courses.setOnClickListener(this);
         if (savedInstanceState == null) {

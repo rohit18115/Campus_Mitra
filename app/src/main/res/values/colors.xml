@@ -7,7 +7,7 @@
     <color name="Grey">#58595B</color>xx`
     <color name="LightGrey">#6D6E72</color>
     <color name="white">#FFFFFF</color>
-
+    <color name="materialgreen">#009688</color>
 
     <string-array name="colors" translatable="false">
         <item>#99cc00</item>

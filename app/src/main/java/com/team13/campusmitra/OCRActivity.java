@@ -18,9 +18,11 @@ import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.google.android.gms.vision.CameraSource;
 import com.google.android.gms.vision.Detector;
 import com.google.android.gms.vision.text.TextBlock;
@@ -31,6 +33,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
 import com.team13.campusmitra.dataholder.Room;
 import com.team13.campusmitra.firebaseassistant.FirebaseRoomHelper;
+import com.team13.campusmitra.popupmanager.PopupManager;
 
 import java.util.ArrayList;
 import java.util.StringTokenizer;
@@ -38,7 +41,7 @@ public class OCRActivity extends AppCompatActivity {
     SurfaceView cameraView;
     TextView textView;
     CameraSource cameraSource;
-
+    PopupManager popupManager;
     boolean flag = false;
     final int RequestCameraPermissionID =1001;
     ArrayList<Room> rooms;
@@ -151,6 +154,9 @@ public class OCRActivity extends AppCompatActivity {
                                 StringTokenizer tokenizer = new StringTokenizer(stringBuilder.toString()," ");
                                 String ss="";
                                 int i=0;
+                                if(popupManager!=null && !popupManager.getDialog().isShowing()){
+                                    flag = false;
+                                }
                                // boolean flag = false;
                                 while(tokenizer.hasMoreElements() && flag==false){
                                     ss = tokenizer.nextToken();
@@ -159,8 +165,9 @@ public class OCRActivity extends AppCompatActivity {
                                         textView.setText("YESSSSSS");
                                         System.out.println(r);
                                         flag=true;
-                                        showRoomDialog(r);
-                                    }
+                                        int type = r.getRoomType();
+                                        launchRoom(type,r);
+                                                                            }
                                 }
                                // textView.setText(stringBuilder.toString());
                             }
@@ -179,6 +186,49 @@ public class OCRActivity extends AppCompatActivity {
             }
         }
         return  result;
+    }
+    private void launchRoom(int r,Room room){
+        switch (r){
+            case 0: break;
+            case 1: break;
+            case 2: break;
+            case 3: break;
+            case 4: popupLab(room); break;
+            case 5: break;
+            default: Toast.makeText(this,"No Match Room found",Toast.LENGTH_LONG).show();
+        }
+    }
+    private void popupLab(Room room){
+       popupManager = new PopupManager(this);
+        popupManager.setContentView(R.layout.dialog_lab_ocr);
+        ImageView roomImage =popupManager.getDialog().findViewById(R.id.dialog_lab_ocr_labimage);
+        ImageView cancel = popupManager.getDialog().findViewById(R.id.dialog_lab_ocr_cancel);
+        cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                flag=false;
+                popupManager.dismissPopUp();
+            }
+        });
+        TextView roomNumber = popupManager.getDialog().findViewById(R.id.dialog_lab_ocr_roomnumber);
+        roomNumber.setText(room.getRoomNumber());
+
+        TextView roomType = popupManager.getDialog().findViewById(R.id.dialog_lab_ocr_roomtype);
+        roomType.setText("LAB");
+
+        TextView roombuilding = popupManager.getDialog().findViewById(R.id.dialog_lab_ocr_roombuilding);
+        roombuilding.setText(room.getRoomBuilding());
+
+        TextView systemCount = popupManager.getDialog().findViewById(R.id.dialog_lab_ocr_systemcount);
+        systemCount.setText("Total Number of Systems: "+room.getSystemCount());
+        popupManager.showPopUp();
+
+        Glide.with(this)
+                .asBitmap()
+                .load(room.getRoomImageURL())
+                .placeholder(R.drawable.ic_loading)
+                .into(roomImage);
+
     }
     private void showRoomDialog(Room room){
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
