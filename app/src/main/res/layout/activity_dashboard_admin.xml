@@ -62,10 +62,10 @@
                     android:gravity="center">
 
                     <ImageView
-                        android:src="@drawable/classroom1"
                         android:layout_width="80dp"
                         android:layout_height="80dp"
-                        />
+                        android:onClick="sendToRoom"
+                        android:src="@drawable/classroom1" />
                     <TextView
 
                         android:text="Edit Rooms"

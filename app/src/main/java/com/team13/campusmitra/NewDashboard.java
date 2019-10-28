@@ -26,8 +26,24 @@ public class NewDashboard extends AppCompatActivity {
         Intent intent = new Intent(getApplicationContext(), OCRActivity.class);
 
         startActivity(intent);
-        finish();
     }
+
+    public void send_to_recyc(View view)
+    {
+        Intent intent = new Intent(getApplicationContext(), UserListDisplayActivity.class);
+        intent.putExtra("userType",0);
+        startActivity(intent);
+        //finish();
+    }
+
+    public void send_to_recyc_pro(View view)
+    {
+        Intent intent = new Intent(getApplicationContext(), UserListDisplayActivity.class);
+        intent.putExtra("userType",1);
+        startActivity(intent);
+        //finish();
+    }
+
 
     @Override
     public void onBackPressed() {
