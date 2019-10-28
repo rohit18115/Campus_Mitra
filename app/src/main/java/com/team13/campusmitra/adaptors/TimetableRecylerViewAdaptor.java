@@ -80,8 +80,8 @@ public class TimetableRecylerViewAdaptor extends RecyclerView.Adapter<TimetableR
         //System.out.println(element.getCourseID());
         holder.courseId.setText(getCourseCode(element.getCourseID()));
         holder.courseName.setText(getCourseName(element.getCourseID()));
-        holder.fromTime.setText(element.getStartTime());
-        holder.toTime.setText(element.getEndTime());
+        holder.fromTime.setText("From: "+getTimeInAMPM(Integer.parseInt(element.getStartTime())));
+        holder.toTime.setText("Till: "+getTimeInAMPM(Integer.parseInt(element.getEndTime())));
         holder.day.setText(element.getDay());
         holder.roomNumber.setText(getRoomNumber(element.getRoomID()));
         addImage(getCourseName(element.getCourseID()), holder.imageView);
@@ -176,7 +176,7 @@ public class TimetableRecylerViewAdaptor extends RecyclerView.Adapter<TimetableR
     }
 
     private void showEditDialog(final TimeTableElement element) {
-        TimeTableElement newElement = new TimeTableElement();
+      //  TimeTableElement newElement = new TimeTableElement();
         final AlertDialog dialog;
         final AlertDialog.Builder alertDialog = new AlertDialog.Builder(activity);
         LayoutInflater inflater = activity.getLayoutInflater();
@@ -363,6 +363,7 @@ public class TimetableRecylerViewAdaptor extends RecyclerView.Adapter<TimetableR
                 FirebaseTimeTableHelper helper = new FirebaseTimeTableHelper();
                 DatabaseReference ref = helper.getReference().child(element.getTimeTableID());
                 ref.removeValue();
+                Toast.makeText(context,"Value Deleted",Toast.LENGTH_LONG).show();
 
 
             }
@@ -377,6 +378,40 @@ public class TimetableRecylerViewAdaptor extends RecyclerView.Adapter<TimetableR
         });
 
         dialogBuilder.show();
+    }
+    private String getTimeInAMPM(int time){
+        String mins = "";
+        String ampm="";
+        int min = time%100;
+        if(min<10){
+            mins = "0"+min;
+        }
+        else{
+            mins = ""+min;
+        }
+        int hour = time/100;
+        String hours = "";
+        if(hour==0){
+            hours="12";
+            ampm="am";
+
+        }
+        else if(hour>0 && hour<12){
+            hours = ""+hour;
+            ampm = "am";
+        }
+        else if (hour==12){
+            hours="12";
+            ampm="pm";
+
+
+        }
+        else{
+            hour = hour%12;
+            hours=""+hour;
+            ampm="pm";
+        }
+        return hours+":"+mins+ampm;
     }
 }
 

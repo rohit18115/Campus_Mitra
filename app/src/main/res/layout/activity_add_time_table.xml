@@ -48,7 +48,7 @@
         android:gravity="right">
     <Button
         android:layout_width="wrap_content"
-
+        android:id="@+id/add_tt_loadTT"
         android:layout_height="wrap_content"
         android:background="@color/transparent"
         android:text="@string/load_from_file">
@@ -144,6 +144,7 @@
          android:gravity="right"
          >
          <CheckBox
+             android:textColor="@color/colorPrimaryDark"
              android:layout_width="wrap_content"
              android:layout_height="wrap_content"
              android:text="Same Time"

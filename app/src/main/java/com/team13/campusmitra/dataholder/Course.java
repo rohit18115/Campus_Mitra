@@ -8,6 +8,24 @@ public class Course implements Serializable {
     private String courseName;
     private String coursePrequisite;
     private String offering;
+    private String facultyEmail;
+
+    public String getFacultyEmail() {
+        return facultyEmail;
+    }
+
+    public void setFacultyEmail(String facultyEmail) {
+        this.facultyEmail = facultyEmail;
+    }
+
+    public Course(String courseID, String courseCode, String courseName, String coursePrequisite, String offering, String facultyEmail) {
+        this.courseID = courseID;
+        this.courseCode = courseCode;
+        this.courseName = courseName;
+        this.coursePrequisite = coursePrequisite;
+        this.offering = offering;
+        this.facultyEmail = facultyEmail;
+    }
 
     public Course(String courseID, String courseCode, String courseName) {
         this.courseID = courseID;

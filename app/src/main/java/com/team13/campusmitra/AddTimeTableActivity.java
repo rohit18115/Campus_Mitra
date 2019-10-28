@@ -1,20 +1,25 @@
 package com.team13.campusmitra;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.Activity;
 import android.app.TimePickerDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.icu.util.Calendar;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.view.animation.AnimationUtils;
 import android.view.animation.LayoutAnimationController;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.ProgressBar;
 import android.widget.SearchView;
 import android.widget.Spinner;
@@ -28,6 +33,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.team13.campusmitra.adaptors.TimetableRecylerViewAdaptor;
+import com.team13.campusmitra.csvhandler.CSVHelper;
 import com.team13.campusmitra.dataholder.Course;
 import com.team13.campusmitra.dataholder.Room;
 import com.team13.campusmitra.dataholder.TimeTableElement;
@@ -35,8 +41,11 @@ import com.team13.campusmitra.firebaseassistant.FirebaseCoursesHelper;
 import com.team13.campusmitra.firebaseassistant.FirebaseRoomHelper;
 import com.team13.campusmitra.firebaseassistant.FirebaseTimeTableHelper;
 
+import org.apache.commons.beanutils.IntrospectionContext;
+
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 public class AddTimeTableActivity extends AppCompatActivity {
 
@@ -49,9 +58,11 @@ public class AddTimeTableActivity extends AppCompatActivity {
     Spinner daySpinner;
     Spinner courseSpinner;
     Spinner roomSpinner;
+    CheckBox checkBox;
     Button addButton;
     TimeTableElement bufferElement;
     SearchView searchView;
+    Button loadTTbtn;
     ProgressBar progressBar1,progressBar2;
     TimetableRecylerViewAdaptor adaptor;
     CardView cardView;
@@ -74,7 +85,15 @@ public class AddTimeTableActivity extends AppCompatActivity {
 
 
     }
+    private void loadAllDataToFirebase(List<TimeTableElement> timeTable){
+        for(TimeTableElement element:timeTable){
 
+            FirebaseTimeTableHelper helper = new FirebaseTimeTableHelper();
+
+            helper.addTimeTable(AddTimeTableActivity.this,element);
+        }
+
+    }
     private void initComponents(){
         startTimeTv  =findViewById(R.id.tt_add_startTime);
         endTimeTv = findViewById(R.id.tt_add_end_time);
@@ -82,8 +101,10 @@ public class AddTimeTableActivity extends AppCompatActivity {
         courseSpinner = findViewById(R.id.add_tt_course_spinner);
         roomSpinner = findViewById(R.id.tt_add_room);
         addButton = findViewById(R.id.add_tt_btn);
+        loadTTbtn = findViewById(R.id.add_tt_loadTT);
         cardView = findViewById(R.id.tt_add_cardview);
         searchView = findViewById(R.id.tt_add_sv);
+        checkBox = findViewById(R.id.tt_add_checkBox);
         progressBar1 = findViewById(R.id.tt_add_progress1);
         progressBar2 = findViewById(R.id.tt_add_progress2);
         progressBar1.setVisibility(View.VISIBLE);
@@ -117,10 +138,20 @@ public class AddTimeTableActivity extends AppCompatActivity {
                         return;
                     }
                     FirebaseTimeTableHelper helper = new FirebaseTimeTableHelper();
-
+                    enTime = getTimeConverted(enTime);
+                    stTime = getTimeConverted(stTime);
                     bufferElement = new TimeTableElement(courseID,stTime,enTime,roomID,day);
                     helper.addTimeTable(AddTimeTableActivity.this,bufferElement);
 
+            }
+        });
+        loadTTbtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
+                intent.addCategory(Intent.CATEGORY_OPENABLE);
+                intent.setType("text/*");
+                startActivityForResult(intent,101);
             }
         });
 
@@ -134,6 +165,16 @@ public class AddTimeTableActivity extends AppCompatActivity {
             public boolean onQueryTextChange(String s) {
                 filterResult(s);
                 return false;
+            }
+        });
+        checkBox.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view)
+            {
+                    startTimeTv.setEnabled(!checkBox.isChecked());
+                    endTimeTv.setEnabled(!checkBox.isChecked());
+                    roomSpinner.setEnabled(!checkBox.isChecked());
+
             }
         });
         searchView.setOnCloseListener(new SearchView.OnCloseListener() {
@@ -153,6 +194,14 @@ public class AddTimeTableActivity extends AppCompatActivity {
         loadDays();
         loadData();
 
+    }
+    private String getTimeConverted(String time){
+        String [] times = time.split(":");
+        int hour = Integer.parseInt(times[0]);
+        hour = hour*100;
+        int min = Integer.parseInt(times[1]);
+        min = hour+min;
+        return ""+min;
     }
     private void filterResult(String text){
         ArrayList<TimeTableElement> fiteredTT = new ArrayList<>();
@@ -213,6 +262,21 @@ public class AddTimeTableActivity extends AppCompatActivity {
         super.onStart();
 
     }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(resultCode== Activity.RESULT_OK){
+            if (requestCode==101){
+                Uri uri = data.getData();
+                CSVHelper csvHelper = new CSVHelper(uri.toString());
+                List<TimeTableElement> tt = csvHelper.readTimeTable(courses,rooms);
+                loadAllDataToFirebase(tt);
+
+            }
+        }
+    }
+
     private void loadData(){
         rooms = new ArrayList<>();
         courses = new ArrayList<>();
