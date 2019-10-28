@@ -2,18 +2,12 @@ package com.team13.campusmitra;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.coordinatorlayout.widget.CoordinatorLayout;
 
 import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
-import android.opengl.Visibility;
 import android.os.Bundle;
 import android.os.Handler;
-import android.text.SpannableString;
-import android.text.Spanned;
-import android.text.method.LinkMovementMethod;
-import android.text.style.ClickableSpan;
 import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -21,14 +15,11 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.snackbar.Snackbar;
-import com.google.android.material.textfield.TextInputEditText;
-import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.FirebaseTooManyRequestsException;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
@@ -44,72 +35,108 @@ import com.team13.campusmitra.firebaseassistant.FirebaseUserHelper;
 
 import java.util.ArrayList;
 
-public class SignIn extends AppCompatActivity {
-    private FirebaseAuth mAuth;
-    private Button btSignIn;
-    private TextInputEditText etEmail, etPswd;
-    private String TAG = "Sign In Activity";
-    private String email, pswd;
-    private ProgressBar progressBar;
-    CoordinatorLayout coordinatorLayout;
+public class SignInSplash extends AppCompatActivity {
 
+    final static  String TAG="LOGIN_FAILURE";
+    RelativeLayout rellay1, rellay2;
+    private FirebaseAuth mAuth;
+    private ProgressBar progressBar;
     ArrayList<EmailHolder> emailHolders ;
 
-
-    /*RelativeLayout rellay1, rellay2;
+    String email,pswd;
+    Button signupbtn,forgotPasswordbtn;
+    RelativeLayout coordinatorLayout;
+    EditText etEmail,etPassword;
+    Button loginbtn;
 
     Handler handler = new Handler();
     Runnable runnable = new Runnable() {
         @Override
         public void run() {
-            rellay1.setVisibility(View.VISIBLE);
-            rellay2.setVisibility(View.VISIBLE);
+            launchActivity();
         }
-    };*/
-
-
+    };
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //setContentView(R.layout.activity_sign_extra);
-        setContentView(R.layout.activity_sign_in);
-        getSupportActionBar().setElevation(0);
+        setContentView(R.layout.activity_sign_in_splash);
+        emailHolders = new ArrayList<>();
+        loadFacultyEmail();
+        progressBar = findViewById(R.id.splash_progressbar);
+        progressBar.setVisibility(View.VISIBLE);
+        coordinatorLayout = findViewById(R.id.rl1);
+        rellay1 = (RelativeLayout) findViewById(R.id.rellay1);
+        rellay2 = (RelativeLayout) findViewById(R.id.rellay2);
+        initComponents();
+        handler.postDelayed(runnable, 2000); //2000 is the timeout for the splash
 
-        //rellay1 = (RelativeLayout) findViewById(R.id.rellay1);
-        //rellay2 = (RelativeLayout) findViewById(R.id.rellay2);
-
-        //handler.postDelayed(runnable, 2000); //2000 is the timeout for the splash
-
-        mAuth = FirebaseAuth.getInstance();
-
-        //Initializing views
-        TextView tvSignUp = findViewById(R.id.tv_sign_up);
-        TextView tvForgotPswd = findViewById(R.id.tv_forgot_password);
-        etEmail = findViewById(R.id.et_email);
-        etPswd = findViewById(R.id.et_pswd);
-        btSignIn = findViewById(R.id.btn_sign_in);
-        coordinatorLayout = findViewById(R.id.coordinator_layout);
-        progressBar = findViewById(R.id.progressbar_signin);
-        emailHolders =new ArrayList<>();
-        //highlighting and creating link to the "sign up" text
-        SpannableString spannableString = new SpannableString("No account? Sign Up here");
-        spannableString.setSpan(new ClickableSpan() {
+    }
+   private void initComponents(){
+        etEmail = findViewById(R.id.et_signin_email);
+        etPassword = findViewById(R.id.et_signin_pswd);
+        loginbtn = findViewById(R.id.btn_signin);
+        getSupportActionBar().hide();
+        loginbtn.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(@NonNull View view) {
-                Intent intent = new Intent(SignIn.this, SignUp.class);
+            public void onClick(View view) {
+                try {
+                    email = etEmail.getText().toString().trim();
+                    pswd = etPassword.getText().toString().trim();
+                } catch (NullPointerException e) {
+                    Log.d(TAG, "Null pointer exception: ");
+                }
+                if (email.isEmpty()) {
+                    etEmail.setError("email cannot be empty");
+                } else if (!email.contains("@iiitd.ac.in")) {
+                    etEmail.setError("Enter IIITD email only", null);
+                    etEmail.requestFocus();
+                 //   hideKeyBoard();
+                } else if (pswd.isEmpty()) {
+                    etPassword.setError("Password cannot be empty", null);
+                    etPassword.requestFocus();
+                } else {
+                    if (!CheckInternet(getApplicationContext())) {
+                        Snackbar snackbar = Snackbar.make(coordinatorLayout, "No internet Connection", Snackbar.LENGTH_SHORT);
+                        snackbar.show();
+                    //    hideKeyBoard();
+                    } else {
+                        //hideKeyBoard();
+                        loginUser(email, pswd);
+
+                    }
+
+                }
+
+            }
+
+        });
+       etEmail.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+           @Override
+           public void onFocusChange(View view, boolean b) {
+               if (hasWindowFocus()) {
+                   etEmail.setError(null);
+               }
+           }
+       });
+
+        signupbtn = findViewById(R.id.tv_sign_up);
+        forgotPasswordbtn = findViewById(R.id.tv_forgot_password);
+
+        signupbtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Intent intent = new Intent(SignInSplash.this, SignUp.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent);
 
+
             }
-        }, 12, 19, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        });
 
-        tvSignUp.setText(spannableString);
-        tvSignUp.setMovementMethod(LinkMovementMethod.getInstance());
-
-        SpannableString spannableStringForgotPswd = new SpannableString("Forgot Password");
-        spannableStringForgotPswd.setSpan(new ClickableSpan() {
+        forgotPasswordbtn.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(@NonNull View view) {
+            public void onClick(View view) {
                 String forgotpswdemail = etEmail.getText().toString().trim();
                 hideKeyBoard();
                 if (forgotpswdemail.isEmpty()) {
@@ -121,64 +148,24 @@ public class SignIn extends AppCompatActivity {
                 } else {
                     forgotPswd(forgotpswdemail);
                 }
-            }
-        }, 0, 15, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-
-        tvForgotPswd.setText(spannableStringForgotPswd);
-        tvForgotPswd.setMovementMethod(LinkMovementMethod.getInstance());
-
-        etEmail.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View view, boolean b) {
-                if (hasWindowFocus()) {
-                    etEmail.setError(null);
-                }
-            }
-        });
-        //signIn button onclick listener
-        btSignIn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                try {
-                    email = etEmail.getText().toString().trim();
-                    pswd = etPswd.getText().toString().trim();
-                } catch (NullPointerException e) {
-                    Log.d(TAG, "Null pointer exception: ");
-                }
-                if (email.isEmpty()) {
-                    etEmail.setError("email cannot be empty");
-                } else if (!email.contains("@iiitd.ac.in")) {
-                    etEmail.setError("Enter IIITD email only", null);
-                    etEmail.requestFocus();
-                    hideKeyBoard();
-                } else if (pswd.isEmpty()) {
-                    etPswd.setError("Password cannot be empty", null);
-                    etPswd.requestFocus();
-                } else {
-                    if (!CheckInternet(getApplicationContext())) {
-                        Snackbar snackbar = Snackbar.make(coordinatorLayout, "No internet Connection", Snackbar.LENGTH_SHORT);
-                        snackbar.show();
-                        hideKeyBoard();
-                    } else {
-                        loginUser(email, pswd);
-                       // hideKeyBoard();
-                    }
-
-                }
 
             }
         });
 
+
+
+    }
+    public void hideKeyBoard() {
+        InputMethodManager inputManager = (InputMethodManager)
+                getSystemService(Context.INPUT_METHOD_SERVICE);
+
+        if (inputManager != null) {
+            inputManager.hideSoftInputFromWindow(SignInSplash.this.getCurrentFocus().getWindowToken(),
+                    InputMethodManager.HIDE_NOT_ALWAYS);
+        }
     }
 
-    @Override
-    public void onStart() {
-        super.onStart();
-        // Check if user is signed in (non-null) and update UI accordingly.
-        FirebaseUser currentUser = mAuth.getCurrentUser();
-        //updateUI(currentUser);
-        loadFacultyEmail();
-    }
+
     private void loadFacultyEmail(){
         FirebaseApprovFacultyHelper facultyHelper = new FirebaseApprovFacultyHelper();
         facultyHelper.getReference().addValueEventListener(new ValueEventListener() {
@@ -242,6 +229,108 @@ public class SignIn extends AppCompatActivity {
                 });
     }
 
+    private void launchActivity(){
+        mAuth = FirebaseAuth.getInstance();
+        final FirebaseUser currentUser = mAuth.getCurrentUser();
+
+        if(currentUser != null && currentUser.isEmailVerified()){
+
+            final FirebaseUser user= currentUser;
+//=============================================================================================================
+            //startActivity(new Intent(SplashActivity.this, DashboardAdmin.class));
+            FirebaseUserHelper helper = new FirebaseUserHelper();
+            helper.getReference().child(user.getUid()).addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    User myuser = dataSnapshot.getValue(User.class);
+                    if(myuser==null){
+                        Intent intent = new Intent(getApplicationContext(), UserProfile.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        startActivity(intent);
+
+                    }
+                    else if(myuser.getProfileCompleteCount()==2){
+                        if(myuser.getUserType()==0){
+                            Intent intent = new Intent(getApplicationContext(), StudentProfile.class);
+                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                            startActivity(intent);
+
+                        }
+                        else{
+                            String em = user.getEmail();
+                            boolean flag = false;
+                            for(EmailHolder h :emailHolders){
+                                if(em.equals(h.getEmail())){
+                                    flag=true;
+                                    break;
+                                }
+                            }
+                            if(flag) {
+                                Intent intent = new Intent(getApplicationContext(), FacultyProfile.class);
+                                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                startActivity(intent);
+                            }
+                            else{
+                                Toast.makeText(getApplicationContext(),"You are not Approved as faculty contact admin",Toast.LENGTH_LONG).show();
+                            }
+
+                        }
+                    }
+                    else{
+                        if(myuser.getUserType()==0){
+                            Intent intent = new Intent(getApplicationContext(),NewDashboard.class);
+                            intent.putExtra("MYKEY",myuser);
+                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                            startActivity(intent);
+                        }
+                        else {
+                            Intent intent = new Intent(getApplicationContext(), DashboardProfessor.class);
+                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                            startActivity(intent);
+                        }
+                        Toast.makeText(getApplicationContext(),"Nothing to login",Toast.LENGTH_LONG).show();
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                }
+            });
+//=============================================================================================================
+        }else{
+
+            progressBar.setVisibility(View.GONE);
+            rellay1.setVisibility(View.VISIBLE);
+            rellay2.setVisibility(View.VISIBLE);
+        }
+    }
+
+
+    void verifyEmail(final FirebaseUser user) {
+        progressBar.setIndeterminate(true);
+        progressBar.setVisibility(View.VISIBLE);
+        user.sendEmailVerification().addOnCompleteListener(this, new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                if (task.isSuccessful()) {
+                    progressBar.setVisibility(View.GONE);
+                    Toast.makeText(getApplicationContext(),
+                            "Verification email sent to " + user.getEmail(),
+                            Toast.LENGTH_SHORT).show();
+
+                } else {
+                    progressBar.setVisibility(View.GONE);
+                    Log.e(TAG, "sendEmailVerification", task.getException());
+                    Toast.makeText(getApplicationContext(),
+                            "Failed to send verification email.",
+                            Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+    }
+
+
     void updateUI(final FirebaseUser user) {
         if (user != null) {
             if (user.isEmailVerified()) {
@@ -252,14 +341,14 @@ public class SignIn extends AppCompatActivity {
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                         User myuser = dataSnapshot.getValue(User.class);
                         if(myuser==null){
-                            Intent intent = new Intent(SignIn.this, UserProfile.class);
+                            Intent intent = new Intent(SignInSplash.this, UserProfile.class);
                             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                             startActivity(intent);
 
                         }
                         else if(myuser.getProfileCompleteCount()==2){
                             if(myuser.getUserType()==0){
-                                Intent intent = new Intent(SignIn.this, StudentProfile.class);
+                                Intent intent = new Intent(SignInSplash.this, StudentProfile.class);
                                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                                 startActivity(intent);
 
@@ -274,7 +363,7 @@ public class SignIn extends AppCompatActivity {
                                     }
                                 }
                                 if(flag) {
-                                    Intent intent = new Intent(SignIn.this, FacultyProfile.class);
+                                    Intent intent = new Intent(SignInSplash.this, FacultyProfile.class);
                                     intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                                     startActivity(intent);
                                 }
@@ -286,13 +375,13 @@ public class SignIn extends AppCompatActivity {
                         }
                         else{
                             if(myuser.getUserType()==0){
-                                Intent intent = new Intent(SignIn.this,NewDashboard.class);
+                                Intent intent = new Intent(SignInSplash.this,NewDashboard.class);
                                 intent.putExtra("MYKEY",myuser);
                                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                                 startActivity(intent);
                             }
                             else {
-                                Intent intent = new Intent(SignIn.this, DashboardProfessor.class);
+                                Intent intent = new Intent(SignInSplash.this, DashboardProfessor.class);
                                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                                 startActivity(intent);
                             }
@@ -318,46 +407,7 @@ public class SignIn extends AppCompatActivity {
         }
     }
 
-    void verifyEmail(final FirebaseUser user) {
-        progressBar.setIndeterminate(true);
-        progressBar.setVisibility(View.VISIBLE);
-        user.sendEmailVerification().addOnCompleteListener(this, new OnCompleteListener<Void>() {
-            @Override
-            public void onComplete(@NonNull Task<Void> task) {
-                if (task.isSuccessful()) {
-                    progressBar.setVisibility(View.GONE);
-                    Toast.makeText(SignIn.this,
-                            "Verification email sent to " + user.getEmail(),
-                            Toast.LENGTH_SHORT).show();
 
-                } else {
-                    progressBar.setVisibility(View.GONE);
-                    Log.e(TAG, "sendEmailVerification", task.getException());
-                    Toast.makeText(SignIn.this,
-                            "Failed to send verification email.",
-                            Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
-    }
-
-    public static boolean CheckInternet(Context context) {
-        ConnectivityManager connec = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
-        android.net.NetworkInfo wifi = connec.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
-        android.net.NetworkInfo mobile = connec.getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
-
-        return wifi.isConnected() || mobile.isConnected();
-    }
-
-    public void hideKeyBoard() {
-        InputMethodManager inputManager = (InputMethodManager)
-                getSystemService(Context.INPUT_METHOD_SERVICE);
-
-        if (inputManager != null) {
-            inputManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(),
-                    InputMethodManager.HIDE_NOT_ALWAYS);
-        }
-    }
 
     void forgotPswd(final String email) {
         mAuth.sendPasswordResetEmail(email).addOnCompleteListener(new OnCompleteListener<Void>() {
@@ -372,4 +422,13 @@ public class SignIn extends AppCompatActivity {
             }
         });
     }
+    public static boolean CheckInternet(Context context) {
+        ConnectivityManager connec = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        android.net.NetworkInfo wifi = connec.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
+        android.net.NetworkInfo mobile = connec.getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
+
+        return wifi.isConnected() || mobile.isConnected();
+    }
+
+
 }

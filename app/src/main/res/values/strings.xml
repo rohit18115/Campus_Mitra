@@ -59,5 +59,6 @@
     <string name="menu_share">Share</string>
     <string name="menu_send">Send</string>
     <string name="room_number_here">Room Number here</string>
+    <string name="login_now">Login Now</string>
 
 </resources>
