@@ -40,7 +40,7 @@ public class SignInSplash extends AppCompatActivity {
     final static  String TAG="LOGIN_FAILURE";
     RelativeLayout rellay1, rellay2;
     private FirebaseAuth mAuth;
-    private ProgressBar progressBar;
+    //private ProgressBar progressBar;
     ArrayList<EmailHolder> emailHolders ;
 
     String email,pswd;
@@ -62,8 +62,8 @@ public class SignInSplash extends AppCompatActivity {
         setContentView(R.layout.activity_sign_in_splash);
         emailHolders = new ArrayList<>();
         loadFacultyEmail();
-        progressBar = findViewById(R.id.splash_progressbar);
-        progressBar.setVisibility(View.VISIBLE);
+        //progressBar = findViewById(R.id.splash_progressbar);
+        //progressBar.setVisibility(View.VISIBLE);
         coordinatorLayout = findViewById(R.id.rl1);
         rellay1 = (RelativeLayout) findViewById(R.id.rellay1);
         rellay2 = (RelativeLayout) findViewById(R.id.rellay2);
@@ -192,8 +192,8 @@ public class SignInSplash extends AppCompatActivity {
             finish();
             return;
         }
-        progressBar.setIndeterminate(true);
-        progressBar.setVisibility(View.VISIBLE);
+        //progressBar.setIndeterminate(true);
+        //progressBar.setVisibility(View.VISIBLE);
         mAuth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
@@ -202,17 +202,17 @@ public class SignInSplash extends AppCompatActivity {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "signInWithEmail:success");
                             FirebaseUser user = mAuth.getCurrentUser();
-                            progressBar.setVisibility(View.GONE);
+                            //progressBar.setVisibility(View.GONE);
                             updateUI(user);
                         } else {
                             try {
                                 throw task.getException();
                             } catch (FirebaseAuthInvalidCredentialsException e) {
-                                progressBar.setVisibility(View.GONE);
+                                //progressBar.setVisibility(View.GONE);
                                 Snackbar snackbar = Snackbar.make(coordinatorLayout, "email or password incorrect", Snackbar.LENGTH_SHORT);
                                 snackbar.show();
                             } catch (FirebaseTooManyRequestsException e) {
-                                progressBar.setVisibility(View.GONE);
+                                //progressBar.setVisibility(View.GONE);
                                 Snackbar snackbar = Snackbar.make(coordinatorLayout, "too many invalid login Attempts please try later", Snackbar.LENGTH_SHORT);
                                 snackbar.show();
                             } catch (Exception e) {
@@ -220,7 +220,7 @@ public class SignInSplash extends AppCompatActivity {
                             }
                             // If sign in fails, display a message to the user.
                             Log.w(TAG, "signInWithEmail:failure", task.getException());
-                            progressBar.setVisibility(View.GONE);
+                            //progressBar.setVisibility(View.GONE);
                             updateUI(null);
                         }
 
@@ -300,7 +300,7 @@ public class SignInSplash extends AppCompatActivity {
 //=============================================================================================================
         }else{
 
-            progressBar.setVisibility(View.GONE);
+            //progressBar.setVisibility(View.GONE);
             rellay1.setVisibility(View.VISIBLE);
             rellay2.setVisibility(View.VISIBLE);
         }
@@ -308,19 +308,19 @@ public class SignInSplash extends AppCompatActivity {
 
 
     void verifyEmail(final FirebaseUser user) {
-        progressBar.setIndeterminate(true);
-        progressBar.setVisibility(View.VISIBLE);
+        //progressBar.setIndeterminate(true);
+        //progressBar.setVisibility(View.VISIBLE);
         user.sendEmailVerification().addOnCompleteListener(this, new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 if (task.isSuccessful()) {
-                    progressBar.setVisibility(View.GONE);
+                    //progressBar.setVisibility(View.GONE);
                     Toast.makeText(getApplicationContext(),
                             "Verification email sent to " + user.getEmail(),
                             Toast.LENGTH_SHORT).show();
 
                 } else {
-                    progressBar.setVisibility(View.GONE);
+                    //progressBar.setVisibility(View.GONE);
                     Log.e(TAG, "sendEmailVerification", task.getException());
                     Toast.makeText(getApplicationContext(),
                             "Failed to send verification email.",

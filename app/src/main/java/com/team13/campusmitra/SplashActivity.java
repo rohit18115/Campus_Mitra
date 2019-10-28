@@ -41,8 +41,9 @@ public class SplashActivity extends AppCompatActivity {
                 try {
                     if(currentUser != null && currentUser.isEmailVerified()){
 
+
                         final FirebaseUser user= currentUser;
-//=============================================================================================================
+
                         //startActivity(new Intent(SplashActivity.this, DashboardAdmin.class));
                         FirebaseUserHelper helper = new FirebaseUserHelper();
                         helper.getReference().child(user.getUid()).addValueEventListener(new ValueEventListener() {
@@ -101,14 +102,17 @@ public class SplashActivity extends AppCompatActivity {
                             @Override
                             public void onCancelled(@NonNull DatabaseError databaseError) {
 
+
                             }
                         });
                         sleep(5000);
-//=============================================================================================================
+
                     }else{
                         sleep(1000);
 
+
                         startActivity(new Intent(SplashActivity.this, SignIn.class));
+
                     }
                 } catch (InterruptedException e) {
                     e.printStackTrace();
