@@ -55,12 +55,32 @@ public class CSVHelper {
         }
         return null;
     }
+    public List<Course> readCourses(){
+        List<Course> courses = new ArrayList<>();
+        String [] record =null;
+        try{
+            // Sno , Course Code, Course Name ,Course Prereq, Course Offering, Course Faculty Email
+            while((record=csvReader.readNext())!=null){
+                Course course = new Course();
+                course.setCourseCode(record[1]);
+                course.setCourseName(record[2]);
+                course.setCoursePrequisite(record[3]);
+                course.setOffering(record[4]);
+                course.setFacultyEmail(record[5]);
+        }
+        }
+        catch (Exception e){
+            e.printStackTrace();
+
+        }
+         return courses;
+    }
     public List<TimeTableElement> readTimeTable(ArrayList<Course> courses, ArrayList<Room> rooms){
         List<TimeTableElement> timeTable = new ArrayList<>();
         courseNotSet = new ArrayList<>();
         String[] record = null;
         try {
-
+        // Sno, CourseCode, start Time, end Time, Day, Room Number
 
         while ((record = csvReader.readNext()) != null) {
                    boolean writeFlagc= false;
