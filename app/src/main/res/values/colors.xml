@@ -1,13 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#0097a7</color>
-    <color name="colorPrimaryDark">#006978</color>
-    <color name="colorAccent">#56c8d8</color>
+    <color name="colorPrimary">#23A7DB</color>
+    <color name="colorPrimaryDark">#23A7DB</color>
+    <color name="colorAccent">#FFFFFF</color>
+
+    <color name="transparent">#00000000</color>
+    <color name="gradStart">#19AA8B</color>
+    <color name="gradStop">#23A7DB</color>
     <color name="Green">#3FAEA8</color>
     <color name="Grey">#58595B</color>xx`
     <color name="LightGrey">#6D6E72</color>
     <color name="white">#FFFFFF</color>
-
+    <color name="materialgreen">#009688</color>
 
     <string-array name="colors" translatable="false">
         <item>#99cc00</item>

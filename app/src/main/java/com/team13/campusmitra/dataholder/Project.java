@@ -5,10 +5,12 @@ import java.util.ArrayList;
 
 public class Project implements Serializable {
     private String projectName;
+    private String projectID;
     private String projectDescription;
     private ArrayList<String> members;
     private String projectImageURL;
     private String projectVideoURL;
+    private boolean expanded;
 
     public Project(String projectName, String projectDescription) {
         this.projectName = projectName;
@@ -16,6 +18,16 @@ public class Project implements Serializable {
         members = new ArrayList<>();
         projectImageURL = null;
         projectVideoURL = null;
+    }
+    public Project(){
+
+    }
+    public String getProjectID() {
+        return projectID;
+    }
+
+    public void setProjectID(String projectID) {
+        this.projectID = projectID;
     }
     public void addProjectMember(String memberName){
         members.add(memberName);
@@ -62,5 +74,11 @@ public class Project implements Serializable {
 
     public void setProjectVideoURL(String projectVideoURL) {
         this.projectVideoURL = projectVideoURL;
+    }
+    public boolean isExpanded() {
+        return expanded;
+    }
+    public void setExpanded(boolean expanded) {
+        this.expanded = expanded;
     }
 }

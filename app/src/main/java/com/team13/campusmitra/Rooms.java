@@ -58,6 +58,8 @@ public class Rooms extends AppCompatActivity {
     EditText roomNotes;
     EditText labName;
     EditText systemCount;
+    boolean getURl=false;
+    Uri ur = null;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -92,6 +94,8 @@ public class Rooms extends AppCompatActivity {
                 Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), uriRoomImage);
                 imageView.setImageBitmap(bitmap);
 
+                uploadImageToFirebase();
+
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -100,7 +104,7 @@ public class Rooms extends AppCompatActivity {
 
     private void uploadImageToFirebase() {
         final StorageReference roomImageREf = FirebaseStorage.getInstance().getReference("roomImageREf/" + selectedValue + "/"+RoomNumber+"/Room.jpg");
-
+    getURl = true;
         if (uriRoomImage != null) {
             progressBar.setVisibility(View.VISIBLE);
             roomImageREf.putFile(uriRoomImage).continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
@@ -116,6 +120,8 @@ public class Rooms extends AppCompatActivity {
                 public void onComplete(@NonNull Task<Uri> task) {
                     if(task.isSuccessful()){
                         Uri uri = task.getResult();
+                        ur = uri;
+                        getURl=false;
                         Log.d("URL", "onComplete: " + uri.toString());
                     }
                 }
@@ -169,6 +175,7 @@ public class Rooms extends AppCompatActivity {
         rooms_Done.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if(getURl==false){
                 if(RoomNumber.getText().toString().isEmpty()||roomBuilding.getText().toString().isEmpty()||room_type_spinner.getSelectedItem().toString().isEmpty()||roomDescription.getText().toString().isEmpty()||capacity.getText().toString().isEmpty()) {
                     RoomNumber.setError("Room Number empty");
                     roomBuilding.setError("Room Building empty ");
@@ -176,13 +183,12 @@ public class Rooms extends AppCompatActivity {
 
                 }
                 else{
-                    uploadImageToFirebase();
                     if(room_type_spinner.getSelectedItemPosition()==0||room_type_spinner.getSelectedItemPosition()==1||room_type_spinner.getSelectedItemPosition()==2) {
                         Room room = new Room();
                         room.setRoomNumber(RoomNumber.getText().toString());
                         room.setRoomBuilding(roomBuilding.getText().toString());
                         room.setRoomType(room_type_spinner.getSelectedItemPosition());
-                        room.setRoomImageURL(uriRoomImage.toString());
+                        room.setRoomImageURL(ur.toString());
                         room.setRoomDescription(roomDescription.getText().toString());
                         room.setCapacity(Integer.parseInt(capacity.getText().toString()));
                         FirebaseRoomHelper helper = new FirebaseRoomHelper();
@@ -193,7 +199,7 @@ public class Rooms extends AppCompatActivity {
                         room.setRoomNumber(RoomNumber.getText().toString());
                         room.setRoomBuilding(roomBuilding.getText().toString());
                         room.setRoomType(room_type_spinner.getSelectedItemPosition());
-                        room.setRoomImageURL(uriRoomImage.toString());
+                        room.setRoomImageURL(ur.toString());
                         room.setRoomDescription(roomDescription.getText().toString());
                         room.setCapacity(Integer.parseInt(capacity.getText().toString()));
                         FirebaseRoomHelper helper = new FirebaseRoomHelper();
@@ -206,7 +212,7 @@ public class Rooms extends AppCompatActivity {
                         room.setRoomNumber(RoomNumber.getText().toString());
                         room.setRoomBuilding(roomBuilding.getText().toString());
                         room.setRoomType(room_type_spinner.getSelectedItemPosition());
-                        room.setRoomImageURL(uriRoomImage.toString());
+                        room.setRoomImageURL(ur.toString());
                         room.setRoomDescription(roomDescription.getText().toString());
                         room.setCapacity(Integer.parseInt(capacity.getText().toString()));
                         room.setLabName(labName.getText().toString());
@@ -219,7 +225,7 @@ public class Rooms extends AppCompatActivity {
 
 
 
-            }
+            }}
         });
 
     }

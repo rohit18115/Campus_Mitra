@@ -39,7 +39,7 @@
             android:textSize="20sp"
             android:paddingLeft="16dp"
             android:text="Project name" />
-        <ImageView
+        <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/push_icon"
             android:layout_width="20dp"
             android:layout_height="20dp"
@@ -48,10 +48,10 @@
             android:paddingRight="2dp"
             android:paddingBottom="2dp"
             android:layout_marginRight="15dp"
-            android:background="@drawable/image_border"
             android:layout_gravity="center"
-            android:src="@drawable/push_down"
-            />
+            android:src="@drawable/push_down">
+        </de.hdodenhof.circleimageview.CircleImageView>
+
     </LinearLayout>
     <LinearLayout
         android:id="@+id/sub_item"

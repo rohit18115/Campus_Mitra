@@ -1,6 +1,7 @@
 package com.team13.campusmitra.adaptors;
 
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,6 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.team13.campusmitra.R;
+import com.team13.campusmitra.StudentExternalDisplay;
 import com.team13.campusmitra.dataholder.Faculty;
 import com.team13.campusmitra.dataholder.Student;
 import com.team13.campusmitra.dataholder.User;
@@ -24,6 +26,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
+
 
 public class StudentListDisplayAdaptor extends RecyclerView.Adapter<StudentListDisplayAdaptor.ViewHolder> {
     private static final String TAG = "LabsRecyclerViewAdaptor";
@@ -52,14 +55,14 @@ public class StudentListDisplayAdaptor extends RecyclerView.Adapter<StudentListD
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Log.d(TAG, "onBindViewHolder: called");
         final User user = items.get(position);
-        final Student student = students.get(position);
+        //final Student student = students.get(position);
         Glide.with(mContext)
                 .asBitmap()
                 .load(user.getImageUrl())
                 .placeholder(R.drawable.ic_loading)
                 .into(holder.image);
         holder.tv1.setText(user.getUserFirstName() + " " + user.getUserLastName());
-        holder.tv2.setText(student.getDepartment());
+        holder.tv2.setText("Departments");
         holder.tv3.setText(user.getUserEmail());
         holder.layout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -68,6 +71,9 @@ public class StudentListDisplayAdaptor extends RecyclerView.Adapter<StudentListD
                 if (R.id.sdl_layout == view.getId()) {
                     Toast toast = Toast.makeText(mContext, "Opening Student Profile", Toast.LENGTH_SHORT);
                     toast.show();
+                    Intent newIntent = new Intent(mContext, StudentExternalDisplay.class);
+                    newIntent.putExtra("UserID",user.getUserId());
+                    mContext.startActivity(newIntent);
                 }
             }
         });

@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:layout_marginLeft="20dp"
+    android:layout_marginRight="20dp"
+    >
+
+    <ImageView
+        android:id="@+id/lab_iv1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:src="@drawable/lab_sample"
+        android:paddingBottom="10dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:paddingTop="10dp" />
+    <TextView
+        android:id="@+id/lab_et1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="22sp"
+        android:gravity="center"
+        android:text="Lab Number - 404"
+        android:paddingBottom="8dp"
+        android:paddingTop ="8dp"
+        android:fontFamily="sans-serif"
+        android:textStyle="bold"
+        android:textColor="#000000"/>
+    <View
+        android:id="@+id/item_divider1"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginBottom="7dp"
+        android:background="@color/colorPrimaryDark" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:id = "@+id/sub1"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingBottom="20dp"
+        android:paddingTop="20dp">
+        <TextView
+            android:id="@+id/sub1_lab_et1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:fontFamily="sans-serif"
+            android:textSize="18sp"
+            android:paddingLeft="10dp"
+            android:text="Lab Type"
+            android:textColor="@color/colorPrimaryDark"/>
+        <TextView
+            android:id="@+id/sub1_lab_et2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:fontFamily="sans-serif"
+            android:textSize="18sp"
+            android:paddingLeft="10dp"
+            android:text="Mtech Labs"
+            android:textColor="#000000"/>
+    </LinearLayout>
+    <View
+        android:id="@+id/item_divider2"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginBottom="7dp"
+        android:background="@color/colorPrimaryDark" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingBottom="20dp"
+        android:id="@+id/sub2"
+        android:paddingTop="20dp">
+        <TextView
+            android:id="@+id/sub2_lab_et1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:fontFamily="sans-serif"
+            android:textSize="18sp"
+            android:paddingLeft="10dp"
+            android:text="Room Building"
+            android:textColor="@color/colorPrimaryDark"/>
+        <TextView
+            android:id="@+id/sub2_lab_et2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:fontFamily="sans-serif"
+            android:textSize="18sp"
+            android:paddingLeft="10dp"
+            android:text="Old Academy"
+            android:textColor="#000000"/>
+    </LinearLayout>
+    <View
+        android:id="@+id/item_divider3"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginBottom="7dp"
+        android:background="@color/colorPrimaryDark" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingBottom="20dp"
+        android:id="@+id/sub3"
+        android:paddingTop="20dp">
+        <TextView
+            android:id="@+id/sub3_lab_et1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:fontFamily="sans-serif"
+            android:textSize="18sp"
+            android:paddingLeft="10dp"
+            android:text="Capacity"
+            android:textColor="@color/colorPrimaryDark"/>
+        <TextView
+            android:id="@+id/sub3_lab_et2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:fontFamily="sans-serif"
+            android:textSize="18sp"
+            android:paddingLeft="10dp"
+            android:text="60"
+            android:textColor="#000000"/>
+    </LinearLayout>
+    <View
+        android:id="@+id/item_divider4"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginBottom="7dp"
+        android:background="@color/colorPrimaryDark" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingBottom="20dp"
+        android:id="@+id/sub4"
+        android:paddingTop="20dp">
+        <TextView
+            android:id="@+id/sub4_lab_et1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:fontFamily="sans-serif"
+            android:textSize="18sp"
+            android:paddingLeft="10dp"
+            android:text="System Count"
+            android:textColor="@color/colorPrimaryDark"/>
+        <TextView
+            android:id="@+id/sub4_lab_et2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:fontFamily="sans-serif"
+            android:textSize="18sp"
+            android:paddingLeft="10dp"
+            android:text="30"
+            android:textColor="#000000"/>
+    </LinearLayout>
+    <View
+        android:id="@+id/item_divider5"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginBottom="7dp"
+        android:background="@color/colorPrimaryDark" />
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:orientation="horizontal"
+        android:paddingBottom="20dp"
+        android:id="@+id/sub5"
+        android:paddingTop="20dp">
+        <TextView
+            android:id="@+id/sub5_lab_et1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:fontFamily="sans-serif"
+            android:textSize="18sp"
+            android:paddingLeft="10dp"
+            android:text="Head Count :"
+            android:textColor="#000000"/>
+        <TextView
+            android:id="@+id/sub5_lab_et2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:fontFamily="sans-serif"
+            android:textSize="18sp"
+            android:paddingLeft="10dp"
+            android:text="30"
+            android:textColor="#000000"/>
+    </LinearLayout>
+</LinearLayout>

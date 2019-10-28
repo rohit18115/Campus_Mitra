@@ -7,17 +7,24 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.inputmethod.EditorInfo;
 import android.widget.SearchView;
+import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.ValueEventListener;
 import com.team13.campusmitra.adaptors.ProfListDisplayAdaptor;
 import com.team13.campusmitra.adaptors.StudentListDisplayAdaptor;
 import com.team13.campusmitra.dataholder.Faculty;
 import com.team13.campusmitra.dataholder.Student;
 import com.team13.campusmitra.dataholder.User;
+import com.team13.campusmitra.firebaseassistant.FirebaseUserHelper;
 
 import java.util.ArrayList;
 
@@ -28,7 +35,7 @@ public class UserListDisplayActivity extends AppCompatActivity {
     private ArrayList<User> items = new ArrayList<>();
     private ArrayList<Student> students = new ArrayList<>();
     private ArrayList<Faculty> profs = new ArrayList<>();
-    private int type = 1;
+    private int type = 0;
     private ProfListDisplayAdaptor profAdaptor;
     private StudentListDisplayAdaptor studentAdaptor;
 
@@ -36,13 +43,22 @@ public class UserListDisplayActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_list_display);
-
         Log.d(TAG, "onCreate: started");
+
+        if (savedInstanceState == null) {
+            Bundle id = getIntent().getExtras();
+            if(id == null) {
+                Toast toast = Toast.makeText(this, "Error: No UserType found", Toast.LENGTH_SHORT);
+                toast.show();
+            } else {
+                type = id.getInt("userType");
+            }
+        }
+
         if(type == 0)
-            initStudentComponents();
+           loadStudentData();
         else
-            initProfComponent();
-        initRecycler();
+            loadProfData();
     }
 
     private void initProfComponent() {
@@ -79,11 +95,11 @@ public class UserListDisplayActivity extends AppCompatActivity {
         user1.setUserLastName("Arora");
         user1.setUserEmail("rohit18115@iiitd.ac.in");
         Student student = new Student();
-        for (int i = 0; i < 15; i++) {
+        for (int i = 0; i < 1; i++) {
             items.add(user);
             students.add(student);
-            items.add(user1);
-            students.add(student);
+//            items.add(user1);
+//            students.add(student);
         }
     }
 
@@ -133,6 +149,64 @@ public class UserListDisplayActivity extends AppCompatActivity {
         });
         return true;
     }
+
+    private void loadStudentData() {
+
+        FirebaseUserHelper helper = new FirebaseUserHelper();
+        DatabaseReference reference = helper.getReference();
+        reference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                items.clear();
+                for(DataSnapshot snapshot:dataSnapshot.getChildren()){
+                    User user = snapshot.getValue(User.class);
+                    if(user.getUserType()==0) {
+                        items.add(user);
+                        students.add(new Student());
+                        Log.d("lololo", "onDataChange: " + user.getUserLastName());
+                    }
+                }
+                //progressBar.setVisibility(View.GONE);
+                if (items.size()>0) {
+                    Log.d("lololo", "onDataChange: " + items.get(0).getUserLastName());
+                    initRecycler();
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+
+        });
+    }
+
+    private void loadProfData() {
+
+        FirebaseUserHelper helper = new FirebaseUserHelper();
+        DatabaseReference reference = helper.getReference();
+        reference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                items.clear();
+                for(DataSnapshot snapshot:dataSnapshot.getChildren()){
+                    User user = snapshot.getValue(User.class);
+                    if(user.getUserType()==1)
+                        items.add(user);
+                }
+                //progressBar.setVisibility(View.GONE);
+                if (items.size()>0)
+                    initRecycler();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
+
 
 
 

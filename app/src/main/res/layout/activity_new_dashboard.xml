@@ -20,6 +20,7 @@
 
             <TextView
                 android:text="Hello Student"
+                android:id="@+id/student_dashboard_name"
                 android:textSize="22sp"
                 android:textColor="#000000"
                 android:layout_width="wrap_content"
