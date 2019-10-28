@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.opengl.Visibility;
 import android.os.Bundle;
+import android.os.Handler;
 import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.method.LinkMovementMethod;
@@ -19,6 +20,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -52,11 +54,31 @@ public class SignIn extends AppCompatActivity {
     CoordinatorLayout coordinatorLayout;
 
     ArrayList<EmailHolder> emailHolders ;
+
+
+    /*RelativeLayout rellay1, rellay2;
+
+    Handler handler = new Handler();
+    Runnable runnable = new Runnable() {
+        @Override
+        public void run() {
+            rellay1.setVisibility(View.VISIBLE);
+            rellay2.setVisibility(View.VISIBLE);
+        }
+    };*/
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //setContentView(R.layout.activity_sign_extra);
         setContentView(R.layout.activity_sign_in);
         getSupportActionBar().setElevation(0);
+
+        //rellay1 = (RelativeLayout) findViewById(R.id.rellay1);
+        //rellay2 = (RelativeLayout) findViewById(R.id.rellay2);
+
+        //handler.postDelayed(runnable, 2000); //2000 is the timeout for the splash
 
         mAuth = FirebaseAuth.getInstance();
 
