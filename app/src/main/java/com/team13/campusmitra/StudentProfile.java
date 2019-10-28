@@ -3,19 +3,16 @@ package com.team13.campusmitra;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.widget.TextView;
-
 import com.google.firebase.auth.FirebaseAuth;
 import com.team13.campusmitra.dataholder.Student;
-import com.team13.campusmitra.firebaseassistant.FirebaseStudentHelper;
-import com.team13.campusmitra.firebaseassistant.FirebaseUserHelper;
 import com.team13.campusmitra.dataholder.User;
+import com.team13.campusmitra.firebaseassistant.FirebaseStudentHelper;
 
 public class StudentProfile extends AppCompatActivity implements View.OnClickListener {
     TextView display_courses;

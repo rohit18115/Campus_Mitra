@@ -8,7 +8,7 @@ public class ProjectModel {
     private String title;
     private String description;
     private String link;
-    private boolean expanded;
+    private boolean expanded, rights;
     public int getImg() {
         return img;
     }
@@ -39,6 +39,12 @@ public class ProjectModel {
     }
     public void setExpanded(boolean expanded) {
         this.expanded = expanded;
+    }
+    public boolean isProfessor() {
+        return rights;
+    }
+    public void setRights(boolean rights) {
+        this.rights = rights;
     }
     public static List<ProjectModel> getObjectList() {
         List<ProjectModel> dataList = new ArrayList<>();

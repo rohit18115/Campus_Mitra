@@ -34,16 +34,13 @@ public class DashboardAdmin extends AppCompatActivity {
         startActivity(intent);
 
     }
+    public void sentToAddRoom(View view){
+        Intent intent = new Intent(getApplicationContext(),Rooms.class);
+        startActivity(intent);
+    }
     public void sendToApproveFaculty(View view){
         Intent intent = new Intent(getApplicationContext(),ApproveFacultyActivity.class);
         startActivity(intent);
     }
 
-    public void sendToRoom(View view)
-    {
-        Intent intent = new Intent(getApplicationContext(), Rooms.class);
-
-        startActivity(intent);
-
-    }
 }

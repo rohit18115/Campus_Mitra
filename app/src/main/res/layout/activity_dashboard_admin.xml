@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".NewDashboard">
+    tools:context=".DashboardAdmin">
 
     <LinearLayout
         android:orientation="vertical"
@@ -63,8 +63,8 @@
 
                     <ImageView
                         android:layout_width="80dp"
-                        android:layout_height="80dp"
-                        android:onClick="sendToRoom"
+                        android:layout_height="41dp"
+                        android:onClick="sentToAddRoom"
                         android:src="@drawable/classroom1" />
                     <TextView
 

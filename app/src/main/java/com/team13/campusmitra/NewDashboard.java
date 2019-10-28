@@ -51,4 +51,7 @@ public class NewDashboard extends AppCompatActivity {
         FirebaseAuth auth = FirebaseAuth.getInstance();
         auth.signOut();
     }
+
+    public void sentToAddRoom(View view) {
+    }
 }

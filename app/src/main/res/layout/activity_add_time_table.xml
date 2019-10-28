@@ -15,7 +15,7 @@
 <RelativeLayout
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="10dp">
+    android:padding="6dp">
     <ProgressBar
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -29,29 +29,48 @@
      android:layout_height="wrap_content"
      android:orientation="vertical">
 
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:textStyle="bold"
+        android:textSize="18sp"
+        android:text="@string/add_new_timetable_element">
 
-     <TextView
-         android:layout_width="wrap_content"
-         android:layout_height="wrap_content"
-         android:padding="10dp"
-         android:textStyle="bold"
-         android:textSize="18sp"
-         android:text="@string/add_new_timetable_element">
+    </TextView>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="right">
+    <Button
+        android:layout_width="wrap_content"
+        android:id="@+id/add_tt_loadTT"
+        android:layout_height="wrap_content"
+        android:background="@color/transparent"
+        android:text="@string/load_from_file">
 
-     </TextView>
+    </Button>
+    </LinearLayout>
+</LinearLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:padding="10dp">
         <TextView
+            android:padding="6dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Select Course :">
 
         </TextView>
         <Spinner
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
             android:id="@+id/add_tt_course_spinner"
@@ -70,6 +89,7 @@
          <TextView
              android:layout_width="wrap_content"
              android:layout_height="wrap_content"
+             android:padding="6dp"
              android:text="Start Time"
              android:id="@+id/tt_add_startTime">
 
@@ -78,6 +98,7 @@
              android:layout_width="wrap_content"
              android:layout_height="wrap_content"
              android:text="End Time"
+             android:padding="6dp"
              android:id="@+id/tt_add_end_time"
              android:layout_marginLeft="20dp"
              >
@@ -87,13 +108,16 @@
              android:layout_marginLeft="20dp"
              android:layout_width="wrap_content"
              android:layout_height="wrap_content"
+             android:padding="6dp"
              android:text="Select Day: ">
 
          </TextView>
          <Spinner
-             android:layout_width="wrap_content"
+             android:layout_width="match_parent"
              android:layout_height="wrap_content"
-             android:id="@+id/tt_add_day"></Spinner>
+             android:id="@+id/tt_add_day">
+
+         </Spinner>
      </LinearLayout>
      <LinearLayout
          android:layout_width="match_parent"
@@ -103,10 +127,11 @@
          <TextView
              android:layout_width="wrap_content"
              android:layout_height="wrap_content"
+             android:padding="6dp"
              android:text="Select Room: ">
          </TextView>
          <Spinner
-             android:layout_width="wrap_content"
+             android:layout_width="match_parent"
              android:layout_height="wrap_content"
              android:layout_marginLeft="20dp"
              android:id="@+id/tt_add_room">
@@ -118,6 +143,15 @@
          android:layout_height="wrap_content"
          android:gravity="right"
          >
+         <CheckBox
+             android:textColor="@color/colorPrimaryDark"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:text="Same Time"
+             android:layout_marginRight="10dp"
+             android:id="@+id/tt_add_checkBox">
+
+         </CheckBox>
          <Button
              android:layout_width="wrap_content"
              android:layout_height="wrap_content"
@@ -139,7 +173,7 @@
     <SearchView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="10dp"
+        android:padding="5dp"
         android:queryHint="Search for Course"
         android:id="@+id/tt_add_sv"
         >

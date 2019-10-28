@@ -28,10 +28,11 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="sans-serif"
                 app:backgroundTint="@color/colorPrimaryDark"
-                android:hint="Project-Name"
+                android:hint="Project-Name*"
                 android:textColor="@color/colorPrimaryDark"
                 android:maxLines="1"
                 android:textSize="16sp" />
+
         </com.google.android.material.textfield.TextInputLayout>
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
@@ -43,7 +44,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="sans-serif"
-            android:hint="Description"
+            android:hint="Description*"
             app:backgroundTint="@color/colorPrimaryDark"
             android:textColor="@color/colorPrimaryDark"
             android:textSize="16sp"
@@ -69,8 +70,9 @@
                 android:layout_gravity="center"
                 android:layout_weight="1"
                 app:backgroundTint="@color/colorPrimaryDark"
-                android:hint = "(optional*)"
+                android:hint = "(optional)"
                 android:textSize="16sp" />
+
         </com.google.android.material.textfield.TextInputLayout>
         <Button
             android:id="@+id/add_image_btn"
@@ -100,7 +102,7 @@
                 android:fontFamily="sans-serif"
                 android:layout_gravity="center"
                 android:layout_weight="1"
-                android:text = "Add Project Members"
+                android:text = "Add Project Members*"
                 android:textSize="16sp" />
 
             <ImageView
@@ -115,21 +117,27 @@
                 android:src="@drawable/add_plus" />
 
         </LinearLayout>
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingBottom="20dp"
-        android:textColorHint="@color/colorPrimaryDark">
-        <EditText
-            android:id="@+id/text_mem1"
+        <LinearLayout
+            android:id="@+id/member_list"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:fontFamily="sans-serif"
-            android:hint = "Member 1"
-            app:backgroundTint="@color/colorPrimaryDark"
-            android:textSize="16sp" />
-    </com.google.android.material.textfield.TextInputLayout>
+            android:orientation="vertical"
+            android:columnCount="3"
+            >
+            <EditText
+                android:id="@+id/proj_mem1"
+                android:tag="proj_mem1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif"
+                android:paddingBottom="20dp"
+                android:textColor="@color/colorPrimaryDark"
+                android:textColorHint="@color/colorPrimaryDark"
+                android:hint = "Member Name"
+                app:backgroundTint="@color/colorPrimaryDark"
+                android:textSize="16sp" />
+        </LinearLayout>
+
         <Button
             android:id="@+id/add_btn"
             android:layout_width="match_parent"
