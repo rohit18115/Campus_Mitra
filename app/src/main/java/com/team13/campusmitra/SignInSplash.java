@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.os.Handler;
@@ -138,11 +139,13 @@ public class SignInSplash extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 String forgotpswdemail = etEmail.getText().toString().trim();
-                hideKeyBoard();
+                //hideKeyBoard();
                 if (forgotpswdemail.isEmpty()) {
                     Snackbar snackbar = Snackbar.make(coordinatorLayout, "Enter email to reset password", Snackbar.LENGTH_SHORT);
+                    snackbar.setTextColor(Color.WHITE);
                     snackbar.show();
                     etEmail.setError("Enter email to reset password");
+                    etEmail.requestFocus();
                 } else if (!forgotpswdemail.contains("@iiitd.ac.in")) {
                     etEmail.setError("Enter IIITD email only ");
                 } else {
