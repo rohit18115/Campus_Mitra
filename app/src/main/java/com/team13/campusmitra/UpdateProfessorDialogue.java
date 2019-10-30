@@ -10,7 +10,9 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.fragment.app.DialogFragment;
-
+/*
+    :::Used by admin to update professor details
+ */
 public class UpdateProfessorDialogue extends DialogFragment {
 
     private EditText emailID;

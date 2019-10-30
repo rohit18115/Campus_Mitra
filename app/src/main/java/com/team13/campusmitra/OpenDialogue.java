@@ -24,11 +24,11 @@ public class OpenDialogue extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                UpdateProfessorDialogue profDialogue = new UpdateProfessorDialogue(2);
-                profDialogue.show(getSupportFragmentManager(),"i dont know");
-//                BookingDialogue bookingDialogue = new BookingDialogue(1);
-//                bookingDialogue.setAppointmentDetails("sdadf","sfsf");
-//                bookingDialogue.show(getSupportFragmentManager(),"Dialog Box Here!");
+//                UpdateProfessorDialogue profDialogue = new UpdateProfessorDialogue(2);
+//                profDialogue.show(getSupportFragmentManager(),"i dont know");
+                BookingDialogue bookingDialogue = new BookingDialogue(BookingDialogue.APPOINTMENT);
+                bookingDialogue.setAppointmentDetails("sdadf","sfsf");
+                bookingDialogue.show(getSupportFragmentManager(),"Dialog Box Here!");
             }
         });
 
