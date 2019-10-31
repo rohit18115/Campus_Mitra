@@ -25,7 +25,6 @@ public class FirebaseProjectHelper {
     }
     public void updateProject(Context context, Project project){
         String uid = project.getProjectID();
-        project.setProjectID(uid);
         firebaseDatabase.child(uid).setValue(project);
         Toast.makeText(context,"Course updated successfully!!",Toast.LENGTH_SHORT).show();
     }

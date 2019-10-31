@@ -12,6 +12,16 @@ public class ResearchLab implements Serializable {
     private String webPageURL;
     private ArrayList<String> projects;
 
+    public String getRoomID() {
+        return roomID;
+    }
+
+    public void setRoomID(String roomID) {
+        this.roomID = roomID;
+    }
+    public ResearchLab(){
+
+    }
     public ResearchLab(String roomID){
         this.roomID = roomID;
         mentors = new ArrayList<>();

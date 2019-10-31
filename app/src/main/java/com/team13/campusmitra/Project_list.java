@@ -1,11 +1,14 @@
 package com.team13.campusmitra;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
@@ -34,8 +37,7 @@ public class Project_list extends Fragment {
     // TODO: Rename and change types of parameters
     ArrayList<Project> projects;
     RecyclerView project_list;
-
-
+    private int new_project = 1;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -45,6 +47,7 @@ public class Project_list extends Fragment {
         projects = new ArrayList<>();
         View view = inflater.inflate(R.layout.fragment_project_list, container, false);
         project_list = (RecyclerView) view.findViewById(R.id.proj_list);
+
         project_list.setLayoutManager(new LinearLayoutManager(getActivity()));
         loadProjects();
         //String[] project_items = {"Project 1", "Project 2", "Project 3", "Project 4", "Project 5", "Project 6","Project 7","Project 8","Project 9","Project 10"};
@@ -59,8 +62,8 @@ public class Project_list extends Fragment {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 projects.clear();
                 for(DataSnapshot snapshot:dataSnapshot.getChildren()){
-                    Project course = snapshot.getValue(Project.class);
-                    projects.add(course);
+                    Project project = snapshot.getValue(Project.class);
+                    projects.add(project);
                 }
                 Projects_Adapter adapter = new Projects_Adapter(projects);
                 project_list.setAdapter(adapter);

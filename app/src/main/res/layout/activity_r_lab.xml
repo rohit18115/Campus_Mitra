@@ -68,14 +68,11 @@
         android:text="Add Project"
         android:textStyle="bold"
         android:textSize="16dp" />
-    <fragment
-        android:name="com.team13.campusmitra.Project_list"
-        android:id="@+id/r_lab_frag1"
+    <androidx.recyclerview.widget.RecyclerView
+
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:paddingBottom="10dp"
-        android:paddingLeft="10dp"
-        android:paddingRight="10dp"
-        android:paddingTop="10dp"/>
+        android:id="@+id/proj_list">
+    </androidx.recyclerview.widget.RecyclerView>
 
 </LinearLayout>

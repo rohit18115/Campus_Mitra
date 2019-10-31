@@ -9,6 +9,7 @@ import androidx.core.app.ActivityCompat;
 
 import android.Manifest;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -31,7 +32,9 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
+import com.team13.campusmitra.dataholder.ResearchLab;
 import com.team13.campusmitra.dataholder.Room;
+import com.team13.campusmitra.firebaseassistant.FirebaseResearchLabHelper;
 import com.team13.campusmitra.firebaseassistant.FirebaseRoomHelper;
 import com.team13.campusmitra.popupmanager.PopupManager;
 
@@ -187,6 +190,30 @@ public class OCRActivity extends AppCompatActivity {
         }
         return  result;
     }
+    private void startResearchLab(final Room room){
+        FirebaseResearchLabHelper helper = new FirebaseResearchLabHelper();
+        DatabaseReference reference = helper.getReference();
+        reference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for(DataSnapshot snapshot:dataSnapshot.getChildren()){
+                    ResearchLab researchLab = snapshot.getValue(ResearchLab.class);
+                    if(researchLab.getRoomID().equals(room.getRoomID())){
+                        Intent intent = new Intent(getApplicationContext(),R_Lab.class);
+                        intent.putExtra("ROOM",room);
+                        intent.putExtra("RL",researchLab);
+                        startActivity(intent);
+                        finish();
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
     private void launchRoom(int r,Room room){
         switch (r){
             case 0: popupLecture(room); break;
@@ -194,7 +221,8 @@ public class OCRActivity extends AppCompatActivity {
             case 2: break;
             case 3: break;
             case 4: popupLab(room); break;
-            case 5: break;
+            case 5: startResearchLab(room);
+                break;
             default: Toast.makeText(this,"No Match Room found",Toast.LENGTH_LONG).show();
         }
     }

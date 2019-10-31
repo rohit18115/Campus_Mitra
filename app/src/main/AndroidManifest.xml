@@ -15,6 +15,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".AddReasearchLabActivity"></activity>
         <activity android:name=".SignInSplash">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -41,9 +42,7 @@
         <activity android:name=".TestActivity" />
         <activity android:name=".FacultyCourseTakenRecyclerView" />
         <activity android:name=".FacultyProfile" />
-        <activity android:name=".SplashActivity">
-
-        </activity>
+        <activity android:name=".SplashActivity"></activity>
         <activity android:name=".OCRActivity" />
         <activity android:name=".ResearchLabsRecyclerView" />
         <activity android:name=".NewDashboard" />

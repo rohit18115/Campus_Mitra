@@ -14,8 +14,8 @@ public class Dynamic_Add_Projects {
         this.id = id;
     }
     public EditText addNewMember(Context context){
-        final LayoutParams lparams = new ViewGroup.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
-        final EditText edittext = new EditText(context);
+        LayoutParams lparams = new ViewGroup.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+        EditText edittext = new EditText(context);
         edittext.setId(id);
         edittext.setTag("proj_mem"+id);
         edittext.setHint("Member Name ");

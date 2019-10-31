@@ -123,16 +123,17 @@
                         android:layout_height="wrap_content"
                         android:gravity="right"
                         >
+
                         <Button
+                            android:id="@+id/co_add_btn"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginRight="20dp"
-                            android:text="Add Course"
-                            android:textStyle="bold"
-                            android:padding="10dp"
-                            android:textColor="@color/mdtp_white"
                             android:background="@drawable/button_background"
-                            android:id="@+id/co_add_btn">
+                            android:padding="10dp"
+                            android:text="Add Course"
+                            android:textColor="@color/mdtp_white"
+                            android:textStyle="bold">
 
                         </Button>
                     </LinearLayout>

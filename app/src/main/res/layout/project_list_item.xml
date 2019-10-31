@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/super_item"
+    android:id="@+id/project_list_item_linear"
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:layout_width="match_parent"
@@ -17,7 +17,7 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal">
 
-        <ImageView
+        <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/item_iv1"
             android:layout_width="60dp"
             android:layout_height="60dp"
@@ -25,8 +25,8 @@
             android:layout_marginLeft="5dp"
             android:layout_marginBottom="3dp"
             android:paddingRight="2dp"
-            android:background="@drawable/image_border"
-            android:src="@drawable/project_icon_1"/>
+            android:src="@drawable/project_icon_1">
+        </de.hdodenhof.circleimageview.CircleImageView>
         <TextView
             android:id="@+id/item_tv1"
             android:layout_width="wrap_content"

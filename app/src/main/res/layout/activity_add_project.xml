@@ -11,6 +11,7 @@
         android:layout_marginBottom="32dp"
         android:orientation="vertical"
         android:paddingLeft="32dp"
+        android:layout_gravity="center"
         android:paddingRight="32dp"
         android:paddingTop="40dp">
 
@@ -39,7 +40,7 @@
             android:layout_height="wrap_content"
             android:paddingBottom="15dp"
             android:textColorHint="@color/colorPrimaryDark">
-        <EditText
+        <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/text_desc"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -56,87 +57,72 @@
         android:orientation="horizontal"
         android:id="@+id/proj_sub_item2"
         android:paddingTop="20dp">
-        <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="match_parent"
+        <ProgressBar
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingBottom="15dp"
-            android:textColorHint="@color/colorPrimaryDark">
-            <com.google.android.material.textfield.TextInputEditText
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:id="@+id/UPpbar"
+            android:visibility="gone"></ProgressBar>
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/sample_image"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:paddingLeft="2dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginBottom="3dp"
+            android:paddingRight="10dp"
+            android:src="@drawable/project_icon_1">
+        </de.hdodenhof.circleimageview.CircleImageView>
+        <TextView
                 android:id="@+id/project_imageURL"
-                android:layout_width="170dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/colorPrimaryDark"
                 android:fontFamily="sans-serif"
                 android:layout_gravity="center"
                 android:layout_weight="1"
                 app:backgroundTint="@color/colorPrimaryDark"
-                android:hint = "(optional)"
+                android:text = "Click on image to upload new image"
                 android:textSize="16sp" />
 
-        </com.google.android.material.textfield.TextInputLayout>
-        <Button
-            android:id="@+id/add_image_btn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="16dp"
-            android:layout_marginLeft="16dp"
-            android:fontFamily="sans-serif"
-            style="@style/Widget.MaterialComponents.Button.Icon"
-            android:text="Upload"
-            android:textStyle="bold"
-            android:textSize="16dp" />
+
+
     </LinearLayout>
-        <LinearLayout
-            android:id="@+id/proj_sub_item1"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:paddingTop="20dp"
-            >
+
 
             <TextView
                 android:id="@+id/project_member"
-                android:layout_width="200dp"
-                android:layout_height="38dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:textColor="@color/colorPrimaryDark"
                 android:fontFamily="sans-serif"
-                android:layout_gravity="center"
+                app:backgroundTint="@color/colorPrimaryDark"
                 android:layout_weight="1"
-                android:text = "Add Project Members*"
+                android:paddingTop="20dp"
+                android:text = "Add Project Members - *"
                 android:textSize="16sp" />
 
-            <ImageView
-                android:id="@+id/add_mem"
-                android:layout_width="25dp"
-                android:layout_height="25dp"
-                android:layout_marginLeft="20dp"
-                android:paddingTop="2dp"
-                android:paddingLeft="2dp"
-                android:paddingRight="2dp"
-                android:paddingBottom="2dp"
-                android:src="@drawable/add_plus" />
-
-        </LinearLayout>
-        <LinearLayout
-            android:id="@+id/member_list"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:columnCount="3"
-            >
-            <EditText
-                android:id="@+id/proj_mem1"
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="15dp"
+        android:textColorHint="@color/colorPrimaryDark">
+    <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/add_members_list"
                 android:tag="proj_mem1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="sans-serif"
                 android:paddingBottom="20dp"
+                android:paddingTop="20dp"
                 android:textColor="@color/colorPrimaryDark"
                 android:textColorHint="@color/colorPrimaryDark"
-                android:hint = "Member Name"
+                android:hint = "eg: Pushpendra Singh, Nikhil"
                 app:backgroundTint="@color/colorPrimaryDark"
                 android:textSize="16sp" />
-        </LinearLayout>
+    </com.google.android.material.textfield.TextInputLayout>
+
 
         <Button
             android:id="@+id/add_btn"
@@ -151,5 +137,9 @@
             android:textSize="16dp" />
 
 
-
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/Add_proj_Buffer"
+        android:visibility="gone"></TextView>
     </LinearLayout>
