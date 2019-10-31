@@ -56,8 +56,6 @@ public class UserProfile extends AppCompatActivity implements DatePickerDialog.O
 
     FirebaseUser currentUser;
 
-
-
     TextInputEditText firstName;
     TextInputEditText lastName;
     TextInputEditText userName;
@@ -87,37 +85,60 @@ public class UserProfile extends AppCompatActivity implements DatePickerDialog.O
         int selectedutypeId = utype.getCheckedRadioButtonId();
         RadioButton utyperadioButton =  findViewById(selectedutypeId);
 
+        String fname = "", lname = "", oemail = "", dobi = "",uname = "",buff = "";
 
-        User user = new User();
-        //user.setUserId();
-        user.setUserName(userName.getText().toString());
-        user.setUserFirstName(firstName.getText().toString());
-        user.setUserLastName(lastName.getText().toString());
-        user.setGender(radioButton.getText().toString());
-        user.setDob(dob.getText().toString());
-        //user.setUserEmail();
-        //user.setUserType();
-        user.setUserPersonalMail(optEmail.getText().toString());
-        user.setImageUrl(buffer.getText().toString().trim());
-        FirebaseAuth auth = FirebaseAuth.getInstance();
-        String uid = auth.getCurrentUser().getUid();
-        user.setUserId(uid);
-
-        String email = auth.getCurrentUser().getEmail();
-        Log.d("Email", "getUserObject: " + email);
-        Log.d("User Name", "getUserObject: " + userName.getText().toString());
-        user.setUserEmail(email);
-        int usetype = 0;
-        if (utyperadioButton.getText().toString() == "Faculty"){
-            usetype = 1;
+        try {
+            fname = firstName.getText().toString();
+            lname = lastName.getText().toString();
+            oemail = optEmail.getText().toString();
+            dobi = dob.getText().toString();
+            uname = userName.getText().toString();
+            buff = buffer.getText().toString().trim();
+        } catch (NullPointerException e) {
+            Log.d("lolo", "Null pointer exception: ");
         }
-        user.setUserType(usetype);
+        if(fname.isEmpty()) {
+            firstName.setError("First Name Can't be empty", null);
+            firstName.requestFocus();
+        } else if(lname.isEmpty()) {
+            lastName.setError("Last Name Can't be empty", null);
+            lastName.requestFocus();
+        } else if(dobi.isEmpty()) {
+            Toast.makeText(getApplicationContext(),"Please Select Date of Birth",Toast.LENGTH_LONG).show();
+            dob.requestFocus();
+        } else if(!oemail.contains("@") || !oemail.contains(".com")) {
+            optEmail.setError("Not a valid Email", null);
+            optEmail.requestFocus();
+        } else {
+
+            User user = new User();
+            user.setUserName(uname);
+            user.setUserFirstName(fname);
+            user.setUserLastName(lname);
+            user.setGender(radioButton.getText().toString());
+            user.setDob(dobi);
+            user.setUserPersonalMail(oemail);
+            user.setImageUrl(buff);
+            FirebaseAuth auth = FirebaseAuth.getInstance();
+            String uid = auth.getCurrentUser().getUid();
+            user.setUserId(uid);
+
+            String email = auth.getCurrentUser().getEmail();
+            Log.d("Email", "getUserObject: " + email);
+            Log.d("User Name", "getUserObject: " + userName.getText().toString());
+            user.setUserEmail(email);
+            int usetype = 0;
+            if (utyperadioButton.getText().toString() == "Faculty") {
+                usetype = 1;
+            }
+            user.setUserType(usetype);
 
 
-        FirebaseUserHelper helper = new FirebaseUserHelper();
-        user.setProfileCompleteCount(user.getProfileCompleteCount()+1);
-        helper.addUser(this,user);
+            FirebaseUserHelper helper = new FirebaseUserHelper();
+            user.setProfileCompleteCount(user.getProfileCompleteCount() + 1);
+            helper.addUser(this, user);
 
+        }
 
 
     }
