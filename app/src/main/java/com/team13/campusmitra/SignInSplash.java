@@ -61,6 +61,10 @@ public class SignInSplash extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_in_splash);
+
+        //Mukul added this
+//        startActivity(new Intent(this,OpenDialogue.class));
+
         emailHolders = new ArrayList<>();
         loadFacultyEmail();
         //progressBar = findViewById(R.id.splash_progressbar);
@@ -142,7 +146,8 @@ public class SignInSplash extends AppCompatActivity {
                 //hideKeyBoard();
                 if (forgotpswdemail.isEmpty()) {
                     Snackbar snackbar = Snackbar.make(coordinatorLayout, "Enter email to reset password", Snackbar.LENGTH_SHORT);
-                    snackbar.setTextColor(Color.WHITE);
+                    //setTextColor not working
+                    snackbar.setActionTextColor(Color.WHITE);
                     snackbar.show();
                     etEmail.setError("Enter email to reset password");
                     etEmail.requestFocus();

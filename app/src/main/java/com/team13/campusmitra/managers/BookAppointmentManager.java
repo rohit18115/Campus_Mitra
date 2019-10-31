@@ -13,6 +13,12 @@ public class BookAppointmentManager {
     private String remarks;
     private Context context;
     private  String status;
+    private Appointment appointment;
+
+    public BookAppointmentManager(Context context, Appointment appointment) {
+        this.context = context;
+        this.appointment = appointment;
+    }
 
     public BookAppointmentManager(String user1, String user2, String date, String time, String remarks, Context context, String status) {
         this.user1 = user1;
@@ -35,6 +41,10 @@ public class BookAppointmentManager {
         this.time = time;
         this.remarks = remarks;
         this.context = context;
+    }
+    public void bookAppointmentWithData(){
+        FirebaseAppointmentHelper helper = new FirebaseAppointmentHelper();
+        helper.addAppointment(context,appointment);
     }
     public void bookAppointment(){
         FirebaseAppointmentHelper helper = new FirebaseAppointmentHelper();
