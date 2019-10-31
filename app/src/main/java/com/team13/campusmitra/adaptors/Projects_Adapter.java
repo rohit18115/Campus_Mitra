@@ -1,6 +1,11 @@
 package com.team13.campusmitra.adaptors;
 
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.net.Uri;
+import android.provider.MediaStore;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,15 +13,25 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.gms.tasks.Continuation;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 import com.team13.campusmitra.ProjectModel;
 import com.team13.campusmitra.R;
 import com.team13.campusmitra.dataholder.Course;
@@ -24,9 +39,14 @@ import com.team13.campusmitra.dataholder.Project;
 import com.team13.campusmitra.firebaseassistant.FirebaseCoursesHelper;
 import com.team13.campusmitra.firebaseassistant.FirebaseProjectHelper;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+
+import de.hdodenhof.circleimageview.CircleImageView;
+
+import static android.app.Activity.RESULT_OK;
 
 
 public class Projects_Adapter extends RecyclerView.Adapter<Projects_Adapter.Projects_ViewHolder> {
@@ -65,6 +85,27 @@ public class Projects_Adapter extends RecyclerView.Adapter<Projects_Adapter.Proj
                 notifyItemChanged(position);
             }
         });
+        holder.info_linear.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View view) {
+                showEditDialog(current);
+                return false;
+            }
+        });
+        holder.image_linear.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View view) {
+                //Intent intent = new Intent(activity.getApplicationContext(),TOACTIVITY.cLASS);
+                //intent.putExtra("P",current);
+                //startActivity(intent)
+
+
+                //finish();
+                //showEditImageDialog(current);
+
+                return false;
+            }
+        });
 
     }
 
@@ -74,13 +115,18 @@ public class Projects_Adapter extends RecyclerView.Adapter<Projects_Adapter.Proj
         return projectArray.length;//data.size();
     }
 
-    public class Projects_ViewHolder extends RecyclerView.ViewHolder{
-        private ImageView img, push_icon;
-        private TextView txt;
-        private View subItem;
-        private TextView sub_part_tv1, sub_part_tv2;
+
+    public class Projects_ViewHolder extends RecyclerView.ViewHolder {
+        public ImageView img, push_icon;
+        public TextView txt;
+        public View subItem;
+        public LinearLayout image_linear;
+        public LinearLayout info_linear;
+        public TextView sub_part_tv1, sub_part_tv2;
         public Projects_ViewHolder(View itemView) {
             super(itemView);
+            image_linear = itemView.findViewById(R.id.project_image_linear);
+            info_linear = itemView.findViewById(R.id.project_info_linear);
             img = itemView.findViewById(R.id.item_iv1);
             txt = itemView.findViewById(R.id.item_tv1);
             sub_part_tv1 = itemView.findViewById(R.id.sub_item_desc);
@@ -105,6 +151,9 @@ public class Projects_Adapter extends RecyclerView.Adapter<Projects_Adapter.Proj
             sub_part_tv2.setText(mem_list);
         }
     }
+
+
+
     private void showEditDialog(final Project project){
         final AlertDialog dialog;
         final AlertDialog.Builder alertDialog = new AlertDialog.Builder(activity);

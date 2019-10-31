@@ -24,8 +24,10 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.team13.campusmitra.dataholder.ResearchLab;
+import com.team13.campusmitra.dataholder.Room;
 import com.team13.campusmitra.firebaseassistant.FirebaseCoursesHelper;
 import com.team13.campusmitra.firebaseassistant.FirebaseResearchLabHelper;
+import com.team13.campusmitra.firebaseassistant.FirebaseRoomHelper;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -58,6 +60,9 @@ public class AddReasearchLabActivity extends AppCompatActivity implements View.O
     protected void getRLObject(){
         if(checkTextView(room_no)&&checkTextView(room_name)&&checkTextView(room_proff)&& mentors.size()>0){
             ResearchLab rl = new ResearchLab();
+            Room r = new Room();
+            r.setRoomType(5);
+            r.setRoomID(room_no.getText().toString().trim());
             rl.setRoomID(room_no.getText().toString().trim());
             rl.setResearchLabName(room_name.getText().toString().trim());
             mentor_string = room_proff.getText().toString().trim();
@@ -65,6 +70,8 @@ public class AddReasearchLabActivity extends AppCompatActivity implements View.O
             rl.setMentors(mentors);
             FirebaseResearchLabHelper helper = new FirebaseResearchLabHelper();
             helper.addResearchLab(getApplicationContext(),rl);
+            FirebaseRoomHelper helper2 = new FirebaseRoomHelper();
+            helper2.addRoom(getApplicationContext(),r);
         }
         else
         {
