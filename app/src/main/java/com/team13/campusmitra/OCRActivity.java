@@ -216,9 +216,9 @@ public class OCRActivity extends AppCompatActivity {
     }
     private void launchRoom(int r,Room room){
         switch (r){
-            case 0: popupLecture(room); break;
-            case 1: break;
-            case 2: break;
+            case 0: popupLecture(room,0); break;
+            case 1: popupLecture(room,1);break;
+            case 2: popupLecture(room,2); break;
             case 3: break;
             case 4: popupLab(room); break;
             case 5: startResearchLab(room);
@@ -258,7 +258,7 @@ public class OCRActivity extends AppCompatActivity {
                 .into(roomImage);
 
     }
-    private void popupLecture(Room room){
+    private void popupLecture(Room room,int t){
         popupManager = new PopupManager(this);
         popupManager.setContentView(R.layout.dialog_lecture_ocr);
         ImageView roomImage =popupManager.getDialog().findViewById(R.id.dialog_lecture_ocr_labimage);
@@ -274,8 +274,16 @@ public class OCRActivity extends AppCompatActivity {
         roomNumber.setText(room.getRoomNumber());
 
         TextView roomType = popupManager.getDialog().findViewById(R.id.dialog_lecture_ocr_roomtype);
+        if(t==0)
         roomType.setText("Lecture Room");
+        else if(t==1){
+            roomType.setText("Discussion Room");
 
+        }
+        else{
+            roomType.setText("Meeting Room");
+
+        }
         TextView roombuilding = popupManager.getDialog().findViewById(R.id.dialog_lecture_ocr_roombuilding);
         roombuilding.setText(room.getRoomBuilding());
 
