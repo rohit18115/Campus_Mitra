@@ -28,10 +28,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".NavDrawerProf"
-            android:label="@string/title_activity_nav_drawer_prof"
-            android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".OpenDialogue" />
         <activity android:name=".ApproveFacultyActivity" />
         <activity android:name=".FacultyExternalDisplayActivity" />
