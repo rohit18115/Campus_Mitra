@@ -72,7 +72,7 @@ public class Add_Project extends AppCompatActivity implements View.OnClickListen
     private void initComponents(){
         proj_name = findViewById(R.id.text_project_name);
         proj_desc = findViewById(R.id.text_desc);
-        progressBar = findViewById(R.id.UPpbar);
+        progressBar = findViewById(R.id.proj_UPpbar);
         member_list = findViewById(R.id.add_members_list);
         projects = new ArrayList<>();
         buffer = findViewById(R.id.Add_proj_Buffer);

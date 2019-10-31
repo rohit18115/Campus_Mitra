@@ -6,7 +6,7 @@
     android:id="@+id/UPLL1"
     android:background="@color/Green">
     <androidx.cardview.widget.CardView
-        android:id="@+id/UPCV"
+        android:id="@+id/rl_linear"
         android:layout_margin="10dp"
         android:layout_gravity="center"
         android:layout_width="match_parent"
@@ -36,6 +36,21 @@
                 android:fontFamily="sans-serif"
                 android:layout_alignParentTop="true"
                 android:layout_centerHorizontal="true" />
+            <ProgressBar
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:id="@+id/rl_UPpbar"
+                android:visibility="gone"></ProgressBar>
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:layout_centerHorizontal="true"
+                android:layout_margin = "20dp"
+                android:id="@+id/rl_image"
+                android:src="@mipmap/ic_launcher_round"
+                />
 
 
             <ScrollView
@@ -52,25 +67,11 @@
                         android:layout_height="wrap_content">
 
                         <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/rooms_number"
+                            android:id="@+id/rl_rooms_number"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:fontFamily="sans-serif"
                             android:hint="Enter Room Number"
-                            android:inputType="text"
-                            android:maxLines="1"
-                            android:textSize="16sp" />
-                    </com.google.android.material.textfield.TextInputLayout>
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-
-                        <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/rooms_building"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:fontFamily="sans-serif"
-                            android:hint="Enter Room Building"
                             android:inputType="text"
                             android:maxLines="1"
                             android:textSize="16sp" />
@@ -88,7 +89,7 @@
                         android:layout_height="wrap_content">
 
                         <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/lab_name"
+                            android:id="@+id/rl_lab_name"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:fontFamily="sans-serif"
@@ -103,7 +104,7 @@
                         android:layout_height="wrap_content">
 
                         <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/rooms_professor"
+                            android:id="@+id/rl_rooms_professor"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:fontFamily="sans-serif"
@@ -118,7 +119,7 @@
                         android:layout_height="wrap_content">
 
                         <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/rooms_lab_names"
+                            android:id="@+id/rl_rooms_lab_names"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:fontFamily="sans-serif"
@@ -129,20 +130,8 @@
                             android:visibility="gone" />
                     </com.google.android.material.textfield.TextInputLayout>
 
-
                     <Button
-                        android:id="@+id/add_proj_btn"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginRight="16dp"
-                        android:layout_marginLeft="16dp"
-                        android:fontFamily="sans-serif"
-                        style="@style/Widget.MaterialComponents.Button.Icon"
-                        android:text="Add Project"
-                        android:textStyle="bold"
-                        android:textSize="16dp" />
-                    <Button
-                        android:id="@+id/rooms_done"
+                        android:id="@+id/rl_rooms_done"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="16dp"
@@ -152,6 +141,11 @@
                         android:text="Done"
                         android:textSize="16dp"
                         android:textStyle="bold" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/Add_rl_Buffer"
+                        android:visibility="gone"></TextView>
                 </LinearLayout>
             </ScrollView>
 
