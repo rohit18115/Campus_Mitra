@@ -1,171 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<androidx.viewpager.widget.ViewPager
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/spd_pager"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".StudentProfileDisplay">
-<RelativeLayout
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:paddingRight="16dp"
-    android:paddingLeft="16dp"
-    >
+    tools:context=".StudentProfileDisplay" >
 
-    <ProgressBar
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:id="@+id/ase_pb"
-        android:visibility="gone" />
-
-    <de.hdodenhof.circleimageview.CircleImageView
-        android:layout_width="150dp"
-        android:layout_height="150dp"
-        android:src="@mipmap/ic_launcher"
-        android:id="@+id/ase_profile_image"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="36dp"
-        />
-
-    <androidx.appcompat.widget.AppCompatTextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/ase_profile_name"
-        android:textStyle="bold"
-        android:textSize="28sp"
-        android:paddingTop="10dp"
-        android:text="Name"
-        android:layout_centerHorizontal="true"
-        android:layout_below="@+id/ase_profile_image" />
-    <androidx.appcompat.widget.AppCompatTextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/ase_rollnumber"
-        android:textStyle="bold"
-        android:textSize="28sp"
-        android:paddingTop="10dp"
-        android:text="EG12345"
-        android:layout_centerHorizontal="true"
-        android:layout_below="@+id/ase_profile_name" />
-
-    <androidx.appcompat.widget.AppCompatTextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/ase_dob"
-        android:paddingTop="5dp"
-        android:text="Date of birth"
-        android:textSize="16dp"
-        android:layout_centerHorizontal="true"
-        android:layout_below="@+id/ase_rollnumber" />
-    <androidx.appcompat.widget.AppCompatTextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/ase_department"
-        android:paddingTop="5dp"
-        android:text="department"
-        android:textSize="16dp"
-        android:layout_centerHorizontal="true"
-        android:layout_below="@+id/ase_dob" />
-
-    <androidx.appcompat.widget.AppCompatTextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/ase_email_id"
-        android:paddingTop="5dp"
-        android:text="example@iiitd.ac.in"
-        android:textSize="16dp"
-        android:layout_centerHorizontal="true"
-        android:layout_below="@+id/ase_department" />
-
-    <View
-        android:id="@+id/ase_divider1"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_marginBottom="7dp"
-        android:layout_marginTop="7dp"
-        android:background="@color/colorPrimaryDark"
-        android:layout_below="@+id/ase_email_id"/>
-
-    <androidx.appcompat.widget.AppCompatTextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/ase_enrolled_title"
-        android:paddingTop="5dp"
-        android:text="Enrolled Courses: "
-        android:textStyle="bold"
-        android:textSize="16dp"
-        android:layout_below="@+id/ase_divider1" />
-
-    <androidx.appcompat.widget.AppCompatTextView
+    <com.google.android.material.tabs.TabLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/ase_enrolled_courses"
-        android:paddingTop="5dp"
-        android:text="Enrolled Courses here"
-        android:textSize="16dp"
-        android:layout_below="@+id/ase_enrolled_title" />
+        android:minHeight="?attr/actionBarSize"
+        android:theme="@style/Theme.AppCompat"
+        android:background="@color/colorPrimary"
+        android:id="@+id/spd_tab_layout"/>
 
-    <View
-        android:id="@+id/ase_divider2"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_marginBottom="7dp"
-        android:layout_marginTop="7dp"
-        android:background="@color/colorPrimaryDark"
-        android:layout_below="@+id/ase_enrolled_courses"/>
-
-    <androidx.appcompat.widget.AppCompatTextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/ase_interest_title"
-        android:paddingTop="5dp"
-        android:text="Interests"
-        android:textStyle="bold"
-        android:textSize="16dp"
-        android:layout_below="@+id/ase_divider2" />
-
-    <androidx.appcompat.widget.AppCompatTextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/ase_interests"
-        android:paddingTop="5dp"
-        android:text="Interests here"
-        android:textSize="16dp"
-        android:layout_below="@+id/ase_interest_title" />
-
-    <View
-        android:id="@+id/ase_divider3"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_marginBottom="7dp"
-        android:layout_marginTop="7dp"
-        android:background="@color/colorPrimaryDark"
-        android:layout_below="@+id/ase_interests"/>
-
-
-    <Button
-        android:id="@+id/ase_resume"
-        style="@style/Widget.MaterialComponents.Button.Icon"
-        android:layout_marginTop="8dp"
-        android:text="Download Resume"
-        android:textSize="17sp"
-        android:layout_gravity="center"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:padding="8dp"
-        android:layout_centerHorizontal="true"
-        android:layout_below="@+id/ase_divider3"
-        />
-
-</RelativeLayout>
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fab"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
-        android:layout_margin="@dimen/fab_margin"
-        app:srcCompat="@drawable/ic_mode_edit" />
-
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
+</androidx.viewpager.widget.ViewPager>

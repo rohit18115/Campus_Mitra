@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--    <android.support.v7.widget.Toolbar-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:id="@+id/toolbar"-->
+<!--        android:background="@color/colorPrimary"-->
+<!--        android:minHeight="?attr/actionBarSize"-->
+<!--        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"-->
+<!--        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>-->
+
+
+<!--    <TabLayout-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:id="@+id/fpd_tablayout"-->
+<!--        android:background="@color/colorPrimary"-->
+<!--        />-->
+
+<!--&lt;!&ndash;    android:minHeight="?attr/actionBarSize"&ndash;&gt;-->
+<!--&lt;!&ndash;    android:theme="@style/Theme.AppCompat"&ndash;&gt;-->
+
+
+<!--    <androidx.viewpager.widget.ViewPager-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="fill_parent"-->
+<!--        android:id="@+id/fpd_viewpager"-->
+<!--        />-->
+
+<androidx.viewpager.widget.ViewPager
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/fpd_pager"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".FacultyProfileDisplay" >
+
+    <com.google.android.material.tabs.TabLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="@style/Theme.AppCompat"
+        android:background="@color/colorPrimary"
+        android:id="@+id/fpd_tab_layout"/>
+
+</androidx.viewpager.widget.ViewPager>
