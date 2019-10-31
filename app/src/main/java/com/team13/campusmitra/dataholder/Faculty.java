@@ -6,7 +6,6 @@ import java.util.ArrayList;
 public class Faculty implements Serializable {
     private String userID;
     private String designation;
-    private String joinedDate;
     private int availability;
     private ArrayList<OfficeHours> officeHours;
     private ArrayList<String> coursesTaken;
@@ -19,10 +18,9 @@ public class Faculty implements Serializable {
         coursesTaken = new ArrayList<>();
     }
 
-    public Faculty(String userID, String designation, String joinedDate, int availability, ArrayList<OfficeHours> officeHours, ArrayList<String> coursesTaken, String roomid, String department, ArrayList<String> domains) {
+    public Faculty(String userID, String designation, int availability, ArrayList<OfficeHours> officeHours, ArrayList<String> coursesTaken, String roomid, String department, ArrayList<String> domains) {
         this.userID = userID;
         this.designation = designation;
-        this.joinedDate = joinedDate;
         this.availability = availability;
         this.officeHours = officeHours;
         this.coursesTaken = coursesTaken;
@@ -55,14 +53,6 @@ public class Faculty implements Serializable {
 
     public void setDesignation(String designation) {
         this.designation = designation;
-    }
-
-    public String getJoinedDate() {
-        return joinedDate;
-    }
-
-    public void setJoinedDate(String joinedDate) {
-        this.joinedDate = joinedDate;
     }
 
     public int getAvailability() {

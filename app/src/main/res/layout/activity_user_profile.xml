@@ -111,7 +111,9 @@
                     android:layout_marginLeft="8dp"
                     android:layout_marginEnd="8dp"
                     android:layout_marginRight="8dp"
-                    android:text="Select Date of birth"
+                    android:hint="Select Date of birth"
+                    android:text=""
+                    android:editable="false"
                     android:textSize="16sp"/>
 
                 <com.google.android.material.textfield.TextInputLayout
@@ -128,19 +130,18 @@
                         android:maxLines="1"
                         android:textSize="16sp" />
                 </com.google.android.material.textfield.TextInputLayout>
-                <EditText
+                <TextView
+                    android:layout_marginTop="10dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="enter usert type"
-                    android:id="@+id/UPusertypeet"
-                    >
-
-                </EditText>
+                    android:text="User Type"
+                    android:textSize="16sp"
+                    android:enabled="false" />
                 <RadioGroup
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/UPRBuserType"
-                    android:checkedButton="@+id/maleRadio"
+                    android:checkedButton="@+id/UPstudentRadio"
                     android:orientation="horizontal">
                     <RadioButton
                         android:id="@+id/UPfacultyRadio"
@@ -161,6 +162,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Gender"
+                    android:enabled="false"
                     android:textSize="16sp"/>
                 <RadioGroup
                     android:layout_width="wrap_content"

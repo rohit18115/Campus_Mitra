@@ -4,6 +4,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
@@ -20,6 +22,29 @@ public class NewDashboard extends AppCompatActivity {
         nameTV = findViewById(R.id.student_dashboard_name);
         user  = (User) getIntent().getSerializableExtra("MYKEY");
         nameTV.setText("Hello "+user.getUserFirstName()+" "+user.getUserLastName());
+    }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu)
+    {
+        getMenuInflater().inflate(R.menu.actionbar,menu);
+        return true;
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item)
+    {
+        switch(item.getItemId()) {
+            case R.id.scan_id:
+                Intent intent = new Intent(getApplicationContext(), OCRActivity.class);
+
+                startActivity(intent);
+                return true;
+            case R.id.logout:
+                FirebaseAuth auth = FirebaseAuth.getInstance();
+                auth.signOut();
+                return true;
+
+        }
+        return super.onOptionsItemSelected(item);
     }
     public void send_to_scan(View view)
     {
