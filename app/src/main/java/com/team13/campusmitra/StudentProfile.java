@@ -3,20 +3,31 @@ package com.team13.campusmitra;
 
 import android.Manifest;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+import androidx.fragment.app.DialogFragment;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -29,33 +40,39 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.team13.campusmitra.Utils.LetterImageView;
 import com.team13.campusmitra.dataholder.Student;
 import com.team13.campusmitra.dataholder.User;
 import com.team13.campusmitra.firebaseassistant.FirebaseStudentHelper;
 
 public class StudentProfile extends AppCompatActivity implements View.OnClickListener {
     TextView display_courses;
-    TextView department;
+    Button department;
     TextView interests;
     TextView rollNo;
+    TextView dept;
     Button select_courses;
     Button upload, next;
     TextView selected_file;
     FirebaseStorage storage;
     FirebaseDatabase database;
+    AlertDialog dialog;
+    private ListView listView;
     Uri pdfUri;
     ProgressDialog progressDialog;
+    public static SharedPreferences sharedPreferences;
 
     static final int PICK_CONTACT_REQUEST = 1;
 
     private void initComponents() {
         display_courses = findViewById(R.id.display_courses_id);
-        department = findViewById(R.id.department);
+        department = findViewById(R.id.selectDept);
         interests = findViewById(R.id.interests);
         rollNo = findViewById(R.id.rollNumber);
         upload = findViewById(R.id.uploadresume);
         next = findViewById(R.id.SPnext);
         selected_file = findViewById(R.id.display_selected_file);
+        dept = findViewById(R.id.display_dept);
     }
 
     private void getStudentObject() {
@@ -80,8 +97,17 @@ public class StudentProfile extends AppCompatActivity implements View.OnClickLis
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_student_profile);
         initComponents();
+        initToolbar();
+        setupUIViews();
+        setupListView();
+        department.setOnClickListener(this);
         storage = FirebaseStorage.getInstance();
         database = FirebaseDatabase.getInstance();
+        AlertDialog.Builder builder = new AlertDialog.Builder(StudentProfile.this);
+        builder.setCancelable(true);
+        builder.setView(listView);
+        dialog = builder.create();
+
         select_courses = findViewById(R.id.selectcourses);
         select_courses.setOnClickListener(this);
         display_courses = (TextView)findViewById(R.id.display_courses_id);
@@ -98,6 +124,80 @@ public class StudentProfile extends AppCompatActivity implements View.OnClickLis
         }
 
       //
+    }
+    private void initToolbar(){
+        getSupportActionBar().setTitle("Student Profile");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+    }
+    private void setupUIViews(){
+        listView = new ListView(this);
+        sharedPreferences = getSharedPreferences("MY_DAY", MODE_PRIVATE);
+    }
+    private void setupListView() {
+        String[] option = getResources().getStringArray(R.array.Dept);
+        final DeptAdapter adapter = new DeptAdapter(this, R.layout.activity_office_hours_day_single_item, option);
+        listView.setAdapter(adapter);
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                //adapter.getItem(position).toString()
+                dept.setText(adapter.getItem(position).toString());
+                dialog.dismiss();
+
+
+            }
+
+        });
+    }
+    public class DeptAdapter extends ArrayAdapter {
+
+        private int resource;
+        private LayoutInflater layoutInflater;
+        private String[] week = new String[]{};
+        private String retDay = "";
+
+        public DeptAdapter(StudentProfile context, int resource, String[] objects) {
+            super(context, resource, objects);
+            this.resource = resource;
+            this.week = objects;
+            layoutInflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        }
+
+        @Override
+        public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+            DeptAdapter.ViewHolder holder;
+            if(convertView == null){
+                holder = new DeptAdapter.ViewHolder();
+                convertView = layoutInflater.inflate(resource, null);
+                holder.ivLogo = (LetterImageView)convertView.findViewById(R.id.OHDSILetter);
+                holder.tvWeek = (TextView)convertView.findViewById(R.id.OHDSItv);
+                convertView.setTag(holder);
+            }else{
+                holder = (DeptAdapter.ViewHolder)convertView.getTag();
+            }
+
+            holder.ivLogo.setOval(true);
+            holder.ivLogo.setLetter(week[position].charAt(0));
+            holder.tvWeek.setText(week[position]);
+
+            return convertView;
+        }
+
+
+        class ViewHolder{
+            private LetterImageView ivLogo;
+            private TextView tvWeek;
+        }
+    }
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        switch(item.getItemId()){
+            case android.R.id.home : {
+                onBackPressed();
+            }
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     @Override
@@ -117,7 +217,9 @@ public class StudentProfile extends AppCompatActivity implements View.OnClickLis
                 }
                 break;
             case R.id.SPnext:
-
+            case R.id.selectDept:
+                dialog.show();
+                break;
         }
     }
 

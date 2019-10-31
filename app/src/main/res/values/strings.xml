@@ -61,6 +61,15 @@
         <item> "A-409"</item>
 
     </string-array>
+    <string-array name="Dept">
+        <item> "CSE"</item>
+        <item> "CSSS" </item>
+        <item> "CSAM" </item>
+        <item> "CB" </item>
+        <item> "CSAI"</item>
+
+    </string-array>
+
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
