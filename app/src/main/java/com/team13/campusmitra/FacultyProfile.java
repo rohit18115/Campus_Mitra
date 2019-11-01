@@ -85,40 +85,45 @@ public class FacultyProfile extends AppCompatActivity implements View.OnClickLis
         } catch (NullPointerException e) {
             Log.d("lolo", "Null pointer exception: ");
         }
-        if(dep.isEmpty()) {
-            dept.setError("Roll Number Can't be empty", null);
+        if(dep.equals("Select Department")) {
+            dept.setError("Department Can't be empty", null);
             department.requestFocus();
-        } else if(desi.isEmpty()) {
-            designation.setError("Roll Number Can't be empty", null);
+        } else if(desi.equals("Select Room")) {
+            designation.setError("Designation Can't be empty", null);
             designation.requestFocus();
         } else {
+            Log.d("lola", "onClick: button next1");
             Faculty faculty = new Faculty();
             faculty.setAvailability(1);
             faculty.setDepartment(dep);
             faculty.setDesignation(desi);
             OfficeHours of = new OfficeHours();
-            if(!day.isEmpty()) {
+            if(!day.equals("Day")) {
                 of.setDay(day);
                 of.setStartTime(oStart);
                 of.setEndTime(oEnd);
                 of.setVenue(oVenue);
                 faculty.setOfficeHours(of);
             }
-            if(!room.isEmpty()) {
+            if(!room.equals("Select Room")) {
+                Log.d("lola", "onClick: button next3");
                 faculty.setRoomNo(room);
 
             }
             if(!dom.isEmpty()) {
+                Log.d("lola", "onClick: button next4");
                 faculty.setDomains(dom);
             }
             if(selected.size()==0) {
+                Log.d("lola", "onClick: button next5");
                 faculty.setCoursesTaken(selected);
             }
             FirebaseAuth auth = FirebaseAuth.getInstance();
             String uid = auth.getCurrentUser().getUid();
             faculty.setUserID(uid);
             FirebaseFacultyHelper helper = new FirebaseFacultyHelper();
-            helper.addStudent(this,faculty);
+            Log.d("lola", "onClick: button next6");
+            helper.addFaculty(this,faculty);
             incrementCount();
         }
     }
@@ -172,6 +177,8 @@ public class FacultyProfile extends AppCompatActivity implements View.OnClickLis
         builderRoom.setCancelable(true);
         builderRoom.setView(listViewRoom);
         dialogRoom = builderRoom.create();
+        Button bt = findViewById(R.id.FPnext);
+        bt.setOnClickListener(this);
     }
 
     @Override
@@ -347,7 +354,8 @@ public class FacultyProfile extends AppCompatActivity implements View.OnClickLis
             case R.id.FPselectroom:
                 dialogRoom.show();
                 break;
-            case R.id.SPnext:
+            case R.id.FPnext:
+                Log.d("lola", "onClick: button next");
                 uploadData();
                 break;
 
@@ -375,6 +383,15 @@ public class FacultyProfile extends AppCompatActivity implements View.OnClickLis
                 }
             }
         }
+    }
+
+    @Override
+    public void onBackPressed () {
+
+        super.onBackPressed();
+        FirebaseAuth auth = FirebaseAuth.getInstance();
+        auth.signOut();
+
     }
 
 }

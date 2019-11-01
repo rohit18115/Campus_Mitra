@@ -53,7 +53,6 @@ public class SelectCoursesRecyclerView extends AppCompatActivity {
                 for (CourseSelectModel model : mModelList) {
                     if (model.isSelected()) {
                         selected.add(model.getCourse().getCourseName());
-                        //text += model.getCourse().getCourseName()+"\n";
                     }
                 }
                 Intent intent1 = new Intent();
