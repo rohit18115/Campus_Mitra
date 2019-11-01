@@ -36,6 +36,9 @@ public class DashboardProfessor extends AppCompatActivity {
             case R.id.logout:
                 FirebaseAuth auth = FirebaseAuth.getInstance();
                 auth.signOut();
+                Intent intent1 = new Intent(getApplicationContext(),SignInSplash.class);
+                startActivity(intent1);
+                finish();
                 return true;
 
         }
