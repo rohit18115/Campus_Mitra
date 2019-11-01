@@ -19,6 +19,7 @@
             android:layout_marginRight="28dp">
 
             <TextView
+                android:id="@+id/prof_name"
                 android:text="Hello"
                 android:textSize="22sp"
                 android:textColor="#000000"

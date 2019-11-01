@@ -293,6 +293,7 @@ public class SignIn extends AppCompatActivity {
                             }
                             else {
                                 Intent intent = new Intent(SignIn.this, DashboardProfessor.class);
+                                intent.putExtra("MYKEY",myuser);
                                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                                 startActivity(intent);
                             }

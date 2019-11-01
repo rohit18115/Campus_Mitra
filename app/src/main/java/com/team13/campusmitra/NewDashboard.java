@@ -22,6 +22,7 @@ public class NewDashboard extends AppCompatActivity {
         setContentView(R.layout.activity_new_dashboard);
         nameTV = findViewById(R.id.student_dashboard_name);
         user  = (User) getIntent().getSerializableExtra("MYKEY");
+
         nameTV.setText("Hello "+user.getUserFirstName()+" "+user.getUserLastName());
     }
     @Override
