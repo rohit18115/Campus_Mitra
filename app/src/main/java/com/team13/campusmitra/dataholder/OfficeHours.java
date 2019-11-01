@@ -17,6 +17,10 @@ public class OfficeHours implements Serializable {
         this.dnd = dnd;
     }
 
+    public OfficeHours () {
+
+    }
+
     public OfficeHours(String day, String startTime, String endTime, String venue) {
         this.day = day;
         this.startTime = startTime;

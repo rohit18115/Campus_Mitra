@@ -26,7 +26,7 @@ public class FirebaseUserHelper {
     public void updateUser(Context context, User user){
         String uid = user.getUserId();//.getCourseID();
         //course.setCourseID(uid);
-        firebaseDatabase.child(uid).setValue(uid);
+        firebaseDatabase.child(uid).setValue(user);
         Toast.makeText(context,"User updated successfully!!",Toast.LENGTH_SHORT).show();
     }
 }

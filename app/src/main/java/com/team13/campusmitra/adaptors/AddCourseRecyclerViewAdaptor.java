@@ -193,7 +193,7 @@ public class AddCourseRecyclerViewAdaptor extends  RecyclerView.Adapter<AddCours
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
         dialogBuilder.setTitle("Are you sure want to delete ?");
 
-        dialogBuilder.setPositiveButton("Next", new DialogInterface.OnClickListener() {
+        dialogBuilder.setPositiveButton("Delete", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 FirebaseCoursesHelper helper = new FirebaseCoursesHelper();

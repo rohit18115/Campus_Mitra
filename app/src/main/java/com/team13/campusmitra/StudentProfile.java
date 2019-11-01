@@ -27,15 +27,17 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
-import androidx.fragment.app.DialogFragment;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
@@ -44,21 +46,26 @@ import com.team13.campusmitra.Utils.LetterImageView;
 import com.team13.campusmitra.dataholder.Student;
 import com.team13.campusmitra.dataholder.User;
 import com.team13.campusmitra.firebaseassistant.FirebaseStudentHelper;
+import com.team13.campusmitra.firebaseassistant.FirebaseUserHelper;
+
+import java.util.ArrayList;
 
 public class StudentProfile extends AppCompatActivity implements View.OnClickListener {
     TextView display_courses;
-    Button department;
     TextView interests;
     TextView rollNo;
     TextView dept;
-    Button select_courses;
-    Button upload, next;
     TextView selected_file;
+    Button select_courses;
+    Button department;
+    Button upload, next;
     FirebaseStorage storage;
     FirebaseDatabase database;
     AlertDialog dialog;
     private ListView listView;
+    ArrayList<String> selected = new ArrayList<>();
     Uri pdfUri;
+    String resumeUrl = "";
     ProgressDialog progressDialog;
     public static SharedPreferences sharedPreferences;
 
@@ -76,21 +83,74 @@ public class StudentProfile extends AppCompatActivity implements View.OnClickLis
     }
 
     private void getStudentObject() {
-        Student student = new Student();
-        student.setAreaOfInterest(interests.getText().toString());
-        student.setDepartment(department.getText().toString());
-        student.setRollNumber(rollNo.getText().toString());
-        //student.setCourses(display_courses.getText().toString());
+        String roll = "",deptText = "",interest = "" ,stream = "";
+        try {
+            roll = rollNo.getText().toString();
+            deptText = dept.getText().toString();
+            interest = interests.getText().toString();
+        } catch (NullPointerException e) {
+            Log.d("lolo", "Null pointer exception: ");
+        }
+
+        if(roll.isEmpty()) {
+            rollNo.setError("Roll Number Can't be empty", null);
+            rollNo.requestFocus();
+        } else if(deptText.equals("Select Department")) {
+            dept.setError("First Name Can't be empty", null);
+            dept.requestFocus();
+        } else {
+            Student student = new Student();
+            student.setAreaOfInterest(interest);
+            student.setDepartment(deptText);
+            student.setRollNumber(roll);
+            student.setCourses(selected);
+            student.setResumeURL(resumeUrl);
+            if(roll.contains("MT")) {
+                stream = "M. Tech.";
+            } else if(roll.contains("PhD")) {
+                stream = "Phd";
+            } else {
+                stream = "B. Tech.";
+            }
+            student.setEnrollCourse(stream);
+            FirebaseAuth auth = FirebaseAuth.getInstance();
+            String uid = auth.getCurrentUser().getUid();
+            student.setUserID(uid);
+            FirebaseStudentHelper helper = new FirebaseStudentHelper();
+            helper.addStudent(this,student);
+            incrementCount();
+        }
+    }
+
+    private void incrementCount() {
+        final User[] user = new User[1];
         FirebaseAuth auth = FirebaseAuth.getInstance();
-        String uid = auth.getCurrentUser().getUid();
-        student.setUserID(uid);
-        FirebaseStudentHelper helper = new FirebaseStudentHelper();
-        //user.setProfileCompleteCount(user.getProfileCompleteCount()+1);
-        //helper.addStudent(this,user);
+        final String uid = auth.getCurrentUser().getUid();
+        final FirebaseUserHelper helper = new FirebaseUserHelper();
+        DatabaseReference reference = helper.getReference();
+        reference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                //user[0] = dataSnapshot.getValue(User.class);
+                for(DataSnapshot snapshot:dataSnapshot.getChildren()){
+                    User u = (User)snapshot.getValue(User.class);
+                    if(u.getUserId().equals(uid)) {
+                        user[0] = u;
+                        Log.d("lololo", "onDataChange: " + user[0].getUserLastName());
+                        user[0].setProfileCompleteCount(2);
+                        helper.updateUser(getApplicationContext(), user[0]);
+                    }
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+
+        });
     }
 
     Intent intent;
-    User user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -114,14 +174,14 @@ public class StudentProfile extends AppCompatActivity implements View.OnClickLis
         upload.setOnClickListener(this);
         next.setOnClickListener(this);
         select_courses.setOnClickListener(this);
-        if (savedInstanceState == null) {
-            Bundle courses = getIntent().getExtras();
-            if(courses == null) {
-                display_courses= null;
-            } else {
-                display_courses.setText(courses.getString("selected_course_Name"));
-            }
-        }
+//        if (savedInstanceState == null) {
+//            Bundle courses = getIntent().getExtras();
+//            if(courses == null) {
+//                display_courses= null;
+//            } else {
+//                display_courses.setText(courses.getString("selected_course_Name"));
+//            }
+//        }
 
       //
     }
@@ -217,6 +277,8 @@ public class StudentProfile extends AppCompatActivity implements View.OnClickLis
                 }
                 break;
             case R.id.SPnext:
+                getStudentObject();
+                break;
             case R.id.selectDept:
                 dialog.show();
                 break;
@@ -235,9 +297,9 @@ public class StudentProfile extends AppCompatActivity implements View.OnClickLis
         storageReference.child("Uploads").child(fileName).putFile(pdfUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
             @Override
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                String url = taskSnapshot.getMetadata().getReference().getDownloadUrl().toString();
+                resumeUrl = taskSnapshot.getMetadata().getReference().getDownloadUrl().toString().trim();
                 DatabaseReference reference = database.getReference();
-                reference.child(fileName).setValue(url).addOnCompleteListener(new OnCompleteListener<Void>() {
+                reference.child(fileName).setValue(resumeUrl).addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
                         if(task.isSuccessful())
@@ -290,11 +352,19 @@ public class StudentProfile extends AppCompatActivity implements View.OnClickLis
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == PICK_CONTACT_REQUEST) {
             if (resultCode == RESULT_OK) {
-                String t = "";
-                if(data!=null)
-                     t = data.getStringExtra("selected_course_Name");
-                if(display_courses != null)
+                Bundle args;
+                if(data!=null) {
+                    args = data.getBundleExtra("selected_course_Name");
+                    selected = (ArrayList<String>)args.getSerializable("ARRAYLIST");
+                }
+                if(selected.size()!=0) {
+                    String t = " ";
+                    for(int i =0;i<selected.size();i++) {
+                        Log.d("lolo", "onActivityResult: add to t");
+                        t = t + selected.get(i) + " ";
+                    }
                     display_courses.setText(t);
+                }
             }
         }
         else if (requestCode==86 && resultCode==RESULT_OK && data!=null) {

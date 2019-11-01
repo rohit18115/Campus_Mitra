@@ -264,7 +264,7 @@ public class SignInSplash extends AppCompatActivity {
                     }
                     else if(myuser.getProfileCompleteCount()==1){
                         if(myuser.getUserType()==0){
-                            Intent intent = new Intent(getApplicationContext(), StudentProfileDisplay.class);
+                            Intent intent = new Intent(getApplicationContext(), StudentProfile.class);
                             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                             startActivity(intent);
 

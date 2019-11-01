@@ -44,7 +44,6 @@
         <activity android:name=".TestActivity" />
         <activity android:name=".FacultyCourseTakenRecyclerView" />
         <activity android:name=".FacultyProfile" >
-
         </activity>
         <activity android:name=".SplashActivity" />
         <activity android:name=".OCRActivity" />

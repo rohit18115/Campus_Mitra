@@ -72,13 +72,14 @@ public class FacultyProfileFragment extends Fragment {
                         OfficeHours of = fac.getOfficeHours();
                         String set = of.getDay() + " from " + of.getStartTime() + " to " + of.getEndTime() + " at " + of.getVenue();
                         officeHours.setText(set);
-                        ArrayList<String> s = fac.getDomains();
-                        String cor = "";
-                        for(int i =0;i<s.size();i++) {
-                            cor = cor + s.get(i) + "\n";
-                        }
+                        //ArrayList<String> s = fac.getDomains();
+//                        String cor = "";
+//                        for(int i =0;i<s.size();i++) {
+//                            cor = cor + s.get(i) + "\n";
+//                        }
+                        String cor = fac.getDomains();
                         domains.setText(cor);
-                        s = fac.getCoursesTaken();
+                        ArrayList<String> s = fac.getCoursesTaken();
                         cor = "";
                         for(int i =0;i<s.size();i++) {
                             cor = cor + s.get(i) + "\n";

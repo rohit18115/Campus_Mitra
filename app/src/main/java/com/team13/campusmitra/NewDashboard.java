@@ -26,7 +26,7 @@ public class NewDashboard extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu)
     {
-        getMenuInflater().inflate(R.menu.actionbar,menu);
+        getMenuInflater().inflate(R.menu.student_actionbar,menu);
         return true;
     }
     @Override
@@ -38,6 +38,11 @@ public class NewDashboard extends AppCompatActivity {
 
                 startActivity(intent);
                 return true;
+            case R.id.view_profile:
+                Intent intent2 = new Intent(getApplicationContext(), StudentProfileDisplay.class);
+
+                startActivity(intent2);
+                return true;
             case R.id.logout:
                 FirebaseAuth auth = FirebaseAuth.getInstance();
                 auth.signOut();
@@ -46,7 +51,8 @@ public class NewDashboard extends AppCompatActivity {
                 finish();
                 return true;
 
-        }
+                }
+
         return super.onOptionsItemSelected(item);
     }
     public void send_to_scan(View view)

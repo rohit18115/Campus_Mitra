@@ -93,4 +93,5 @@ public class Course implements Serializable {
     public void setOffering(String offering) {
         this.offering = offering;
     }
+
 }
