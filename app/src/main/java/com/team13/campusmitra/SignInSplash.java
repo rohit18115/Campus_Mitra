@@ -331,6 +331,7 @@ public class SignInSplash extends AppCompatActivity {
                         }
                         else {
                             Intent intent = new Intent(getApplicationContext(), DashboardProfessor.class);
+                            intent.putExtra("MYKEY",myuser);
                             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                             startActivity(intent);
                         }

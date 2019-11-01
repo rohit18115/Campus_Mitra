@@ -10,6 +10,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseAuth;
@@ -24,6 +25,8 @@ public class DashboardProfessor extends AppCompatActivity {
 
 
     ImageView image;
+    TextView nameTV;
+    User user;
 
 
     protected void loadImage() {
@@ -74,6 +77,10 @@ public class DashboardProfessor extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dashboard_professor);
         loadImage();
+        nameTV = findViewById(R.id.prof_name);
+        user  = (User) getIntent().getSerializableExtra("MYKEY");
+        System.out.println("abcd"+user);
+        nameTV.setText("Hello "+user.getUserFirstName()+" "+user.getUserLastName());
 
     }
     @Override
