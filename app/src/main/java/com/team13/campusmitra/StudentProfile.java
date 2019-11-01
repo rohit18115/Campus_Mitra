@@ -27,9 +27,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
-import androidx.fragment.app.DialogFragment;
 
-import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -49,7 +47,6 @@ import com.team13.campusmitra.dataholder.Student;
 import com.team13.campusmitra.dataholder.User;
 import com.team13.campusmitra.firebaseassistant.FirebaseStudentHelper;
 import com.team13.campusmitra.firebaseassistant.FirebaseUserHelper;
-import com.team13.campusmitra.fragments.BasicProfileFragment;
 
 import java.util.ArrayList;
 
@@ -129,16 +126,19 @@ public class StudentProfile extends AppCompatActivity implements View.OnClickLis
         final User[] user = new User[1];
         FirebaseAuth auth = FirebaseAuth.getInstance();
         final String uid = auth.getCurrentUser().getUid();
-        FirebaseUserHelper helper = new FirebaseUserHelper();
+        final FirebaseUserHelper helper = new FirebaseUserHelper();
         DatabaseReference reference = helper.getReference();
         reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                //user[0] = dataSnapshot.getValue(User.class);
                 for(DataSnapshot snapshot:dataSnapshot.getChildren()){
-                    final User u = snapshot.getValue(User.class);
+                    User u = (User)snapshot.getValue(User.class);
                     if(u.getUserId().equals(uid)) {
-                        Log.d("lololo", "onDataChange: " + user[0].getUserLastName());
                         user[0] = u;
+                        Log.d("lololo", "onDataChange: " + user[0].getUserLastName());
+                        user[0].setProfileCompleteCount(2);
+                        helper.updateUser(getApplicationContext(), user[0]);
                     }
                 }
             }
@@ -148,12 +148,9 @@ public class StudentProfile extends AppCompatActivity implements View.OnClickLis
             }
 
         });
-        user[0].setProfileCompleteCount(user[0].getProfileCompleteCount()+1);
-        helper.addUser(this, user[0]);
     }
 
     Intent intent;
-    User user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -177,14 +174,14 @@ public class StudentProfile extends AppCompatActivity implements View.OnClickLis
         upload.setOnClickListener(this);
         next.setOnClickListener(this);
         select_courses.setOnClickListener(this);
-        if (savedInstanceState == null) {
-            Bundle courses = getIntent().getExtras();
-            if(courses == null) {
-                display_courses= null;
-            } else {
-                display_courses.setText(courses.getString("selected_course_Name"));
-            }
-        }
+//        if (savedInstanceState == null) {
+//            Bundle courses = getIntent().getExtras();
+//            if(courses == null) {
+//                display_courses= null;
+//            } else {
+//                display_courses.setText(courses.getString("selected_course_Name"));
+//            }
+//        }
 
       //
     }
@@ -280,6 +277,8 @@ public class StudentProfile extends AppCompatActivity implements View.OnClickLis
                 }
                 break;
             case R.id.SPnext:
+                getStudentObject();
+                break;
             case R.id.selectDept:
                 dialog.show();
                 break;
@@ -359,8 +358,9 @@ public class StudentProfile extends AppCompatActivity implements View.OnClickLis
                     selected = (ArrayList<String>)args.getSerializable("ARRAYLIST");
                 }
                 if(selected.size()!=0) {
-                    String t = "";
+                    String t = " ";
                     for(int i =0;i<selected.size();i++) {
+                        Log.d("lolo", "onActivityResult: add to t");
                         t = t + selected.get(i) + " ";
                     }
                     display_courses.setText(t);
