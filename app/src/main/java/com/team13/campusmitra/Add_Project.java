@@ -77,26 +77,7 @@ public class Add_Project extends AppCompatActivity implements View.OnClickListen
         projects = new ArrayList<>();
         buffer = findViewById(R.id.Add_proj_Buffer);
         project_list = (RecyclerView) findViewById(R.id.proj_list);
-        /*add_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if(checkEditText(proj_name)&&checkEditText(proj_desc)&&members.size()>0){
-                    Project p = new Project();
-                    p.setProjectName(proj_name.getText().toString().trim());
-                    p.setProjectDescription(proj_desc.getText().toString().trim());
-                    p.setProjectImageURL(buffer.getText().toString().trim());
-                    members_string = member_list.getText().toString().trim();
-                    members = (ArrayList<String>) Arrays.asList(members_string.split(","));
-                    p.setMembers(members);
-                    FirebaseProjectHelper helper = new FirebaseProjectHelper();
-                    helper.addProject(getApplicationContext(),p);
-                }
-                else
-                {
-                    Toast.makeText(getApplicationContext(),"Enter valid Values!!",Toast.LENGTH_LONG).show();
-                }
-            }
-        });*/
+
     }
     protected void getProjectObject(){
         if(checkEditText(proj_name)&&checkEditText(proj_desc)&&members.size()>0){
