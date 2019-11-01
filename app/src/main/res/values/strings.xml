@@ -69,7 +69,13 @@
         <item> "CSAI"</item>
 
     </string-array>
+    <string-array name="Designation">
+        <item> "Professor"</item>
+        <item> "Assistant Professor" </item>
+        <item> "Associate Professor" </item>
+        <item> "Director" </item>
 
+    </string-array>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
