@@ -19,6 +19,8 @@ import com.team13.campusmitra.dataholder.User;
 import com.team13.campusmitra.firebaseassistant.FirebaseStudentHelper;
 import com.team13.campusmitra.firebaseassistant.FirebaseUserHelper;
 
+import java.util.ArrayList;
+
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class StudentExternalDisplay extends AppCompatActivity {
@@ -82,6 +84,23 @@ public class StudentExternalDisplay extends AppCompatActivity {
 //                        dept.setText();
 //                        courses.setText();
 //                        interests.setText();
+                        String dep = "", cor = "", dom = "";
+                        dep = student.getDepartment();
+                        dom = student.getAreaOfInterest();
+                        ArrayList<String> s = student.getCourses();
+                        cor = "";
+                        for(int i =0;i<s.size();i++) {
+                            cor = cor + s.get(i) + "\n";
+                        }
+                        if(!dep.isEmpty()) {
+                            dept.setText(dep);
+                        }
+                        if(!dom.isEmpty()) {
+                            interests.setText(dom);
+                        }
+                        if(!cor.isEmpty()) {
+                            courses.setText(cor);
+                        }
                     }
                 }
             }
