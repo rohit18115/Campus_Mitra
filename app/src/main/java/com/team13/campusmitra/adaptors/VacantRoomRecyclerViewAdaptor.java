@@ -10,11 +10,17 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.DialogFragment;
+import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.google.firebase.auth.FirebaseAuth;
+import com.team13.campusmitra.BookingDialogue;
 import com.team13.campusmitra.R;
 import com.team13.campusmitra.dataholder.Room;
+import com.team13.campusmitra.popupmanager.PopupManager;
 
 import java.util.ArrayList;
 
@@ -22,10 +28,11 @@ public class VacantRoomRecyclerViewAdaptor extends RecyclerView.Adapter<VacantRo
 
     private Room[] room;
     private ArrayList<Room> roomArrayList;
-    private Activity activity;
+    private FragmentActivity activity;
     private Context context;
+    private DialogFragment fragment;
 
-    public VacantRoomRecyclerViewAdaptor(ArrayList<Room> roomArrayList, Activity activity, Context context) {
+    public VacantRoomRecyclerViewAdaptor(ArrayList<Room> roomArrayList, FragmentActivity activity, Context context) {
         this.roomArrayList = roomArrayList;
         this.activity = activity;
         this.context = context;
@@ -51,7 +58,7 @@ public class VacantRoomRecyclerViewAdaptor extends RecyclerView.Adapter<VacantRo
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        Room roomObject;
+        final Room roomObject;
         if(roomArrayList!=null){
             roomObject = roomArrayList.get(position);
         }
@@ -63,7 +70,17 @@ public class VacantRoomRecyclerViewAdaptor extends RecyclerView.Adapter<VacantRo
         holder.bookButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                FirebaseAuth auth = FirebaseAuth.getInstance();
+                String uid = auth.getUid();
+                String roomid = roomObject.getRoomID();
+                //PopupManager manager = new PopupManager(context,activity);
 
+
+
+
+                BookingDialogue bookingDialogue = new BookingDialogue(BookingDialogue.ROOMBOOKING);
+                bookingDialogue.setBookingDetails(uid,roomid);
+                bookingDialogue.show(activity.getSupportFragmentManager(),"What the hell");
             }
         });
         Glide.with(activity)
@@ -95,6 +112,11 @@ public class VacantRoomRecyclerViewAdaptor extends RecyclerView.Adapter<VacantRo
             roomBuilding = itemView.findViewById(R.id.recyclerView_vacant_room_building);
             bookButton = itemView.findViewById(R.id.recyclerView_vacant_room_book_btn);
         }
+    }
+
+    public void showBookingDialog(){
+        TextView dateTextView = activity.findViewById(R.id.appointment_date_picker);
+
     }
 }
 

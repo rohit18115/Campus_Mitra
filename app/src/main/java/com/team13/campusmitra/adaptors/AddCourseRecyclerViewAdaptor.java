@@ -34,6 +34,7 @@ public class AddCourseRecyclerViewAdaptor extends  RecyclerView.Adapter<AddCours
     private ArrayList<Course> courses;
     private Course[] courseArray;
     private AppCompatActivity activity;
+    private ArrayList<TimeTableElement> timeTable;
     public AddCourseRecyclerViewAdaptor(Course[] courseArray,AppCompatActivity activity) {
         this.courseArray = courseArray;
         this.activity = activity;
@@ -199,6 +200,7 @@ public class AddCourseRecyclerViewAdaptor extends  RecyclerView.Adapter<AddCours
                 FirebaseCoursesHelper helper = new FirebaseCoursesHelper();
                 DatabaseReference ref = helper.getReference().child(element.getCourseID());
                 ref.removeValue();
+
 
 
             }

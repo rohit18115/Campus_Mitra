@@ -63,7 +63,7 @@ public class SignInSplash extends AppCompatActivity {
         setContentView(R.layout.activity_sign_in_splash);
 
         //Mukul added this
-        startActivity(new Intent(this,VacantRoomDetails.class));
+//        startActivity(new Intent(this,VacantRoomDetails.class));
 
 
         emailHolders = new ArrayList<>();

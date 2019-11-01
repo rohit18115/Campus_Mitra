@@ -40,6 +40,11 @@ public class DashboardAdmin extends AppCompatActivity {
     }
     return super.onOptionsItemSelected(item);
     }
+    public void loadVacantActivity(View view){
+        Intent intent = new Intent(getApplicationContext(),VacantRoomDetails.class);
+        startActivity(intent);
+
+    }
     public void send_to_scan(View view)
     {
         Intent intent = new Intent(getApplicationContext(), OCRActivity.class);

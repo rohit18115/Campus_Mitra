@@ -1,10 +1,14 @@
 package com.team13.campusmitra.managers;
 
+import android.util.Log;
+
 import com.team13.campusmitra.dataholder.Booking;
 import com.team13.campusmitra.dataholder.Room;
 import com.team13.campusmitra.dataholder.TimeTable;
 import com.team13.campusmitra.dataholder.TimeTableElement;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -87,7 +91,7 @@ public class VacantRoomManager {
         this.bookings = bookings;
     }
 
-    ArrayList<Room> getVacantRoomsWithCapacity(int capacity){
+    public ArrayList<Room> getVacantRoomsWithCapacity(int capacity){
         ArrayList<Room> vacantRooms = new ArrayList<>();
 
         if(rooms==null){
@@ -122,16 +126,19 @@ public class VacantRoomManager {
         ArrayList<Booking> book = new ArrayList<>();
 
         for(Booking booking:bookings){
+
+            Log.d("Time",booking.getDate() + "<-->" + this.date );
             if (booking.getDate().toLowerCase().equals(this.date)){
                 book.add(booking);
+                Log.d("Time",booking.getDate() + "<-->" + this.date );
             }
         }
         for(Booking booking:book){
 
-            if(!checkOverlap(this.startTime,this.endTime,Integer.parseInt(booking.getStartTime()),Integer.parseInt(booking.getEndTime()))){
+            if(checkOverlap(this.startTime,this.endTime,Integer.parseInt(booking.getStartTime()),Integer.parseInt(booking.getEndTime()))){
                     String roomid = booking.getRoomID();
                 for(int i =0;i<vacantRooms.size();i++){
-                    if(vacantRooms.get(i).getRoomID().toLowerCase().equals(roomid)){
+                    if(vacantRooms.get(i).getRoomID().toLowerCase().equals(roomid.toLowerCase())){
                         vacantRooms.remove(i);
                         break;
                     }
@@ -142,10 +149,13 @@ public class VacantRoomManager {
         return vacantRooms;
     }
     boolean checkOverlap(int startTime,int endTime,int classStartTime,int classEndTime){
-        if(startTime>classEndTime && classStartTime>endTime){
+        Log.d("Time",""+startTime+"  "+classStartTime+"  "+endTime+"  "+classEndTime);
+        if(startTime>=classEndTime && classStartTime>=endTime){
+            Log.d("Time","False");
             return false;
         }
         else{
+            Log.d("Time","True");
             return true;
         }
 
@@ -158,8 +168,15 @@ public class VacantRoomManager {
         while(tokenizer.hasMoreElements()&&i<3){
             dat[i]= tokenizer.nextToken();
         }
-        Date date1 = new Date(Integer.parseInt(dat[2]),Integer.parseInt(dat[1]),Integer.parseInt(dat[0]));
+        Date da=null;
+        try {
+             da = (new SimpleDateFormat("dd-MM-yyyy")).parse(date);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
         Calendar cal = Calendar.getInstance();
+        cal.setTime(da);
         int d = cal.get(Calendar.DAY_OF_MONTH);
         switch (d){
             case 1: return "Sunday";
