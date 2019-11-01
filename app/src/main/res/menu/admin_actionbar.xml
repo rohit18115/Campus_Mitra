@@ -2,7 +2,7 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".DashboardProfessor">
+    tools:context=".DashboardAdmin">
 
     <item
         android:id="@+id/scan_id"
@@ -12,10 +12,8 @@
         app:showAsAction="always"></item>
 
 
-    <item
-        android:id="@+id/view_profile"
-        android:title="View Profile"
-        app:showAsAction="never"></item>
+
+
 
     <item
         android:id="@+id/logout"
