@@ -9,23 +9,20 @@ public class Student  implements Serializable {
     private String enrollCourse;
     private String areaOfInterest;
     private String resumeURL;
-    private String admissionYear;
     private String department;
-    //private ArrayList<String> courses;
-    private String courses;
+    private ArrayList<String> courses;
 
     public Student() {
 
         //courses = new ArrayList<>();
     }
 
-    public Student(String userID, String rollNumber, String enrollCourse, String areaOfInterest, String resumeURL, String admissionYear, String department, String courses) {
+    public Student(String userID, String rollNumber, String enrollCourse, String areaOfInterest, String resumeURL, String department, ArrayList<String> courses) {
         this.userID = userID;
         this.rollNumber = rollNumber;
         this.enrollCourse = enrollCourse;
         this.areaOfInterest = areaOfInterest;
         this.resumeURL = resumeURL;
-        this.admissionYear = admissionYear;
         this.department = department;
         this.courses = courses;
     }
@@ -70,26 +67,18 @@ public class Student  implements Serializable {
         this.resumeURL = resumeURL;
     }
 
-//    public ArrayList<String> getCourses() {
-//        return courses;
-//    }
-//
-//    public void setCourses(ArrayList<String> courses) {
-//        this.courses = courses;
-//    }
-//    public void addCourse(String course){
-//        courses.add(course);
-//    }
-//    public void removeCourse(String course){
-//        courses.remove(course);
-//    }
-
-    public String getAdmissionYear() {
-        return admissionYear;
+    public ArrayList<String> getCourses() {
+        return courses;
     }
 
-    public void setAdmissionYear(String admissionYear) {
-        this.admissionYear = admissionYear;
+    public void setCourses(ArrayList<String> courses) {
+        this.courses = courses;
+    }
+    public void addCourse(String course){
+        courses.add(course);
+    }
+    public void removeCourse(String course){
+        courses.remove(course);
     }
 
     public String getDepartment() {
@@ -100,11 +89,4 @@ public class Student  implements Serializable {
         this.department = department;
     }
 
-    public String getCourses() {
-        return courses;
-    }
-
-    public void setCourses(String courses) {
-        this.courses = courses;
-    }
 }
