@@ -184,6 +184,7 @@ public class UserProfile extends AppCompatActivity implements DatePickerDialog.O
                 datePickerDialog.show(getFragmentManager(), "DatePickerDialog");
             }
         });
+
     }
     private String uploadImageToFirebase() {
         final StorageReference ProfileImageREf = FirebaseStorage.getInstance().getReference("ProfileImageRef.jpg");
@@ -250,4 +251,14 @@ public class UserProfile extends AppCompatActivity implements DatePickerDialog.O
 
         }
     }
+
+    @Override
+    public void onBackPressed () {
+
+        super.onBackPressed();
+        FirebaseAuth auth = FirebaseAuth.getInstance();
+        auth.signOut();
+
+    }
+
 }

@@ -156,6 +156,7 @@ public class FacultyProfile extends AppCompatActivity implements View.OnClickLis
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_faculty_profile);
         Day = findViewById(R.id.FPTVday);
+        initComponents();
         initToolbar();
         setupUIViews();
         setupListView();

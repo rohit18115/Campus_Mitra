@@ -86,12 +86,12 @@ public class NewDashboard extends AppCompatActivity {
     }
 
 
-    @Override
-    public void onBackPressed() {
-        super.onBackPressed();
-        FirebaseAuth auth = FirebaseAuth.getInstance();
-        auth.signOut();
-    }
+//    @Override
+//    public void onBackPressed() {
+//        super.onBackPressed();
+//        FirebaseAuth auth = FirebaseAuth.getInstance();
+//        auth.signOut();
+//    }
 
     public void sentToAddRoom(View view) {
     }
