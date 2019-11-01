@@ -123,7 +123,8 @@
 
     <Button
         android:id="@+id/ase_resume"
-        style="@style/Widget.MaterialComponents.Button.Icon"
+        android:textColor="@color/white"
+        android:background="@color/colorPrimary"
         android:layout_marginTop="8dp"
         android:text="Download Resume"
         android:textSize="17sp"

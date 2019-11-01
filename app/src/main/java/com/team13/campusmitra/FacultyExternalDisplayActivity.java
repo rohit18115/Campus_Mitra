@@ -117,7 +117,6 @@ public class FacultyExternalDisplayActivity extends AppCompatActivity implements
 
     }
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -138,15 +137,14 @@ public class FacultyExternalDisplayActivity extends AppCompatActivity implements
 
     public void BookAppointment(View view) {
         BookingDialogue bookingDialogue = new BookingDialogue(BookingDialogue.APPOINTMENT);
-        /*
-        TODO
-        set UserID1 and userID2
-         */
+
         FirebaseAuth auth = FirebaseAuth.getInstance();
         String user1ID = auth.getCurrentUser().getUid();
         String user2ID=userId; /**/
         bookingDialogue.setAppointmentDetails(user1ID,user2ID);
         bookingDialogue.show(getSupportFragmentManager(),"Dialog Box for Appointment Booking");
+         /**/
+
     }
 
     @Override

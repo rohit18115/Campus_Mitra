@@ -37,6 +37,11 @@ public class DashboardProfessor extends AppCompatActivity {
 
                 startActivity(intent2);
                 return true;
+            case R.id.add_projects:
+                Intent intent3 = new Intent(getApplicationContext(), Add_Project.class);
+
+                startActivity(intent3);
+                return true;
             case R.id.logout:
                 FirebaseAuth auth = FirebaseAuth.getInstance();
                 auth.signOut();
