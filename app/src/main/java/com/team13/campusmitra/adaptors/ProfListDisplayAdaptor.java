@@ -55,11 +55,21 @@ public class ProfListDisplayAdaptor extends RecyclerView.Adapter<ProfListDisplay
         Log.d(TAG, "onBindViewHolder: called");
         final User user = items.get(position);
         final Faculty prof = profs.get(position);
-        Glide.with(mContext)
-                .asBitmap()
-                .load(user.getImageUrl())
-                .placeholder(R.drawable.ic_loading)
-                .into(holder.image);
+        String str = user.getGender();
+        if(str.equals("Male")){
+            Glide.with(mContext)
+                    .asBitmap()
+                    .load(user.getImageUrl())
+                    .placeholder(R.drawable.maleprof)
+                    .into(holder.image);
+        }
+        else{
+            Glide.with(mContext)
+                    .asBitmap()
+                    .load(user.getImageUrl())
+                    .placeholder(R.drawable.ladyprof)
+                    .into(holder.image);
+        }
         holder.tv1.setText(user.getUserFirstName()+ " "+user.getUserLastName());
         holder.tv2.setText(prof.getDepartment()+ " Department");
         holder.tv3.setText(user.getUserEmail());

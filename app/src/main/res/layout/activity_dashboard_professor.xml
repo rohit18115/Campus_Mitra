@@ -26,6 +26,7 @@
                 android:layout_height="wrap_content" />
 
             <ImageView
+                android:id="@+id/imgViewProf"
                 android:layout_width="62dp"
                 android:layout_height="62dp"
                 android:layout_alignParentRight="true"
