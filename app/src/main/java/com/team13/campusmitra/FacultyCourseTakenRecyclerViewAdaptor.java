@@ -48,8 +48,9 @@ public class FacultyCourseTakenRecyclerViewAdaptor extends RecyclerView.Adapter<
     public void onBindViewHolder(final ViewHolder holder, int position) {
         Log.d(TAG, "onBindViewHolder: called");
         final FacultyCourseTakenModel model = mModelList.get(position);
-        holder.tv1.setText(mModelList.get(position).getCourseName());
-        holder.tv2.setText(mModelList.get(position).getCourseCode());
+        holder.tv1.setText(mModelList.get(position).getCourse().getCourseName());
+        holder.tv2.setText(mModelList.get(position).getCourse().getCourseCode());
+        holder.tv3.setVisibility(View.GONE);
         holder.view.setBackgroundColor(model.isSelected() ? Color.parseColor("#3FAEA8"): Color.WHITE);
         holder.layout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -69,12 +70,14 @@ public class FacultyCourseTakenRecyclerViewAdaptor extends RecyclerView.Adapter<
         private LinearLayout layout;
         AppCompatTextView tv1;
         AppCompatTextView tv2;
+        AppCompatTextView tv3;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             view = itemView;
             tv1 = itemView.findViewById(R.id.scrv_text1);
             tv2 = itemView.findViewById(R.id.scrv_text2);
+            tv3 = itemView.findViewById(R.id.scrv_text3);
             layout = itemView.findViewById(R.id.SCLL1);
         }
     }
@@ -95,7 +98,7 @@ public class FacultyCourseTakenRecyclerViewAdaptor extends RecyclerView.Adapter<
                 String filterPattern = constraint.toString().toLowerCase().trim();
 
                 for (FacultyCourseTakenModel item : mModelListFull){
-                    if (item.getCourseCode().toLowerCase().contains(filterPattern) || item.getCourseName().toLowerCase().contains(filterPattern)){
+                    if (item.getCourse().getCourseCode().toLowerCase().contains(filterPattern) || item.getCourse().getCourseName().toLowerCase().contains(filterPattern)){
                         filteredList.add(item);
                     }
                 }

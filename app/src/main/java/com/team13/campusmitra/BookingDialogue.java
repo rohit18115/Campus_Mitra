@@ -61,6 +61,10 @@ public class BookingDialogue extends DialogFragment {
         return appointment;
     }
 
+    public  DialogFragment getDF(){
+        return this;
+    }
+
     public Appointment setAppointmentDetails(String userID1, String userID2) {
         appointment = new Appointment();
         appointment.setUserID1(userID1);
@@ -139,16 +143,16 @@ public class BookingDialogue extends DialogFragment {
                             Toast.makeText(getContext(), date.getText() + " " + from_time.getText() + " " + comment.getText().toString(), Toast.LENGTH_SHORT).show();
                             /*
                             TODO send data to firebase here!
-
+*/
                             BookAppointmentManager manager =new BookAppointmentManager(getActivity().getApplicationContext(),appointment);
                             manager.bookAppointmentWithData();
-                             */
+    //                         */
                         }
                         //::::::::::::::::::Booking::::::::::::::::::
                         else if (to_time.getText() != "") {
                             Date eDate = null;
                             try {
-                                eDate = (new SimpleDateFormat("dd/MM/yyyy HH:mm")).parse(mDay + "/" + mMonth + "/" + mYear + " " + mToHour + ":" + mToMinute);
+                                eDate = (new SimpleDateFormat("dd-MM-yyyy HH:mm")).parse(mDay + "-" + mMonth + "-" + mYear + " " + mToHour + ":" + mToMinute);
                                 Log.i("BDlog", "eDate:" + eDate);
                             } catch (ParseException e) {
                                 e.printStackTrace();
@@ -166,12 +170,12 @@ public class BookingDialogue extends DialogFragment {
                                 booking.setBookingStatus("active");
                                 //::::::::::This is where i get good data::::::::::
                                 Toast.makeText(getContext(), date.getText() + " " + from_time.getText() + " " + to_time.getText() + " " + comment.getText().toString(), Toast.LENGTH_SHORT).show();
-                                /*
-                                TODO send data to firebase here!
+
+                                //TODO send data to firebase here!
 
                                 BookingManager manager = new BookingManager(getActivity().getApplicationContext(), booking);
                                 manager.bookiingWithData();
-                                 */
+
                             }
                         } else {
                             Log.i("BDlog:", "Missing To Time Input");
