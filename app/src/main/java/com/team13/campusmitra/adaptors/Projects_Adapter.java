@@ -1,5 +1,6 @@
 package com.team13.campusmitra.adaptors;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -24,18 +25,24 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.team13.campusmitra.ProjectImageEdit;
 import com.team13.campusmitra.ProjectModel;
 import com.team13.campusmitra.R;
 import com.team13.campusmitra.dataholder.Course;
 import com.team13.campusmitra.dataholder.Project;
+import com.team13.campusmitra.dataholder.User;
 import com.team13.campusmitra.firebaseassistant.FirebaseCoursesHelper;
 import com.team13.campusmitra.firebaseassistant.FirebaseProjectHelper;
 
@@ -54,9 +61,11 @@ public class Projects_Adapter extends RecyclerView.Adapter<Projects_Adapter.Proj
     private ArrayList<Project> data;
     private Project[] projectArray;
     private AppCompatActivity activity;
+    private Context mContext;
     //private static final String TAG = "Research Labs Project Adapter";
-    public Projects_Adapter(ArrayList<Project> data){
+    public Projects_Adapter(ArrayList<Project> data, Context mContext){
         this.data = data;
+        this.mContext = mContext;
     }
     public Projects_Adapter(Project[] projectArray, AppCompatActivity activity) {
         this.projectArray = projectArray;
@@ -74,7 +83,15 @@ public class Projects_Adapter extends RecyclerView.Adapter<Projects_Adapter.Proj
     @Override
     public void onBindViewHolder(@NonNull Projects_ViewHolder holder, final int position) {
         final Project current = projectArray[position];//data.get(position);
-        holder.bind(current);
+
+        Glide.with(mContext)
+                .asBitmap()
+                .load(current.getProjectImageURL())
+                .placeholder(R.drawable.project_icon_1)
+                .into(holder.img);
+        holder.txt.setText(current.getProjectName());
+        //img.setImageResource(R.drawable.project_icon_1);
+        holder.sub_part_tv1.setText(current.getProjectDescription());
         //boolean expanded;
         holder.itemView.setOnClickListener(new View.OnClickListener(){
             // Get the current state of the item
@@ -95,10 +112,9 @@ public class Projects_Adapter extends RecyclerView.Adapter<Projects_Adapter.Proj
         holder.image_linear.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View view) {
-                //Intent intent = new Intent(activity.getApplicationContext(),TOACTIVITY.cLASS);
-                //intent.putExtra("P",current);
-                //startActivity(intent)
-
+                Intent intent = new Intent(activity.getApplicationContext(), ProjectImageEdit.class);
+                intent.putExtra("Project",current);
+                activity.startActivity(intent);
 
                 //finish();
                 //showEditImageDialog(current);
@@ -106,6 +122,7 @@ public class Projects_Adapter extends RecyclerView.Adapter<Projects_Adapter.Proj
                 return false;
             }
         });
+        holder.bind(current);
 
     }
 
@@ -120,6 +137,8 @@ public class Projects_Adapter extends RecyclerView.Adapter<Projects_Adapter.Proj
         public ImageView img, push_icon;
         public TextView txt;
         public View subItem;
+        ArrayList<String> mem;
+        ArrayList<String> members;
         public LinearLayout image_linear;
         public LinearLayout info_linear;
         public TextView sub_part_tv1, sub_part_tv2;
@@ -141,17 +160,33 @@ public class Projects_Adapter extends RecyclerView.Adapter<Projects_Adapter.Proj
             else
                 push_icon.setImageResource(R.drawable.push_down);
             subItem.setVisibility(expanded ? View.VISIBLE : View.GONE);
-            txt.setText(current.getProjectName());
-            img.setImageResource(R.drawable.project_icon_1);//current.getProjectImageURL());
-            sub_part_tv1.setText(current.getProjectDescription());
-            ArrayList<String> mem =  current.getMembers();
+            //current.getProjectImageURL());
+
+            mem =  current.getMembers();
+
+            FirebaseProjectHelper helper = new FirebaseProjectHelper();
+            DatabaseReference reference = helper.getReference();
+            reference.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    for(DataSnapshot snapshot:dataSnapshot.getChildren()){
+                        User u = snapshot.getValue(User.class);
+                        if(mem.contains(u.getUserEmail()));
+                        members.add(u.getUserName());
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                }
+            });
             String mem_list = "";
-            for(int i=0;i< mem.size();i++)
-                mem_list = mem_list+", "+mem.get(i);
+            for(int i=0;i< members.size();i++)
+                mem_list = mem_list+", "+members.get(i);
             sub_part_tv2.setText(mem_list);
         }
     }
-
 
 
     private void showEditDialog(final Project project){
@@ -186,9 +221,6 @@ public class Projects_Adapter extends RecyclerView.Adapter<Projects_Adapter.Proj
                             members = (ArrayList<String>) Arrays.asList(data.split(","));
                             project.setMembers(members);
                             break;
-                        case 4:
-                            //code for image upload
-                            break;
                         default:
                             et.setError("Some Error occured");
                             et.requestFocus();
@@ -217,7 +249,6 @@ public class Projects_Adapter extends RecyclerView.Adapter<Projects_Adapter.Proj
         arr.add("Edit Project name");
         arr.add("Edit Project Description");
         arr.add("Edit Project Members");
-        arr.add("Edit Project Image");
         return arr;
     }
     private void loadDataInSpinner(Spinner daySpinner, ArrayList<String> data) {
