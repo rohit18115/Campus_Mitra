@@ -69,6 +69,10 @@ public class AddCourseActivity extends AppCompatActivity {
                     c.setOffering(offeringET.getText().toString().trim());
                     FirebaseCoursesHelper helper = new FirebaseCoursesHelper();
                     helper.addCourse(getApplicationContext(),c);
+                    codeET.setText("");
+                    nameET.setText("");
+                    preqET.setText("");
+                    offeringET.setText("");
                 }
                 else
                 {

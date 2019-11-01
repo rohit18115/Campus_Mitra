@@ -13,14 +13,14 @@ public class Faculty implements Serializable {
     private String roomid;
     private String roomNo;
     private String department;
-    private ArrayList<String> domains;
+    private String domains;
 
     public Faculty() {
         //officeHours = new ArrayList<>();
         coursesTaken = new ArrayList<>();
     }
 
-    public Faculty(String userID, String designation, int availability, OfficeHours officeHours, ArrayList<String> coursesTaken, String roomid, String department, ArrayList<String> domains) {
+    public Faculty(String userID, String designation, int availability, OfficeHours officeHours, ArrayList<String> coursesTaken, String roomid, String department, String domains) {
         this.userID = userID;
         this.designation = designation;
         this.availability = availability;
@@ -31,12 +31,12 @@ public class Faculty implements Serializable {
         this.domains = domains;
     }
 
-    public void addDomains(String domain){
-        domains.add(domain);
-    }
-    public void removeDomain(String domain){
-        domains.remove(domain);
-    }
+//    public void addDomains(String domain){
+//        domains.add(domain);
+//    }
+//    public void removeDomain(String domain){
+//        domains.remove(domain);
+//    }
     public void addCourse(String course){
         coursesTaken.add(course);
     }
@@ -89,13 +89,13 @@ public class Faculty implements Serializable {
         this.roomid = roomid;
     }
 
-    public ArrayList<String> getDomains() {
-        return domains;
-    }
-
-    public void setDomains(ArrayList<String> domains) {
-        this.domains = domains;
-    }
+//    public ArrayList<String> getDomains() {
+//        return domains;
+//    }
+//
+//    public void setDomains(ArrayList<String> domains) {
+//        this.domains = domains;
+//    }
 
     public String getDepartment() {
         return department;
@@ -127,5 +127,13 @@ public class Faculty implements Serializable {
 
     public void setRoomNo(String roomNo) {
         this.roomNo = roomNo;
+    }
+
+    public String getDomains() {
+        return domains;
+    }
+
+    public void setDomains(String domains) {
+        this.domains = domains;
     }
 }

@@ -48,9 +48,9 @@ public class SelectCoursesRecyclerViewAdaptor extends RecyclerView.Adapter<Selec
     public void onBindViewHolder(final ViewHolder holder, int position) {
         Log.d(TAG, "onBindViewHolder: called");
         final CourseSelectModel model = mModelList.get(position);
-        holder.tv1.setText(mModelList.get(position).getCourseName());
-        holder.tv2.setText(mModelList.get(position).getCourseCode());
-        holder.tv3.setText(mModelList.get(position).getInstructorName());
+        holder.tv1.setText(mModelList.get(position).getCourse().getCourseName());
+        holder.tv2.setText(mModelList.get(position).getCourse().getCourseCode());
+        holder.tv3.setText(mModelList.get(position).getCourse().getFacultyEmail());
         holder.view.setBackgroundColor(model.isSelected() ? Color.parseColor("#3FAEA8"): Color.WHITE);
         holder.layout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -98,7 +98,7 @@ public class SelectCoursesRecyclerViewAdaptor extends RecyclerView.Adapter<Selec
                 String filterPattern = constraint.toString().toLowerCase().trim();
 
                 for (CourseSelectModel item : mModelListFull){
-                    if (item.getCourseCode().toLowerCase().contains(filterPattern) || item.getCourseName().toLowerCase().contains(filterPattern) || item.getInstructorName().toLowerCase().contains(filterPattern)){
+                    if (item.getCourse().getCourseCode().toLowerCase().contains(filterPattern) || item.getCourse().getCourseName().toLowerCase().contains(filterPattern) || item.getCourse().getFacultyEmail().toLowerCase().contains(filterPattern)){
                         filteredList.add(item);
                     }
                 }
