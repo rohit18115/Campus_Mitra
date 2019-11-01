@@ -2,6 +2,7 @@ package com.team13.campusmitra;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatCheckBox;
 
 import android.content.Context;
 import android.content.Intent;
@@ -9,10 +10,13 @@ import android.graphics.Color;
 import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.os.Handler;
+import android.text.method.HideReturnsTransformationMethod;
+import android.text.method.PasswordTransformationMethod;
 import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
@@ -48,6 +52,7 @@ public class SignInSplash extends AppCompatActivity {
     Button signupbtn,forgotPasswordbtn;
     RelativeLayout coordinatorLayout;
     EditText etEmail,etPassword;
+    private AppCompatCheckBox checkbox;
     Button loginbtn;
 
     Handler handler = new Handler();
@@ -57,14 +62,34 @@ public class SignInSplash extends AppCompatActivity {
             launchActivity();
         }
     };
+
+
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_in_splash);
 
         //Mukul added this
-//        startActivity(new Intent(this,VacantRoomDetails.class));
+        startActivity(new Intent(this,VacantRoomDetails.class));
 
+        checkbox = (AppCompatCheckBox) findViewById(R.id.checkbox);
+        etPassword = (EditText) findViewById(R.id.et_signin_pswd);
+
+        checkbox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
+                if (isChecked) {
+                    // show password
+                    etPassword.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+                } else {
+                    // hide password
+                    etPassword.setTransformationMethod(PasswordTransformationMethod.getInstance());
+                }
+            }
+        });
 
         emailHolders = new ArrayList<>();
         loadFacultyEmail();
