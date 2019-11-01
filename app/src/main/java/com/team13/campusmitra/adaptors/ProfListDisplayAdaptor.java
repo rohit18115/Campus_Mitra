@@ -1,6 +1,7 @@
 package com.team13.campusmitra.adaptors;
 
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,7 +16,9 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.team13.campusmitra.FacultyExternalDisplayActivity;
 import com.team13.campusmitra.R;
+import com.team13.campusmitra.StudentExternalDisplay;
 import com.team13.campusmitra.dataholder.Faculty;
 import com.team13.campusmitra.dataholder.User;
 
@@ -51,22 +54,25 @@ public class ProfListDisplayAdaptor extends RecyclerView.Adapter<ProfListDisplay
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Log.d(TAG, "onBindViewHolder: called");
         final User user = items.get(position);
-        //final Faculty prof = profs.get(position);
+        final Faculty prof = profs.get(position);
         Glide.with(mContext)
                 .asBitmap()
                 .load(user.getImageUrl())
                 .placeholder(R.drawable.ic_loading)
                 .into(holder.image);
         holder.tv1.setText(user.getUserFirstName()+ " "+user.getUserLastName());
-        holder.tv2.setText("Department");
+        holder.tv2.setText(prof.getDepartment()+ " Department");
         holder.tv3.setText(user.getUserEmail());
         holder.layout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
                 if(R.id.pdl_layout == view.getId()) {
-                    Toast toast = Toast.makeText(mContext, "Opening Professor Profile", Toast.LENGTH_SHORT);
+                    Toast toast = Toast.makeText(mContext, "Opening Student Profile", Toast.LENGTH_SHORT);
                     toast.show();
+                    Intent newIntent = new Intent(mContext, FacultyExternalDisplayActivity.class);
+                    newIntent.putExtra("UserID",user.getUserId());
+                    mContext.startActivity(newIntent);
                 }
             }
         });
