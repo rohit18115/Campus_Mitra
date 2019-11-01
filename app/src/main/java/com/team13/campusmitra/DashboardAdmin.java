@@ -34,6 +34,7 @@ public class DashboardAdmin extends AppCompatActivity {
             Intent i = new Intent(getApplicationContext(), SignInSplash.class);
 
             startActivity(i);
+            finish();
             return true;
 
     }
