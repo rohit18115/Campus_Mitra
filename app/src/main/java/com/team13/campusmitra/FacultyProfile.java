@@ -30,27 +30,24 @@ import java.util.List;
 
 public class FacultyProfile extends AppCompatActivity implements View.OnClickListener, TimePickerDialog.OnTimeSetListener {
     Button setOfficeHours, courseTaken;
-    private ListView listView;
+    private ListView listView,listViewDept,listViewRoom;
     public static SharedPreferences sharedPreferences;
     public static String SEL_DAY;
     private Toolbar toolbar;
-    AlertDialog dialog,dialog1;
+    AlertDialog dialog,dialog1,dialogDept,dialogRoom;
     TextView Day;
     TextView venue;
     WeekAdapter venueadapter;
     TextView display_courses;
     TextView Time;
+    Button department, room;
+    TextView dept,rm;
     int num=0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_faculty_profile);
         Day = findViewById(R.id.FPTVday);
-        display_courses = (TextView)findViewById(R.id.FPTVdisplay_courses);
-        setOfficeHours = findViewById(R.id.setOfficeHours);
-        courseTaken = findViewById(R.id.FPCourseTaken);
-        setOfficeHours.setOnClickListener(this);
-        courseTaken.setOnClickListener(this);
         initToolbar();
         setupUIViews();
         setupListView();
@@ -58,6 +55,14 @@ public class FacultyProfile extends AppCompatActivity implements View.OnClickLis
         builder.setCancelable(true);
         builder.setView(listView);
         dialog = builder.create();
+        AlertDialog.Builder builderDept = new AlertDialog.Builder(FacultyProfile.this);
+        builderDept.setCancelable(true);
+        builderDept.setView(listViewDept);
+        dialogDept = builderDept.create();
+        AlertDialog.Builder builderRoom = new AlertDialog.Builder(FacultyProfile.this);
+        builderRoom.setCancelable(true);
+        builderRoom.setView(listViewRoom);
+        dialogRoom = builderRoom.create();
         if (savedInstanceState == null) {
             Bundle courses = getIntent().getExtras();
             if(courses == null) {
@@ -82,9 +87,23 @@ public class FacultyProfile extends AppCompatActivity implements View.OnClickLis
             endTime.setText(hourOfDay+":"+minute);
     }
 
+
     private void setupUIViews(){
         listView = new ListView(this);
+        listViewDept = new ListView(this);
+        listViewRoom = new ListView(this);
         sharedPreferences = getSharedPreferences("MY_DAY", MODE_PRIVATE);
+        display_courses = (TextView)findViewById(R.id.FPTVdisplay_courses);
+        department = findViewById(R.id.selectDept);
+        dept = findViewById(R.id.display_dept);
+        setOfficeHours = findViewById(R.id.setOfficeHours);
+        courseTaken = findViewById(R.id.FPCourseTaken);
+        setOfficeHours.setOnClickListener(this);
+        courseTaken.setOnClickListener(this);
+        department.setOnClickListener(this);
+        room=findViewById(R.id.FPselectroom);
+        room.setOnClickListener(this);
+        rm=findViewById(R.id.display_room);
     }
     private void initToolbar(){
         getSupportActionBar().setTitle("Faculty Profile");
@@ -94,7 +113,12 @@ public class FacultyProfile extends AppCompatActivity implements View.OnClickLis
         String[] week = getResources().getStringArray(R.array.Week);
         final WeekAdapter adapter = new WeekAdapter(this, R.layout.activity_office_hours_day_single_item, week);
         listView.setAdapter(adapter);
-
+        String[] option = getResources().getStringArray(R.array.Dept);
+        final WeekAdapter adapterDept = new WeekAdapter(this, R.layout.activity_office_hours_day_single_item, option);
+        listViewDept.setAdapter(adapterDept);
+        String[] optionroom = getResources().getStringArray(R.array.Venue);
+        final WeekAdapter adapterRoom = new WeekAdapter(this, R.layout.activity_office_hours_day_single_item, optionroom);
+        listViewRoom.setAdapter(adapterRoom);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -127,6 +151,32 @@ public class FacultyProfile extends AppCompatActivity implements View.OnClickLis
                 }
 
         });
+        listViewDept.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                                             @Override
+                                             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                                                 //adapter.getItem(position).toString()
+                                                 dept.setText(adapterDept.getItem(position).toString());
+                                                 dialogDept.dismiss();
+
+
+                                             }
+
+                                         }
+
+        );
+        listViewRoom.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                                                @Override
+                                                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                                                    //adapter.getItem(position).toString()
+                                                    rm.setText(adapterRoom.getItem(position).toString());
+                                                    dialogRoom.dismiss();
+
+
+                                                }
+
+                                            }
+
+        );
     }
 
 
@@ -189,10 +239,17 @@ public class FacultyProfile extends AppCompatActivity implements View.OnClickLis
         switch(v.getId()){
             case R.id.setOfficeHours :
                 dialog.show();
-
+                break;
             case R.id.FPCourseTaken:
                 Intent intent1 = new Intent(FacultyProfile.this, FacultyCourseTakenRecyclerView.class);
                 startActivity(intent1);
+                break;
+            case R.id.selectDept:
+                dialogDept.show();
+                break;
+            case R.id.FPselectroom:
+                dialogRoom.show();
+                break;
 
 
         }

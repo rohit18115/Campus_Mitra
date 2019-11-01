@@ -6,23 +6,23 @@ import java.util.ArrayList;
 public class Faculty implements Serializable {
     private String userID;
     private String designation;
-    private String joinedDate;
     private int availability;
-    private ArrayList<OfficeHours> officeHours;
+    //private ArrayList<OfficeHours> officeHours;
+    private OfficeHours officeHours;
     private ArrayList<String> coursesTaken;
     private String roomid;
+    private String roomNo;
     private String department;
     private ArrayList<String> domains;
 
     public Faculty() {
-        officeHours = new ArrayList<>();
+        //officeHours = new ArrayList<>();
         coursesTaken = new ArrayList<>();
     }
 
-    public Faculty(String userID, String designation, String joinedDate, int availability, ArrayList<OfficeHours> officeHours, ArrayList<String> coursesTaken, String roomid, String department, ArrayList<String> domains) {
+    public Faculty(String userID, String designation, int availability, OfficeHours officeHours, ArrayList<String> coursesTaken, String roomid, String department, ArrayList<String> domains) {
         this.userID = userID;
         this.designation = designation;
-        this.joinedDate = joinedDate;
         this.availability = availability;
         this.officeHours = officeHours;
         this.coursesTaken = coursesTaken;
@@ -43,26 +43,18 @@ public class Faculty implements Serializable {
     public void removeCourse(String course){
         coursesTaken.remove(course);
     }
-    public void addOfficeHour(OfficeHours officeHour){
-        officeHours.add(officeHour);
-    }
-    public void removeOfficeHour(OfficeHours officeHour){
-        officeHours.remove(officeHour);
-    }
+//    public void addOfficeHour(OfficeHours officeHour){
+//        officeHours.add(officeHour);
+//    }
+//    public void removeOfficeHour(OfficeHours officeHour){
+//        officeHours.remove(officeHour);
+//    }
     public String getDesignation() {
         return designation;
     }
 
     public void setDesignation(String designation) {
         this.designation = designation;
-    }
-
-    public String getJoinedDate() {
-        return joinedDate;
-    }
-
-    public void setJoinedDate(String joinedDate) {
-        this.joinedDate = joinedDate;
     }
 
     public int getAvailability() {
@@ -73,13 +65,13 @@ public class Faculty implements Serializable {
         this.availability = availability;
     }
 
-    public ArrayList<OfficeHours> getOfficeHours() {
-        return officeHours;
-    }
-
-    public void setOfficeHours(ArrayList<OfficeHours> officeHours) {
-        this.officeHours = officeHours;
-    }
+//    public ArrayList<OfficeHours> getOfficeHours() {
+//        return officeHours;
+//    }
+//
+//    public void setOfficeHours(ArrayList<OfficeHours> officeHours) {
+//        this.officeHours = officeHours;
+//    }
 
     public ArrayList<String> getCoursesTaken() {
         return coursesTaken;
@@ -111,5 +103,29 @@ public class Faculty implements Serializable {
 
     public void setDepartment(String department) {
         this.department = department;
+    }
+
+    public OfficeHours getOfficeHours() {
+        return officeHours;
+    }
+
+    public void setOfficeHours(OfficeHours officeHours) {
+        this.officeHours = officeHours;
+    }
+
+    public String getUserID() {
+        return userID;
+    }
+
+    public void setUserID(String userID) {
+        this.userID = userID;
+    }
+
+    public String getRoomNo() {
+        return roomNo;
+    }
+
+    public void setRoomNo(String roomNo) {
+        this.roomNo = roomNo;
     }
 }

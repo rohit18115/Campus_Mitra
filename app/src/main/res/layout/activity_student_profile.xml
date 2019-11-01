@@ -1,13 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/SPRL1"
     android:background="#FFFFFF">
-
-
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -19,19 +15,25 @@
             android:paddingLeft="32dp"
             android:paddingRight="32dp">
 
-            <com.google.android.material.textfield.TextInputLayout
+            <Button
+                android:id="@+id/selectDept"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-                <com.google.android.material.textfield.TextInputEditText
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:fontFamily="sans-serif"
-                    android:id="@+id/department"
-                    android:hint="Department"
-                    android:inputType="text"
-                    android:maxLines="1"
-                    android:textSize="16sp" />
-            </com.google.android.material.textfield.TextInputLayout>
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:fontFamily="sans-serif"
+                android:text="Select Department"
+                android:textSize="16dp"
+                android:textStyle="bold" />
+            <TextView
+                android:id="@+id/display_dept"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginRight="8dp"
+                android:text="Select Department"
+                android:textSize="16sp"/>
 
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
@@ -59,7 +61,6 @@
                     android:textSize="16sp" />
             </com.google.android.material.textfield.TextInputLayout>
             <Button
-
                 android:id="@+id/selectcourses"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -87,6 +88,16 @@
                 android:text="Upload Resume"
                 android:textSize="16dp"
                 android:textStyle="bold" />
+            <TextView
+                android:id="@+id/display_selected_file"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginRight="8dp"
+                android:text="Select file"
+                android:textSize="16sp"/>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -106,7 +117,5 @@
                     android:textStyle="bold" />
             </LinearLayout>
         </LinearLayout>
-
-
 
 </RelativeLayout>
