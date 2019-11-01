@@ -5,6 +5,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Filter;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.AppCompatImageView;
@@ -16,15 +17,18 @@ import com.team13.campusmitra.R;
 import com.team13.campusmitra.dataholder.Room;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class LabsRecyclerViewAdaptor extends RecyclerView.Adapter<LabsRecyclerViewAdaptor.ViewHolder> {
     private static final String TAG = "LabsRecyclerViewAdaptor";
 
     private ArrayList<Room> items;
+    private ArrayList<Room> itemsFull;
     private Context mContext;
 
     public LabsRecyclerViewAdaptor(ArrayList<Room> items, Context mContext) {
         this.items = items;
+        itemsFull = new ArrayList<>(items);
         this.mContext = mContext;
     }
 
@@ -70,4 +74,39 @@ public class LabsRecyclerViewAdaptor extends RecyclerView.Adapter<LabsRecyclerVi
             tv3 = itemView.findViewById(R.id.lrv_text3);
         }
     }
+    public Filter getFilter(){
+        return courseFilter;
+    }
+
+    private Filter courseFilter = new Filter() {
+        @Override
+        protected FilterResults performFiltering(CharSequence constraint) {
+            List<Room> filteredList = new ArrayList<>();
+
+            if (constraint == null || constraint.length() == 0) {
+                filteredList.addAll(itemsFull);
+            } else {
+                String filterPattern = constraint.toString().toLowerCase().trim();
+
+                for (Room item : itemsFull) {
+                    if (item.getLabName().toLowerCase().contains(filterPattern) || item.getRoomBuilding().toLowerCase().contains(filterPattern) || item.getRoomNumber().toLowerCase().contains(filterPattern)) {
+                        filteredList.add(item);
+                    }
+                }
+            }
+
+            FilterResults results = new FilterResults();
+            results.values = filteredList;
+
+            return results;
+        }
+
+        @Override
+        protected void publishResults(CharSequence constraint, FilterResults results) {
+            items.clear();
+            items.addAll((List) results.values);
+            notifyDataSetChanged();
+
+        }
+    };
 }

@@ -189,7 +189,7 @@ public class FacultyProfile extends AppCompatActivity implements View.OnClickLis
         switch(v.getId()){
             case R.id.setOfficeHours :
                 dialog.show();
-
+                break;
             case R.id.FPCourseTaken:
                 Intent intent1 = new Intent(FacultyProfile.this, FacultyCourseTakenRecyclerView.class);
                 startActivity(intent1);
