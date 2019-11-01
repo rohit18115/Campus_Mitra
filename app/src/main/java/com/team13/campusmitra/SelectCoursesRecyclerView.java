@@ -4,26 +4,22 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
-
-import androidx.appcompat.widget.Toolbar;
+import com.team13.campusmitra.dataholder.Course;
 
 import android.content.Intent;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.content.Context;
-import android.graphics.ColorSpace;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.view.inputmethod.EditorInfo;
 import android.widget.SearchView;
-import android.widget.Toast;
 
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -37,6 +33,7 @@ public class SelectCoursesRecyclerView extends AppCompatActivity {
     boolean isOpen = false;
     SelectCoursesRecyclerViewAdaptor adapter;
     String text = "";
+    ArrayList<String> selected = new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,11 +52,14 @@ public class SelectCoursesRecyclerView extends AppCompatActivity {
 //                        .setAction("Action", null).show();
                 for (CourseSelectModel model : mModelList) {
                     if (model.isSelected()) {
-                        text += model.getCourseName()+"\n";
+                        selected.add(model.getCourse().getCourseName());
+                        //text += model.getCourse().getCourseName()+"\n";
                     }
                 }
                 Intent intent1 = new Intent();
-                intent1.putExtra("selected_course_Name",text);
+                Bundle args = new Bundle();
+                args.putSerializable("ARRAYLIST",selected);
+                intent1.putExtra("selected_course_Name",args);
                 setResult(StudentProfile.RESULT_OK,intent1);
                 finish();
                 animateFab();
@@ -84,19 +84,15 @@ public class SelectCoursesRecyclerView extends AppCompatActivity {
         String code = "A-403";
         String name = "Machine Learning";
         mModelList = new ArrayList<>();
-        mModelList.add(new CourseSelectModel(name, code, prof));
-        mModelList.add(new CourseSelectModel("Deep Learning", "DL101", "Saket Anand"));
-        mModelList.add(new CourseSelectModel("Artificial intelligence", "MV101", "mayank vatsa"));
-        mModelList.add(new CourseSelectModel("qwerty", "hgkghk", "asdfsafd"));
-        mModelList.add(new CourseSelectModel(name, code, prof));
-        mModelList.add(new CourseSelectModel(name, code, prof));
-        mModelList.add(new CourseSelectModel(name, code, prof));
-        mModelList.add(new CourseSelectModel(name, code, prof));
-        mModelList.add(new CourseSelectModel(name, code, prof));
-        mModelList.add(new CourseSelectModel(name, code, prof));
-        mModelList.add(new CourseSelectModel(name, code, prof));
-        mModelList.add(new CourseSelectModel(name, code, prof));
-        mModelList.add(new CourseSelectModel(name, code, prof));
+        Course c = new Course();
+        c.setCourseCode(code);
+        c.setFacultyEmail(prof);
+        c.setCourseName(name);
+        mModelList.add(new CourseSelectModel(c));
+        mModelList.add(new CourseSelectModel(c));
+        mModelList.add(new CourseSelectModel(c));
+        mModelList.add(new CourseSelectModel(c));
+
         return mModelList;
     }
 
@@ -136,23 +132,11 @@ public class SelectCoursesRecyclerView extends AppCompatActivity {
 
 class CourseSelectModel {
 
-    private String courseName, courseCode, instructorName;
+    private Course course;
     private boolean isSelected = false;
 
-    public CourseSelectModel(String courseName, String courseCode, String instructorName) {
-        this.courseName = courseName;
-        this.courseCode =  courseCode;
-        this.instructorName = instructorName;
-    }
-
-    public String getCourseName() {
-        return courseName;
-    }
-    public String getCourseCode() {
-        return courseCode;
-    }
-    public String getInstructorName() {
-        return instructorName;
+    CourseSelectModel(Course course) {
+        this.course = course;
     }
 
     public void setSelected(boolean selected) {
@@ -163,6 +147,13 @@ class CourseSelectModel {
         return isSelected;
     }
 
+    public Course getCourse() {
+        return course;
+    }
+
+    public void setCourse(Course course) {
+        this.course = course;
+    }
 }
 
 
