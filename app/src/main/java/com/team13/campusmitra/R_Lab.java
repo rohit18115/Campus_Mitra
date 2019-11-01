@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Context;
 import android.content.Intent;
 import android.text.Spanned;
+import com.team13.campusmitra.dataholder.User;
 import android.text.Html;
 import android.text.method.LinkMovementMethod;
 import android.os.Bundle;
@@ -25,19 +26,28 @@ import com.team13.campusmitra.adaptors.Projects_Adapter;
 import com.team13.campusmitra.dataholder.Project;
 import com.team13.campusmitra.dataholder.ResearchLab;
 import com.team13.campusmitra.dataholder.Room;
+import com.team13.campusmitra.firebaseassistant.FirebaseResearchLabHelper;
 import com.team13.campusmitra.firebaseassistant.FirebaseCoursesHelper;
+import com.team13.campusmitra.firebaseassistant.FirebaseProjectHelper;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 public class R_Lab extends AppCompatActivity {
     TextView HyperLink;
+    TextView mentor;
+    TextView labName;
     Spanned Text;
     Projects_Adapter adaptor;
     Button add_proj;
     Room room;
     ResearchLab researchLab;
     Intent myIntent;
+    CircleImageView lab_Image;
+    ArrayList<String> proffesors_email;
+    ArrayList<String> professors;
     ArrayList<Project> projects;
     //ArrayList<Project> projects_present;
     RecyclerView project_list;
@@ -49,13 +59,39 @@ public class R_Lab extends AppCompatActivity {
         myIntent = getIntent();
         room = (Room) myIntent.getSerializableExtra("ROOM");
         researchLab = (ResearchLab) myIntent.getSerializableExtra("RL");
+        HyperLink = findViewById(R.id.r_lab_link);
+        mentor = findViewById(R.id.r_lab_mentor);
+        labName = findViewById(R.id.r_lab_name);
+        HyperLink.setText(researchLab.getWebPageURL());
+        proffesors_email = researchLab.getMentors();
+        FirebaseResearchLabHelper helper = new FirebaseResearchLabHelper();
+            DatabaseReference reference = helper.getReference();
+            reference.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    for(DataSnapshot snapshot:dataSnapshot.getChildren()){
+                        User u = snapshot.getValue(User.class);
+                        if(proffesors_email.contains(u.getUserEmail()));
+                            professors.add(u.getUserName());
+                    }
+                }
 
-        HyperLink = (TextView)findViewById(R.id.r_lab_et3);
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                }
+            });
+        String proff = "";
+        for(int i = 0; i < professors.size(); i++)
+            proff = proff +", "+professors.get(i);
+        mentor.setText(proff);
+        labName.setText(researchLab.getResearchLabName());
+        //HyperLink = (TextView)findViewById(R.id.r_lab_et3);
         add_proj = findViewById(R.id.add_proj_btn);
-        Text = Html.fromHtml("Website: " +
-                "<a href=' http://iab-rubric.org/'> http://iab-rubric.org/</a>");
-        HyperLink.setMovementMethod(LinkMovementMethod.getInstance());
-        HyperLink.setText(Text);
+        //Text = Html.fromHtml("Website: " +
+        //        "<a href=' http://iab-rubric.org/'> http://iab-rubric.org/</a>");
+        //HyperLink.setMovementMethod(LinkMovementMethod.getInstance());
+        //HyperLink.setText(Text);
         projects = new ArrayList<>();
         project_list = (RecyclerView) findViewById(R.id.proj_list);
         loadProjects();
@@ -76,7 +112,7 @@ public class R_Lab extends AppCompatActivity {
     }
 
     private void loadProjects(){
-        FirebaseCoursesHelper helper = new FirebaseCoursesHelper();
+        FirebaseProjectHelper helper = new FirebaseProjectHelper();
         DatabaseReference reference = helper.getReference();
         final ArrayList<String> rprojects = researchLab.getProjects();
         reference.addValueEventListener(new ValueEventListener() {
