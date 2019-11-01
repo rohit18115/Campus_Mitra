@@ -71,7 +71,8 @@
 
     <Button
         android:id="@+id/btn_sign_in"
-        style="@style/Widget.MaterialComponents.Button.Icon"
+        android:textColor="@color/white"
+        android:background="@color/colorPrimary"
         android:layout_marginTop="8dp"
         android:text="Sign In"
         android:textSize="17sp"

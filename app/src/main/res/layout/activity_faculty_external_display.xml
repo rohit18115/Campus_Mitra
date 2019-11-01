@@ -114,7 +114,8 @@
 
         <Button
             android:id="@+id/afe_appointment"
-            style="@style/Widget.MaterialComponents.Button.Icon"
+            android:textColor="@color/white"
+            android:background="@color/colorPrimary"
             android:layout_marginTop="8dp"
             android:text="Book Appointment"
             android:textSize="17sp"

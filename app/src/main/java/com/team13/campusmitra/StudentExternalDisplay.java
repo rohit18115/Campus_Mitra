@@ -53,11 +53,21 @@ public class StudentExternalDisplay extends AppCompatActivity {
                     User user = snapshot.getValue(User.class);
                     if(user.getUserId().equals(userId)) {
                         Log.d("lololo", "onDataChange: " + user.getUserLastName());
-                        Glide.with(StudentExternalDisplay.this)
-                                .asBitmap()
-                                .load(user.getImageUrl())
-                                .placeholder(R.drawable.ic_loading)
-                                .into(image);
+                        String gender = user.getGender();
+                        if(gender.equals("Male")) {
+                            Glide.with(StudentExternalDisplay.this)
+                                    .asBitmap()
+                                    .load(user.getImageUrl())
+                                    .placeholder(R.drawable.blankboy)
+                                    .into(image);
+                        }
+                        else{
+                            Glide.with(StudentExternalDisplay.this)
+                                    .asBitmap()
+                                    .load(user.getImageUrl())
+                                    .placeholder(R.drawable.blankgirl)
+                                    .into(image);
+                        }
                         name.setText(user.getUserFirstName() + " " + user.getUserLastName());
                         email.setText(user.getUserEmail());
                     }
