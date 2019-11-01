@@ -50,6 +50,7 @@ public class FacultyCourseTakenRecyclerViewAdaptor extends RecyclerView.Adapter<
         final FacultyCourseTakenModel model = mModelList.get(position);
         holder.tv1.setText(mModelList.get(position).getCourse().getCourseName());
         holder.tv2.setText(mModelList.get(position).getCourse().getCourseCode());
+        holder.tv3.setVisibility(View.GONE);
         holder.view.setBackgroundColor(model.isSelected() ? Color.parseColor("#3FAEA8"): Color.WHITE);
         holder.layout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -69,12 +70,14 @@ public class FacultyCourseTakenRecyclerViewAdaptor extends RecyclerView.Adapter<
         private LinearLayout layout;
         AppCompatTextView tv1;
         AppCompatTextView tv2;
+        AppCompatTextView tv3;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             view = itemView;
             tv1 = itemView.findViewById(R.id.scrv_text1);
             tv2 = itemView.findViewById(R.id.scrv_text2);
+            tv3 = itemView.findViewById(R.id.scrv_text3);
             layout = itemView.findViewById(R.id.SCLL1);
         }
     }

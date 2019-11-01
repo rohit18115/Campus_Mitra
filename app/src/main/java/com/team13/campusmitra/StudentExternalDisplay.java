@@ -98,18 +98,19 @@ public class StudentExternalDisplay extends AppCompatActivity {
                         dep = student.getDepartment();
                         dom = student.getAreaOfInterest();
                         ArrayList<String> s = student.getCourses();
+                        if(s!=null) {
                         cor = "";
                         for(int i =0;i<s.size();i++) {
                             cor = cor + s.get(i) + "\n";
                         }
+                        if(!cor.isEmpty()) {
+                            courses.setText(cor);
+                        }}
                         if(!dep.isEmpty()) {
                             dept.setText(dep);
                         }
                         if(!dom.isEmpty()) {
                             interests.setText(dom);
-                        }
-                        if(!cor.isEmpty()) {
-                            courses.setText(cor);
                         }
                     }
                 }

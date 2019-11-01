@@ -92,10 +92,11 @@ public class FacultyExternalDisplayActivity extends AppCompatActivity implements
                         dep = faculty.getDepartment();
                         dom = faculty.getDomains();
                         ArrayList<String> s = faculty.getCoursesTaken();
+                        if(s!=null) {
                         cor = "";
                         for(int i =0;i<s.size();i++) {
                             cor = cor + s.get(i) + "\n";
-                        }
+                        } }
                         if(!dep.isEmpty()) {
                             dept.setText(dep);
                         }

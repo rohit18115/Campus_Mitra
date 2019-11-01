@@ -111,11 +111,4 @@ public class DashboardProfessor extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
-    public void send_to_scan(View view)
-    {
-        Intent intent = new Intent(getApplicationContext(), OCRActivity.class);
-
-        startActivity(intent);
-
-    }
 }
