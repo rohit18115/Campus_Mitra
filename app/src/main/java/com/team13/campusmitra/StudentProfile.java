@@ -35,7 +35,7 @@ public class StudentProfile extends AppCompatActivity implements View.OnClickLis
         student.setAreaOfInterest(interests.getText().toString());
         student.setDepartment(department.getText().toString());
         student.setRollNumber(rollNo.getText().toString());
-        student.setCourses(display_courses.getText().toString());
+        //student.setCourses(display_courses.getText().toString());
         FirebaseAuth auth = FirebaseAuth.getInstance();
         String uid = auth.getCurrentUser().getUid();
         student.setUserID(uid);
