@@ -39,18 +39,20 @@
         <activity android:name=".SelectCoursesRecyclerView" />
         <activity android:name=".TestActivity" />
         <activity android:name=".FacultyCourseTakenRecyclerView" />
-        <activity android:name=".FacultyProfile" />
+        <activity android:name=".FacultyProfile" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity android:name=".SplashActivity" />
         <activity android:name=".OCRActivity" />
         <activity android:name=".ResearchLabsRecyclerView" />
         <activity android:name=".NewDashboard" />
         <activity android:name=".LabsRecyclerView" /><!-- <activity android:name=".VerifyActivity" /> -->
         <activity android:name=".StudentProfile" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity android:name=".UserProfile" />
         <activity android:name=".Rooms" />
