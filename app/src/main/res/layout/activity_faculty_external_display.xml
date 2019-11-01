@@ -61,7 +61,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/afe_offered_title"
         android:paddingTop="5dp"
-        android:text="Courses Offered: "
+        android:text="Courses taken: "
         android:textStyle="bold"
         android:textSize="16dp"
         android:layout_below="@+id/afe_divider1" />
@@ -71,7 +71,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/afe_courses"
         android:paddingTop="5dp"
-        android:text="Offered Courses here "
+        android:text="(Empty)"
         android:textSize="16dp"
         android:layout_below="@+id/afe_offered_title" />
 
@@ -89,7 +89,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/afe_interest_title"
         android:paddingTop="5dp"
-        android:text="Interests"
+        android:text="Domains"
         android:textStyle="bold"
         android:textSize="16dp"
         android:layout_below="@+id/afe_divider2" />
@@ -97,9 +97,9 @@
     <androidx.appcompat.widget.AppCompatTextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/afe_interests"
+        android:id="@+id/afe_domains"
         android:paddingTop="5dp"
-        android:text="Interests here"
+        android:text="(Empty)"
         android:textSize="16dp"
         android:layout_below="@+id/afe_interest_title" />
 
@@ -110,21 +110,23 @@
         android:layout_marginBottom="7dp"
         android:layout_marginTop="7dp"
         android:background="@color/colorPrimaryDark"
-        android:layout_below="@+id/afe_interests"/>
+        android:layout_below="@+id/afe_domains"/>
 
-        <Button
-            android:id="@+id/afe_appointment"
-            android:textColor="@color/white"
-            android:background="@color/colorPrimary"
-            android:layout_marginTop="8dp"
-            android:text="Book Appointment"
-            android:textSize="17sp"
-            android:layout_gravity="center"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:padding="8dp"
-            android:layout_centerHorizontal="true"
-            android:layout_below="@+id/afe_divider3"
-            />
+
+	<Button
+	    android:id="@+id/afe_appointment"
+	    android:textColor="@color/white"
+	    android:background="@color/colorPrimary"
+	    android:layout_marginTop="8dp"
+	    android:text="Book Appointment"
+	    android:textSize="17sp"
+	    android:layout_gravity="center"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:padding="8dp"
+	    android:layout_centerHorizontal="true"
+	    android:layout_below="@+id/afe_divider3"
+	    />
+
 
 </RelativeLayout>

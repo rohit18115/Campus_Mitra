@@ -8,6 +8,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
+import android.net.Uri;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.team13.campusmitra.dataholder.User;
@@ -26,7 +27,7 @@ public class NewDashboard extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu)
     {
-        getMenuInflater().inflate(R.menu.actionbar,menu);
+        getMenuInflater().inflate(R.menu.student_actionbar,menu);
         return true;
     }
     @Override
@@ -38,6 +39,17 @@ public class NewDashboard extends AppCompatActivity {
 
                 startActivity(intent);
                 return true;
+            case R.id.view_profile:
+                Intent intent2 = new Intent(getApplicationContext(), StudentProfileDisplay.class);
+
+                startActivity(intent2);
+                return true;
+            case R.id.timetable:
+                String url = "https://www.iiitd.ac.in/sites/default/files/docs/admissions/2019/Time%20Table-Monsoon%202019V6.pdf";
+                Intent i = new Intent(Intent.ACTION_VIEW);
+                i.setData(Uri.parse(url));
+                startActivity(i);
+                return true;
             case R.id.logout:
                 FirebaseAuth auth = FirebaseAuth.getInstance();
                 auth.signOut();
@@ -46,7 +58,8 @@ public class NewDashboard extends AppCompatActivity {
                 finish();
                 return true;
 
-        }
+                }
+
         return super.onOptionsItemSelected(item);
     }
     public void send_to_scan(View view)

@@ -18,7 +18,7 @@ public class DashboardAdmin extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu)
     {
-        getMenuInflater().inflate(R.menu.actionbar,menu);
+        getMenuInflater().inflate(R.menu.admin_actionbar,menu);
         return true;
     }
     @Override

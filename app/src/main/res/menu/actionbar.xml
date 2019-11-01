@@ -16,6 +16,10 @@
         android:id="@+id/view_profile"
         android:title="View Profile"
         app:showAsAction="never"></item>
+    <item
+        android:id="@+id/add_projects"
+        android:title="Add Projects"
+        app:showAsAction="never"></item>
 
     <item
         android:id="@+id/logout"

@@ -73,7 +73,8 @@ public class SignInSplash extends AppCompatActivity {
         setContentView(R.layout.activity_sign_in_splash);
 
         //Mukul added this
-//        startActivity(new Intent(this,OpenDialogue.class));
+        //startActivity(new Intent(this,VacantRoomDetails.class));
+
 
         checkbox = (AppCompatCheckBox) findViewById(R.id.checkbox);
         etPassword = (EditText) findViewById(R.id.et_signin_pswd);
