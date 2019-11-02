@@ -131,4 +131,20 @@ public class DashboardProfessor extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
+
+    public void send_to_recyc(View view)
+    {
+        Intent intent = new Intent(getApplicationContext(), UserListDisplayActivity.class);
+        intent.putExtra("userType",0);
+        startActivity(intent);
+        //finish();
+    }
+
+    public void send_to_recyc_pro(View view)
+    {
+        Intent intent = new Intent(getApplicationContext(), UserListDisplayActivity.class);
+        intent.putExtra("userType",1);
+        startActivity(intent);
+        //finish();
+    }
 }

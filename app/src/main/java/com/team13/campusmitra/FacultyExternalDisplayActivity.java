@@ -97,13 +97,13 @@ public class FacultyExternalDisplayActivity extends AppCompatActivity implements
                         for(int i =0;i<s.size();i++) {
                             cor = cor + s.get(i) + "\n";
                         } }
-                        if(!dep.isEmpty()) {
+                        if(dep!=null && !dep.isEmpty()) {
                             dept.setText(dep);
                         }
-                        if(!dom.isEmpty()) {
+                        if(dom!=null && !dom.isEmpty()) {
                             domain.setText(dom);
                         }
-                        if(!cor.isEmpty()) {
+                        if(cor!=null && !cor.isEmpty()) {
                             courses.setText(cor);
                         }
                     }

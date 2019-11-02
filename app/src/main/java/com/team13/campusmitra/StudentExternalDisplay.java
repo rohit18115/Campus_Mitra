@@ -91,9 +91,6 @@ public class StudentExternalDisplay extends AppCompatActivity {
                     Student student = snapshot.getValue(Student.class);
                     if(student.getUserID().equals(userId)) {
                         Log.d("lololo", "onDataChange: " + student.getUserID());
-//                        dept.setText();
-//                        courses.setText();
-//                        interests.setText();
                         String dep = "", cor = "", dom = "";
                         dep = student.getDepartment();
                         dom = student.getAreaOfInterest();
