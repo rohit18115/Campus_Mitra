@@ -104,6 +104,7 @@ public class DashboardProfessor extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(DashboardProfessor.this, GotoAddEditRL.class);
+                intent.putExtra("USER",user);
                 startActivity(intent);
             }
         });

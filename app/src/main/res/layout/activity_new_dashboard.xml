@@ -76,7 +76,6 @@
                         android:onClick="send_to_recyc_pro"
                         android:src="@drawable/tchr" />
                     <TextView
-
                         android:text="View Professors"
                         android:textSize="14sp"
                         android:layout_marginTop="12dp"
@@ -174,8 +173,9 @@
                         android:src="@drawable/labs"
                         android:onClick="send_to_recyc_lab"
                         android:layout_width="80dp"
-                        android:layout_height="80dp"
-                        />
+                        android:layout_height="80dp"/>
+
+
                     <TextView
 
                         android:text="Know your Labs"
@@ -183,7 +183,7 @@
                         android:onClick="send_to_recyc_lab"
                         android:layout_marginTop="12dp"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
+                        android:layout_height="wrap_content"/>
                 </LinearLayout>
 
 

@@ -85,7 +85,7 @@ public class Projects_Adapter extends RecyclerView.Adapter<Projects_Adapter.Proj
     public void onBindViewHolder(@NonNull Projects_ViewHolder holder, final int position) {
         final Project current = projectArray[position];//data.get(position);
 
-        Glide.with(mContext)
+        Glide.with(activity)
                 .asBitmap()
                 .load(current.getProjectImageURL())
                 .placeholder(R.drawable.project_icon_1)
@@ -164,17 +164,23 @@ public class Projects_Adapter extends RecyclerView.Adapter<Projects_Adapter.Proj
             //current.getProjectImageURL());
 
             mem =  current.getMembers();
-
+            members =new ArrayList<>();
             FirebaseUserHelper helper = new FirebaseUserHelper();
             DatabaseReference reference = helper.getReference();
             reference.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    members.clear();
                     for(DataSnapshot snapshot:dataSnapshot.getChildren()){
                         User u = snapshot.getValue(User.class);
-                        if(mem.contains(u.getUserEmail()));
-                        members.add(u.getUserName());
+                        if(mem.contains(u.getUserEmail()))
+                            members.add(u.getUserName());
                     }
+                    if(members.size()>0){
+                    String mem_list = members.get(0);
+                    for(int i=1;i< members.size();i++)
+                        mem_list = mem_list+", "+members.get(i);
+                    sub_part_tv2.setText(mem_list);}
                 }
 
                 @Override
@@ -182,10 +188,6 @@ public class Projects_Adapter extends RecyclerView.Adapter<Projects_Adapter.Proj
 
                 }
             });
-            String mem_list = "";
-            for(int i=0;i< members.size();i++)
-                mem_list = mem_list+", "+members.get(i);
-            sub_part_tv2.setText(mem_list);
         }
     }
 
@@ -201,7 +203,7 @@ public class Projects_Adapter extends RecyclerView.Adapter<Projects_Adapter.Proj
         Button deleteBtn = view.findViewById(R.id.dialog_edit_project_delete_btn);
         loadDataInSpinner(actionSpinner,getActions());
         alertDialog.setView(view);
-        alertDialog.setTitle("Edit Course Record");
+        alertDialog.setTitle("Edit Project Record");
         dialog= alertDialog.create();
         dialog.show();
         updateBtn.setOnClickListener(new View.OnClickListener() {

@@ -87,6 +87,12 @@ public class NewDashboard extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
+    public void send_to_ResearchLabs(View view){
+        Intent intent2 = new Intent(this, ResearchLabsRecyclerView.class);
+        intent2.putExtra("UTYPE",""+user.getUserType());
+        startActivity(intent2);
+    }
     public void send_to_scan(View view)
     {
         Intent intent = new Intent(getApplicationContext(), OCRActivity.class);
