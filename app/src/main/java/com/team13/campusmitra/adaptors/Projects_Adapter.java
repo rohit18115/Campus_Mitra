@@ -61,6 +61,7 @@ public class Projects_Adapter extends RecyclerView.Adapter<Projects_Adapter.Proj
     //private String[] data;
     private ArrayList<Project> data;
     private Project[] projectArray;
+    boolean rights;
     private AppCompatActivity activity;
     private Context mContext;
     //private static final String TAG = "Research Labs Project Adapter";
@@ -68,8 +69,9 @@ public class Projects_Adapter extends RecyclerView.Adapter<Projects_Adapter.Proj
         this.data = data;
         this.mContext = mContext;
     }
-    public Projects_Adapter(Project[] projectArray, AppCompatActivity activity) {
+    public Projects_Adapter(Project[] projectArray, AppCompatActivity activity, boolean rights) {
         this.projectArray = projectArray;
+        this.rights = rights;
         this.activity = activity;
     }
 
@@ -103,26 +105,29 @@ public class Projects_Adapter extends RecyclerView.Adapter<Projects_Adapter.Proj
                 notifyItemChanged(position);
             }
         });
-        holder.info_linear.setOnLongClickListener(new View.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View view) {
-                showEditDialog(current);
-                return false;
-            }
-        });
-        holder.image_linear.setOnLongClickListener(new View.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View view) {
-                Intent intent = new Intent(activity.getApplicationContext(), ProjectImageEdit.class);
-                intent.putExtra("Project",current);
-                activity.startActivity(intent);
 
-                //finish();
-                //showEditImageDialog(current);
+        if(rights) {
+            holder.info_linear.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View view) {
+                    showEditDialog(current);
+                    return false;
+                }
+            });
+            holder.image_linear.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View view) {
+                    Intent intent = new Intent(activity.getApplicationContext(), ProjectImageEdit.class);
+                    intent.putExtra("Project", current);
+                    activity.startActivity(intent);
 
-                return false;
-            }
-        });
+                    //finish();
+                    //showEditImageDialog(current);
+
+                    return false;
+                }
+            });
+        }
         holder.bind(current);
 
     }
@@ -164,6 +169,7 @@ public class Projects_Adapter extends RecyclerView.Adapter<Projects_Adapter.Proj
             //current.getProjectImageURL());
 
             mem =  current.getMembers();
+            Log.d("members", String.valueOf(mem.size()));
             members =new ArrayList<>();
             FirebaseUserHelper helper = new FirebaseUserHelper();
             DatabaseReference reference = helper.getReference();
@@ -173,9 +179,11 @@ public class Projects_Adapter extends RecyclerView.Adapter<Projects_Adapter.Proj
                     members.clear();
                     for(DataSnapshot snapshot:dataSnapshot.getChildren()){
                         User u = snapshot.getValue(User.class);
+                        Log.d("here", u.getUserName());
                         if(mem.contains(u.getUserEmail()))
                             members.add(u.getUserName());
                     }
+
                     if(members.size()>0){
                     String mem_list = members.get(0);
                     for(int i=1;i< members.size();i++)

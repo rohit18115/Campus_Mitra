@@ -287,7 +287,7 @@ public class R_Lab extends AppCompatActivity {
     }
     private void loadRecyclerView(){
         Object[] objects = projects.toArray();
-        adaptor = new Projects_Adapter(Arrays.copyOf(objects,objects.length, Project[].class),this);
+        adaptor = new Projects_Adapter(Arrays.copyOf(objects,objects.length, Project[].class),this, editFlag);
         project_list.setHasFixedSize(true);
         project_list.setLayoutManager(new LinearLayoutManager(this));
         loadAdaptorToRecyclerView(project_list,adaptor);
