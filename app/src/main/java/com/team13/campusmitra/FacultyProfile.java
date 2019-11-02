@@ -14,6 +14,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -350,16 +351,16 @@ public class FacultyProfile extends AppCompatActivity implements View.OnClickLis
             }
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-
-            switch(item.getItemId()){
-                case android.R.id.home : {
-                    onBackPressed();
-                }
-            }
-            return super.onOptionsItemSelected(item);
-        }
+//    @Override
+//    public boolean onOptionsItemSelected(MenuItem item) {
+//
+//            switch(item.getItemId()){
+//                case android.R.id.home : {
+//                    onBackPressed();
+//                }
+//            }
+//            return super.onOptionsItemSelected(item);
+//        }
 
     @Override
     public void onClick(View v) {
@@ -412,12 +413,24 @@ public class FacultyProfile extends AppCompatActivity implements View.OnClickLis
     }
 
     @Override
-    public void onBackPressed () {
-
-        super.onBackPressed();
-        FirebaseAuth auth = FirebaseAuth.getInstance();
-        auth.signOut();
-
+    public boolean onCreateOptionsMenu(Menu menu)
+    {
+        getMenuInflater().inflate(R.menu.logout_action_bar,menu);
+        return true;
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item)
+    {
+        switch(item.getItemId()) {
+            case R.id.ab_logout:
+                FirebaseAuth auth = FirebaseAuth.getInstance();
+                auth.signOut();
+                Intent intent1 = new Intent(getApplicationContext(),SignInSplash.class);
+                startActivity(intent1);
+                finish();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
 }
