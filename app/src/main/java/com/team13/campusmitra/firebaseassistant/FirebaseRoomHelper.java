@@ -23,4 +23,9 @@ public class FirebaseRoomHelper {
         firebaseDatabase.child(uid).setValue(room);
         Toast.makeText(context,"Room added successfully!!",Toast.LENGTH_SHORT).show();
     }
+    public void updateRoom(Context context,Room room){
+        String uid= room.getRoomID();
+        firebaseDatabase.child(uid).setValue(room);
+        Toast.makeText(context,"Room updated successfully",Toast.LENGTH_LONG).show();
+    }
 }
