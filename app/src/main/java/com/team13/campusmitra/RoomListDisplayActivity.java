@@ -30,14 +30,13 @@ public class RoomListDisplayActivity extends AppCompatActivity {
     private ArrayList<Room> room_items = new ArrayList<>();
     private ImageButton imageButton;
     private RoomListDisplayAdaptor roomAdaptor;
-    SearchView searchView;
+    //SearchView searchView;
     ImageButton addButton;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_room_list_display);
-        searchView=findViewById(R.id.rooms_list_search_view);
+        //searchView=findViewById(R.id.rooms_list_search_view);
         addButton=findViewById(R.id.rooms_list_display_addButton);
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -47,7 +46,34 @@ public class RoomListDisplayActivity extends AppCompatActivity {
             }
         });
         loadRoomData();
+//        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+//            @Override
+//            public boolean onQueryTextSubmit(String s) {
+//                return false;
+//            }
+//
+//            @Override
+//            public boolean onQueryTextChange(String s) {
+//                filterData(s);
+//                return false;
+//            }
+//        });
+
+
     }
+    private void filterData(String s){
+        ArrayList<Room> updatedList = new ArrayList<>();
+        for(Room r:room_items){
+            if(s!=null&&r!=null&&(s.toLowerCase().contains(r.getRoomNumber().toLowerCase())||s.toLowerCase().contains(r.getRoomBuilding().toLowerCase())))
+            {
+                updatedList.add(r);
+            }
+        }
+        if (updatedList.size()>0)
+        roomAdaptor.doSomething(updatedList);
+
+    }
+
 
     private void initRecycler() {
         Log.d(TAG, "initComponents: started");

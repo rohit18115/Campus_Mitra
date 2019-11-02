@@ -116,7 +116,9 @@ public class RoomListDisplayAdaptor extends RecyclerView.Adapter<RoomListDisplay
         dialogBuilder.setNegativeButton("Edit", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                Intent intent= new Intent(activity.getApplicationContext(),EditRoomsDetails.class);
+                Room roomd=element;
+                Intent intent= new Intent(activity,EditRoomsDetails.class);
+                intent.putExtra("ROOMDETAILS", roomd);
                 activity.startActivity(intent);
 
             }
@@ -125,6 +127,11 @@ public class RoomListDisplayAdaptor extends RecyclerView.Adapter<RoomListDisplay
 
         dialogBuilder.show();
     }
+    public void doSomething(ArrayList<Room> r){
+        this.items = r;
+        this.notifyDataSetChanged();
+    }
+
 
 
 
