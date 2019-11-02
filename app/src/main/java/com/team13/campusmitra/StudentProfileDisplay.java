@@ -23,7 +23,7 @@ public class StudentProfileDisplay extends AppCompatActivity  {
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
         final ViewPager viewPager = findViewById(R.id.spd_pager);
-        final StudentProfilePagerAdapter pagerAdapter = new StudentProfilePagerAdapter(getSupportFragmentManager(),tabLayout.getTabCount());
+        final StudentProfilePagerAdapter pagerAdapter = new StudentProfilePagerAdapter(getSupportFragmentManager(),tabLayout.getTabCount(),this);
         viewPager.setAdapter(pagerAdapter);
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
 

@@ -16,6 +16,7 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 import com.bumptech.glide.Glide;
@@ -24,7 +25,10 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
+import com.team13.campusmitra.dataholder.Faculty;
+import com.team13.campusmitra.dataholder.OfficeHours;
 import com.team13.campusmitra.dataholder.User;
+import com.team13.campusmitra.firebaseassistant.FirebaseFacultyHelper;
 import com.team13.campusmitra.firebaseassistant.FirebaseUserHelper;
 public class DashboardProfessor extends AppCompatActivity {
     CardView rl;
@@ -32,6 +36,7 @@ public class DashboardProfessor extends AppCompatActivity {
     ImageView image;
     TextView nameTV;
     User user;
+    Faculty f = null;
 
     protected void loadImage() {
 
@@ -103,6 +108,24 @@ public class DashboardProfessor extends AppCompatActivity {
             }
         });
 
+        new FirebaseFacultyHelper().getReference().addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for(DataSnapshot snapshot:dataSnapshot.getChildren()){
+                    Faculty faculty = snapshot.getValue(Faculty.class);
+                    if(faculty.getUserID().toLowerCase().equals(user.getUserId().toLowerCase())){
+                        f = faculty;
+                        break;
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
         loadImage();
         nameTV = findViewById(R.id.prof_name);
         user  = (User) getIntent().getSerializableExtra("MYKEY");
@@ -140,6 +163,22 @@ public class DashboardProfessor extends AppCompatActivity {
                 i1.setData(Uri.parse(url1));
                 startActivity(i1);
                 return true;
+            case R.id.dnd:
+                if(f!=null){
+                    OfficeHours officeHours = f.getOfficeHours();
+                    int i  = officeHours.getDnd();
+                    if(i==0){
+                        i=1;
+                    }
+                    else{i=0;}
+                    officeHours.setDnd(i);
+                    f.setOfficeHours(officeHours);
+                    FirebaseFacultyHelper helper = new FirebaseFacultyHelper();
+                    helper.addFaculty(getApplicationContext(),f);
+                }
+                else{
+                    Toast.makeText(getApplicationContext(),"DND cannot be applied yet!!",Toast.LENGTH_LONG).show();
+                }
             case R.id.logout:
                 FirebaseAuth auth = FirebaseAuth.getInstance();
                 auth.signOut();

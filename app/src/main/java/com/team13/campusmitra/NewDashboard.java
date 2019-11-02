@@ -17,6 +17,7 @@ import com.team13.campusmitra.dataholder.User;
 public class NewDashboard extends AppCompatActivity {
     TextView nameTV;
     User user;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -72,6 +73,8 @@ public class NewDashboard extends AppCompatActivity {
                 i1.setData(Uri.parse(url1));
                 startActivity(i1);
                 return true;
+
+
             case R.id.logout:
                 FirebaseAuth auth = FirebaseAuth.getInstance();
                 auth.signOut();
