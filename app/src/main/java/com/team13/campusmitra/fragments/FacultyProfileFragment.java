@@ -5,10 +5,8 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -46,16 +44,11 @@ import com.team13.campusmitra.TimePickerFragment;
 import com.team13.campusmitra.Utils.LetterImageView;
 import com.team13.campusmitra.dataholder.Faculty;
 import com.team13.campusmitra.dataholder.OfficeHours;
-import com.team13.campusmitra.dataholder.Student;
 import com.team13.campusmitra.firebaseassistant.FirebaseFacultyHelper;
-import com.team13.campusmitra.firebaseassistant.FirebaseStudentHelper;
 
-import java.io.IOException;
 import java.util.ArrayList;
 
 import static android.app.Activity.RESULT_OK;
-import static android.content.Context.MODE_PRIVATE;
-import static com.team13.campusmitra.fragments.BasicProfileFragment.REQUEST_CODE;
 
 public class FacultyProfileFragment extends Fragment implements View.OnClickListener, TimePickerDialog.OnTimeSetListener {
     FloatingActionButton fab;
