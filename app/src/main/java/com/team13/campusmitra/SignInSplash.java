@@ -71,12 +71,6 @@ public class SignInSplash extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_in_splash);
-
-        //Mukul added this
-        startActivity(new Intent(this,EditRoomsDetails.class));
-
-        //Sumedha added this
-        startActivity(new Intent(this,RoomListDisplayActivity.class));
         checkbox = (AppCompatCheckBox) findViewById(R.id.checkbox);
         etPassword = (EditText) findViewById(R.id.et_signin_pswd);
 
