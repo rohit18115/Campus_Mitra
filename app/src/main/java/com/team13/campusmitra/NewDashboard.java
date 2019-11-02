@@ -29,6 +29,8 @@ public class NewDashboard extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu)
     {
+        //getSupportActionBar().setHomeAsUpIndicator(R.drawable.iiitd);// set drawable icon
+        //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getMenuInflater().inflate(R.menu.student_actionbar,menu);
         return true;
     }

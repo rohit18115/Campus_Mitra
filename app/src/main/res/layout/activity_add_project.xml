@@ -132,7 +132,7 @@
             android:layout_marginLeft="16dp"
             android:fontFamily="sans-serif"
             android:textColor="@color/white"
-            android:background="@color/colorPrimary"
+            android:background="@color/gradStart"
             android:text="Add Project"
             android:textStyle="bold"
             android:textSize="16dp" />

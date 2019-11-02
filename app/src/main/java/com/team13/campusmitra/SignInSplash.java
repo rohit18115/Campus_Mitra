@@ -130,6 +130,7 @@ public class SignInSplash extends AppCompatActivity {
                 } else {
                     if (!CheckInternet(getApplicationContext())) {
                         Snackbar snackbar = Snackbar.make(coordinatorLayout, "No internet Connection", Snackbar.LENGTH_SHORT);
+                        snackbar.setTextColor(Color.WHITE);
                         snackbar.show();
                     //    hideKeyBoard();
                     } else {
@@ -175,7 +176,7 @@ public class SignInSplash extends AppCompatActivity {
                 if (forgotpswdemail.isEmpty()) {
                     Snackbar snackbar = Snackbar.make(coordinatorLayout, "Enter email to reset password", Snackbar.LENGTH_SHORT);
                     //setTextColor not working
-                    snackbar.setActionTextColor(Color.WHITE);
+                    snackbar.setTextColor(Color.WHITE);
                     snackbar.show();
                     etEmail.setError("Enter email to reset password");
                     etEmail.requestFocus();
@@ -468,6 +469,7 @@ public class SignInSplash extends AppCompatActivity {
             public void onComplete(@NonNull Task<Void> task) {
                 if (task.isSuccessful()) {
                     Snackbar snackbar = Snackbar.make(coordinatorLayout, "Reset password link send to" + email, Snackbar.LENGTH_SHORT);
+                    snackbar.setTextColor(Color.WHITE);
                     snackbar.show();
                 } else {
                     Log.d(TAG, "onFailure: " + task.getException());

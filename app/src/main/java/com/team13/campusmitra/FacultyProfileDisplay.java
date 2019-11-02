@@ -23,7 +23,7 @@ public class FacultyProfileDisplay extends AppCompatActivity  {
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
         final ViewPager viewPager = findViewById(R.id.fpd_pager);
-        final FacultyProfilePagerAdapter pagerAdapter = new FacultyProfilePagerAdapter(getSupportFragmentManager(),tabLayout.getTabCount());
+        final FacultyProfilePagerAdapter pagerAdapter = new FacultyProfilePagerAdapter(getSupportFragmentManager(),tabLayout.getTabCount(),this);
         viewPager.setAdapter(pagerAdapter);
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
 
