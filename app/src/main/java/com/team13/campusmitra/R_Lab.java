@@ -88,10 +88,6 @@ public class R_Lab extends AppCompatActivity {
         labName.setText(researchLab.getResearchLabName());
         //HyperLink = (TextView)findViewById(R.id.r_lab_et3);
         add_proj = findViewById(R.id.add_proj_btn);
-        //Text = Html.fromHtml("Website: " +
-        //        "<a href=' http://iab-rubric.org/'> http://iab-rubric.org/</a>");
-        //HyperLink.setMovementMethod(LinkMovementMethod.getInstance());
-        //HyperLink.setText(Text);
         projects = new ArrayList<>();
         project_list = (RecyclerView) findViewById(R.id.proj_list);
         loadProjects();

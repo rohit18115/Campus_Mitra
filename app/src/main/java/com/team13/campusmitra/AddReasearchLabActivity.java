@@ -64,7 +64,7 @@ public class AddReasearchLabActivity extends AppCompatActivity implements View.O
     }
 
     protected void getRLObject(){
-        if(checkTextView(room_no)&&checkTextView(room_name)&&checkTextView(room_proff)&& mentors.size()>0){
+        if(checkTextView(room_no)&&checkTextView(room_name)&&checkTextView(room_proff)){
             ResearchLab rl = new ResearchLab();
             Room r = new Room();
             r.setRoomType(5);
@@ -74,6 +74,7 @@ public class AddReasearchLabActivity extends AppCompatActivity implements View.O
             mentor_string = room_proff.getText().toString().trim();
             mentors = (ArrayList<String>) Arrays.asList(mentor_string.split(","));
             rl.setMentors(mentors);
+            Log.d("loli", "getRLObject: in adding activity ");
             FirebaseResearchLabHelper helper = new FirebaseResearchLabHelper();
             helper.addResearchLab(getApplicationContext(),rl);
             FirebaseRoomHelper helper2 = new FirebaseRoomHelper();

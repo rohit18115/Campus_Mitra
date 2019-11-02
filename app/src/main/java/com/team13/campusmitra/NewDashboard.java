@@ -96,4 +96,11 @@ public class NewDashboard extends AppCompatActivity {
 
     public void sentToAddRoom(View view) {
     }
+    public void send_to_recyc_lab(View view)
+    {
+        Intent intent = new Intent(getApplicationContext(), ResearchLabsRecyclerView.class);
+        intent.putExtra("userType",1);
+        startActivity(intent);
+        //finish();
+    }
 }

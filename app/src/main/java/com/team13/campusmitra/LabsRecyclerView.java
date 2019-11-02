@@ -1,5 +1,6 @@
 package com.team13.campusmitra;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -13,8 +14,17 @@ import android.view.MenuItem;
 import android.view.inputmethod.EditorInfo;
 import android.widget.SearchView;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.ValueEventListener;
 import com.team13.campusmitra.adaptors.LabsRecyclerViewAdaptor;
+import com.team13.campusmitra.dataholder.Faculty;
 import com.team13.campusmitra.dataholder.Room;
+import com.team13.campusmitra.dataholder.User;
+import com.team13.campusmitra.firebaseassistant.FirebaseFacultyHelper;
+import com.team13.campusmitra.firebaseassistant.FirebaseRoomHelper;
+import com.team13.campusmitra.firebaseassistant.FirebaseUserHelper;
 
 import java.util.ArrayList;
 
@@ -31,17 +41,35 @@ public class LabsRecyclerView extends AppCompatActivity {
         Log.d(TAG, "onCreate: started");
 
         initComponents();
-        initRecycler();
     }
 
     private void initComponents() {
 
-        Log.d(TAG, "initImage: started");
-        String url = "https://drive.google.com/uc?export=download&id=1y72ODb4maSRFbO-rjuJTVIEJC20LUmti";
-        Room room = new Room("123","A-403","RnD Block",0,url,"",40,"","",10);
-        for (int i = 0; i < 15; i++) {
-            items.add(room);
-        }
+        FirebaseRoomHelper helper = new FirebaseRoomHelper();
+        DatabaseReference reference = helper.getReference();
+        reference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                items.clear();
+                for(final DataSnapshot snapshot:dataSnapshot.getChildren()){
+                    Room room = snapshot.getValue(Room.class);
+                    if(room.getRoomType()==0) {
+                        items.add(room);
+                    }
+                }
+                //progressBar.setVisibility(View.GONE);
+                if (items.size()>0)
+                    initRecycler();
+                else {
+                    //Toast
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
     }
 
     private void initRecycler() {
