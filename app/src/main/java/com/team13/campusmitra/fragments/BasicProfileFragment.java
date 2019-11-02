@@ -107,31 +107,64 @@ public class BasicProfileFragment extends Fragment implements View.OnClickListen
 
     }
 
+//    protected void loadData(View view) {
+//        FirebaseAuth auth = FirebaseAuth.getInstance();
+//        final String uid = auth.getCurrentUser().getUid();
+//        FirebaseUserHelper helper = new FirebaseUserHelper();
+//        DatabaseReference reference = helper.getReference();
+//        reference.addValueEventListener(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+//                if (getActivity() == null) {
+//                    return;
+//                }
+//                for(DataSnapshot snapshot:dataSnapshot.getChildren()){
+//                    User user = snapshot.getValue(User.class);
+//                    if(user.getUserId().equals(uid)) {
+//                        Log.d("lololo", "onDataChange: " + user.getUserLastName());
+//                        Glide.with(BasicProfileFragment.this)
+//                                .asBitmap()
+//                                .load(user.getImageUrl())
+//                                .placeholder(R.drawable.ic_loading)
+//                                .into(image);
+//                        name.setText(user.getUserFirstName() + " " + user.getUserLastName());
+//                        oemail.setText(user.getUserPersonalMail());
+//                        dob.setText(user.getDob());
+//                        uname.setText(user.getUserName());
+//                    }
+//                }
+//            }
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError databaseError) {
+//
+//            }
+//
+//        });
+//    }
+
     protected void loadData(View view) {
         FirebaseAuth auth = FirebaseAuth.getInstance();
         final String uid = auth.getCurrentUser().getUid();
         FirebaseUserHelper helper = new FirebaseUserHelper();
-        DatabaseReference reference = helper.getReference();
+        DatabaseReference reference = helper.getReference().child(uid);
         reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if (getActivity() == null) {
                     return;
                 }
-                for(DataSnapshot snapshot:dataSnapshot.getChildren()){
-                    User user = snapshot.getValue(User.class);
-                    if(user.getUserId().equals(uid)) {
-                        Log.d("lololo", "onDataChange: " + user.getUserLastName());
-                        Glide.with(BasicProfileFragment.this)
-                                .asBitmap()
-                                .load(user.getImageUrl())
-                                .placeholder(R.drawable.ic_loading)
-                                .into(image);
-                        name.setText(user.getUserFirstName() + " " + user.getUserLastName());
-                        oemail.setText(user.getUserPersonalMail());
-                        dob.setText(user.getDob());
-                        uname.setText(user.getUserName());
-                    }
+                User user = dataSnapshot.getValue(User.class);
+                if(user.getUserId().equals(uid)) {
+                    Log.d("lololo", "onDataChange: " + user.getUserLastName());
+                    Glide.with(BasicProfileFragment.this)
+                            .asBitmap()
+                            .load(user.getImageUrl())
+                            .placeholder(R.drawable.ic_loading)
+                            .into(image);
+                    name.setText(user.getUserFirstName() + " " + user.getUserLastName());
+                    oemail.setText(user.getUserPersonalMail());
+                    dob.setText(user.getDob());
+                    uname.setText(user.getUserName());
                 }
             }
             @Override
@@ -139,6 +172,48 @@ public class BasicProfileFragment extends Fragment implements View.OnClickListen
 
             }
 
+        });
+    }
+
+    public void uploadData() {
+        FirebaseAuth auth = FirebaseAuth.getInstance();
+        final String uid = auth.getCurrentUser().getUid();
+        FirebaseUserHelper helper = new FirebaseUserHelper();
+        DatabaseReference reference = helper.getReference().child(uid);
+        reference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (getActivity() == null) {
+                    return;
+                }
+                User user = dataSnapshot.getValue(User.class);
+                if(user.getUserId().equals(uid)) {
+                    String fname = "", lname = "", oEmail = "", dobi = "",uName = "",buff = "";
+
+                    try {
+                        String n = name.getText().toString();
+                        fname = n.split(" ")[0];
+                        lname = n.split(" ")[1];
+                        oEmail = oemail.getText().toString();
+                        dobi = dob.getText().toString();
+                        uName = uname.getText().toString();
+                        buff = buffer.getText().toString().trim();
+                    } catch (NullPointerException e) {
+                        Log.d("lolo", "Null pointer exception: ");
+                    }
+                    user.setUserName(uName);
+                    user.setUserFirstName(fname);
+                    user.setUserLastName(lname);
+                    user.setDob(dobi);
+                    user.setUserPersonalMail(oEmail);
+                    if(buff!=null && !buff.isEmpty())
+                        user.setImageUrl(buff);
+                    new FirebaseUserHelper().updateUser(getActivity(), user);
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+            }
         });
     }
 
@@ -198,8 +273,6 @@ public class BasicProfileFragment extends Fragment implements View.OnClickListen
                 uname.setEnabled(true);
                 oemail.setEnabled(true);
                 dob.setEnabled(true);
-
-
                 break;
             case R.id.fbp_profile_name:
                 name.setEnabled(true);
@@ -224,6 +297,7 @@ public class BasicProfileFragment extends Fragment implements View.OnClickListen
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         name.setText(ETFirstName.getEditableText().toString()+" "+ETLastName.getEditableText().toString());
+                        uploadData();
                         Toast.makeText(getActivity(),"Name has been successfully changed",Toast.LENGTH_LONG).show();
                     }
                 });
@@ -257,6 +331,7 @@ public class BasicProfileFragment extends Fragment implements View.OnClickListen
                         String mail = ETOEmail.getEditableText().toString();
                         if(isValidMail(mail)) {
                             oemail.setText(mail);
+                            uploadData();
                             Toast.makeText(getActivity(),"Email has been successfully changed",Toast.LENGTH_SHORT).show();
                         }
                         else {
@@ -296,6 +371,7 @@ public class BasicProfileFragment extends Fragment implements View.OnClickListen
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         uname.setText(ETUName.getEditableText().toString());
+                        uploadData();
                         Toast.makeText(getActivity(),"Name has been successfully changed",Toast.LENGTH_LONG).show();
                     }
                 });
@@ -327,8 +403,10 @@ public class BasicProfileFragment extends Fragment implements View.OnClickListen
                         gallery.setType("image/*");
                         gallery.setAction(Intent.ACTION_GET_CONTENT);
                         pb.setVisibility(View.VISIBLE);
-
                         startActivityForResult(Intent.createChooser(gallery,"Seclect Picture"),PICK_IMAGE);
+                        uploadData();
+                        Toast.makeText(getActivity(),"Image has been successfully changed",Toast.LENGTH_LONG).show();
+
                     }
                 });
 
@@ -345,6 +423,8 @@ public class BasicProfileFragment extends Fragment implements View.OnClickListen
                 newFragment.setTargetFragment(BasicProfileFragment.this, REQUEST_CODE);
                 // show the datePicker
                 newFragment.show(fm, "datePicker");
+                uploadData();
+                Toast.makeText(getActivity(),"Date of Birth has been successfully changed",Toast.LENGTH_LONG).show();
                 break;
         }
     }
