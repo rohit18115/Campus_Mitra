@@ -78,7 +78,7 @@ public class R_Lab extends AppCompatActivity {
         String from = (String) myIntent.getStringExtra("Come from");
         String userType = (String) myIntent.getStringExtra("UTYPE");
         editFlag = false;
-        if(userType.equals("1")){
+        if(userType!=null && userType.equals("1")){
             editFlag=true;
         }
         if(from!=null&&from.equals("OCR")){
