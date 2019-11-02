@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -119,6 +120,12 @@ public class DashboardProfessor extends AppCompatActivity {
 
                 startActivity(intent3);
                 return true;
+            case R.id.calendar:
+                String url1 = "https://www.iiitd.ac.in/sites/default/files/docs/admissions/2019/Academic%20Calendar%20Monsoon%202019_Final.pdf";
+                Intent i1 = new Intent(Intent.ACTION_VIEW);
+                i1.setData(Uri.parse(url1));
+                startActivity(i1);
+                return true;
             case R.id.logout:
                 FirebaseAuth auth = FirebaseAuth.getInstance();
                 auth.signOut();
@@ -146,5 +153,11 @@ public class DashboardProfessor extends AppCompatActivity {
         intent.putExtra("userType",1);
         startActivity(intent);
         //finish();
+    }
+    public void loadVacantActivityProf(View view){
+        Intent intent = new Intent(getApplicationContext(),VacantRoomDetails.class);
+        intent.putExtra("userType",1);
+        startActivity(intent);
+
     }
 }

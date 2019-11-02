@@ -21,6 +21,11 @@
         android:id="@+id/timetable"
         android:title="Download Timetable"
         app:showAsAction="never"></item>
+    <item
+        android:id="@+id/calendar"
+        android:title="Download Calendar"
+        app:showAsAction="never"></item>
+
 
 
     <item

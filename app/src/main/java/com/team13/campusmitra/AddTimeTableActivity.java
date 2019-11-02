@@ -283,7 +283,7 @@ public class AddTimeTableActivity extends AppCompatActivity {
         timeTable = new ArrayList<>();
         DatabaseReference roomReference = new FirebaseRoomHelper().getReference();
         final DatabaseReference coursesReference = new FirebaseCoursesHelper().getReference();
-        DatabaseReference timeTableReference = new FirebaseTimeTableHelper().getReference();
+        final DatabaseReference timeTableReference = new FirebaseTimeTableHelper().getReference();
 
         roomReference.addValueEventListener(new ValueEventListener() {
             @Override
@@ -327,6 +327,36 @@ public class AddTimeTableActivity extends AppCompatActivity {
                 ArrayAdapter<String> areasAdapter = new ArrayAdapter<String>(AddTimeTableActivity.this, android.R.layout.simple_spinner_item, ar);
                 areasAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                courseSpinner.setAdapter(areasAdapter);
+                timeTableReference.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        timeTable.clear();
+                        for(DataSnapshot snapshot:dataSnapshot.getChildren()){
+                            TimeTableElement element = snapshot.getValue(TimeTableElement.class);
+                            boolean flag = false;
+
+                            for(Course c:courses){
+                                if(element.getCourseID().toLowerCase().equals(c.getCourseID().toLowerCase())){
+                                    flag = true;
+                                    break;
+                                }
+                            }
+                            if(flag)
+                            timeTable.add(element);
+
+                        }
+                        if(timeTable.size()>0)
+                            loadRecyclerView();
+                        progressBar2.setVisibility(View.GONE);
+
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                });
+
             }
 
             @Override
@@ -335,26 +365,6 @@ public class AddTimeTableActivity extends AppCompatActivity {
             }
         });
 
-        timeTableReference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                timeTable.clear();
-                for(DataSnapshot snapshot:dataSnapshot.getChildren()){
-                    TimeTableElement element = snapshot.getValue(TimeTableElement.class);
-                    timeTable.add(element);
-
-                }
-                if(timeTable.size()>0)
-                    loadRecyclerView();
-                progressBar2.setVisibility(View.GONE);
-
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
 
     }
     private void loadRecyclerView(){

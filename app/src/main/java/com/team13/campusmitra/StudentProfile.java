@@ -96,6 +96,9 @@ public class StudentProfile extends AppCompatActivity implements View.OnClickLis
         if(roll.isEmpty()) {
             rollNo.setError("Roll Number Can't be empty", null);
             rollNo.requestFocus();
+        }if(isInvalid(roll)) {
+            rollNo.setError("Roll Number Can't be empty", null);
+            rollNo.requestFocus();
         } else if(deptText.equals("Select Department")) {
             dept.setError("First Name Can't be empty", null);
             dept.requestFocus();
@@ -121,6 +124,16 @@ public class StudentProfile extends AppCompatActivity implements View.OnClickLis
             helper.addStudent(this,student);
             incrementCount();
         }
+    }
+
+    private boolean isInvalid(String roll) {
+        if(roll.startsWith("MT") && roll.length()==7)
+            return false;
+        else if(roll.startsWith("Phd") && roll.length() == 8)
+            return false;
+        else if(roll.startsWith("20") && roll.length() == 7)
+            return false;
+        return true;
     }
 
     private void incrementCount() {
