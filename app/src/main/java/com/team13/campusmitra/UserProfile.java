@@ -27,6 +27,7 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -65,6 +66,7 @@ public class UserProfile extends AppCompatActivity implements DatePickerDialog.O
     ProgressBar progressBar;
     RadioGroup gen;
     TextInputEditText optEmail;
+    Button button_datepicker;
 
     public void initComponents() {
         firstName = findViewById(R.id.firstName);
@@ -105,8 +107,10 @@ public class UserProfile extends AppCompatActivity implements DatePickerDialog.O
             lastName.requestFocus();
         } else if(dobi.isEmpty()) {
             Toast.makeText(getApplicationContext(),"Please Select Date of Birth",Toast.LENGTH_LONG).show();
-            dob.requestFocus();
-        } else if(!oemail.contains("@") || !oemail.contains(".com")) {
+            button_datepicker.setFocusable(true);
+            button_datepicker.setFocusableInTouchMode(true);
+            button_datepicker.requestFocus();
+        } else if(!oemail.isEmpty() && (!oemail.contains("@"))) {
             optEmail.setError("Not a valid Email", null);
             optEmail.requestFocus();
         } else {
@@ -149,7 +153,7 @@ public class UserProfile extends AppCompatActivity implements DatePickerDialog.O
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_profile);
         initComponents();
-        final Button button_datepicker = (Button) findViewById(R.id.button_datepicker);
+        button_datepicker = (Button) findViewById(R.id.button_datepicker);
         profileImage = (CircleImageView)findViewById(R.id.UPCIV);
         next = findViewById(R.id.UPnext);
         next.setOnClickListener(this);
@@ -259,6 +263,27 @@ public class UserProfile extends AppCompatActivity implements DatePickerDialog.O
         FirebaseAuth auth = FirebaseAuth.getInstance();
         auth.signOut();
 
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu)
+    {
+        getMenuInflater().inflate(R.menu.logout_action_bar,menu);
+        return true;
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item)
+    {
+        switch(item.getItemId()) {
+            case R.id.ab_logout:
+                FirebaseAuth auth = FirebaseAuth.getInstance();
+                auth.signOut();
+                Intent intent1 = new Intent(getApplicationContext(),SignInSplash.class);
+                startActivity(intent1);
+                finish();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
 }

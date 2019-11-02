@@ -2,15 +2,20 @@ package com.team13.campusmitra;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
+
 
 import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseAuth;
@@ -20,9 +25,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
 import com.team13.campusmitra.dataholder.User;
 import com.team13.campusmitra.firebaseassistant.FirebaseUserHelper;
-
 public class DashboardProfessor extends AppCompatActivity {
-
+    CardView rl;
 
     ImageView image;
     TextView nameTV;
@@ -76,12 +80,20 @@ public class DashboardProfessor extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dashboard_professor);
+        rl = findViewById(R.id.proff_views_rl);
+        rl.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(DashboardProfessor.this, GotoAddEditRL.class);
+                startActivity(intent);
+            }
+        });
+
         loadImage();
         nameTV = findViewById(R.id.prof_name);
         user  = (User) getIntent().getSerializableExtra("MYKEY");
         System.out.println("abcd"+user);
         nameTV.setText("Hello "+user.getUserFirstName()+" "+user.getUserLastName());
-
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu)
@@ -97,6 +109,7 @@ public class DashboardProfessor extends AppCompatActivity {
                 Intent intent = new Intent(getApplicationContext(), OCRActivity.class);
 
                 startActivity(intent);
+                break;
             case R.id.view_profile:
                 Intent intent2 = new Intent(getApplicationContext(), FacultyProfileDisplay.class);
 
@@ -107,6 +120,12 @@ public class DashboardProfessor extends AppCompatActivity {
 
                 startActivity(intent3);
                 return true;
+            case R.id.calendar:
+                String url1 = "https://www.iiitd.ac.in/sites/default/files/docs/admissions/2019/Academic%20Calendar%20Monsoon%202019_Final.pdf";
+                Intent i1 = new Intent(Intent.ACTION_VIEW);
+                i1.setData(Uri.parse(url1));
+                startActivity(i1);
+                return true;
             case R.id.logout:
                 FirebaseAuth auth = FirebaseAuth.getInstance();
                 auth.signOut();
@@ -115,7 +134,36 @@ public class DashboardProfessor extends AppCompatActivity {
                 finish();
                 return true;
 
+
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    public void send_to_recyc(View view)
+    {
+        Intent intent = new Intent(getApplicationContext(), UserListDisplayActivity.class);
+        intent.putExtra("userType",0);
+        startActivity(intent);
+        //finish();
+    }
+
+    public void send_to_recyc_pro(View view)
+    {
+        Intent intent = new Intent(getApplicationContext(), UserListDisplayActivity.class);
+        intent.putExtra("userType",1);
+        startActivity(intent);
+        //finish();
+    }
+    public void loadVacantActivityProf(View view){
+        Intent intent = new Intent(getApplicationContext(),VacantRoomDetails.class);
+        intent.putExtra("userType",1);
+        startActivity(intent);
+
+    }
+
+    public void send_to_task(View view) {
+        Intent intent = new Intent(getApplicationContext(), ProfAppointment.class);
+        //intent.putExtra("userId", user.getUserId());
+        startActivity(intent);
     }
 }

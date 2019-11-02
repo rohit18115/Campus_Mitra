@@ -150,7 +150,7 @@ public class SignUp extends AppCompatActivity {
                         @Override
                         public void onDismissed(Snackbar snackbar, int event) {
                             if (event == Snackbar.Callback.DISMISS_EVENT_TIMEOUT || event == DISMISS_EVENT_SWIPE || event == DISMISS_EVENT_MANUAL) {
-                                Intent intent = new Intent(new Intent(SignUp.this, SignIn.class));
+                                Intent intent = new Intent(new Intent(SignUp.this, SignInSplash.class));
                                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                                 startActivity(intent);
                             }

@@ -182,7 +182,7 @@ public class Add_Project extends AppCompatActivity implements View.OnClickListen
         switch (v.getId()){
             case R.id.add_btn:
                 getProjectObject();
-
+                finish();
         }
     }
 

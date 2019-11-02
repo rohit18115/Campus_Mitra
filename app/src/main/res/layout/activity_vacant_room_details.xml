@@ -8,7 +8,16 @@
     android:orientation="vertical"
     android:paddingLeft="@dimen/activity_vertical_margin"
     tools:context=".VacantRoomDetails">
-
+<androidx.cardview.widget.CardView
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:elevation="5dp"
+    app:cardCornerRadius="5dp"
+    android:id="@+id/vacant_room_card">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -114,12 +123,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:background="@color/colorPrimaryDark"
+        android:background="@color/gradStart"
+        android:textColor="@color/white"
         android:onClick="onClick"
-        android:text="Book Now"
-        android:textColor="@android:color/black"
-        android:textColorLink="@color/colorPrimary" />
-
+        android:text="Book Now" />
+    </LinearLayout>
+</androidx.cardview.widget.CardView>
     <SearchView
         android:id="@+id/vacant_room_search_view"
         android:layout_width="match_parent"

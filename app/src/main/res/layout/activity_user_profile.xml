@@ -1,44 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:id="@+id/UPLL1"
-    android:orientation="vertical"
-    >
-    <ProgressBar
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:id="@+id/UPpbar"
-        android:visibility="gone"></ProgressBar>
+    android:layout_height="match_parent" >
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/UPLL1"
+        android:orientation="vertical"
+        >
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:id="@+id/UPpbar"
+            android:visibility="gone"></ProgressBar>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                android:layout_marginTop="35dp"
-                android:text="PROFILE"
-                android:fontFamily="sans-serif"
-                android:id="@+id/profile"
-                android:layout_alignParentTop="true"
-                android:layout_centerHorizontal="true" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:layout_marginTop="35dp"
+            android:text="PROFILE"
+            android:fontFamily="sans-serif"
+            android:id="@+id/profile"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true" />
 
-    <de.hdodenhof.circleimageview.CircleImageView
-        android:layout_width="150dp"
-        android:layout_height="150dp"
-        android:layout_centerHorizontal="true"
-        android:layout_below="@+id/profile"
-        android:layout_margin = "20dp"
-        android:id="@+id/UPCIV"
-        android:src="@mipmap/ic_launcher_round"
-        />
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@+id/profile"
+            android:layout_margin = "20dp"
+            android:id="@+id/UPCIV"
+            android:src="@mipmap/ic_launcher_round"
+            />
 
-<ScrollView
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:layout_below="@+id/UPCIV">
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/UPCIV">
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -101,6 +105,8 @@
                     android:layout_height="wrap_content"
                     android:textStyle="bold"
                     android:layout_marginTop="10dp"
+                    android:background="@color/gradStart"
+                    android:textColor="@color/white"
                     android:text="DOB"/>
 
                 <TextView
@@ -200,18 +206,23 @@
                         android:layout_marginRight="16dp"
                         android:fontFamily="sans-serif"
                         android:text="Next"
+                        android:textColor="@color/white"
                         android:textSize="16dp"
+                        android:background="@color/gradStart"
                         android:textStyle="bold" />
 
 
                 </LinearLayout>
 
             </LinearLayout>
-</ScrollView>
+        </ScrollView>
 
-<TextView
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:id="@+id/UPBuffer"
-    android:visibility="gone"></TextView>
-        </RelativeLayout>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/UPBuffer"
+            android:visibility="gone"></TextView>
+    </RelativeLayout>
+
+
+</ScrollView>

@@ -42,12 +42,14 @@ public class UserAppointment extends AppCompatActivity {
 
         mAuth = FirebaseAuth.getInstance();
         user = mAuth.getCurrentUser();
+
         recyclerView = findViewById(R.id.rv_appointment);
         progressBar = findViewById(R.id.appointment_progress);
         Calendar calendar = Calendar.getInstance();
+
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy");
+
         final String currentDate = simpleDateFormat.format(calendar.getTime());
-        Log.d("Current Date", "onCreate: "+currentDate);
 
         progressBar.setIndeterminate(true);
         progressBar.setVisibility(View.VISIBLE);

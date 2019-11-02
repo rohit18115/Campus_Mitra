@@ -3,6 +3,7 @@ package com.team13.campusmitra.adaptors;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,6 +23,7 @@ import com.team13.campusmitra.firebaseassistant.FirebaseAppointmentHelper;
 import java.util.ArrayList;
 
 public class AppointmentListAdapter extends RecyclerView.Adapter<AppointmentListAdapter.AppointmentViewHolder> {
+
 
     Context context;
 
@@ -50,6 +52,7 @@ public class AppointmentListAdapter extends RecyclerView.Adapter<AppointmentList
 
         User u1 = getUser(appointmentsList.get(position).getUserID1());
         User u2 = getUser( appointmentsList.get(position).getUserID2());
+
         holder.tvappointmentTime.setText(appointmentsList.get(position).getTime());
         holder.tvappointmentDate.setText(appointmentsList.get(position).getDate());
         holder.tvDescription.setText(appointmentsList.get(position).getDescription());
@@ -121,34 +124,4 @@ public class AppointmentListAdapter extends RecyclerView.Adapter<AppointmentList
         }
         return null;
     }
-
-    public void showDialog(final Appointment appointment) {
-
-        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(context);
-        dialogBuilder.setTitle("Are you sure want to delete this appointment ?");
-
-        dialogBuilder.setPositiveButton("Delete", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-
-                DatabaseReference databaseReference= new FirebaseAppointmentHelper().getReference().child(appointment.getAppointmentID());
-                databaseReference.removeValue();
-
-            }
-        });
-
-        dialogBuilder.setNegativeButton("Edit", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                /*Intent intent= new Intent(activity.getApplicationContext(),EditRoomsDetails.class);
-                activity.startActivity(intent);
-*/
-            }
-
-        });
-
-        dialogBuilder.show();
-    }
-
-
 }

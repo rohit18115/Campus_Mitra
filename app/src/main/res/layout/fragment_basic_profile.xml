@@ -18,7 +18,7 @@
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
             android:id="@+id/fbp_pb"
-            android:visibility="gone" />
+            android:visibility="visible" />
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:layout_width="150dp"
@@ -138,10 +138,16 @@
                     android:layout_marginBottom="7dp"
                     android:layout_marginTop="7dp"
                     android:background="@color/colorPrimaryDark" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/BPFBuffer"
+                    android:visibility="gone"></TextView>
 
             </LinearLayout>
 
         </ScrollView>
+
 
 
 

@@ -5,6 +5,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import android.widget.Filter;
 import android.widget.Toast;
 
@@ -16,6 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.team13.campusmitra.R;
+import com.team13.campusmitra.dataholder.ResearchLab;
 import com.team13.campusmitra.dataholder.Room;
 
 import java.util.ArrayList;
@@ -25,19 +27,31 @@ public class ResearchLabsRecyclerViewAdaptor extends RecyclerView.Adapter<Resear
     private static final String TAG = "LabsRecyclerViewAdaptor";
 
     private ArrayList<Room> items;
-    private ArrayList<Room> itemsFull;
-    private Context mContext;
+    private ArrayList<ResearchLab> itemsFull;
+    private ArrayList<ResearchLab> researchLabs;
 
-    public ResearchLabsRecyclerViewAdaptor(ArrayList<Room> items, Context mContext) {
+    public ResearchLabsRecyclerViewAdaptor(ArrayList<Room> items, ArrayList<ResearchLab> researchLabs, Context mContext) {
         this.items = items;
-        itemsFull = new ArrayList<>(items);
+        this.researchLabs = researchLabs;
+        this.mContext = mContext;
+    }
+
+    private Context mContext;
+    public  ResearchLabsRecyclerViewAdaptor(ArrayList<ResearchLab> items, Context mContext){
+        this.researchLabs = items;
+        this.mContext = mContext;
+    }
+    public ResearchLabsRecyclerViewAdaptor(ArrayList<Room> items, Context mContext, ArrayList<ResearchLab> researchLabs) {
+        this.items = items;
+        this.researchLabs = researchLabs;
+        itemsFull = new ArrayList<>(researchLabs);
         this.mContext = mContext;
     }
 
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.labs_listitems,parent,false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.researchlab_listitem,parent,false);
         ViewHolder holder = new ViewHolder(view);
         return holder;
     }
@@ -45,20 +59,19 @@ public class ResearchLabsRecyclerViewAdaptor extends RecyclerView.Adapter<Resear
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Log.d(TAG, "onBindViewHolder: called");
-        final Room room = items.get(position);
+        final ResearchLab room = researchLabs.get(position);
         Glide.with(mContext)
                 .asBitmap()
-                .load(room.getRoomImageURL())
+                .load(room.getImageURL())
                 .placeholder(R.drawable.ic_loading)
                 .into(holder.image);
-        holder.tv1.setText("Lab: "+room.getRoomNumber());
-        holder.tv2.setText("Capacity: "+room.getCapacity());
-        holder.tv3.setText("Situated at "+room.getRoomBuilding()+" System Count: "+room.getSystemCount());
+        holder.tv2.setText(room.getResearchLabName());
+        holder.tv1.setText(room.getRoomID());
         holder.layout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                if(R.id.list_item_layout == view.getId()) {
+                if(R.id.rl_list_item_layout == view.getId()) {
                     Toast toast = Toast.makeText(mContext, "Opening Lab Information", Toast.LENGTH_SHORT);
                     toast.show();
                 }
@@ -69,24 +82,21 @@ public class ResearchLabsRecyclerViewAdaptor extends RecyclerView.Adapter<Resear
 
     @Override
     public int getItemCount() {
-        return items.size();
+        return researchLabs.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
         AppCompatImageView image;
-        AppCompatTextView tv1;
-        AppCompatTextView tv2;
-        AppCompatTextView tv3;
+        TextView tv1, tv2;
         CardView layout;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            image = itemView.findViewById(R.id.lrv_image);
-            tv1 = itemView.findViewById(R.id.lrv_text1);
-            tv2 = itemView.findViewById(R.id.lrv_text2);
-            tv3 = itemView.findViewById(R.id.lrv_text3);
-            layout = itemView.findViewById((R.id.list_item_layout));
+            image = itemView.findViewById(R.id.rl_lrv_image);
+            tv2 = itemView.findViewById(R.id.rl_item_tv2);
+            tv1 = itemView.findViewById(R.id.rl_item_tv1);
+            layout = itemView.findViewById((R.id.rl_list_item_layout));
         }
     }
 
@@ -97,15 +107,15 @@ public class ResearchLabsRecyclerViewAdaptor extends RecyclerView.Adapter<Resear
     private Filter courseFilter = new Filter() {
         @Override
         protected FilterResults performFiltering(CharSequence constraint) {
-            List<Room> filteredList = new ArrayList<>();
+            List<ResearchLab> filteredList = new ArrayList<>();
 
             if (constraint == null || constraint.length() == 0) {
                 filteredList.addAll(itemsFull);
             } else {
                 String filterPattern = constraint.toString().toLowerCase().trim();
 
-                for (Room item : itemsFull) {
-                    if (item.getLabName().toLowerCase().contains(filterPattern) || item.getRoomBuilding().toLowerCase().contains(filterPattern) || item.getRoomNumber().toLowerCase().contains(filterPattern)) {
+                for (ResearchLab item : itemsFull) {
+                    if (item.getResearchLabName().toLowerCase().contains(filterPattern) ||  item.getRoomID().toLowerCase().contains(filterPattern)) {
                         filteredList.add(item);
                     }
                 }
@@ -119,8 +129,8 @@ public class ResearchLabsRecyclerViewAdaptor extends RecyclerView.Adapter<Resear
 
         @Override
         protected void publishResults(CharSequence constraint, FilterResults results) {
-            items.clear();
-            items.addAll((List) results.values);
+            researchLabs.clear();
+            researchLabs.addAll((List) results.values);
             notifyDataSetChanged();
 
         }
