@@ -64,10 +64,10 @@
                     android:gravity="center">
 
                     <ImageView
-                        android:src="@drawable/tchr"
                         android:layout_width="80dp"
                         android:layout_height="80dp"
-                        />
+                        android:onClick="send_to_recyc_pro"
+                        android:src="@drawable/tchr" />
                     <TextView
 
                         android:text="Professor Details"
@@ -95,10 +95,10 @@
                     android:gravity="center">
 
                     <ImageView
-                        android:src="@drawable/studnt"
                         android:layout_width="80dp"
                         android:layout_height="80dp"
-                        />
+                        android:onClick="send_to_recyc"
+                        android:src="@drawable/studnt" />
                     <TextView
 
                         android:text="Student Details"

@@ -24,6 +24,7 @@ import com.team13.campusmitra.adaptors.StudentListDisplayAdaptor;
 import com.team13.campusmitra.dataholder.Faculty;
 import com.team13.campusmitra.dataholder.Student;
 import com.team13.campusmitra.dataholder.User;
+import com.team13.campusmitra.firebaseassistant.FirebaseFacultyHelper;
 import com.team13.campusmitra.firebaseassistant.FirebaseStudentHelper;
 import com.team13.campusmitra.firebaseassistant.FirebaseUserHelper;
 
@@ -119,16 +120,33 @@ public class UserListDisplayActivity extends AppCompatActivity {
                 items.clear();
                 for(DataSnapshot snapshot:dataSnapshot.getChildren()){
                     User user = snapshot.getValue(User.class);
-                    if(user.getUserType()==0) {
+                    if(user.getUserType()==0 && user.getProfileCompleteCount()==2) {
                         items.add(user);
-                        FirebaseStudentHelper help = new FirebaseStudentHelper();
-                        Log.d("lololo", "onDataChange: " + user.getUserLastName());
+                        FirebaseStudentHelper fh = new FirebaseStudentHelper();
+                        fh.getReference().child(user.getUserId()).addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                Student f = dataSnapshot.getValue(Student.class);
+                                if(f!=null) {
+                                    students.add(f);
+                                } else {
+                                    students.add(new Student());
+                                }
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                            }
+                        });
                     }
                 }
                 //progressBar.setVisibility(View.GONE);
                 if (items.size()>0) {
                     Log.d("lololo", "onDataChange: " + items.get(0).getUserLastName());
                     initRecycler();
+                } else {
+                    //Toast
                 }
 
             }
@@ -141,6 +159,57 @@ public class UserListDisplayActivity extends AppCompatActivity {
         });
     }
 
+//    private void loadProfData() {
+//
+//        FirebaseUserHelper helper = new FirebaseUserHelper();
+//        DatabaseReference reference = helper.getReference();
+//        reference.addValueEventListener(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+//                items.clear();
+//                profs.clear();
+//                for(final DataSnapshot snapshot:dataSnapshot.getChildren()){
+//                    User user = snapshot.getValue(User.class);
+//                    if(user.getUserType()==1 && user.getProfileCompleteCount()==2) {
+//                        items.add(user);
+//                        Log.d("lolo", "user added ");
+//                        FirebaseFacultyHelper fh = new FirebaseFacultyHelper();
+//                        fh.getReference().child(user.getUserId().trim()).addValueEventListener(new ValueEventListener() {
+//                            @Override
+//                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+//                                Faculty f = dataSnapshot.getValue(Faculty.class);
+//                                Log.d("lolo", " not failed");
+//                                if(f!=null) {
+//                                    profs.add(f);
+//                                    Log.d("lolo", "prof added ");
+//                                } else {
+//                                    Log.d("lolo", "prof null added ");
+//                                    profs.add(new Faculty());
+//                                }
+//                            }
+//
+//                            @Override
+//                            public void onCancelled(@NonNull DatabaseError databaseError) {
+//                                Log.d("lolo", "failed");
+//                            }
+//                        });
+//                    }
+//                }
+//                //progressBar.setVisibility(View.GONE);
+//                if (items.size()>0)
+//                    initRecycler();
+//                else {
+//                    //Toast
+//                }
+//            }
+//
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError databaseError) {
+//
+//            }
+//        });
+//    }
+
     private void loadProfData() {
 
         FirebaseUserHelper helper = new FirebaseUserHelper();
@@ -149,14 +218,45 @@ public class UserListDisplayActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 items.clear();
-                for(DataSnapshot snapshot:dataSnapshot.getChildren()){
+                profs.clear();
+                for(final DataSnapshot snapshot:dataSnapshot.getChildren()){
                     User user = snapshot.getValue(User.class);
-                    if(user.getUserType()==1)
+                    if(user.getUserType()==1 && user.getProfileCompleteCount()==2) {
                         items.add(user);
+                        final String uid = user.getUserId().trim();
+                        Log.d("lolo", "user added " + user.getUserFirstName());
+                        FirebaseFacultyHelper fh = new FirebaseFacultyHelper();
+                        fh.getReference().addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                for(final DataSnapshot snapshot:dataSnapshot.getChildren()) {
+                                    Faculty f = snapshot.getValue(Faculty.class);
+                                    Log.d("lolo", " not failed");
+                                    if(f.getUserID().trim().equals(uid)) {
+                                        if (f != null) {
+                                            profs.add(f);
+                                            Log.d("lolo", "prof added ");
+                                        } else {
+                                            Log.d("lolo", "prof null added ");
+                                            profs.add(new Faculty());
+                                        }
+                                    }
+                                }
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError databaseError) {
+                                Log.d("lolo", "failed");
+                            }
+                        });
+                    }
                 }
                 //progressBar.setVisibility(View.GONE);
                 if (items.size()>0)
                     initRecycler();
+                else {
+                    //Toast
+                }
             }
 
             @Override
