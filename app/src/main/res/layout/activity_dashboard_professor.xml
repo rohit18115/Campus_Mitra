@@ -202,10 +202,12 @@
                     android:layout_height="match_parent"
                     android:orientation="vertical"
                     android:padding="16dp"
+
                     android:gravity="center">
 
                     <ImageView
                         android:src="@drawable/classroom"
+                        android:onClick="loadVacantActivityProf"
                         android:layout_width="80dp"
                         android:layout_height="80dp"
                         />
@@ -213,6 +215,7 @@
 
                         android:text="Find Vacant Room"
                         android:textSize="14sp"
+                        android:onClick="loadVacantActivityProf"
                         android:layout_marginTop="12dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />

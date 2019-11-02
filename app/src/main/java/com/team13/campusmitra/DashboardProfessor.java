@@ -147,4 +147,10 @@ public class DashboardProfessor extends AppCompatActivity {
         startActivity(intent);
         //finish();
     }
+    public void loadVacantActivityProf(View view){
+        Intent intent = new Intent(getApplicationContext(),VacantRoomDetails.class);
+        intent.putExtra("userType",1);
+        startActivity(intent);
+
+    }
 }

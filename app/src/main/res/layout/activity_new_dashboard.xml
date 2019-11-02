@@ -137,13 +137,13 @@
                     android:gravity="center">
 
                     <ImageView
-                        android:src="@drawable/appt"
+                        android:src="@drawable/course"
                         android:layout_width="80dp"
                         android:layout_height="80dp"
                         />
                     <TextView
 
-                        android:text="Book Appointment"
+                        android:text="View Courses"
                         android:textSize="14sp"
                         android:layout_marginTop="12dp"
                         android:layout_width="wrap_content"
@@ -171,6 +171,7 @@
 
                     <ImageView
                         android:src="@drawable/labs"
+                        android:onClick="send_to_recyc_lab"
                         android:layout_width="80dp"
                         android:layout_height="80dp"
                         />
@@ -178,6 +179,7 @@
 
                         android:text="Know your Labs"
                         android:textSize="14sp"
+                        android:onClick="send_to_recyc_lab"
                         android:layout_marginTop="12dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
