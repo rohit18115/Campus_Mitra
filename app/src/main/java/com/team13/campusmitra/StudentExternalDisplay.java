@@ -18,6 +18,8 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 import com.team13.campusmitra.dataholder.Student;
 import com.team13.campusmitra.dataholder.User;
 import com.team13.campusmitra.firebaseassistant.FirebaseStudentHelper;
@@ -152,15 +154,16 @@ public class StudentExternalDisplay extends AppCompatActivity implements View.On
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.ase_resume:
-                if(url!=null && !url.isEmpty()) {
-                    if(!url.contains("http://"))
-                        url = "http://"+url;
-                    Intent i = new Intent(Intent.ACTION_VIEW);
-                    i.setData(Uri.parse(url));
-                    startActivity(i);
-                } else {
-                    Toast.makeText(this, "No Resume Uploaded", Toast.LENGTH_SHORT).show();
-                }
+//                if(url!=null && !url.isEmpty()) {
+//                    StorageReference storageRef = FirebaseStorage.getInstance().getReference();
+//                    StorageReference pdfRef = storageRef.child(url);
+//                    Intent i = new Intent(Intent.ACTION_VIEW);
+//                    i.setData(Uri.parse(url));
+//                    Log.d("lolo", url);
+//                    startActivity(i);
+//                } else {
+//                    Toast.makeText(this, "No Resume Uploaded", Toast.LENGTH_SHORT).show();
+//                }
                 break;
         }
     }
