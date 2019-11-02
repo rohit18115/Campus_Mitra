@@ -251,15 +251,6 @@ public class StudentProfile extends AppCompatActivity implements View.OnClickLis
             private TextView tvWeek;
         }
     }
-//    public boolean onOptionsItemSelected(MenuItem item) {
-//
-//        switch(item.getItemId()){
-//            case android.R.id.home : {
-//                onBackPressed();
-//            }
-//        }
-//        return super.onOptionsItemSelected(item);
-//    }
 
     @Override
     public void onClick(View v) {
@@ -402,6 +393,9 @@ public class StudentProfile extends AppCompatActivity implements View.OnClickLis
                 startActivity(intent1);
                 finish();
                 return true;
+            case android.R.id.home : {
+                onBackPressed();
+            }
         }
         return super.onOptionsItemSelected(item);
     }
