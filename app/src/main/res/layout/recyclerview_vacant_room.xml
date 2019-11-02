@@ -73,6 +73,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:padding="10dp"
         android:gravity="right">
         <Button
             android:layout_width="wrap_content"
@@ -80,7 +81,7 @@
             android:text="Book Room"
             android:background="@color/materialgreen"
             android:textColor="@color/white"
-            android:textSize="16sp"
+            android:textSize="13sp"
             android:padding="10dp"
             android:id="@+id/recyclerView_vacant_room_book_btn"
             >

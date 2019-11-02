@@ -18,6 +18,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -53,6 +54,7 @@ public class VacantRoomDetails extends FragmentActivity {
     EditText capacity;
     Button send_button;
     ArrayList<Room> rooms;
+    CardView cardView;
     ArrayList<TimeTableElement> elements;
     ArrayList<Booking> bookings;
     Calendar calendar;
@@ -77,7 +79,43 @@ public class VacantRoomDetails extends FragmentActivity {
         send_button = findViewById(R.id.vacant_room_send);
         searchView = findViewById(R.id.vacant_room_search_view);
         recyclerView = findViewById(R.id.vacant_room_rview);
+        cardView = findViewById(R.id.vacant_room_card);
         calendar = Calendar.getInstance();
+        searchView.setOnSearchClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                cardView.setVisibility(View.GONE);
+            }
+        });
+        searchView.setOnCloseListener(new SearchView.OnCloseListener() {
+            @Override
+            public boolean onClose() {
+                cardView.setVisibility(View.VISIBLE);
+                return false;
+            }
+        });
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String s) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String s) {
+                return false;
+            }
+        });
+    }
+    private void filterText(String s){
+        ArrayList<Room> fRoom = new ArrayList<>();
+        for(Room c:rooms){
+            if(c.getRoomNumber().toLowerCase().contains(s.toLowerCase()) || c.getRoomBuilding().toLowerCase().contains(s.toLowerCase())){
+                fRoom.add(c);
+            }
+        }
+        if(fRoom.size()>0)
+            adaptor.filter(fRoom);
+
     }
 
     @Override

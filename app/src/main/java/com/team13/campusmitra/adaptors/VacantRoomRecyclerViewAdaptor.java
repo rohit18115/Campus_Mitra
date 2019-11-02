@@ -118,5 +118,9 @@ public class VacantRoomRecyclerViewAdaptor extends RecyclerView.Adapter<VacantRo
         TextView dateTextView = activity.findViewById(R.id.appointment_date_picker);
 
     }
+    public void filter(ArrayList<Room> rm){
+        this.roomArrayList = rm;
+        this.notifyDataSetChanged();
+    }
 }
 
