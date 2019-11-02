@@ -154,16 +154,14 @@ public class StudentExternalDisplay extends AppCompatActivity implements View.On
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.ase_resume:
-//                if(url!=null && !url.isEmpty()) {
-//                    StorageReference storageRef = FirebaseStorage.getInstance().getReference();
-//                    StorageReference pdfRef = storageRef.child(url);
-//                    Intent i = new Intent(Intent.ACTION_VIEW);
-//                    i.setData(Uri.parse(url));
-//                    Log.d("lolo", url);
-//                    startActivity(i);
-//                } else {
-//                    Toast.makeText(this, "No Resume Uploaded", Toast.LENGTH_SHORT).show();
-//                }
+                if(url!=null && !url.isEmpty()) {
+                    Intent i = new Intent(Intent.ACTION_VIEW);
+                    i.setData(Uri.parse(url));
+                    Log.d("lolo", url);
+                    startActivity(i);
+                } else {
+                    Toast.makeText(this, "No Resume Uploaded", Toast.LENGTH_SHORT).show();
+                }
                 break;
         }
     }
