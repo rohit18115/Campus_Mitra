@@ -103,6 +103,7 @@ public class ChangeOfficeHours extends AppCompatActivity implements View.OnClick
                 rooms.clear();
                 for(DataSnapshot snapshot:dataSnapshot.getChildren()){
                     Room room = snapshot.getValue(Room.class);
+                    if(room.getRoomType()==3)
                     rooms.add(room);
 
                 }
