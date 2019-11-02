@@ -7,8 +7,7 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
-
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -17,10 +16,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".LabPageActivity"></activity>
-        <activity android:name=".FacultyProfileDisplay"></activity>
-        <activity android:name=".StudentProfileDisplay">
-        </activity>
+        <activity android:name=".EditRoomsDetails"></activity>
+        <activity android:name=".RoomListDisplayActivity" />
+        <activity android:name=".LabPageActivity" />
+        <activity android:name=".FacultyProfileDisplay" />
+        <activity android:name=".StudentProfileDisplay" />
         <activity android:name=".AddReasearchLabActivity" />
         <activity android:name=".VacantRoomDetails" />
         <activity android:name=".SignInSplash">
@@ -43,16 +43,13 @@
         <activity android:name=".SelectCoursesRecyclerView" />
         <activity android:name=".TestActivity" />
         <activity android:name=".FacultyCourseTakenRecyclerView" />
-        <activity android:name=".FacultyProfile" >
-        </activity>
+        <activity android:name=".FacultyProfile" />
         <activity android:name=".SplashActivity" />
         <activity android:name=".OCRActivity" />
         <activity android:name=".ResearchLabsRecyclerView" />
         <activity android:name=".NewDashboard" />
-        <activity android:name=".LabsRecyclerView" /><!-- <activity android:name=".VerifyActivity" /> -->
-        <activity android:name=".StudentProfile" >
-
-        </activity>
+        <activity android:name=".LabsRecyclerView" /> <!-- <activity android:name=".VerifyActivity" /> -->
+        <activity android:name=".StudentProfile" />
         <activity android:name=".UserProfile" />
         <activity android:name=".Rooms" />
         <activity
