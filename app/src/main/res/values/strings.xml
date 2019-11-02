@@ -32,6 +32,7 @@
     <string name="room_number_here">Room Number here</string>
     <string name="login_now">Login Now</string>
     <string name="load_from_file">Load From File</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string-array name="type_of_profile">
         <item>Student</item>
         <item>Faculty</item>
@@ -61,6 +62,9 @@
         <item> "A-409"</item>
 
     </string-array>
+
+
+    <!-- TODO: Remove or change this placeholder text -->
     <string-array name="Dept">
         <item> "CSE"</item>
         <item> "CSSS" </item>
@@ -69,9 +73,5 @@
         <item> "CSAI"</item>
 
     </string-array>
-
-
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>

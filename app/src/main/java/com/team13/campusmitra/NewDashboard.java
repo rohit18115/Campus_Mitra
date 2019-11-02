@@ -96,4 +96,10 @@ public class NewDashboard extends AppCompatActivity {
 
     public void sentToAddRoom(View view) {
     }
+
+    public void send_to_task(View view){
+        Intent intent = new Intent(getApplicationContext(),UserAppointment.class);
+        //intent.putExtra("userId", user.getUserId());
+        startActivity(intent);
+    }
 }

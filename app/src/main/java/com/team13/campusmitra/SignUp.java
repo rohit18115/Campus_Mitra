@@ -61,7 +61,7 @@ public class SignUp extends AppCompatActivity {
         spannableString.setSpan(new ClickableSpan() {
             @Override
             public void onClick(@NonNull View view) {
-                Intent intent = new Intent(SignUp.this, SignIn.class);
+                Intent intent = new Intent(SignUp.this, SignInSplash.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent);
                 startActivity(intent);
