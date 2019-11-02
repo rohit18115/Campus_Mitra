@@ -4,8 +4,12 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatTextView;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
@@ -23,7 +27,7 @@ import java.util.ArrayList;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class StudentExternalDisplay extends AppCompatActivity {
+public class StudentExternalDisplay extends AppCompatActivity implements View.OnClickListener {
 
     CircleImageView image;
     AppCompatTextView name;
@@ -31,7 +35,9 @@ public class StudentExternalDisplay extends AppCompatActivity {
     AppCompatTextView email;
     AppCompatTextView courses;
     AppCompatTextView interests;
+    String url;
     ProgressBar pb;
+    Button resume;
 
     private String userId;
 
@@ -43,6 +49,7 @@ public class StudentExternalDisplay extends AppCompatActivity {
         courses = findViewById(R.id.ase_enrolled_courses);
         interests = findViewById(R.id.ase_interests);
         pb = findViewById(R.id.ase_pb);
+        resume = findViewById(R.id.ase_resume);
     }
 
     protected void loadData() {
@@ -109,6 +116,7 @@ public class StudentExternalDisplay extends AppCompatActivity {
                         if(!dom.isEmpty()) {
                             interests.setText(dom);
                         }
+                        url = student.getResumeURL();
                     }
                 }
             }
@@ -137,6 +145,23 @@ public class StudentExternalDisplay extends AppCompatActivity {
         }
         initComponent();
         loadData();
+        resume.setOnClickListener(this);
     }
 
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.ase_resume:
+                if(url!=null && !url.isEmpty()) {
+                    if(!url.contains("http://"))
+                        url = "http://"+url;
+                    Intent i = new Intent(Intent.ACTION_VIEW);
+                    i.setData(Uri.parse(url));
+                    startActivity(i);
+                } else {
+                    Toast.makeText(this, "No Resume Uploaded", Toast.LENGTH_SHORT).show();
+                }
+                break;
+        }
+    }
 }

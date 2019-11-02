@@ -111,6 +111,9 @@ public class FacultyProfileFragment extends Fragment implements View.OnClickList
         reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (getActivity() == null) {
+                    return;
+                }
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     Faculty fac = snapshot.getValue(Faculty.class);
                     if (fac.getUserID().equals(uid)) {
@@ -119,21 +122,21 @@ public class FacultyProfileFragment extends Fragment implements View.OnClickList
                         department.setText(fac.getDepartment());
                         roomNo.setText(fac.getRoomNo());
                         OfficeHours of = fac.getOfficeHours();
-                        String set = of.getDay() + " from " + of.getStartTime() + " to " + of.getEndTime() + " at " + of.getVenue();
-                        officeHours.setText(set);
-                        //ArrayList<String> s = fac.getDomains();
-//                        String cor = "";
-//                        for(int i =0;i<s.size();i++) {
-//                            cor = cor + s.get(i) + "\n";
-//                        }
+                        if(of!=null) {
+                            String set = of.getDay() + " from " + of.getStartTime() + " to " + of.getEndTime() + " at " + of.getVenue();
+                            officeHours.setText(set);
+                        }
                         String cor = fac.getDomains();
-                        domains.setText(cor);
+                        if(cor!=null && !cor.isEmpty())
+                            domains.setText(cor);
                         ArrayList<String> s = fac.getCoursesTaken();
                         cor = "";
-                        for (int i = 0; i < s.size(); i++) {
-                            cor = cor + s.get(i) + "\n";
+                        if(s!=null) {
+                            for (int i = 0; i < s.size(); i++) {
+                                cor = cor + s.get(i) + "\n";
+                            }
+                            coursesTaken.setText(cor);
                         }
-                        coursesTaken.setText(cor);
 
                     }
                 }
@@ -160,7 +163,7 @@ public class FacultyProfileFragment extends Fragment implements View.OnClickList
         initComponent(view);
         setupUIViews(view);
         setupListView(view);
-//        loadData(view);
+        loadData(view);
         rotateForward = AnimationUtils.loadAnimation(getContext(), R.anim.rotate_forward);
         rotateBackward = AnimationUtils.loadAnimation(getContext(), R.anim.rotate_backward);
         fab.setOnClickListener(this);

@@ -115,6 +115,9 @@ public class BasicProfileFragment extends Fragment implements View.OnClickListen
         reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (getActivity() == null) {
+                    return;
+                }
                 for(DataSnapshot snapshot:dataSnapshot.getChildren()){
                     User user = snapshot.getValue(User.class);
                     if(user.getUserId().equals(uid)) {
@@ -234,7 +237,6 @@ public class BasicProfileFragment extends Fragment implements View.OnClickListen
                 if(ETFirstName.getParent() != null || ETLastName.getParent() != null) {
                     ((ViewGroup)ETFirstName.getParent()).removeView(ETFirstName); // <- fix
                     ((ViewGroup)ETLastName.getParent()).removeView(ETLastName); // <- fix
-
                 }
                 builderName.show();
 
@@ -252,8 +254,21 @@ public class BasicProfileFragment extends Fragment implements View.OnClickListen
                 builderEmail.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        oemail.setText(ETOEmail.getEditableText().toString());
-                        Toast.makeText(getActivity(),"Email has been successfully changed",Toast.LENGTH_SHORT).show();
+                        String mail = ETOEmail.getEditableText().toString();
+                        if(isValidMail(mail)) {
+                            oemail.setText(mail);
+                            Toast.makeText(getActivity(),"Email has been successfully changed",Toast.LENGTH_SHORT).show();
+                        }
+                        else {
+                            ETOEmail.setError("Not a valid Email", null);
+                            ETOEmail.requestFocus();
+                            Toast.makeText(getActivity(),"Not a Valid Email, Try Again",Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                    private boolean isValidMail(String mail) {
+                        if(mail.contains("@"))
+                        return true;
+                        return false;
                     }
                 });
 
@@ -330,9 +345,6 @@ public class BasicProfileFragment extends Fragment implements View.OnClickListen
                 newFragment.setTargetFragment(BasicProfileFragment.this, REQUEST_CODE);
                 // show the datePicker
                 newFragment.show(fm, "datePicker");
-
-
-
                 break;
         }
     }

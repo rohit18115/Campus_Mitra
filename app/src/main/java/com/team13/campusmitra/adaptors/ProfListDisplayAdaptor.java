@@ -79,7 +79,7 @@ public class ProfListDisplayAdaptor extends RecyclerView.Adapter<ProfListDisplay
             public void onClick(View view) {
 
                 if(R.id.pdl_layout == view.getId()) {
-                    Toast toast = Toast.makeText(mContext, "Opening Student Profile", Toast.LENGTH_SHORT);
+                    Toast toast = Toast.makeText(mContext, "Opening Professor Profile", Toast.LENGTH_SHORT);
                     toast.show();
                     Intent newIntent = new Intent(mContext, FacultyExternalDisplayActivity.class);
                     newIntent.putExtra("UserID",user.getUserId());

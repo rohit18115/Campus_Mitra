@@ -87,7 +87,7 @@ public class FacultyExternalDisplayActivity extends AppCompatActivity implements
                 for(DataSnapshot snapshot:dataSnapshot.getChildren()){
                     Faculty faculty = snapshot.getValue(Faculty.class);
                     if(faculty.getUserID().equals(userId)) {
-                        Log.d("lololo", "onDataChange: " + faculty.getUserID());
+                        Log.d("lololok", "onDataChange: " + faculty.getUserID());
                         String dep = "", cor = "", dom = "";
                         dep = faculty.getDepartment();
                         dom = faculty.getDomains();
