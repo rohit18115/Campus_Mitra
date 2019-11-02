@@ -113,14 +113,14 @@ public class R_Lab extends AppCompatActivity {
                     Intent intent = new Intent(R_Lab.this, Add_Project.class);
                     intent.putExtra("R Lab", researchLab);
                     startActivity(intent);
-                    loadProjects();
+                    //loadProjects();
                 }
             });
             rl_info.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override
                 public boolean onLongClick(View view) {
                     showEditDialog(researchLab, room);
-                    loadObject();
+                    //loadObject();
                     return false;
                 }
             });
@@ -130,7 +130,7 @@ public class R_Lab extends AppCompatActivity {
                     Intent intent = new Intent(R_Lab.this, ResearchLabImageEdit.class);
                     intent.putExtra("Reseach Lab", researchLab);
                     startActivity(intent);
-                    loadObject();
+                    //loadObject();
                     //finish();
                     //showEditImageDialog(current);
 

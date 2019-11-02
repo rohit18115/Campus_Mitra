@@ -119,7 +119,7 @@
                         android:layout_height="wrap_content">
 
                         <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/rl_rooms_lab_names"
+                            android:id="@+id/rl_rooms_lab_weblink"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:fontFamily="sans-serif"
@@ -127,8 +127,9 @@
                             android:inputType="text"
                             android:maxLines="1"
                             android:textSize="16sp"
-                            android:visibility="gone" />
+                             />
                     </com.google.android.material.textfield.TextInputLayout>
+
 
                     <Button
                         android:id="@+id/rl_rooms_done"
