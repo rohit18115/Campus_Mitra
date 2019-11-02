@@ -4,7 +4,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -38,6 +38,7 @@ import com.google.firebase.storage.UploadTask;
 import com.team13.campusmitra.adaptors.AddCourseRecyclerViewAdaptor;
 import com.team13.campusmitra.adaptors.Projects_Adapter;
 import com.team13.campusmitra.dataholder.Project;
+import com.team13.campusmitra.dataholder.ResearchLab;
 import com.team13.campusmitra.firebaseassistant.FirebaseCoursesHelper;
 import com.team13.campusmitra.firebaseassistant.FirebaseProjectHelper;
 
@@ -56,6 +57,7 @@ public class Add_Project extends AppCompatActivity implements View.OnClickListen
     TextView buffer;
     TextInputEditText proj_desc;
     Button add_btn;
+    ResearchLab researchLab;
     String members_string;
     ArrayList<String> members;
     private CircleImageView projectImage;
@@ -67,9 +69,12 @@ public class Add_Project extends AppCompatActivity implements View.OnClickListen
     private String imageUrl = "";
     Projects_Adapter adaptor;
     FirebaseUser currentUser;
+    Project p;
+    Intent return_intent;
 
     Context context;
     private void initComponents(){
+        members = new ArrayList<>();
         proj_name = findViewById(R.id.text_project_name);
         proj_desc = findViewById(R.id.text_desc);
         progressBar = findViewById(R.id.proj_UPpbar);
@@ -77,19 +82,24 @@ public class Add_Project extends AppCompatActivity implements View.OnClickListen
         projects = new ArrayList<>();
         buffer = findViewById(R.id.Add_proj_Buffer);
         project_list = (RecyclerView) findViewById(R.id.proj_list);
+        p = new Project();
 
     }
     protected void getProjectObject(){
-        if(checkEditText(proj_name)&&checkEditText(proj_desc)&&members.size()>0){
-            Project p = new Project();
+        if(checkEditText(proj_name)&&checkEditText(proj_desc)){
+
             p.setProjectName(proj_name.getText().toString().trim());
             p.setProjectDescription(proj_desc.getText().toString().trim());
             p.setProjectImageURL(buffer.getText().toString().trim());
             members_string = member_list.getText().toString().trim();
-            members = (ArrayList<String>) Arrays.asList(members_string.split(","));
+            String[] m;
+            m = members_string.split(",");
+            for(int i = 0;i < m.length; i++)
+                members.add(m[i]);
             p.setMembers(members);
             FirebaseProjectHelper helper = new FirebaseProjectHelper();
-            helper.addProject(getApplicationContext(),p);
+            //helper.addProject(getApplicationContext(),p);
+            helper.addProjectInResearchLab(Add_Project.this, p, researchLab);
         }
         else
         {
@@ -100,6 +110,8 @@ public class Add_Project extends AppCompatActivity implements View.OnClickListen
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_project);
+        return_intent = getIntent();
+        researchLab = (ResearchLab) return_intent.getSerializableExtra("R Lab") ;
         add_btn = findViewById(R.id.add_btn);
         add_btn.setOnClickListener(this);
         projectImage = findViewById(R.id.sample_image);

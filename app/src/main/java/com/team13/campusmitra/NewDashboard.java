@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.net.Uri;
 
@@ -25,6 +26,18 @@ public class NewDashboard extends AppCompatActivity {
         user  = (User) getIntent().getSerializableExtra("MYKEY");
 
         nameTV.setText("Hello "+user.getUserFirstName()+" "+user.getUserLastName());
+
+        ImageView imageView = (ImageView) findViewById(R.id.imgViewStudent);
+        imageView.setOnLongClickListener(new View.OnLongClickListener() {
+
+            @Override
+            public boolean onLongClick(View v) {
+                Intent intent2 = new Intent(getApplicationContext(), StudentProfileDisplay.class);
+
+                startActivity(intent2);
+                return true;
+            }
+        });
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu)
@@ -74,6 +87,12 @@ public class NewDashboard extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
+    public void send_to_ResearchLabs(View view){
+        Intent intent2 = new Intent(this, ResearchLabsRecyclerView.class);
+        intent2.putExtra("UTYPE",""+user.getUserType());
+        startActivity(intent2);
+    }
     public void send_to_scan(View view)
     {
         Intent intent = new Intent(getApplicationContext(), OCRActivity.class);
@@ -104,6 +123,12 @@ public class NewDashboard extends AppCompatActivity {
 //        FirebaseAuth auth = FirebaseAuth.getInstance();
 //        auth.signOut();
 //    }
+
+    public void sendtoViewCourse(View view){
+        Intent intent = new Intent(getApplicationContext(), viewcourse_student.class);
+        //intent.putExtra("userType",1);
+        startActivity(intent);
+    }
 
     public void sentToAddRoom(View view) {
     }
