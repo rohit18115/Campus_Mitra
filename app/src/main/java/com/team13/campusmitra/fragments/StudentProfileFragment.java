@@ -52,6 +52,7 @@ public class StudentProfileFragment extends Fragment implements View.OnClickList
         coursesTaken = view.findViewById(R.id.fsp_course_taken);
         interests = view.findViewById(R.id.fsp_interests);
         resume = view.findViewById(R.id.fsp_resume);
+        resume.setOnClickListener(this);
         pb = view.findViewById(R.id.fbp_pb);
         fab = view.findViewById(R.id.fbp_fab);
     }
