@@ -2,13 +2,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.team13.campusmitra">
 
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.CAMERA" />
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-
     <application
         android:allowBackup="true"
         android:icon="@drawable/icon"
@@ -16,63 +9,135 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
-        <activity android:name=".EditRoomsDetails"></activity>
+        <activity android:name=".ChangeOfficeHours"/>
+        <activity android:name=".ProfAppointment"></activity>
+        <activity android:name=".UserAppointment" />
+        <activity android:name=".EditRoomsDetails" />
         <activity android:name=".RoomListDisplayActivity" />
-        <activity android:name=".viewcourse_student"></activity>
-        <activity android:name=".LabPageActivity" android:screenOrientation="portrait" />
-        <activity android:name=".FacultyProfileDisplay" android:screenOrientation="portrait" />
-        <activity android:name=".StudentProfileDisplay" android:screenOrientation="portrait"/>
-        <activity android:name=".AddReasearchLabActivity" android:screenOrientation="portrait"/>
-        <activity android:name=".VacantRoomDetails" android:screenOrientation="portrait" />
-        <activity android:name=".SignInSplash" android:screenOrientation="portrait" >
+        <activity
+            android:name=".LabPageActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".FacultyProfileDisplay"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".StudentProfileDisplay"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".AddReasearchLabActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".VacantRoomDetails"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".SignInSplash"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <activity android:name=".OpenDialogue" />
-        <activity android:name=".ApproveFacultyActivity" />
-        <activity android:name=".FacultyExternalDisplayActivity" />
-        <activity android:name=".StudentExternalDisplay" />
-        <activity android:name=".UserListDisplayActivity" />
-        <activity android:name=".AddCourseActivity" />
-        <activity android:name=".AddTimeTableActivity" />
-        <activity android:name=".DashboardAdmin" />
-        <activity android:name=".ProjectImageEdit"/>
-        <activity android:name=".ResearchLabImageEdit"/>
-        <activity android:name=".DashboardProfessor" />
-        <activity android:name=".SelectCoursesRecyclerViewAdaptor" />
-        <activity android:name=".SelectCoursesRecyclerView" />
-        <activity android:name=".TestActivity" />
-        <activity android:name=".FacultyCourseTakenRecyclerView" />
-        <activity android:name=".FacultyProfile" >
-
-        </activity>
-        <activity android:name=".SplashActivity" />
-        <activity android:name=".GotoAddEditRL"/>
-        <activity android:name=".OCRActivity" />
-        <activity android:name=".ResearchLabsRecyclerView" />
-        <activity android:name=".NewDashboard" />
-        <activity android:name=".LabsRecyclerView" /><!-- <activity android:name=".VerifyActivity" /> -->
-        <activity android:name=".StudentProfile" >
-
-        </activity>
-        <activity android:name=".UserProfile" />
-        <activity android:name=".Rooms" />
-
+        <activity
+            android:name=".OpenDialogue"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ApproveFacultyActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".FacultyExternalDisplayActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".StudentExternalDisplay"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".UserListDisplayActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".AddCourseActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".AddTimeTableActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".DashboardAdmin"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".DashboardProfessor"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".SelectCoursesRecyclerViewAdaptor"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".SelectCoursesRecyclerView"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".TestActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".FacultyCourseTakenRecyclerView"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".FacultyProfile"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".SplashActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".GotoAddEditRL"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".OCRActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ResearchLabsRecyclerView"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".NewDashboard"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".LabsRecyclerView"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".StudentProfile"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".UserProfile"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Rooms"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".Add_Project"
-            android:exported="true" android:screenOrientation="portrait" />
-        <activity android:name=".SignUp" android:screenOrientation="portrait" />
-        <activity android:name=".SignIn" android:screenOrientation="portrait" />
+            android:exported="true"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".SignUp"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".SignIn"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".R_Lab"
-            android:exported="true" android:screenOrientation="portrait" />
+            android:exported="true"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".Regular_Labs"
-            android:exported="true" android:screenOrientation="portrait" />
+            android:exported="true"
+            android:screenOrientation="portrait" />
     </application>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
 </manifest>

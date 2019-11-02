@@ -164,6 +164,12 @@ public class DashboardProfessor extends AppCompatActivity {
                 i1.setData(Uri.parse(url1));
                 startActivity(i1);
                 return true;
+            case R.id.office_hours:
+                Intent intent4 = new Intent(getApplicationContext(), ChangeOfficeHours.class);
+                intent4.putExtra("MYKEY",user);
+
+                startActivity(intent4);
+                return true;
             case R.id.dnd:
                 if(f!=null){
                     OfficeHours officeHours = f.getOfficeHours();
@@ -221,5 +227,11 @@ public class DashboardProfessor extends AppCompatActivity {
         intent.putExtra("userType",1);
         startActivity(intent);
 
+    }
+
+    public void send_to_task(View view) {
+        Intent intent = new Intent(getApplicationContext(), ProfAppointment.class);
+        //intent.putExtra("userId", user.getUserId());
+        startActivity(intent);
     }
 }

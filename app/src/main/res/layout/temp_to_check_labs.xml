@@ -2,24 +2,30 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_gravity="center"
+    android:gravity="center"
+    android:background="@drawable/back"
     >
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="20dp"
-        android:text="Add Research labs"
-        android:background="@color/gradStart"
-        android:textColor="@color/white"
-        android:id="@+id/click_to_add_rl"/>
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="20dp"
-        android:background="@color/gradStart"
-        android:textColor="@color/white"
-        android:text="View Research Labs"
-        android:id="@+id/click_to_view_rl"/>
+
+
+        <Button
+            android:id="@+id/click_to_add_rl"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_margin="20dp"
+            android:text="Add Research labs"
+             />
+
+        <Button
+            android:id="@+id/click_to_view_rl"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_margin="20dp"
+
+            android:text="View Research Labs"
+            />
+
 
 
 </LinearLayout>

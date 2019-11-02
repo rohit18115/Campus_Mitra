@@ -242,10 +242,11 @@
                         android:src="@drawable/task"
                         android:layout_width="80dp"
                         android:layout_height="80dp"
+                        android:onClick="send_to_task"
                         />
                     <TextView
 
-                        android:text="Today's task"
+                        android:text="@string/your_appointments"
                         android:textSize="14sp"
                         android:layout_marginTop="12dp"
                         android:layout_width="wrap_content"

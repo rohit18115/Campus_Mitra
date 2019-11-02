@@ -44,7 +44,7 @@
                 android:layout_marginTop="35dp"
                 android:layout_marginBottom="30dp"
                 android:fontFamily="sans-serif"
-                android:text="VIEW ROOMS"
+                android:text="ROOM DETAILS"
                 android:textAppearance="?android:attr/textAppearanceLarge" />
 
             <ImageButton
@@ -54,19 +54,19 @@
                 android:layout_alignParentEnd="true"
                 android:layout_gravity="right"
                 android:layout_marginTop="35dp"
-                android:layout_marginEnd="28dp"
+                android:layout_marginEnd="30dp"
                 android:background="@color/transparent"
                 android:src="@android:drawable/ic_input_add"
                 android:text="Add Room"></ImageButton>
         </RelativeLayout>
 
 
-    <SearchView
-        android:id="@+id/rooms_list_search_view"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:layout_marginBottom="30dp"/>
+<!--    <SearchView-->
+<!--        android:id="@+id/rooms_list_search_view"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginTop="20dp"-->
+<!--        android:layout_marginBottom="30dp"/>-->
     <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
