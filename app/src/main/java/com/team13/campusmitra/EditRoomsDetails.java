@@ -333,7 +333,7 @@ public class EditRoomsDetails extends AppCompatActivity {
                 FirebaseRoomHelper helper = new FirebaseRoomHelper();
                 helper.updateRoom(getApplicationContext(), room);
             }
-
+            EditRoomsDetails.this.finish();
         }
         else {
 

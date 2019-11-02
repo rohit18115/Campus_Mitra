@@ -220,7 +220,7 @@ public class Rooms extends AppCompatActivity {
                         FirebaseRoomHelper helper = new FirebaseRoomHelper();
                         helper.addRoom(getApplicationContext(), room);
                     }
-
+                    finish();
                 }
 
 
