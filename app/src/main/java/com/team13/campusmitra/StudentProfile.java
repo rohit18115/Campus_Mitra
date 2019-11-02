@@ -11,6 +11,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -96,6 +97,9 @@ public class StudentProfile extends AppCompatActivity implements View.OnClickLis
         if(roll.isEmpty()) {
             rollNo.setError("Roll Number Can't be empty", null);
             rollNo.requestFocus();
+        }if(isInvalid(roll)) {
+            rollNo.setError("Roll Number Can't be empty", null);
+            rollNo.requestFocus();
         } else if(deptText.equals("Select Department")) {
             dept.setError("First Name Can't be empty", null);
             dept.requestFocus();
@@ -121,6 +125,16 @@ public class StudentProfile extends AppCompatActivity implements View.OnClickLis
             helper.addStudent(this,student);
             incrementCount();
         }
+    }
+
+    private boolean isInvalid(String roll) {
+        if(roll.startsWith("MT") && roll.length()==7)
+            return false;
+        else if(roll.startsWith("Phd") && roll.length() == 8)
+            return false;
+        else if(roll.startsWith("20") && roll.length() == 7)
+            return false;
+        return true;
     }
 
     private void incrementCount() {
@@ -251,15 +265,6 @@ public class StudentProfile extends AppCompatActivity implements View.OnClickLis
             private TextView tvWeek;
         }
     }
-    public boolean onOptionsItemSelected(MenuItem item) {
-
-        switch(item.getItemId()){
-            case android.R.id.home : {
-                onBackPressed();
-            }
-        }
-        return super.onOptionsItemSelected(item);
-    }
 
     @Override
     public void onClick(View v) {
@@ -389,12 +394,27 @@ public class StudentProfile extends AppCompatActivity implements View.OnClickLis
     }
 
     @Override
-    public void onBackPressed () {
-
-        super.onBackPressed();
-        FirebaseAuth auth = FirebaseAuth.getInstance();
-        auth.signOut();
-
+    public boolean onCreateOptionsMenu(Menu menu)
+    {
+        getMenuInflater().inflate(R.menu.logout_action_bar,menu);
+        return true;
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item)
+    {
+        switch(item.getItemId()) {
+            case R.id.ab_logout:
+                FirebaseAuth auth = FirebaseAuth.getInstance();
+                auth.signOut();
+                Intent intent1 = new Intent(getApplicationContext(),SignInSplash.class);
+                startActivity(intent1);
+                finish();
+                return true;
+            case android.R.id.home : {
+                onBackPressed();
+            }
+        }
+        return super.onOptionsItemSelected(item);
     }
 
 }

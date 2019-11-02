@@ -20,13 +20,18 @@
         android:id="@+id/add_projects"
         android:title="Add Projects"
         app:showAsAction="never"></item>
+    <item
+        android:id="@+id/calendar"
+        android:title="Download Calendar"
+        app:showAsAction="never"></item>
+    <item
+        android:id="@+id/dnd"
+        android:title="DND"
+        app:showAsAction="never"></item>
 
     <item
         android:id="@+id/logout"
         android:title="Logout"
         app:showAsAction="never"></item>
-
-
-
 
 </menu>

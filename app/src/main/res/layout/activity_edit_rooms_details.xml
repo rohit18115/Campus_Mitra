@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".EditRoomsDetails">
+
+    <ImageView
+        android:id="@+id/edit_room_image"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_margin="@dimen/mdtp_date_picker_title_padding"
+        android:onClick="onImageClick"
+        android:visibility="visible"
+        tools:srcCompat="@tools:sample/avatars" />
+
+    <EditText
+        android:id="@+id/room_number_et"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:ems="10"
+        android:gravity="center_vertical"
+        android:hint="@string/roomnumber"
+        android:inputType="textPersonName" />
+
+    <EditText
+        android:id="@+id/lab_name_et"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:ems="10"
+        android:gravity="center_vertical"
+        android:hint="Lab Name"
+        android:inputType="textPersonName" />
+
+    <EditText
+        android:id="@+id/room_type_et"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:ems="10"
+        android:gravity="center_vertical"
+        android:hint="Room Type"
+        android:inputType="textPersonName" />
+
+    <EditText
+        android:id="@+id/building_name_et"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:ems="10"
+        android:gravity="center_vertical"
+        android:hint="Building Name"
+        android:inputType="textPersonName" />
+
+    <EditText
+        android:id="@+id/system_count_et"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:ems="10"
+        android:gravity="center_vertical"
+        android:hint="System Count"
+        android:inputType="textPersonName" />
+
+    <EditText
+        android:id="@+id/capacity_et"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:ems="10"
+        android:gravity="center_vertical"
+        android:hint="Capacity"
+        android:inputType="textPersonName" />
+
+    <EditText
+        android:id="@+id/description_et"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:gravity="start|top"
+        android:hint="Description"
+        android:inputType="textMultiLine" />
+
+    <EditText
+        android:id="@+id/room_notes_et"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:gravity="start|top"
+        android:hint="Room Notes"
+        android:inputType="textMultiLine" />
+
+    <Button
+        android:id="@+id/send_bt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:onClick="onSend"
+        android:text="SAVE" />
+
+</LinearLayout>

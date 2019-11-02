@@ -54,7 +54,7 @@ public class ProfListDisplayAdaptor extends RecyclerView.Adapter<ProfListDisplay
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Log.d(TAG, "onBindViewHolder: called");
         final User user = items.get(position);
-        final Faculty prof = profs.get(position);
+        //final Faculty prof = profs.get(position);
         String str = user.getGender();
         if(str.equals("Male")){
             Glide.with(mContext)
@@ -71,14 +71,15 @@ public class ProfListDisplayAdaptor extends RecyclerView.Adapter<ProfListDisplay
                     .into(holder.image);
         }
         holder.tv1.setText(user.getUserFirstName()+ " "+user.getUserLastName());
-        holder.tv2.setText(prof.getDepartment()+ " Department");
+        //holder.tv2.setText(prof.getDepartment()+ " Department");
+        holder.tv2.setText(user.getUserName());
         holder.tv3.setText(user.getUserEmail());
         holder.layout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
                 if(R.id.pdl_layout == view.getId()) {
-                    Toast toast = Toast.makeText(mContext, "Opening Student Profile", Toast.LENGTH_SHORT);
+                    Toast toast = Toast.makeText(mContext, "Opening Professor Profile", Toast.LENGTH_SHORT);
                     toast.show();
                     Intent newIntent = new Intent(mContext, FacultyExternalDisplayActivity.class);
                     newIntent.putExtra("UserID",user.getUserId());

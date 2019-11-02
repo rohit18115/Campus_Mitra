@@ -65,12 +65,13 @@ public class ResearchLabsRecyclerViewAdaptor extends RecyclerView.Adapter<Resear
                 .load(room.getImageURL())
                 .placeholder(R.drawable.ic_loading)
                 .into(holder.image);
-        holder.tv1.setText("Lab: "+room.getResearchLabName());
+        holder.tv2.setText(room.getResearchLabName());
+        holder.tv1.setText(room.getRoomID());
         holder.layout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                if(R.id.list_item_layout == view.getId()) {
+                if(R.id.rl_list_item_layout == view.getId()) {
                     Toast toast = Toast.makeText(mContext, "Opening Lab Information", Toast.LENGTH_SHORT);
                     toast.show();
                 }
@@ -81,18 +82,19 @@ public class ResearchLabsRecyclerViewAdaptor extends RecyclerView.Adapter<Resear
 
     @Override
     public int getItemCount() {
-        return items.size();
+        return researchLabs.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
         AppCompatImageView image;
-        TextView tv1;
+        TextView tv1, tv2;
         CardView layout;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             image = itemView.findViewById(R.id.rl_lrv_image);
+            tv2 = itemView.findViewById(R.id.rl_item_tv2);
             tv1 = itemView.findViewById(R.id.rl_item_tv1);
             layout = itemView.findViewById((R.id.rl_list_item_layout));
         }

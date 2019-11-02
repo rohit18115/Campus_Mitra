@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
 import android.Manifest;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -32,15 +33,20 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
+
+import com.team13.campusmitra.dataholder.Faculty;
 import com.team13.campusmitra.dataholder.ResearchLab;
 import com.team13.campusmitra.dataholder.Room;
+import com.team13.campusmitra.firebaseassistant.FirebaseFacultyHelper;
 import com.team13.campusmitra.firebaseassistant.FirebaseResearchLabHelper;
 import com.team13.campusmitra.firebaseassistant.FirebaseRoomHelper;
 import com.team13.campusmitra.popupmanager.PopupManager;
 
 import java.util.ArrayList;
 import java.util.StringTokenizer;
-public class OCRActivity extends AppCompatActivity {
+
+
+public class OCRActivity extends AppCompatActivity{
     SurfaceView cameraView;
     TextView textView;
     CameraSource cameraSource;
@@ -219,12 +225,40 @@ public class OCRActivity extends AppCompatActivity {
             case 0: popupLecture(room,0); break;
             case 1: popupLecture(room,1);break;
             case 2: popupLecture(room,2); break;
-            case 3: break;
+            case 3: popupFacultyOffice(room);break;
             case 4: popupLab(room); break;
             case 5: startResearchLab(room);
                 break;
             default: Toast.makeText(this,"No Match Room found",Toast.LENGTH_LONG).show();
         }
+    }
+    private void popupFacultyOffice(final Room room){
+        final ArrayList<Faculty> faculties = new ArrayList<>();
+        FirebaseFacultyHelper helper = new FirebaseFacultyHelper();
+        helper.getReference().addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                faculties.clear();
+                for(DataSnapshot snapshot:dataSnapshot.getChildren()){
+                    Faculty f  = snapshot.getValue(Faculty.class);
+                    if(f.getRoomid().toLowerCase().equals(room.getRoomID().toLowerCase())){
+                        Intent intent = new Intent(OCRActivity.this,FacultyExternalDisplayActivity.class);
+                        intent.putExtra("UserID",f.getUserID());
+                        startActivity(intent);
+                        finish();
+                        return;
+                    }
+
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
     }
     private void popupLab(Room room){
         popupManager = new PopupManager(this);

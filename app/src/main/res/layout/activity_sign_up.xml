@@ -77,8 +77,8 @@
 
     <Button
         android:id="@+id/btn_sign_up"
+        android:background="@color/gradStart"
         android:textColor="@color/white"
-        android:background="@color/colorPrimary"
         android:layout_marginTop="8dp"
         android:text="Sign Up"
         android:textSize="17sp"
