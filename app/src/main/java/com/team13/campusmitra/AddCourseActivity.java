@@ -43,7 +43,7 @@ public class AddCourseActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.viewcourses_student);
+        setContentView(R.layout.activity_add_course);
         initComponents();
         loadCourses();
     }
@@ -52,7 +52,7 @@ public class AddCourseActivity extends AppCompatActivity {
         nameET = findViewById(R.id.co_add_et_cn);
         preqET = findViewById(R.id.co_add_et_preq);
         offeringET = findViewById(R.id.co_add_et_off);
-        addCourseBTN = findViewById(R.id.co_add_btn);
+        addCourseBTN =(Button) findViewById(R.id.co_add_btn);
         progressBar = findViewById(R.id.co_add_progress2);
         searchView = findViewById(R.id.co_add_sv);
         cardView = findViewById(R.id.co_add_card);

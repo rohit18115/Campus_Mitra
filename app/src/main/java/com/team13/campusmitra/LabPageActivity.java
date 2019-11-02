@@ -39,7 +39,7 @@ public class LabPageActivity extends AppCompatActivity {
         Glide.with(this)
                 .asBitmap()
                 .load(room.getRoomImageURL())
-                .placeholder(R.drawable.ic_loading)
+                .placeholder(R.drawable.labs)
                 .into(imageView);
 
     }

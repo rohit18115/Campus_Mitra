@@ -86,7 +86,7 @@ public class VacantRoomRecyclerViewAdaptor extends RecyclerView.Adapter<VacantRo
         Glide.with(activity)
                 .asBitmap()
                 .load(roomObject.getRoomImageURL())
-                .placeholder(R.drawable.ic_loading)
+                .placeholder(R.drawable.labs)
                 .into(holder.imageView);
 
     }

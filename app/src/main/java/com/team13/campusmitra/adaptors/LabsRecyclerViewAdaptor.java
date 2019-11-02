@@ -47,7 +47,7 @@ public class LabsRecyclerViewAdaptor extends RecyclerView.Adapter<LabsRecyclerVi
         Glide.with(mContext)
                 .asBitmap()
                 .load(room.getRoomImageURL())
-                .placeholder(R.drawable.ic_loading)
+                .placeholder(R.drawable.labs)
                 .into(holder.image);
         holder.tv1.setText("Lab: "+room.getRoomNumber());
         holder.tv2.setText("Capacity: "+room.getCapacity());

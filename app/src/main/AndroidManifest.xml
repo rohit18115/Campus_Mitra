@@ -29,6 +29,7 @@
         <activity
             android:name=".VacantRoomDetails"
             android:screenOrientation="portrait" />
+        <activity android:name=".viewcourse_student"></activity>
         <activity
             android:name=".SignInSplash"
             android:screenOrientation="portrait">
@@ -126,12 +127,6 @@
             android:exported="true"
             android:screenOrientation="portrait" />
     </application>
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.CAMERA" />
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />

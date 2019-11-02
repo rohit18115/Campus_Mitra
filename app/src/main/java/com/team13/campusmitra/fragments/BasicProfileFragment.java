@@ -120,11 +120,21 @@ public class BasicProfileFragment extends Fragment implements View.OnClickListen
                 User user = dataSnapshot.getValue(User.class);
                 if(user.getUserId().equals(uid)) {
                     Log.d("lololo", "onDataChange: " + user.getUserLastName());
-                    Glide.with(BasicProfileFragment.this)
-                            .asBitmap()
-                            .load(user.getImageUrl())
-                            .placeholder(R.drawable.ic_loading)
-                            .into(image);
+                    String str = user.getGender();
+                    if(str.equals("Male")) {
+                        Glide.with(BasicProfileFragment.this)
+                                .asBitmap()
+                                .load(user.getImageUrl())
+                                .placeholder(R.drawable.blankboy)
+                                .into(image);
+                    }
+                    else{
+                        Glide.with(BasicProfileFragment.this)
+                                .asBitmap()
+                                .load(user.getImageUrl())
+                                .placeholder(R.drawable.blankgirl)
+                                .into(image);
+                    }
                     name.setText(user.getUserFirstName() + " " + user.getUserLastName());
                     oemail.setText(user.getUserPersonalMail());
                     dob.setText(user.getDob());

@@ -254,7 +254,8 @@ public class FacultyProfile extends AppCompatActivity implements View.OnClickLis
                 rooms.clear();
                 for(DataSnapshot snapshot:dataSnapshot.getChildren()){
                     Room room = snapshot.getValue(Room.class);
-                    rooms.add(room);
+                    if(room.getRoomType()==3)
+                        rooms.add(room);
 
                 }
 
@@ -296,7 +297,7 @@ public class FacultyProfile extends AppCompatActivity implements View.OnClickLis
                 ListView venueList = new ListView(FacultyProfile.this);
                 String[] venueData = getResources().getStringArray(R.array.Venue);
                 venueadapter = new WeekAdapter(FacultyProfile.this, R.layout.activity_office_hours_day_single_item, venueData);
-                venueList.setAdapter(venueadapter);
+                venueList.setAdapter(adapterRoom);
                 AlertDialog.Builder builder1 = new AlertDialog.Builder(FacultyProfile.this);
                 builder1.setCancelable(true);
                 builder1.setView(venueList);

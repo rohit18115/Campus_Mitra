@@ -104,6 +104,7 @@ public class OCRActivity extends AppCompatActivity{
         cameraView = findViewById(R.id.surface_view);
         textView = findViewById(R.id.text_view);
         TextRecognizer textRecognizer = new TextRecognizer.Builder(getApplicationContext()).build();
+
         if(!textRecognizer.isOperational()){
             Toast.makeText(getApplicationContext(),"DETECTOR DEPENDENCY ARE NOT AVAILABLE",Toast.LENGTH_LONG);
         }
@@ -289,7 +290,7 @@ public class OCRActivity extends AppCompatActivity{
         Glide.with(this)
                 .asBitmap()
                 .load(room.getRoomImageURL())
-                .placeholder(R.drawable.ic_loading)
+                .placeholder(R.drawable.labs)
                 .into(roomImage);
 
     }
@@ -329,7 +330,7 @@ public class OCRActivity extends AppCompatActivity{
         Glide.with(this)
                 .asBitmap()
                 .load(room.getRoomImageURL())
-                .placeholder(R.drawable.ic_loading)
+                .placeholder(R.drawable.labs)
                 .into(roomImage);
 
     }

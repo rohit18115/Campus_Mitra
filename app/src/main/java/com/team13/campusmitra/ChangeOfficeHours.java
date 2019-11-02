@@ -103,6 +103,7 @@ public class ChangeOfficeHours extends AppCompatActivity implements View.OnClick
                 rooms.clear();
                 for(DataSnapshot snapshot:dataSnapshot.getChildren()){
                     Room room = snapshot.getValue(Room.class);
+                    if(room.getRoomType()==3)
                     rooms.add(room);
 
                 }
@@ -163,6 +164,7 @@ public class ChangeOfficeHours extends AppCompatActivity implements View.OnClick
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                         venue.setText(venueadapter.getItem(position).toString());
                         dialog1.dismiss();
+                        uploadData();
                     }
                 });
             }
@@ -226,7 +228,6 @@ public class ChangeOfficeHours extends AppCompatActivity implements View.OnClick
     public void onClick(View view) {
         if(view.getId() == R.id.set_off_hours) {
             dialog.show();
-            uploadData();
         }
     }
 }

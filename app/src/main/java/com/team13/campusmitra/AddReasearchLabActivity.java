@@ -46,6 +46,7 @@ public class AddReasearchLabActivity extends AppCompatActivity implements View.O
     TextInputEditText room_no;
     TextInputEditText room_name;
     TextInputEditText room_proff;
+    TextInputEditText weblink;
     String mentor_string;
     ArrayList<String> mentors;
     TextView buffer;
@@ -56,6 +57,7 @@ public class AddReasearchLabActivity extends AppCompatActivity implements View.O
     Uri imageUri;
     ProgressBar progressBar;
     private void initComponents(){
+        weblink = findViewById(R.id.rl_rooms_lab_weblink);
         mentors = new ArrayList<>();
         room_no = findViewById(R.id.rl_rooms_number);
         room_name = findViewById(R.id.rl_lab_name);
@@ -73,6 +75,7 @@ public class AddReasearchLabActivity extends AppCompatActivity implements View.O
             r.setRoomNumber(room_no.getText().toString().trim());
             rl.setResearchLabNumber(room_no.getText().toString().trim());
             rl.setResearchLabName(room_name.getText().toString().trim());
+            rl.setWebPageURL(weblink.getText().toString().trim());
             mentor_string = room_proff.getText().toString().trim();
             String[] m;
             m = mentor_string.split(",");
