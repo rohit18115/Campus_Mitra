@@ -39,7 +39,7 @@
         android:layout_height="wrap_content"
         android:minHeight="?attr/actionBarSize"
         android:theme="@style/Theme.AppCompat"
-        android:background="@color/colorPrimary"
+        android:background="@color/gradStart"
         android:id="@+id/fpd_tab_layout"/>
 
 </androidx.viewpager.widget.ViewPager>
