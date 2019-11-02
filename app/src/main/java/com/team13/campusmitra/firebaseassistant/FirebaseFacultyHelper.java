@@ -22,7 +22,8 @@ public class FirebaseFacultyHelper {
 
         String uid = faculty.getUserID();
         firebaseDatabase.child(uid).setValue(faculty);
-        Toast.makeText(context,"Faculty added successfully!!",Toast.LENGTH_SHORT).show();
+        Toast.makeText(context,"Data updated successfully!!",Toast.LENGTH_SHORT).show();
 
     }
+
 }
