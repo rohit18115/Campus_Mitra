@@ -114,11 +114,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:background="@color/colorPrimaryDark"
+        android:background="@color/gradStart"
+        android:textColor="@color/white"
         android:onClick="onClick"
-        android:text="Book Now"
-        android:textColor="@android:color/black"
-        android:textColorLink="@color/colorPrimary" />
+        android:text="Book Now" />
 
     <SearchView
         android:id="@+id/vacant_room_search_view"

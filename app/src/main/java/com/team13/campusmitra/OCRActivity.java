@@ -32,6 +32,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
+import com.google.zxing.Result;
 import com.team13.campusmitra.dataholder.ResearchLab;
 import com.team13.campusmitra.dataholder.Room;
 import com.team13.campusmitra.firebaseassistant.FirebaseResearchLabHelper;
@@ -40,7 +41,10 @@ import com.team13.campusmitra.popupmanager.PopupManager;
 
 import java.util.ArrayList;
 import java.util.StringTokenizer;
-public class OCRActivity extends AppCompatActivity {
+
+import me.dm7.barcodescanner.zxing.ZXingScannerView;
+
+public class OCRActivity extends AppCompatActivity{
     SurfaceView cameraView;
     TextView textView;
     CameraSource cameraSource;
