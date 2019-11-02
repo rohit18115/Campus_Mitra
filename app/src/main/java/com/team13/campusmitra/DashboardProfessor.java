@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -118,6 +119,12 @@ public class DashboardProfessor extends AppCompatActivity {
                 Intent intent3 = new Intent(getApplicationContext(), Add_Project.class);
 
                 startActivity(intent3);
+                return true;
+            case R.id.calendar:
+                String url1 = "https://www.iiitd.ac.in/sites/default/files/docs/admissions/2019/Academic%20Calendar%20Monsoon%202019_Final.pdf";
+                Intent i1 = new Intent(Intent.ACTION_VIEW);
+                i1.setData(Uri.parse(url1));
+                startActivity(i1);
                 return true;
             case R.id.logout:
                 FirebaseAuth auth = FirebaseAuth.getInstance();

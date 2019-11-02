@@ -51,6 +51,12 @@ public class NewDashboard extends AppCompatActivity {
                 i.setData(Uri.parse(url));
                 startActivity(i);
                 return true;
+            case R.id.calendar:
+                String url1 = "https://www.iiitd.ac.in/sites/default/files/docs/admissions/2019/Academic%20Calendar%20Monsoon%202019_Final.pdf";
+                Intent i1 = new Intent(Intent.ACTION_VIEW);
+                i1.setData(Uri.parse(url1));
+                startActivity(i1);
+                return true;
             case R.id.logout:
                 FirebaseAuth auth = FirebaseAuth.getInstance();
                 auth.signOut();
@@ -99,6 +105,13 @@ public class NewDashboard extends AppCompatActivity {
     public void send_to_recyc_lab(View view)
     {
         Intent intent = new Intent(getApplicationContext(), ResearchLabsRecyclerView.class);
+        intent.putExtra("userType",1);
+        startActivity(intent);
+        //finish();
+    }
+    public void send_to_stud_profile(View view)
+    {
+        Intent intent = new Intent(getApplicationContext(), StudentProfileDisplay.class);
         intent.putExtra("userType",1);
         startActivity(intent);
         //finish();
