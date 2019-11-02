@@ -7,16 +7,27 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
+import android.widget.LinearLayout;
 
 import com.google.firebase.auth.FirebaseAuth;
 
 public class DashboardProfessor extends AppCompatActivity {
-
+    LinearLayout rl;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dashboard_professor);
+        rl = findViewById(R.id.proff_views_rl);
+        rl.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(DashboardProfessor.this, GotoAddEditRL.class);
+                startActivity(intent);
+            }
+        });
+
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu)
@@ -32,6 +43,7 @@ public class DashboardProfessor extends AppCompatActivity {
                 Intent intent = new Intent(getApplicationContext(), OCRActivity.class);
 
                 startActivity(intent);
+                break;
             case R.id.view_profile:
                 Intent intent2 = new Intent(getApplicationContext(), FacultyProfileDisplay.class);
 
@@ -44,6 +56,7 @@ public class DashboardProfessor extends AppCompatActivity {
                 startActivity(intent1);
                 finish();
                 return true;
+
 
         }
         return super.onOptionsItemSelected(item);
