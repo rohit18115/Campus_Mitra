@@ -16,6 +16,7 @@ public class FirebaseRoomHelper {
     public DatabaseReference getReference(){
         return  firebaseDatabase;
     }
+
     public void addRoom(Context context, Room room){
         String uid = firebaseDatabase.push().getKey();
         room.setRoomID(uid);
