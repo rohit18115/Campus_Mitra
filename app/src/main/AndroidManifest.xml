@@ -9,11 +9,16 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ChangeOfficeHours"/>
-        <activity android:name=".ProfAppointment"></activity>
-        <activity android:name=".UserAppointment" />
-        <activity android:name=".EditRoomsDetails" />
-        <activity android:name=".RoomListDisplayActivity" />
+        <activity android:name=".ChangeOfficeHours"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".ProfAppointment"
+            android:screenOrientation="portrait"></activity>
+        <activity android:name=".UserAppointment"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".EditRoomsDetails"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".RoomListDisplayActivity"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".LabPageActivity"
             android:screenOrientation="portrait" />
