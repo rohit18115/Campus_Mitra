@@ -66,6 +66,7 @@ public class UserProfile extends AppCompatActivity implements DatePickerDialog.O
     ProgressBar progressBar;
     RadioGroup gen;
     TextInputEditText optEmail;
+    Button button_datepicker;
 
     public void initComponents() {
         firstName = findViewById(R.id.firstName);
@@ -106,8 +107,10 @@ public class UserProfile extends AppCompatActivity implements DatePickerDialog.O
             lastName.requestFocus();
         } else if(dobi.isEmpty()) {
             Toast.makeText(getApplicationContext(),"Please Select Date of Birth",Toast.LENGTH_LONG).show();
-            dob.requestFocus();
-        } else if(!oemail.contains("@") || !oemail.contains(".com")) {
+            button_datepicker.setFocusable(true);
+            button_datepicker.setFocusableInTouchMode(true);
+            button_datepicker.requestFocus();
+        } else if(!oemail.isEmpty() && (!oemail.contains("@"))) {
             optEmail.setError("Not a valid Email", null);
             optEmail.requestFocus();
         } else {
@@ -150,7 +153,7 @@ public class UserProfile extends AppCompatActivity implements DatePickerDialog.O
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_profile);
         initComponents();
-        final Button button_datepicker = (Button) findViewById(R.id.button_datepicker);
+        button_datepicker = (Button) findViewById(R.id.button_datepicker);
         profileImage = (CircleImageView)findViewById(R.id.UPCIV);
         next = findViewById(R.id.UPnext);
         next.setOnClickListener(this);

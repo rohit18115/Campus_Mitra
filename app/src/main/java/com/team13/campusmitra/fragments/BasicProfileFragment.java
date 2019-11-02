@@ -107,41 +107,6 @@ public class BasicProfileFragment extends Fragment implements View.OnClickListen
 
     }
 
-//    protected void loadData(View view) {
-//        FirebaseAuth auth = FirebaseAuth.getInstance();
-//        final String uid = auth.getCurrentUser().getUid();
-//        FirebaseUserHelper helper = new FirebaseUserHelper();
-//        DatabaseReference reference = helper.getReference();
-//        reference.addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-//                if (getActivity() == null) {
-//                    return;
-//                }
-//                for(DataSnapshot snapshot:dataSnapshot.getChildren()){
-//                    User user = snapshot.getValue(User.class);
-//                    if(user.getUserId().equals(uid)) {
-//                        Log.d("lololo", "onDataChange: " + user.getUserLastName());
-//                        Glide.with(BasicProfileFragment.this)
-//                                .asBitmap()
-//                                .load(user.getImageUrl())
-//                                .placeholder(R.drawable.ic_loading)
-//                                .into(image);
-//                        name.setText(user.getUserFirstName() + " " + user.getUserLastName());
-//                        oemail.setText(user.getUserPersonalMail());
-//                        dob.setText(user.getDob());
-//                        uname.setText(user.getUserName());
-//                    }
-//                }
-//            }
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError databaseError) {
-//
-//            }
-//
-//        });
-//    }
-
     protected void loadData(View view) {
         FirebaseAuth auth = FirebaseAuth.getInstance();
         final String uid = auth.getCurrentUser().getUid();
@@ -474,8 +439,4 @@ public class BasicProfileFragment extends Fragment implements View.OnClickListen
         }
         return "";
     }
-
-
-
-
 }

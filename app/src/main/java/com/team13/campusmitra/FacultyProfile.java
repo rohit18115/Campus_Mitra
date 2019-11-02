@@ -330,8 +330,8 @@ public class FacultyProfile extends AppCompatActivity implements View.OnClickLis
                 if(convertView == null){
                     holder = new WeekAdapter.ViewHolder();
                     convertView = layoutInflater.inflate(resource, null);
-                    holder.ivLogo = (LetterImageView)convertView.findViewById(R.id.OHDSILetter);
-                    holder.tvWeek = (TextView)convertView.findViewById(R.id.OHDSItv);
+                    holder.ivLogo = convertView.findViewById(R.id.OHDSILetter);
+                    holder.tvWeek = convertView.findViewById(R.id.OHDSItv);
                     convertView.setTag(holder);
                 }else{
                     holder = (WeekAdapter.ViewHolder)convertView.getTag();
