@@ -151,8 +151,8 @@ tools:context=".fragments.StudentProfileFragment">
 
             <Button
                 android:id="@+id/fsp_resume"
+                android:background="@color/gradStart"
                 android:textColor="@color/white"
-                android:background="@color/colorPrimary"
                 android:layout_marginTop="8dp"
                 android:text="Download Resume"
                 android:textSize="17sp"

@@ -72,7 +72,7 @@ public class SignIn extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //setContentView(R.layout.activity_sign_extra);
-        setContentView(R.layout.activity_sign_in);
+        setContentView(R.layout.activity_sign_in_splash);
         getSupportActionBar().setElevation(0);
 
         //rellay1 = (RelativeLayout) findViewById(R.id.rellay1);

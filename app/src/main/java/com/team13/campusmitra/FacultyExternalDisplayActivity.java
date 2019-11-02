@@ -62,11 +62,22 @@ public class FacultyExternalDisplayActivity extends AppCompatActivity implements
                     User user = snapshot.getValue(User.class);
                     if(user.getUserId().equals(userId)) {
                         Log.d("lololo", "onDataChange: " + user.getUserLastName());
-                        Glide.with(FacultyExternalDisplayActivity.this)
-                                .asBitmap()
-                                .load(user.getImageUrl())
-                                .placeholder(R.drawable.ic_loading)
-                                .into(image);
+                        String str = user.getGender();
+                        if(str.equals("Male")) {
+                            Glide.with(FacultyExternalDisplayActivity.this)
+                                    .asBitmap()
+                                    .load(user.getImageUrl())
+                                    .placeholder(R.drawable.maleprof)
+                                    .into(image);
+                        }
+                        else{
+                            Glide.with(FacultyExternalDisplayActivity.this)
+                                    .asBitmap()
+                                    .load(user.getImageUrl())
+                                    .placeholder(R.drawable.ladyprof)
+                                    .into(image);
+
+                        }
                         name.setText(user.getUserFirstName() + " " + user.getUserLastName());
                         email.setText(user.getUserEmail());
                     }

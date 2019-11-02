@@ -105,6 +105,8 @@
                     android:layout_height="wrap_content"
                     android:textStyle="bold"
                     android:layout_marginTop="10dp"
+                    android:background="@color/gradStart"
+                    android:textColor="@color/white"
                     android:text="DOB"/>
 
                 <TextView
@@ -204,7 +206,9 @@
                         android:layout_marginRight="16dp"
                         android:fontFamily="sans-serif"
                         android:text="Next"
+                        android:textColor="@color/white"
                         android:textSize="16dp"
+                        android:background="@color/gradStart"
                         android:textStyle="bold" />
 
 

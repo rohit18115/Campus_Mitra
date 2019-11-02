@@ -140,6 +140,8 @@
                         android:fontFamily="sans-serif"
                         android:text="Done"
                         android:textSize="16dp"
+                        android:textColor="@color/white"
+                        android:background="@color/gradStart"
                         android:textStyle="bold" />
                     <TextView
                         android:layout_width="wrap_content"
