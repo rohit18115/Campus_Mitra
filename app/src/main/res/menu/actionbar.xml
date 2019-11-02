@@ -28,6 +28,10 @@
         android:id="@+id/dnd"
         android:title="DND"
         app:showAsAction="never"></item>
+    <item
+        android:id="@+id/office_hours"
+        android:title="Edit Office Hours"
+        app:showAsAction="never"></item>
 
     <item
         android:id="@+id/logout"
