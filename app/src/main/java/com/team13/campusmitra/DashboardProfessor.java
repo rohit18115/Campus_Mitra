@@ -179,6 +179,7 @@ public class DashboardProfessor extends AppCompatActivity {
                 else{
                     Toast.makeText(getApplicationContext(),"DND cannot be applied yet!!",Toast.LENGTH_LONG).show();
                 }
+                return true;
             case R.id.logout:
                 FirebaseAuth auth = FirebaseAuth.getInstance();
                 auth.signOut();
