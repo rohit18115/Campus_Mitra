@@ -307,7 +307,7 @@ public class FacultyProfile extends AppCompatActivity implements View.OnClickLis
                 venueList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                        venue.setText(venueadapter.getItem(position).toString());
+                        venue.setText(adapterRoom.getItem(position).toString());
                         dialog1.dismiss();
                     }
                 });

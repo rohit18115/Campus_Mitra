@@ -44,7 +44,11 @@ import com.team13.campusmitra.TimePickerFragment;
 import com.team13.campusmitra.Utils.LetterImageView;
 import com.team13.campusmitra.dataholder.Faculty;
 import com.team13.campusmitra.dataholder.OfficeHours;
+import com.team13.campusmitra.dataholder.Room;
+import com.team13.campusmitra.dataholder.User;
 import com.team13.campusmitra.firebaseassistant.FirebaseFacultyHelper;
+import com.team13.campusmitra.firebaseassistant.FirebaseRoomHelper;
+import com.team13.campusmitra.firebaseassistant.FirebaseUserHelper;
 
 import java.util.ArrayList;
 
@@ -57,7 +61,6 @@ public class FacultyProfileFragment extends Fragment implements View.OnClickList
     Animation rotateForward, rotateBackward;
     AppCompatTextView designation;
     AppCompatTextView department;
-    AppCompatTextView officeHours;
     AppCompatTextView coursesTaken;
     AppCompatTextView domains;
     AppCompatTextView roomNo;
@@ -67,6 +70,7 @@ public class FacultyProfileFragment extends Fragment implements View.OnClickList
     String endTime = "";
     String venue = "";
     int num=0;
+    WeekAdapter adapterRoom;
     ArrayList<String> selected;
     //    TextInputEditText ETFName;
     TextInputEditText ETDomain;
@@ -74,6 +78,9 @@ public class FacultyProfileFragment extends Fragment implements View.OnClickList
 //    TextInputEditText ETOEmail;
     ProgressBar pb;
     public static SharedPreferences sharedPreferences;
+    private String[] roomNoo;
+    private String[] roomID;
+    ArrayList<Room> roomsData = new ArrayList<>();
 
 
     private void setupUIViews(View view){
@@ -89,7 +96,6 @@ public class FacultyProfileFragment extends Fragment implements View.OnClickList
         designation = view.findViewById(R.id.ffp_desig);
         department = view.findViewById(R.id.ffp_dept);
         roomNo = view.findViewById(R.id.ffp_room);
-        officeHours = view.findViewById(R.id.ffp_office_hours);
         coursesTaken = view.findViewById(R.id.ffp_course_taken);
         domains = view.findViewById(R.id.ffp_domains);
         pb = view.findViewById(R.id.ffp_pb);
@@ -115,11 +121,6 @@ public class FacultyProfileFragment extends Fragment implements View.OnClickList
                         designation.setText(fac.getDesignation());
                         department.setText(fac.getDepartment());
                         roomNo.setText(fac.getRoomNo());
-                        OfficeHours of = fac.getOfficeHours();
-                        if(of!=null) {
-                            String set = of.getDay() + " from " + of.getStartTime() + " to " + of.getEndTime() + " at " + of.getVenue();
-                            officeHours.setText(set);
-                        }
                         String cor = fac.getDomains();
                         if(cor!=null && !cor.isEmpty())
                             domains.setText(cor);
@@ -144,6 +145,54 @@ public class FacultyProfileFragment extends Fragment implements View.OnClickList
         });
     }
 
+    public void uploadData() {
+        FirebaseAuth auth = FirebaseAuth.getInstance();
+        final String uid = auth.getCurrentUser().getUid();
+        FirebaseFacultyHelper helper = new FirebaseFacultyHelper();
+        DatabaseReference reference = helper.getReference().child(uid);
+        reference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (getActivity() == null) {
+                    return;
+                }
+                Faculty faculty = dataSnapshot.getValue(Faculty.class);
+                if(faculty.getUserID().equals(uid)) {
+                    String desig = "", deptt = "", roomm = "", dom = "";
+
+                    try {
+                        desig = designation.getText().toString();
+                        deptt = department.getText().toString();
+                        roomm = roomNo.getText().toString();
+                        dom = domains.getText().toString();
+                    } catch (NullPointerException e) {
+                        Log.d("lolo", "Null pointer exception: ");
+                    }
+                    faculty.setDepartment(deptt);
+                    faculty.setDesignation(desig);
+                    faculty.setRoomNo(roomm);
+                    int index = -1;
+                    for (int i=0;i<roomNoo.length;i++) {
+                        if (roomNoo[i].equals(roomm)) {
+                            index = i;
+                            break;
+                        }
+                    }
+                    faculty.setRoomid(roomID[index]);
+                    faculty.setDomains(dom);
+                    if(selected!=null) {
+                        faculty.setCoursesTaken(selected);
+                    }
+                    new FirebaseFacultyHelper().addFaculty(getActivity(), faculty);
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+            }
+        });
+    }
+
+
     private void animateFab() {
         fab.startAnimation(rotateForward);
         fab.startAnimation(rotateBackward);
@@ -164,13 +213,11 @@ public class FacultyProfileFragment extends Fragment implements View.OnClickList
         designation.setOnClickListener(this);
         department.setOnClickListener(this);
         roomNo.setOnClickListener(this);
-        officeHours.setOnClickListener(this);
         coursesTaken.setOnClickListener(this);
         domains.setOnClickListener(this);
         designation.setEnabled(false);
         department.setEnabled(false);
         roomNo.setEnabled(false);
-        officeHours.setEnabled(false);
         coursesTaken.setEnabled(false);
         domains.setEnabled(false);
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
@@ -205,7 +252,6 @@ public class FacultyProfileFragment extends Fragment implements View.OnClickList
                 designation.setEnabled(true);
                 department.setEnabled(true);
                 roomNo.setEnabled(true);
-                officeHours.setEnabled(true);
                 coursesTaken.setEnabled(true);
                 domains.setEnabled(true);
 
@@ -215,7 +261,6 @@ public class FacultyProfileFragment extends Fragment implements View.OnClickList
                 designation.setEnabled(true);
                 department.setEnabled(true);
                 roomNo.setEnabled(true);
-                officeHours.setEnabled(true);
                 coursesTaken.setEnabled(true);
                 domains.setEnabled(true);
                 dialogDesig.show();
@@ -228,7 +273,6 @@ public class FacultyProfileFragment extends Fragment implements View.OnClickList
                 designation.setEnabled(true);
                 department.setEnabled(true);
                 roomNo.setEnabled(true);
-                officeHours.setEnabled(true);
                 coursesTaken.setEnabled(true);
                 domains.setEnabled(true);
                 dialogDept.show();
@@ -239,37 +283,25 @@ public class FacultyProfileFragment extends Fragment implements View.OnClickList
                 designation.setEnabled(true);
                 department.setEnabled(true);
                 roomNo.setEnabled(true);
-                officeHours.setEnabled(true);
                 coursesTaken.setEnabled(true);
                 domains.setEnabled(true);
                 dialogRoom.show();
-
-                break;
-            case R.id.ffp_office_hours:
-                designation.setEnabled(true);
-                department.setEnabled(true);
-                roomNo.setEnabled(true);
-                officeHours.setEnabled(true);
-                coursesTaken.setEnabled(true);
-                domains.setEnabled(true);
-                dialog.show();
-
 
                 break;
             case R.id.ffp_domains:
                 designation.setEnabled(true);
                 department.setEnabled(true);
                 roomNo.setEnabled(true);
-                officeHours.setEnabled(true);
                 coursesTaken.setEnabled(true);
                 domains.setEnabled(true);
                 android.app.AlertDialog.Builder builderDomain = new android.app.AlertDialog.Builder(v.getContext());
-                builderDomain.setTitle(" User Name");
+                builderDomain.setTitle("Domains");
                 builderDomain.setView(ETDomain);
                 builderDomain.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         domains.setText(ETDomain.getEditableText().toString());
+                        uploadData();
                         Toast.makeText(getActivity(),"Name has been successfully changed",Toast.LENGTH_LONG).show();
                     }
                 });
@@ -293,30 +325,57 @@ public class FacultyProfileFragment extends Fragment implements View.OnClickList
                 designation.setEnabled(true);
                 department.setEnabled(true);
                 roomNo.setEnabled(true);
-                officeHours.setEnabled(true);
                 coursesTaken.setEnabled(true);
                 domains.setEnabled(true);
                 Intent intent1 = new Intent(v.getContext(), FacultyCourseTakenRecyclerView.class);
                 startActivityForResult(intent1, PICK_CONTACT_REQUEST);
-
-
                 break;
-
-
-
 
         }
     }
-    private void setupListView(View view) {
+    private void setupListView(final View view) {
         String[] week = getResources().getStringArray(R.array.Week);
         final WeekAdapter adapter = new WeekAdapter(view.getContext(), R.layout.activity_office_hours_day_single_item, week);
         listView.setAdapter(adapter);
         String[] option = getResources().getStringArray(R.array.Dept);
         final WeekAdapter adapterDept = new WeekAdapter(view.getContext(), R.layout.activity_office_hours_day_single_item, option);
         listViewDept.setAdapter(adapterDept);
-        String[] optionroom = getResources().getStringArray(R.array.Venue);
-        final WeekAdapter adapterRoom = new WeekAdapter(view.getContext(), R.layout.activity_office_hours_day_single_item, optionroom);
-        listViewRoom.setAdapter(adapterRoom);
+        //==============================================================================
+        DatabaseReference roomReference = new FirebaseRoomHelper().getReference();
+        roomReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                roomsData.clear();
+                for(DataSnapshot snapshot:dataSnapshot.getChildren()){
+                    Room room = snapshot.getValue(Room.class);
+                    if(room.getRoomType()==3)
+                        roomsData.add(room);
+
+                }
+
+                roomNoo = new String[roomsData.size()];
+                roomID = new String[roomsData.size()];
+                for(int i = 0;i<roomsData.size();i++) {
+                    roomNoo[i] = roomsData.get(i).getRoomNumber();
+                    roomID[i] = roomsData.get(i).getRoomID();
+                }
+
+//                ArrayList<String> ar = new ArrayList<>();
+//                for(Room room:rooms){
+//                    ar.add(room.getRoomNumber());
+//                }
+                adapterRoom = new WeekAdapter(view.getContext(), R.layout.activity_office_hours_day_single_item,roomNoo);
+                listViewRoom.setAdapter(adapterRoom);
+                //.setVisibility(View.GONE);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+        //=================================================================================
         String[] optionDesig = getResources().getStringArray(R.array.Designation);
         final WeekAdapter adapterDesig = new WeekAdapter(view.getContext(), R.layout.activity_office_hours_day_single_item, optionDesig);
         listViewDesignation.setAdapter(adapterDesig);
@@ -343,7 +402,6 @@ public class FacultyProfileFragment extends Fragment implements View.OnClickList
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                         venue= (venueadapter.getItem(position).toString());
-                        officeHours.setText(Day+" "+startTime+"-"+endTime+" "+venue);
                         dialog1.dismiss();
                     }
                 });
@@ -357,6 +415,7 @@ public class FacultyProfileFragment extends Fragment implements View.OnClickList
                                                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                                                     //adapter.getItem(position).toString()
                                                     department.setText(adapterDept.getItem(position).toString());
+                                                    uploadData();
                                                     dialogDept.dismiss();
 
 
@@ -370,6 +429,7 @@ public class FacultyProfileFragment extends Fragment implements View.OnClickList
                                                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                                                     //adapter.getItem(position).toString()
                                                     roomNo.setText(adapterRoom.getItem(position).toString());
+                                                    uploadData();
                                                     dialogRoom.dismiss();
 
 
@@ -383,6 +443,7 @@ public class FacultyProfileFragment extends Fragment implements View.OnClickList
                                                        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                                                            //adapter.getItem(position).toString()
                                                            designation.setText(adapterDesig.getItem(position).toString());
+                                                           uploadData();
                                                            dialogDesig.dismiss();
 
 
@@ -449,6 +510,7 @@ public class FacultyProfileFragment extends Fragment implements View.OnClickList
                         t = t + selected.get(i) + " ";
                     }
                     coursesTaken.setText(t);
+                    uploadData();
                 }
             }
         }

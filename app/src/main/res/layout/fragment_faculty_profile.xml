@@ -94,30 +94,6 @@
                 android:text="(empty)"
                 android:layout_centerHorizontal="true" />
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginBottom="7dp"
-                android:layout_marginTop="7dp"
-                android:background="@color/colorPrimaryDark" />
-
-
-            <androidx.appcompat.widget.AppCompatTextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingTop="5dp"
-                android:text="Office Hours: "
-                android:textStyle="bold"
-                android:textSize="16dp" />
-
-            <androidx.appcompat.widget.AppCompatTextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/ffp_office_hours"
-                android:textSize="16dp"
-                android:paddingTop="5dp"
-                android:text="(empty)"
-                android:layout_centerHorizontal="true" />
 
             <View
                 android:layout_width="match_parent"
