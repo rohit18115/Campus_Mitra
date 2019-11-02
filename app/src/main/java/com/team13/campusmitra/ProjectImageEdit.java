@@ -8,6 +8,7 @@ import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -18,6 +19,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
@@ -32,10 +34,12 @@ public class ProjectImageEdit extends AppCompatActivity {
     Button update;
     Button delete;
     TextView buffer;
+    TextView click_to_choose;
     Project project;
     ProgressBar progressBar;
     private CircleImageView projectImage;
     private static final int PICK_IMAGE=1;
+    Intent intent;
     Uri imageUri;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,21 +47,30 @@ public class ProjectImageEdit extends AppCompatActivity {
         setContentView(R.layout.dialog_edit_project_image);
         project = (Project) getIntent().getSerializableExtra("Project");
         update = findViewById(R.id.dialog_edit_projectimg_update_btn);
+        click_to_choose = findViewById(R.id.update_project_img);
         delete = findViewById(R.id.dialog_edit_projectimg_delete_btn);
         buffer = findViewById(R.id.Add_projimg_Buffer);
         projectImage = findViewById(R.id.edit_img_proj);
         progressBar = findViewById(R.id.proj_img_UPpbar);
-        update.setOnClickListener(new View.OnClickListener() {
+        click_to_choose.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent gallery = new Intent();
                 gallery.setType("image/*");
                 gallery.setAction(Intent.ACTION_GET_CONTENT);
                 progressBar.setVisibility(View.VISIBLE);
-
                 startActivityForResult(Intent.createChooser(gallery,"Seclect Picture"),PICK_IMAGE);
+                projectImage.setVisibility(View.VISIBLE);
 
+            }
+        });
+        update.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FirebaseProjectHelper helper = new FirebaseProjectHelper();
+                helper.updateProject(ProjectImageEdit.this,project);
                 finish();
+
             }
         });
         delete.setOnClickListener(new View.OnClickListener() {

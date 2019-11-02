@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -229,7 +230,7 @@ public class BasicProfileFragment extends Fragment implements View.OnClickListen
             case R.id.fbp_fab:
                 animateFab();
                 fab.setImageResource(R.drawable.ic_check);
-                Snackbar.make(view, "Click on each component to edit.", Snackbar.LENGTH_LONG)
+                Snackbar.make(view, "Click on each component to edit.", Snackbar.LENGTH_LONG).setTextColor(Color.WHITE)
                         .setAction("Action", null).show();
                 name.setEnabled(true);
                 image.setEnabled(true);

@@ -38,6 +38,7 @@ import com.team13.campusmitra.firebaseassistant.FirebaseRoomHelper;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -55,6 +56,7 @@ public class AddReasearchLabActivity extends AppCompatActivity implements View.O
     Uri imageUri;
     ProgressBar progressBar;
     private void initComponents(){
+        mentors = new ArrayList<>();
         room_no = findViewById(R.id.rl_rooms_number);
         room_name = findViewById(R.id.rl_lab_name);
         progressBar = findViewById(R.id.rl_UPpbar);
@@ -68,11 +70,19 @@ public class AddReasearchLabActivity extends AppCompatActivity implements View.O
             ResearchLab rl = new ResearchLab();
             Room r = new Room();
             r.setRoomType(5);
-            r.setRoomID(room_no.getText().toString().trim());
-            rl.setRoomID(room_no.getText().toString().trim());
+            r.setRoomNumber(room_no.getText().toString().trim());
+            rl.setResearchLabNumber(room_no.getText().toString().trim());
             rl.setResearchLabName(room_name.getText().toString().trim());
             mentor_string = room_proff.getText().toString().trim();
-            mentors = (ArrayList<String>) Arrays.asList(mentor_string.split(","));
+            String[] m;
+            m = mentor_string.split(",");
+            if(m!=null) {
+                for (int i = 0; i < m.length; i++)
+                    mentors.add(m[i]);
+
+                rl.setMentors(mentors);
+            }
+            rl.setImageURL(buffer.getText().toString().trim());
             rl.setMentors(mentors);
             Log.d("loli", "getRLObject: in adding activity ");
             FirebaseResearchLabHelper helper = new FirebaseResearchLabHelper();
@@ -149,7 +159,7 @@ public class AddReasearchLabActivity extends AppCompatActivity implements View.O
         }
     }
 
-    private boolean checkTextView(TextView et){
+    private boolean checkTextView(TextInputEditText et){
         if(et.getText().length()<=1){
             et.requestFocus();
             et.setError("Enter Valid values");
@@ -162,7 +172,7 @@ public class AddReasearchLabActivity extends AppCompatActivity implements View.O
         switch (v.getId()){
             case R.id.rl_rooms_done:
                 getRLObject();
-
+                finish();
         }
     }
 

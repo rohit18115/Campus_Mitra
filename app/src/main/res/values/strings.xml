@@ -32,6 +32,15 @@
     <string name="room_number_here">Room Number here</string>
     <string name="login_now">Login Now</string>
     <string name="load_from_file">Load From File</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="your_appointments">Future Appointments</string>
+    <string name="name">Name:</string>
+    <string name="email">Email:</string>
+    <string name="date">Date</string>
+    <string name="time">Time</string>
+    <string name="description">Description:</string>
+    <string name="professor">Professor:</string>
+
     <string-array name="type_of_profile">
         <item>Student</item>
         <item>Faculty</item>
@@ -53,6 +62,9 @@
         <item> Friday </item>
         <item> Saturday </item>
     </string-array>
+
+
+    <!-- TODO: Remove or change this placeholder text -->
     <string-array name="Venue">
         <item> "A-410"</item>
         <item> "A-310" </item>
@@ -69,15 +81,12 @@
         <item> "CSAI"</item>
 
     </string-array>
+
+    <!-- TODO: Remove or change this placeholder text -->
     <string-array name="Designation">
         <item> "Professor"</item>
         <item> "Assistant Professor" </item>
         <item> "Associate Professor" </item>
         <item> "Director" </item>
-
     </string-array>
-
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-
 </resources>

@@ -20,7 +20,7 @@ public class Project implements Serializable {
         projectVideoURL = null;
     }
     public Project(){
-
+        members = new ArrayList<>();
     }
     public String getProjectID() {
         return projectID;

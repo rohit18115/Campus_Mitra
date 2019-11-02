@@ -25,5 +25,4 @@ public class FirebaseFacultyHelper {
         Toast.makeText(context,"Data updated successfully!!",Toast.LENGTH_SHORT).show();
 
     }
-
 }

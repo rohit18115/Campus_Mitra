@@ -12,7 +12,7 @@
         android:id="@+id/edit_project_imagr_cv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-
+        android:layout_gravity="center"
         android:layout_margin="10dp"
         app:cardCornerRadius="16dp"
         app:cardElevation="10dp">
@@ -54,7 +54,7 @@
                     android:paddingBottom="15dp"
                     android:textColorHint="@color/colorPrimaryDark">
 
-                    <com.google.android.material.textfield.TextInputEditText
+                    <TextView
                         android:id="@+id/update_project_img"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"

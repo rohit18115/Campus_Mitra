@@ -6,6 +6,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Log;
@@ -205,8 +206,9 @@ public class FacultyProfileFragment extends Fragment implements View.OnClickList
             case R.id.ffp_fab:
                 animateFab();
                 fab.setImageResource(R.drawable.ic_check);
-                Snackbar.make(v, "Click on each component to edit.", Snackbar.LENGTH_LONG)
+                Snackbar.make(v, "Click on each component to edit.", Snackbar.LENGTH_LONG).setTextColor(Color.WHITE)
                         .setAction("Action", null).show();
+                //Toast.makeText(getActivity(),"Click on each component to edit.",Toast.LENGTH_LONG).show();
                 designation.setEnabled(true);
                 department.setEnabled(true);
                 roomNo.setEnabled(true);
