@@ -18,13 +18,15 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".LabPageActivity"></activity>
-        <activity android:name=".FacultyProfileDisplay"></activity>
-        <activity android:name=".StudentProfileDisplay">
+        <activity android:name=".FacultyProfileDisplay">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity android:name=".StudentProfileDisplay">
+
         </activity>
         <activity android:name=".AddReasearchLabActivity" />
         <activity android:name=".VacantRoomDetails" />

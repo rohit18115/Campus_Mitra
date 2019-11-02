@@ -291,7 +291,7 @@ public class BasicProfileFragment extends Fragment implements View.OnClickListen
                         dialog.cancel();
                     }
                 });
-                if(ETFirstName.getParent() != null || ETLastName.getParent() != null) {
+                if(ETUName.getParent() != null) {
                     ((ViewGroup)ETUName.getParent()).removeView(ETUName); // <- fix
 
 
