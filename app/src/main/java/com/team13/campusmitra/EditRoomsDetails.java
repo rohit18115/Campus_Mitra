@@ -66,14 +66,19 @@ public class EditRoomsDetails extends AppCompatActivity {
         room_image = findViewById(R.id.edit_room_image);
         room_type_spinner = findViewById(R.id.spinner_room_type);
         room_number = findViewById(R.id.room_number_et);
-        room_number.setText(room.getRoomNumber());
         lab_name = findViewById(R.id.lab_name_et);
         room_type = findViewById(R.id.spinner_room_type);
         room_type.setSelection(room.getRoomType());
         room_notes = findViewById(R.id.room_notes_et);
         building_name = findViewById(R.id.building_name_et);
-        building_name.setText(room.getRoomBuilding());
+        capacity = findViewById(R.id.capacity_et);
+        description = findViewById(R.id.description_et);
+        send = findViewById(R.id.send_bt);
         system_count = findViewById(R.id.system_count_et);
+        room_number.setText(room.getRoomNumber());
+        building_name.setText(room.getRoomBuilding());
+        capacity.setText(String.valueOf(room.getCapacity()));
+
         Glide.with(this)
                 .asBitmap()
                 .load(room.getRoomImageURL())
@@ -82,8 +87,8 @@ public class EditRoomsDetails extends AppCompatActivity {
 
         if(room.getRoomType()==LAB)
         {
-            system_count = findViewById(R.id.system_count_et);
             lab_name.setText(room.getLabName());
+            system_count.setText(String.valueOf(room.getSystemCount()));
             room_notes.setVisibility(View.GONE);
         }
         else if(room.getRoomType()==FACULTY)
@@ -92,20 +97,14 @@ public class EditRoomsDetails extends AppCompatActivity {
             lab_name.setVisibility(View.GONE);
             room_notes.setText(room.getRoomNotes());
         }
-
         else
         {
             lab_name.setVisibility(View.GONE);
             room_notes.setVisibility(View.GONE);
             system_count.setVisibility(View.GONE);
         }
+        description.setText(room.getRoomDescription());
 
-        capacity = findViewById(R.id.capacity_et);
-//        capacity.setText(room.getCapacity());
-        description = findViewById(R.id.description_et);
-  //      description.setText(room.getRoomDescription());
-    //    room_notes.setText(room.getRoomNotes());
-        send = findViewById(R.id.send_bt);
 
     }
 
@@ -133,6 +132,7 @@ public class EditRoomsDetails extends AppCompatActivity {
         startActivityForResult(Intent.createChooser(intent, "Select Room Image"), CHOOSE_IMAGE);
     }
 
+    private boolean imageUpdateFlag = false;
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -169,6 +169,7 @@ public class EditRoomsDetails extends AppCompatActivity {
                         Uri uri = task.getResult();
                         ur = uri;
                         getURl=false;
+                        imageUpdateFlag = true;
                         Log.d("URL", "onComplete: " + uri.toString());
                     }
                 }
@@ -243,8 +244,8 @@ public class EditRoomsDetails extends AppCompatActivity {
 
     private boolean checkAllFields() {
 
-        if(room.getRoomID().equals("") || room.getRoomNumber().equals("") || room.getLabName().equals("")
-                || room.getRoomBuilding().equals("") || room.getRoomDescription().equals("") || room.getRoomNotes().equals("")) {
+        if(room_number.getText().toString().isEmpty() || building_name.getText().toString().isEmpty() || capacity.getText().toString().isEmpty()
+                || description.getText().toString().isEmpty() ) {
 
                 room_number.setError("Room Number Empty");
                 building_name.setError("Room Building Empty");
@@ -298,37 +299,41 @@ public class EditRoomsDetails extends AppCompatActivity {
                 room.setRoomNumber(room_number.getText().toString());
                 room.setRoomBuilding(building_name.getText().toString());
                 room.setRoomType(room_type_spinner.getSelectedItemPosition());
-                room.setRoomImageURL(ur.toString());
+                if(imageUpdateFlag)
+                    room.setRoomImageURL(ur.toString());
                 room.setRoomDescription(description.getText().toString());
                 room.setCapacity(Integer.parseInt(capacity.getText().toString()));
                 FirebaseRoomHelper helper = new FirebaseRoomHelper();
-                helper.addRoom(getApplicationContext(), room);
+                helper.updateRoom(getApplicationContext(), room);
             }
             else if(room_type_spinner.getSelectedItemPosition()==3) {
                 Room room = new Room();
                 room.setRoomNumber(room_number.getText().toString());
                 room.setRoomBuilding(building_name.getText().toString());
                 room.setRoomType(room_type_spinner.getSelectedItemPosition());
+                if(imageUpdateFlag)
                 room.setRoomImageURL(ur.toString());
                 room.setRoomDescription(description.getText().toString());
                 room.setCapacity(Integer.parseInt(capacity.getText().toString()));
-                FirebaseRoomHelper helper = new FirebaseRoomHelper();
-                helper.addRoom(getApplicationContext(), room);
-                room.setRoomNotes(room_notes.getText().toString());
 
+                room.setRoomNotes(room_notes.getText().toString());
+                FirebaseRoomHelper helper = new FirebaseRoomHelper();
+                helper.updateRoom(getApplicationContext(), room);
             }
             else{
                 Room room = new Room();
                 room.setRoomNumber(room_number.getText().toString());
                 room.setRoomBuilding(building_name.getText().toString());
                 room.setRoomType(room_type_spinner.getSelectedItemPosition());
-                room.setRoomImageURL(ur.toString());
+                if(imageUpdateFlag)
+                    room.setRoomImageURL(ur.toString());
+
                 room.setRoomDescription(description.getText().toString());
                 room.setCapacity(Integer.parseInt(capacity.getText().toString()));
                 room.setLabName(lab_name.getText().toString());
                 room.setSystemCount(Integer.parseInt(system_count.getText().toString()));
                 FirebaseRoomHelper helper = new FirebaseRoomHelper();
-                helper.addRoom(getApplicationContext(), room);
+                helper.updateRoom(getApplicationContext(), room);
             }
 
         }

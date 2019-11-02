@@ -5,7 +5,7 @@ import java.io.Serializable;
 public class Appointment implements Serializable {
     private String appointmentID;
     private String userID1; // Who take appointment
-    private String userID2; // To whom appointment is taken
+    private String userID2; // With whom appointment is taken
     private String date;
     private String time;
     private String description;

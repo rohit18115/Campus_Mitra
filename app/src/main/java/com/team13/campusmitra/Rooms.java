@@ -176,7 +176,7 @@ public class Rooms extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if(getURl==false){
-                if(RoomNumber.getText().toString().isEmpty()||roomBuilding.getText().toString().isEmpty()||room_type_spinner.getSelectedItem().toString().isEmpty()||roomDescription.getText().toString().isEmpty()||capacity.getText().toString().isEmpty()) {
+                if(RoomNumber.getText().toString().isEmpty()||roomBuilding.getText().toString().isEmpty()||room_type_spinner.getSelectedItem().toString().isEmpty()||roomDescription.getText().toString().isEmpty()||capacity.getText().toString().isEmpty()||uriRoomImage.equals(null)) {
                     RoomNumber.setError("Room Number empty");
                     roomBuilding.setError("Room Building empty ");
                     capacity.setError("Capacity empty ");
