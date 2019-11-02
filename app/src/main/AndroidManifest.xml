@@ -29,6 +29,7 @@
         <activity
             android:name=".VacantRoomDetails"
             android:screenOrientation="portrait" />
+        <activity android:name=".viewcourse_student"></activity>
         <activity
             android:name=".SignInSplash"
             android:screenOrientation="portrait">
