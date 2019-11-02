@@ -32,8 +32,9 @@
             </de.hdodenhof.circleimageview.CircleImageView>
         </LinearLayout>
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
             android:id = "@+id/project_info_linear">
             <TextView
                 android:id="@+id/item_tv1"
@@ -56,7 +57,7 @@
                 android:paddingRight="2dp"
                 android:paddingBottom="2dp"
                 android:layout_marginRight="15dp"
-                android:layout_gravity="center"
+                android:layout_gravity="right"
                 android:src="@drawable/push_down">
             </de.hdodenhof.circleimageview.CircleImageView>
         </LinearLayout>

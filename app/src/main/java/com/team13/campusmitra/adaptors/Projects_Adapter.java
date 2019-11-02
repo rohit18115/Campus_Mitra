@@ -45,6 +45,7 @@ import com.team13.campusmitra.dataholder.Project;
 import com.team13.campusmitra.dataholder.User;
 import com.team13.campusmitra.firebaseassistant.FirebaseCoursesHelper;
 import com.team13.campusmitra.firebaseassistant.FirebaseProjectHelper;
+import com.team13.campusmitra.firebaseassistant.FirebaseUserHelper;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -164,7 +165,7 @@ public class Projects_Adapter extends RecyclerView.Adapter<Projects_Adapter.Proj
 
             mem =  current.getMembers();
 
-            FirebaseProjectHelper helper = new FirebaseProjectHelper();
+            FirebaseUserHelper helper = new FirebaseUserHelper();
             DatabaseReference reference = helper.getReference();
             reference.addValueEventListener(new ValueEventListener() {
                 @Override

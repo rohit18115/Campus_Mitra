@@ -1,5 +1,6 @@
 package com.team13.campusmitra;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -13,21 +14,32 @@ import android.view.MenuItem;
 import android.view.inputmethod.EditorInfo;
 import android.widget.SearchView;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.ValueEventListener;
 import com.team13.campusmitra.adaptors.ResearchLabsRecyclerViewAdaptor;
+import com.team13.campusmitra.dataholder.ResearchLab;
 import com.team13.campusmitra.dataholder.Room;
+import com.team13.campusmitra.dataholder.Student;
+import com.team13.campusmitra.dataholder.User;
+import com.team13.campusmitra.firebaseassistant.FirebaseResearchLabHelper;
+import com.team13.campusmitra.firebaseassistant.FirebaseUserHelper;
 
 import java.util.ArrayList;
-
+//Intent intent = new Intent(getApplicationContext(),R_Lab.class);
+//        intent.putExtra("ROOM",room);
+//        intent.putExtra("RL",researchLab);
 public class ResearchLabsRecyclerView extends AppCompatActivity  {
     ResearchLabsRecyclerViewAdaptor adapter;
     private static final String TAG = "LabsRecyclerView";
 
-    private ArrayList<Room> items = new ArrayList<>();
+    private ArrayList<ResearchLab> items = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_labs_recycler_view);
+        setContentView(R.layout.activity_research_labs_recycler_view);
         Log.d(TAG, "onCreate: started");
 
         initComponents();
@@ -38,15 +50,44 @@ public class ResearchLabsRecyclerView extends AppCompatActivity  {
 
         Log.d(TAG, "initImage: started");
         String url = "https://drive.google.com/uc?export=download&id=1y72ODb4maSRFbO-rjuJTVIEJC20LUmti";
-        Room room = new Room("123","A-403","RnD Block",0,url,"",40,"","",10);
+        //Room room = new Room("123","A-403","RnD Block",0,url,"",40,"","",10);
+        ResearchLab room = new ResearchLab();
         for (int i = 0; i < 15; i++) {
             items.add(room);
         }
     }
 
+    private void loadLabData() {
+
+        FirebaseResearchLabHelper helper = new FirebaseResearchLabHelper();
+        DatabaseReference reference = helper.getReference();
+        reference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                items.clear();
+                for(DataSnapshot snapshot:dataSnapshot.getChildren()){
+                    ResearchLab rLab = snapshot.getValue(ResearchLab.class);
+                    items.add(rLab);
+                }
+                //progressBar.setVisibility(View.GONE);
+                if (items.size()>0) {
+                    Log.d("lololo", "onDataChange: " + items.get(0).getRoomID());
+                    initRecycler();
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+
+        });
+    }
+
     private void initRecycler() {
         Log.d(TAG, "initComponents: started");
-        RecyclerView recyclerView = findViewById(R.id.labs_recycler_view);
+        RecyclerView recyclerView = findViewById(R.id.research_labs_recycler_view);
         ResearchLabsRecyclerViewAdaptor adapter = new ResearchLabsRecyclerViewAdaptor(items, this);
         recyclerView.setAdapter(adapter);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);

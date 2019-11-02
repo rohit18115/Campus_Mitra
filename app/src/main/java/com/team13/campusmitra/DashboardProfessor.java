@@ -9,8 +9,11 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
+
 
 import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseAuth;
@@ -22,7 +25,7 @@ import com.team13.campusmitra.dataholder.User;
 import com.team13.campusmitra.firebaseassistant.FirebaseUserHelper;
 
 public class DashboardProfessor extends AppCompatActivity {
-
+    LinearLayout rl;
 
     ImageView image;
     TextView nameTV;
@@ -76,12 +79,20 @@ public class DashboardProfessor extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dashboard_professor);
+        rl = findViewById(R.id.proff_views_rl);
+        rl.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(DashboardProfessor.this, GotoAddEditRL.class);
+                startActivity(intent);
+            }
+        });
+
         loadImage();
         nameTV = findViewById(R.id.prof_name);
         user  = (User) getIntent().getSerializableExtra("MYKEY");
         System.out.println("abcd"+user);
         nameTV.setText("Hello "+user.getUserFirstName()+" "+user.getUserLastName());
-
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu)
@@ -97,6 +108,7 @@ public class DashboardProfessor extends AppCompatActivity {
                 Intent intent = new Intent(getApplicationContext(), OCRActivity.class);
 
                 startActivity(intent);
+                break;
             case R.id.view_profile:
                 Intent intent2 = new Intent(getApplicationContext(), FacultyProfileDisplay.class);
 
@@ -114,6 +126,7 @@ public class DashboardProfessor extends AppCompatActivity {
                 startActivity(intent1);
                 finish();
                 return true;
+
 
         }
         return super.onOptionsItemSelected(item);
