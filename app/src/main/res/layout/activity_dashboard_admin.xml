@@ -73,7 +73,7 @@
                     <ImageView
                         android:layout_width="80dp"
                         android:layout_height="41dp"
-                        android:onClick="sentToAddRoom"
+                        android:onClick="sentToRoom"
                         android:src="@drawable/classroom1" />
                     <TextView
 
