@@ -67,8 +67,7 @@ public class EditRoomsDetails extends AppCompatActivity {
         room_type_spinner = findViewById(R.id.spinner_room_type);
         room_number = findViewById(R.id.room_number_et);
         lab_name = findViewById(R.id.lab_name_et);
-        room_type = findViewById(R.id.spinner_room_type);
-        room_type.setSelection(room.getRoomType());
+        //Toast.makeText(getApplicationContext(),""+room.getRoomType(),Toast.LENGTH_LONG).show();
         room_notes = findViewById(R.id.room_notes_et);
         building_name = findViewById(R.id.building_name_et);
         capacity = findViewById(R.id.capacity_et);
@@ -197,6 +196,7 @@ public class EditRoomsDetails extends AppCompatActivity {
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         // ArrayAdapter<String>(Rooms.this,R.array.type_of_room, android.R.layout.simple_spinner_dropdown_item );
         room_type_spinner.setAdapter(adapter);
+        room_type_spinner.setSelection(room.getRoomType());
         room_type_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
             @Override
@@ -295,7 +295,6 @@ public class EditRoomsDetails extends AppCompatActivity {
 
             //setRoomDetails();
             if(room_type_spinner.getSelectedItemPosition()==0||room_type_spinner.getSelectedItemPosition()==1||room_type_spinner.getSelectedItemPosition()==2) {
-                Room room = new Room();
                 room.setRoomNumber(room_number.getText().toString());
                 room.setRoomBuilding(building_name.getText().toString());
                 room.setRoomType(room_type_spinner.getSelectedItemPosition());
@@ -307,7 +306,7 @@ public class EditRoomsDetails extends AppCompatActivity {
                 helper.updateRoom(getApplicationContext(), room);
             }
             else if(room_type_spinner.getSelectedItemPosition()==3) {
-                Room room = new Room();
+                Toast.makeText(getApplicationContext(),room_type_spinner.getSelectedItemPosition()+"",Toast.LENGTH_LONG).show();
                 room.setRoomNumber(room_number.getText().toString());
                 room.setRoomBuilding(building_name.getText().toString());
                 room.setRoomType(room_type_spinner.getSelectedItemPosition());
@@ -321,7 +320,6 @@ public class EditRoomsDetails extends AppCompatActivity {
                 helper.updateRoom(getApplicationContext(), room);
             }
             else{
-                Room room = new Room();
                 room.setRoomNumber(room_number.getText().toString());
                 room.setRoomBuilding(building_name.getText().toString());
                 room.setRoomType(room_type_spinner.getSelectedItemPosition());
