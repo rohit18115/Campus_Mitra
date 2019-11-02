@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatTextView;
 
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -116,6 +117,13 @@ public class FacultyExternalDisplayActivity extends AppCompatActivity implements
                         }
                         if(cor!=null && !cor.isEmpty()) {
                             courses.setText(cor);
+                        }
+                        if(faculty.getAvailability()==0) {
+                            CircleImageView cim = findViewById(R.id.dnd);
+                            String uri = "@drawable/reddnd";  // where myresource (without the extension) is the file
+                            int imageResource = getResources().getIdentifier(uri, null, getPackageName());
+                            Drawable res = getResources().getDrawable(imageResource);
+                            cim.setImageDrawable(res);
                         }
                     }
                 }

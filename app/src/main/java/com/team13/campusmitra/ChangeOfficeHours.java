@@ -163,6 +163,7 @@ public class ChangeOfficeHours extends AppCompatActivity implements View.OnClick
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                         venue.setText(venueadapter.getItem(position).toString());
                         dialog1.dismiss();
+                        uploadData();
                     }
                 });
             }
@@ -226,7 +227,6 @@ public class ChangeOfficeHours extends AppCompatActivity implements View.OnClick
     public void onClick(View view) {
         if(view.getId() == R.id.set_off_hours) {
             dialog.show();
-            uploadData();
         }
     }
 }
