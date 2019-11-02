@@ -101,7 +101,7 @@ public class RoomListDisplayAdaptor extends RecyclerView.Adapter<RoomListDisplay
     public void showDialog(final Room element) {
 
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
-        dialogBuilder.setTitle("Are you sure want to delete "+element.getRoomNumber()+" information ?");
+        dialogBuilder.setTitle("Are you sure want to modify details of "+element.getRoomNumber()+" ?");
 
         dialogBuilder.setPositiveButton("Delete", new DialogInterface.OnClickListener() {
             @Override
