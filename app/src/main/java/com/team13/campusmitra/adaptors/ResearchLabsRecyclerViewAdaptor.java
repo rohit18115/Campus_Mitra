@@ -72,7 +72,7 @@ public class ResearchLabsRecyclerViewAdaptor extends RecyclerView.Adapter<Resear
         Glide.with(mContext)
                 .asBitmap()
                 .load(room.getImageURL())
-                .placeholder(R.drawable.ic_loading)
+                .placeholder(R.drawable.labs)
                 .into(holder.image);
         holder.tv2.setText(room.getResearchLabName());
         holder.tv1.setText(room.getResearchLabNumber());
