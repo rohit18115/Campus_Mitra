@@ -62,11 +62,22 @@ public class FacultyExternalDisplayActivity extends AppCompatActivity implements
                     User user = snapshot.getValue(User.class);
                     if(user.getUserId().equals(userId)) {
                         Log.d("lololo", "onDataChange: " + user.getUserLastName());
-                        Glide.with(FacultyExternalDisplayActivity.this)
-                                .asBitmap()
-                                .load(user.getImageUrl())
-                                .placeholder(R.drawable.ic_loading)
-                                .into(image);
+                        String str = user.getGender();
+                        if(str.equals("Male")) {
+                            Glide.with(FacultyExternalDisplayActivity.this)
+                                    .asBitmap()
+                                    .load(user.getImageUrl())
+                                    .placeholder(R.drawable.maleprof)
+                                    .into(image);
+                        }
+                        else{
+                            Glide.with(FacultyExternalDisplayActivity.this)
+                                    .asBitmap()
+                                    .load(user.getImageUrl())
+                                    .placeholder(R.drawable.ladyprof)
+                                    .into(image);
+
+                        }
                         name.setText(user.getUserFirstName() + " " + user.getUserLastName());
                         email.setText(user.getUserEmail());
                     }
@@ -87,7 +98,7 @@ public class FacultyExternalDisplayActivity extends AppCompatActivity implements
                 for(DataSnapshot snapshot:dataSnapshot.getChildren()){
                     Faculty faculty = snapshot.getValue(Faculty.class);
                     if(faculty.getUserID().equals(userId)) {
-                        Log.d("lololo", "onDataChange: " + faculty.getUserID());
+                        Log.d("lololok", "onDataChange: " + faculty.getUserID());
                         String dep = "", cor = "", dom = "";
                         dep = faculty.getDepartment();
                         dom = faculty.getDomains();
@@ -97,13 +108,13 @@ public class FacultyExternalDisplayActivity extends AppCompatActivity implements
                         for(int i =0;i<s.size();i++) {
                             cor = cor + s.get(i) + "\n";
                         } }
-                        if(!dep.isEmpty()) {
+                        if(dep!=null && !dep.isEmpty()) {
                             dept.setText(dep);
                         }
-                        if(!dom.isEmpty()) {
+                        if(dom!=null && !dom.isEmpty()) {
                             domain.setText(dom);
                         }
-                        if(!cor.isEmpty()) {
+                        if(cor!=null && !cor.isEmpty()) {
                             courses.setText(cor);
                         }
                     }

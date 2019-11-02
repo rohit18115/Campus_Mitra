@@ -9,11 +9,15 @@
         android:layout_height="wrap_content"
         android:layout_margin="20dp"
         android:text="Add Research labs"
+        android:background="@color/gradStart"
+        android:textColor="@color/white"
         android:id="@+id/click_to_add_rl"/>
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="20dp"
+        android:background="@color/gradStart"
+        android:textColor="@color/white"
         android:text="View Research Labs"
         android:id="@+id/click_to_view_rl"/>
 

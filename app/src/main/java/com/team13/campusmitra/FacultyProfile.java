@@ -1,12 +1,5 @@
 package com.team13.campusmitra;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.fragment.app.DialogFragment;
-
 import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -14,6 +7,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,7 +17,13 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.TimePicker;
-import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.DialogFragment;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -33,13 +33,13 @@ import com.google.firebase.database.ValueEventListener;
 import com.team13.campusmitra.Utils.LetterImageView;
 import com.team13.campusmitra.dataholder.Faculty;
 import com.team13.campusmitra.dataholder.OfficeHours;
+import com.team13.campusmitra.dataholder.Room;
 import com.team13.campusmitra.dataholder.User;
 import com.team13.campusmitra.firebaseassistant.FirebaseFacultyHelper;
-import com.team13.campusmitra.firebaseassistant.FirebaseStudentHelper;
+import com.team13.campusmitra.firebaseassistant.FirebaseRoomHelper;
 import com.team13.campusmitra.firebaseassistant.FirebaseUserHelper;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class FacultyProfile extends AppCompatActivity implements View.OnClickListener, TimePickerDialog.OnTimeSetListener {
     private static final int PICK_CONTACT_REQUEST = 1 ;
@@ -57,7 +57,11 @@ public class FacultyProfile extends AppCompatActivity implements View.OnClickLis
     Button department, room,designation;
     TextView dept,rm,desig,domain;
     ArrayList<String> selected;
+    ArrayList<Room> rooms = new ArrayList<>();
     int num=0;
+    private String[] roomNo;
+    private String[] roomID;
+    WeekAdapter adapterRoom;
 
     protected void initComponents() {
         dept = findViewById(R.id.display_dept);
@@ -109,13 +113,20 @@ public class FacultyProfile extends AppCompatActivity implements View.OnClickLis
             if(!room.equals("Select Room")) {
                 Log.d("lola", "onClick: button next3");
                 faculty.setRoomNo(room);
-
+                int index = -1;
+                for (int i=0;i<roomNo.length;i++) {
+                    if (roomNo[i].equals(room)) {
+                        index = i;
+                        break;
+                    }
+                }
+                faculty.setRoomid(roomID[index]);
             }
             if(!dom.isEmpty()) {
                 Log.d("lola", "onClick: button next4");
                 faculty.setDomains(dom);
             }
-            if(selected.size()==0) {
+            if(selected.size()!=0) {
                 Log.d("lola", "onClick: button next5");
                 faculty.setCoursesTaken(selected);
             }
@@ -146,6 +157,10 @@ public class FacultyProfile extends AppCompatActivity implements View.OnClickLis
                         Log.d("lololo", "onDataChange: " + user[0].getUserLastName());
                         user[0].setProfileCompleteCount(2);
                         helper.updateUser(getApplicationContext(), user[0]);
+                        Intent intent = new Intent(getApplicationContext(), DashboardProfessor.class);
+                        intent.putExtra("MYKEY",user[0]);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        startActivity(intent);
                     }
                 }
             }
@@ -192,7 +207,7 @@ public class FacultyProfile extends AppCompatActivity implements View.OnClickLis
         num=num+1;
         TextView startTime = (TextView)findViewById(R.id.FPTVStartTime);
         TextView endTime = (TextView)findViewById(R.id.FPTVEndTime);
-
+        Log.d("lolo", "num"+num);
         if(num%2!=0)
             startTime.setText(hourOfDay+":"+minute);
         else
@@ -231,11 +246,43 @@ public class FacultyProfile extends AppCompatActivity implements View.OnClickLis
         final WeekAdapter adapterDept = new WeekAdapter(this, R.layout.activity_office_hours_day_single_item, option);
         listViewDept.setAdapter(adapterDept);
         String[] optionroom = getResources().getStringArray(R.array.Venue);
-        final WeekAdapter adapterRoom = new WeekAdapter(this, R.layout.activity_office_hours_day_single_item, optionroom);
-        listViewRoom.setAdapter(adapterRoom);
+        //here=======================================================================================================
+        DatabaseReference roomReference = new FirebaseRoomHelper().getReference();
+        roomReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                rooms.clear();
+                for(DataSnapshot snapshot:dataSnapshot.getChildren()){
+                    Room room = snapshot.getValue(Room.class);
+                    rooms.add(room);
+
+                }
+
+                roomNo = new String[rooms.size()];
+                roomID = new String[rooms.size()];
+                for(int i = 0;i<rooms.size();i++) {
+                    roomNo[i] = rooms.get(i).getRoomNumber();
+                    roomID[i] = rooms.get(i).getRoomID();
+                }
+
+//                ArrayList<String> ar = new ArrayList<>();
+//                for(Room room:rooms){
+//                    ar.add(room.getRoomNumber());
+//                }
+                adapterRoom = new WeekAdapter(getApplicationContext(), R.layout.activity_office_hours_day_single_item,roomNo);
+                listViewRoom.setAdapter(adapterRoom);
+                //.setVisibility(View.GONE);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
         String[] optionDesig = getResources().getStringArray(R.array.Designation);
         final WeekAdapter adapterDesig = new WeekAdapter(this, R.layout.activity_office_hours_day_single_item, optionDesig);
         listViewDesignation.setAdapter(adapterDesig);
+        //here
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -316,7 +363,7 @@ public class FacultyProfile extends AppCompatActivity implements View.OnClickLis
             private String[] week = new String[]{};
             private String retDay = "";
 
-            public WeekAdapter(FacultyProfile context, int resource, String[] objects) {
+            public WeekAdapter(Context context, int resource, String[] objects) {
                 super(context, resource, objects);
                 this.resource = resource;
                 this.week = objects;
@@ -329,8 +376,8 @@ public class FacultyProfile extends AppCompatActivity implements View.OnClickLis
                 if(convertView == null){
                     holder = new WeekAdapter.ViewHolder();
                     convertView = layoutInflater.inflate(resource, null);
-                    holder.ivLogo = (LetterImageView)convertView.findViewById(R.id.OHDSILetter);
-                    holder.tvWeek = (TextView)convertView.findViewById(R.id.OHDSItv);
+                    holder.ivLogo = convertView.findViewById(R.id.OHDSILetter);
+                    holder.tvWeek = convertView.findViewById(R.id.OHDSItv);
                     convertView.setTag(holder);
                 }else{
                     holder = (WeekAdapter.ViewHolder)convertView.getTag();
@@ -349,17 +396,6 @@ public class FacultyProfile extends AppCompatActivity implements View.OnClickLis
                 private TextView tvWeek;
             }
     }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-
-            switch(item.getItemId()){
-                case android.R.id.home : {
-                    onBackPressed();
-                }
-            }
-            return super.onOptionsItemSelected(item);
-        }
 
     @Override
     public void onClick(View v) {
@@ -412,12 +448,27 @@ public class FacultyProfile extends AppCompatActivity implements View.OnClickLis
     }
 
     @Override
-    public void onBackPressed () {
-
-        super.onBackPressed();
-        FirebaseAuth auth = FirebaseAuth.getInstance();
-        auth.signOut();
-
+    public boolean onCreateOptionsMenu(Menu menu)
+    {
+        getMenuInflater().inflate(R.menu.logout_action_bar,menu);
+        return true;
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item)
+    {
+        switch(item.getItemId()) {
+            case R.id.ab_logout:
+                FirebaseAuth auth = FirebaseAuth.getInstance();
+                auth.signOut();
+                Intent intent1 = new Intent(getApplicationContext(),SignInSplash.class);
+                startActivity(intent1);
+                finish();
+                return true;
+            case android.R.id.home : {
+                onBackPressed();
+            }
+        }
+        return super.onOptionsItemSelected(item);
     }
 
 }

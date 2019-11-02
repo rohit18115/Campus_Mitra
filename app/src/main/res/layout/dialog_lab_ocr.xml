@@ -122,11 +122,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Show More Info"
-            android:background="@color/colorPrimaryDark"
+            android:background="@color/gradStart"
+            android:textColor="@color/white"
             android:padding="10dp"
             android:layout_marginRight="15dp"
-
-            android:textColor="@color/white"
             android:textStyle="bold"
             android:id="@+id/dialog_lab_ocr_bookBtn">
 

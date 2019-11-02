@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.net.Uri;
 
@@ -16,6 +17,7 @@ import com.team13.campusmitra.dataholder.User;
 public class NewDashboard extends AppCompatActivity {
     TextView nameTV;
     User user;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -24,10 +26,24 @@ public class NewDashboard extends AppCompatActivity {
         user  = (User) getIntent().getSerializableExtra("MYKEY");
 
         nameTV.setText("Hello "+user.getUserFirstName()+" "+user.getUserLastName());
+
+        ImageView imageView = (ImageView) findViewById(R.id.imgViewStudent);
+        imageView.setOnLongClickListener(new View.OnLongClickListener() {
+
+            @Override
+            public boolean onLongClick(View v) {
+                Intent intent2 = new Intent(getApplicationContext(), StudentProfileDisplay.class);
+
+                startActivity(intent2);
+                return true;
+            }
+        });
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu)
     {
+        //getSupportActionBar().setHomeAsUpIndicator(R.drawable.iiitd);// set drawable icon
+        //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getMenuInflater().inflate(R.menu.student_actionbar,menu);
         return true;
     }
@@ -51,6 +67,14 @@ public class NewDashboard extends AppCompatActivity {
                 i.setData(Uri.parse(url));
                 startActivity(i);
                 return true;
+            case R.id.calendar:
+                String url1 = "https://www.iiitd.ac.in/sites/default/files/docs/admissions/2019/Academic%20Calendar%20Monsoon%202019_Final.pdf";
+                Intent i1 = new Intent(Intent.ACTION_VIEW);
+                i1.setData(Uri.parse(url1));
+                startActivity(i1);
+                return true;
+
+
             case R.id.logout:
                 FirebaseAuth auth = FirebaseAuth.getInstance();
                 auth.signOut();
@@ -100,6 +124,26 @@ public class NewDashboard extends AppCompatActivity {
 //        auth.signOut();
 //    }
 
+    public void sendtoViewCourse(View view){
+        Intent intent = new Intent(getApplicationContext(), viewcourse_student.class);
+        //intent.putExtra("userType",1);
+        startActivity(intent);
+    }
+
     public void sentToAddRoom(View view) {
+    }
+    public void send_to_recyc_lab(View view)
+    {
+        Intent intent = new Intent(getApplicationContext(), ResearchLabsRecyclerView.class);
+        intent.putExtra("userType",1);
+        startActivity(intent);
+        //finish();
+    }
+    public void send_to_stud_profile(View view)
+    {
+        Intent intent = new Intent(getApplicationContext(), StudentProfileDisplay.class);
+        intent.putExtra("userType",1);
+        startActivity(intent);
+        //finish();
     }
 }

@@ -1,20 +1,22 @@
 package com.team13.campusmitra.fragments;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
+import android.widget.Button;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.AppCompatTextView;
 import androidx.fragment.app.Fragment;
 
-import com.bumptech.glide.Glide;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -22,15 +24,11 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
 import com.team13.campusmitra.R;
 import com.team13.campusmitra.dataholder.Student;
-import com.team13.campusmitra.dataholder.User;
 import com.team13.campusmitra.firebaseassistant.FirebaseStudentHelper;
-import com.team13.campusmitra.firebaseassistant.FirebaseUserHelper;
 
 import java.util.ArrayList;
 
-import de.hdodenhof.circleimageview.CircleImageView;
-
-public class StudentProfileFragment extends Fragment {
+public class StudentProfileFragment extends Fragment implements View.OnClickListener {
 
     FloatingActionButton fab;
     Animation rotateForward, rotateBackward;
@@ -39,7 +37,9 @@ public class StudentProfileFragment extends Fragment {
     AppCompatTextView enrollCourse;
     AppCompatTextView coursesTaken;
     AppCompatTextView interests;
-//    TextInputEditText ETFName;
+    Button resume;
+    String url;
+    //    TextInputEditText ETFName;
 //    TextInputEditText ETUName;
 //    TextInputEditText ETUname;
 //    TextInputEditText ETOEmail;
@@ -51,11 +51,13 @@ public class StudentProfileFragment extends Fragment {
         enrollCourse = view.findViewById(R.id.fsp_course);
         coursesTaken = view.findViewById(R.id.fsp_course_taken);
         interests = view.findViewById(R.id.fsp_interests);
+        resume = view.findViewById(R.id.fsp_resume);
         pb = view.findViewById(R.id.fbp_pb);
         fab = view.findViewById(R.id.fbp_fab);
     }
 
     protected void loadData(View view) {
+        Log.d("lolo", "on loaddata");
         FirebaseAuth auth = FirebaseAuth.getInstance();
         final String uid = auth.getCurrentUser().getUid();
         FirebaseStudentHelper helper = new FirebaseStudentHelper();
@@ -63,9 +65,12 @@ public class StudentProfileFragment extends Fragment {
         reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                for(DataSnapshot snapshot:dataSnapshot.getChildren()){
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    if (getActivity() == null) {
+                        return;
+                    }
                     Student student = snapshot.getValue(Student.class);
-                    if(student.getUserID().equals(uid)) {
+                    if (student.getUserID().equals(uid)) {
                         Log.d("lololo", "onDataChange: " + student.getRollNumber());
                         rollNo.setText(student.getRollNumber());
                         department.setText(student.getDepartment());
@@ -73,13 +78,17 @@ public class StudentProfileFragment extends Fragment {
                         interests.setText(student.getAreaOfInterest());
                         ArrayList<String> s = student.getCourses();
                         String cor = "";
-                        for(int i =0;i<s.size();i++) {
-                            cor = cor + s.get(i) + "\n";
+                        if (s != null) {
+                            for (int i = 0; i < s.size(); i++) {
+                                cor = cor + s.get(i) + "\n";
+                            }
                         }
                         coursesTaken.setText(cor);
+                        url = student.getResumeURL();
                     }
                 }
             }
+
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
 
@@ -88,7 +97,7 @@ public class StudentProfileFragment extends Fragment {
         });
     }
 
-    private void animateFab(){
+    private void animateFab() {
         fab.startAnimation(rotateForward);
         fab.startAnimation(rotateBackward);
     }
@@ -104,4 +113,22 @@ public class StudentProfileFragment extends Fragment {
 
         return view;
     }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.fsp_resume:
+                if (url != null && !url.isEmpty()) {
+                    if (!url.contains("http://"))
+                        url = "http://" + url;
+                    Intent i = new Intent(Intent.ACTION_VIEW);
+                    i.setData(Uri.parse(url));
+                    startActivity(i);
+                } else {
+                    Toast.makeText(getActivity(), "No Resume Uploaded", Toast.LENGTH_SHORT).show();
+                }
+                break;
+        }
+    }
 }
+

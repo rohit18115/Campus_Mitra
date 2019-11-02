@@ -4,8 +4,12 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatTextView;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
@@ -14,6 +18,8 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 import com.team13.campusmitra.dataholder.Student;
 import com.team13.campusmitra.dataholder.User;
 import com.team13.campusmitra.firebaseassistant.FirebaseStudentHelper;
@@ -23,7 +29,7 @@ import java.util.ArrayList;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class StudentExternalDisplay extends AppCompatActivity {
+public class StudentExternalDisplay extends AppCompatActivity implements View.OnClickListener {
 
     CircleImageView image;
     AppCompatTextView name;
@@ -31,7 +37,9 @@ public class StudentExternalDisplay extends AppCompatActivity {
     AppCompatTextView email;
     AppCompatTextView courses;
     AppCompatTextView interests;
+    String url;
     ProgressBar pb;
+    Button resume;
 
     private String userId;
 
@@ -43,6 +51,7 @@ public class StudentExternalDisplay extends AppCompatActivity {
         courses = findViewById(R.id.ase_enrolled_courses);
         interests = findViewById(R.id.ase_interests);
         pb = findViewById(R.id.ase_pb);
+        resume = findViewById(R.id.ase_resume);
     }
 
     protected void loadData() {
@@ -91,9 +100,6 @@ public class StudentExternalDisplay extends AppCompatActivity {
                     Student student = snapshot.getValue(Student.class);
                     if(student.getUserID().equals(userId)) {
                         Log.d("lololo", "onDataChange: " + student.getUserID());
-//                        dept.setText();
-//                        courses.setText();
-//                        interests.setText();
                         String dep = "", cor = "", dom = "";
                         dep = student.getDepartment();
                         dom = student.getAreaOfInterest();
@@ -112,6 +118,7 @@ public class StudentExternalDisplay extends AppCompatActivity {
                         if(!dom.isEmpty()) {
                             interests.setText(dom);
                         }
+                        url = student.getResumeURL();
                     }
                 }
             }
@@ -140,6 +147,24 @@ public class StudentExternalDisplay extends AppCompatActivity {
         }
         initComponent();
         loadData();
+        resume.setOnClickListener(this);
     }
 
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.ase_resume:
+//                if(url!=null && !url.isEmpty()) {
+//                    StorageReference storageRef = FirebaseStorage.getInstance().getReference();
+//                    StorageReference pdfRef = storageRef.child(url);
+//                    Intent i = new Intent(Intent.ACTION_VIEW);
+//                    i.setData(Uri.parse(url));
+//                    Log.d("lolo", url);
+//                    startActivity(i);
+//                } else {
+//                    Toast.makeText(this, "No Resume Uploaded", Toast.LENGTH_SHORT).show();
+//                }
+                break;
+        }
+    }
 }

@@ -7,8 +7,7 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
-
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -17,19 +16,21 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".LabPageActivity"></activity>
-        <activity android:name=".FacultyProfileDisplay"></activity>
-        <activity android:name=".StudentProfileDisplay"/>
-
-        <activity android:name=".AddReasearchLabActivity" />
-        <activity android:name=".VacantRoomDetails" />
-        <activity android:name=".SignInSplash">
+        <activity android:name=".EditRoomsDetails"></activity>
+        <activity android:name=".RoomListDisplayActivity" />
+        <activity android:name=".viewcourse_student"></activity>
+        <activity android:name=".LabPageActivity" android:screenOrientation="portrait" />
+        <activity android:name=".FacultyProfileDisplay" android:screenOrientation="portrait" />
+        <activity android:name=".StudentProfileDisplay" android:screenOrientation="portrait"/>
+        <activity android:name=".AddReasearchLabActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".VacantRoomDetails" android:screenOrientation="portrait" />
+        <activity android:name=".SignInSplash" android:screenOrientation="portrait" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity android:name=".OpenDialogue" />
         <activity android:name=".ApproveFacultyActivity" />
         <activity android:name=".FacultyExternalDisplayActivity" />
@@ -59,17 +60,18 @@
         </activity>
         <activity android:name=".UserProfile" />
         <activity android:name=".Rooms" />
+
         <activity
             android:name=".Add_Project"
-            android:exported="true" />
-        <activity android:name=".SignUp" />
-        <activity android:name=".SignIn" />
+            android:exported="true" android:screenOrientation="portrait" />
+        <activity android:name=".SignUp" android:screenOrientation="portrait" />
+        <activity android:name=".SignIn" android:screenOrientation="portrait" />
         <activity
             android:name=".R_Lab"
-            android:exported="true" />
+            android:exported="true" android:screenOrientation="portrait" />
         <activity
             android:name=".Regular_Labs"
-            android:exported="true" />
+            android:exported="true" android:screenOrientation="portrait" />
     </application>
 
 </manifest>

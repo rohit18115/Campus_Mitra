@@ -77,7 +77,8 @@ public class StudentListDisplayAdaptor extends RecyclerView.Adapter<StudentListD
                 .placeholder(R.drawable.blankgirl)
                 .into(holder.image);*/
         holder.tv1.setText(user.getUserFirstName() + " " + user.getUserLastName());
-        holder.tv2.setText("Departments");
+        //holder.tv2.setText("Departments");\
+        holder.tv2.setText(user.getUserName());
         holder.tv3.setText(user.getUserEmail());
         holder.layout.setOnClickListener(new View.OnClickListener() {
             @Override

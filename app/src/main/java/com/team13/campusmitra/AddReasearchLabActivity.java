@@ -83,6 +83,8 @@ public class AddReasearchLabActivity extends AppCompatActivity implements View.O
                 rl.setMentors(mentors);
             }
             rl.setImageURL(buffer.getText().toString().trim());
+            rl.setMentors(mentors);
+            Log.d("loli", "getRLObject: in adding activity ");
             FirebaseResearchLabHelper helper = new FirebaseResearchLabHelper();
             helper.addResearchLab(getApplicationContext(),rl);
             FirebaseRoomHelper helper2 = new FirebaseRoomHelper();

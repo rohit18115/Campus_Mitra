@@ -9,6 +9,8 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:text="Test"
+    android:background="@color/gradStart"
+    android:textColor="@color/white"
     android:id="@+id/test_btn"
     android:layout_centerHorizontal="true"
     android:layout_centerVertical="true">
