@@ -35,26 +35,13 @@ public class ResearchLabsRecyclerView extends AppCompatActivity  {
     private static final String TAG = "LabsRecyclerView";
 
     private ArrayList<ResearchLab> items = new ArrayList<>();
-
+    String uid;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_research_labs_recycler_view);
         Log.d(TAG, "onCreate: started");
-
-        initComponents();
-        initRecycler();
-    }
-
-    private void initComponents() {
-
-        Log.d(TAG, "initImage: started");
-        String url = "https://drive.google.com/uc?export=download&id=1y72ODb4maSRFbO-rjuJTVIEJC20LUmti";
-        //Room room = new Room("123","A-403","RnD Block",0,url,"",40,"","",10);
-        ResearchLab room = new ResearchLab();
-        //for (int i = 0; i < 15; i++) {
-        //    items.add(room);
-        //}
+        uid = getIntent().getStringExtra("UTYPE");
         loadLabData();
     }
 
@@ -67,6 +54,7 @@ public class ResearchLabsRecyclerView extends AppCompatActivity  {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 items.clear();
                 for(DataSnapshot snapshot:dataSnapshot.getChildren()){
+
                     ResearchLab rLab = snapshot.getValue(ResearchLab.class);
                     items.add(rLab);
                 }
@@ -89,7 +77,7 @@ public class ResearchLabsRecyclerView extends AppCompatActivity  {
     private void initRecycler() {
         Log.d(TAG, "initComponents: started");
         RecyclerView recyclerView = findViewById(R.id.research_labs_recycler_view);
-        ResearchLabsRecyclerViewAdaptor adapter = new ResearchLabsRecyclerViewAdaptor(items, this);
+        ResearchLabsRecyclerViewAdaptor adapter = new ResearchLabsRecyclerViewAdaptor(items, this,uid);
         recyclerView.setAdapter(adapter);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);

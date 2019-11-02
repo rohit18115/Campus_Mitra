@@ -1,14 +1,13 @@
 package com.team13.campusmitra;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
-import android.content.Intent;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -19,39 +18,41 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.team13.campusmitra.dataholder.Project;
+import com.team13.campusmitra.dataholder.ResearchLab;
 import com.team13.campusmitra.firebaseassistant.FirebaseProjectHelper;
+import com.team13.campusmitra.firebaseassistant.FirebaseResearchLabHelper;
 
 import java.io.IOException;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class ProjectImageEdit extends AppCompatActivity {
+public class ResearchLabImageEdit extends AppCompatActivity{
+
     Button update;
     Button delete;
     TextView buffer;
     TextView click_to_choose;
-    Project project;
+    ResearchLab researchLab;
     ProgressBar progressBar;
-    private CircleImageView projectImage;
+    private CircleImageView rlImage;
     private static final int PICK_IMAGE=1;
     Intent intent;
     Uri imageUri;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.dialog_edit_project_image);
-        project = (Project) getIntent().getSerializableExtra("Project");
-        update = findViewById(R.id.dialog_edit_projectimg_update_btn);
-        click_to_choose = findViewById(R.id.update_project_img);
-        delete = findViewById(R.id.dialog_edit_projectimg_delete_btn);
-        buffer = findViewById(R.id.Add_projimg_Buffer);
-        projectImage = findViewById(R.id.edit_img_proj);
-        progressBar = findViewById(R.id.proj_img_UPpbar);
+        setContentView(R.layout.dialog_rlab_image_edit);
+        researchLab = (ResearchLab) getIntent().getSerializableExtra("Reseach Lab");
+        update = findViewById(R.id.dialog_edit_rlimg_update_btn);
+        click_to_choose = findViewById(R.id.update_rl_img);
+        delete = findViewById(R.id.dialog_edit_rlimg_delete_btn);
+        buffer = findViewById(R.id.Add_rlimg_Buffer);
+        rlImage = findViewById(R.id.edit_img_rl);
+        progressBar = findViewById(R.id.rl_img_UPpbar);
         click_to_choose.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -60,15 +61,15 @@ public class ProjectImageEdit extends AppCompatActivity {
                 gallery.setAction(Intent.ACTION_GET_CONTENT);
                 progressBar.setVisibility(View.VISIBLE);
                 startActivityForResult(Intent.createChooser(gallery,"Seclect Picture"),PICK_IMAGE);
-                projectImage.setVisibility(View.VISIBLE);
+                rlImage.setVisibility(View.VISIBLE);
 
             }
         });
         update.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                FirebaseProjectHelper helper = new FirebaseProjectHelper();
-                helper.updateProject(ProjectImageEdit.this,project);
+                FirebaseResearchLabHelper helper = new FirebaseResearchLabHelper();
+                helper.updateReseachLab(ResearchLabImageEdit.this, researchLab);
                 finish();
 
             }
@@ -77,25 +78,25 @@ public class ProjectImageEdit extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                project.setProjectImageURL("");
-                FirebaseProjectHelper helper = new FirebaseProjectHelper();
-                helper.updateProject(ProjectImageEdit.this,project);
+                researchLab.setImageURL("");
+                FirebaseResearchLabHelper helper = new FirebaseResearchLabHelper();
+                helper.updateReseachLab(ResearchLabImageEdit.this, researchLab);
                 finish();
             }
         });
 
     }
     private String uploadImageToFirebase() {
-        final StorageReference ProjectImageREf = FirebaseStorage.getInstance().getReference("ProjectImageRef.jpg");
+        final StorageReference RLImageREf = FirebaseStorage.getInstance().getReference("RLImageRef.jpg");
         String result="";
         if (imageUri != null) {
-            ProjectImageREf.putFile(imageUri).continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
+            RLImageREf.putFile(imageUri).continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
                 @Override
                 public Task<Uri> then(@NonNull Task<UploadTask.TaskSnapshot> task) throws Exception {
                     if(!task.isSuccessful()){
                         throw task.getException();
                     }
-                    return ProjectImageREf.getDownloadUrl();
+                    return RLImageREf.getDownloadUrl();
                 }
             }).addOnCompleteListener(new OnCompleteListener<Uri>() {
                 @Override
@@ -105,9 +106,9 @@ public class ProjectImageEdit extends AppCompatActivity {
                         buffer.setText(uri.toString());
                         progressBar.setVisibility(View.GONE);
                         Log.d("URL", "onComplete: " + uri.toString());
-                        project.setProjectImageURL(buffer.getText().toString().trim());
-                        FirebaseProjectHelper helper = new FirebaseProjectHelper();
-                        helper.updateProject(ProjectImageEdit.this,project);
+                        researchLab.setImageURL(buffer.getText().toString().trim());
+                        FirebaseResearchLabHelper helper = new FirebaseResearchLabHelper();
+                        helper.updateReseachLab(ResearchLabImageEdit.this, researchLab);
                     }
                 }
             });
@@ -122,13 +123,11 @@ public class ProjectImageEdit extends AppCompatActivity {
 
             try{
                 Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(),imageUri);
-                projectImage.setImageBitmap(bitmap);
+                rlImage.setImageBitmap(bitmap);
                 uploadImageToFirebase();
             }catch (IOException e){
                 e.printStackTrace();
             }
         }
     }
-
-
 }

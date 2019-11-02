@@ -7,6 +7,7 @@ import androidx.cardview.widget.CardView;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Vibrator;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -15,6 +16,7 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 import com.bumptech.glide.Glide;
@@ -23,7 +25,10 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
+import com.team13.campusmitra.dataholder.Faculty;
+import com.team13.campusmitra.dataholder.OfficeHours;
 import com.team13.campusmitra.dataholder.User;
+import com.team13.campusmitra.firebaseassistant.FirebaseFacultyHelper;
 import com.team13.campusmitra.firebaseassistant.FirebaseUserHelper;
 public class DashboardProfessor extends AppCompatActivity {
     CardView rl;
@@ -31,7 +36,7 @@ public class DashboardProfessor extends AppCompatActivity {
     ImageView image;
     TextView nameTV;
     User user;
-
+    Faculty f = null;
 
     protected void loadImage() {
 
@@ -80,12 +85,45 @@ public class DashboardProfessor extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dashboard_professor);
+
+        ImageView imageView = (ImageView) findViewById(R.id.imgViewProf);
+        imageView.setOnLongClickListener(new View.OnLongClickListener() {
+
+            @Override
+            public boolean onLongClick(View v) {
+                Intent intent2 = new Intent(getApplicationContext(), FacultyProfileDisplay.class);
+
+                startActivity(intent2);
+                return true;
+            }
+        });
+
+
         rl = findViewById(R.id.proff_views_rl);
         rl.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(DashboardProfessor.this, GotoAddEditRL.class);
+                intent.putExtra("USER",user);
                 startActivity(intent);
+            }
+        });
+
+        new FirebaseFacultyHelper().getReference().addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for(DataSnapshot snapshot:dataSnapshot.getChildren()){
+                    Faculty faculty = snapshot.getValue(Faculty.class);
+                    if(faculty.getUserID().toLowerCase().equals(user.getUserId().toLowerCase())){
+                        f = faculty;
+                        break;
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
             }
         });
 
@@ -126,6 +164,23 @@ public class DashboardProfessor extends AppCompatActivity {
                 i1.setData(Uri.parse(url1));
                 startActivity(i1);
                 return true;
+            case R.id.dnd:
+                if(f!=null){
+                    OfficeHours officeHours = f.getOfficeHours();
+                    int i  = officeHours.getDnd();
+                    if(i==0){
+                        i=1;
+                    }
+                    else{i=0;}
+                    officeHours.setDnd(i);
+                    f.setOfficeHours(officeHours);
+                    FirebaseFacultyHelper helper = new FirebaseFacultyHelper();
+                    helper.addFaculty(getApplicationContext(),f);
+                }
+                else{
+                    Toast.makeText(getApplicationContext(),"DND cannot be applied yet!!",Toast.LENGTH_LONG).show();
+                }
+                return true;
             case R.id.logout:
                 FirebaseAuth auth = FirebaseAuth.getInstance();
                 auth.signOut();
@@ -137,6 +192,13 @@ public class DashboardProfessor extends AppCompatActivity {
 
         }
         return super.onOptionsItemSelected(item);
+    }
+
+
+    public void sendtoViewCourse(View view){
+        Intent intent = new Intent(getApplicationContext(), viewcourse_student.class);
+        //intent.putExtra("userType",1);
+        startActivity(intent);
     }
 
     public void send_to_recyc(View view)

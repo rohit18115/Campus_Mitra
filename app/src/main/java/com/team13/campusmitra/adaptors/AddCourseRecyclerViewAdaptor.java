@@ -39,6 +39,13 @@ public class AddCourseRecyclerViewAdaptor extends  RecyclerView.Adapter<AddCours
         this.courseArray = courseArray;
         this.activity = activity;
     }
+    String s=null;
+    public AddCourseRecyclerViewAdaptor(Course[] courseArray,AppCompatActivity activity,String sss){
+        this.s= sss;
+        this.courseArray = courseArray;
+        this.activity = activity;
+
+    }
 
     public AddCourseRecyclerViewAdaptor() {
     }
@@ -67,6 +74,7 @@ public class AddCourseRecyclerViewAdaptor extends  RecyclerView.Adapter<AddCours
         holder.myLayout.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View view) {
+                if(s==null)
                 showEditDialog(course);
                 return false;
             }

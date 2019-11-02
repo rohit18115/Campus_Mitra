@@ -1,11 +1,11 @@
 package com.team13.campusmitra.fragments;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -45,10 +45,8 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.team13.campusmitra.DatePickerFragment;
 import com.team13.campusmitra.R;
-import com.team13.campusmitra.StudentExternalDisplay;
 import com.team13.campusmitra.dataholder.User;
 import com.team13.campusmitra.firebaseassistant.FirebaseUserHelper;
-import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 
 import java.io.IOException;
 
@@ -78,14 +76,15 @@ public class BasicProfileFragment extends Fragment implements View.OnClickListen
 
     public static final int REQUEST_CODE = 11; // Used to identify the result
 
+    private Context context;
 
-
-    public BasicProfileFragment() {
+    public BasicProfileFragment(Context context) {
         // Required empty public constructor
+        this.context = context;
     }
 
-    public static BasicProfileFragment newInstance() {
-        BasicProfileFragment fragment = new BasicProfileFragment();
+    public static BasicProfileFragment newInstance(Context context) {
+        BasicProfileFragment fragment = new BasicProfileFragment(context);
         return fragment;
     }
 
@@ -96,7 +95,7 @@ public class BasicProfileFragment extends Fragment implements View.OnClickListen
 
 
     protected void initComponent(View view) {
-        image = (CircleImageView) view.findViewById(R.id.fbp_profile_image);
+        image = view.findViewById(R.id.fbp_profile_image);
         name = view.findViewById(R.id.fbp_profile_name);
         dob = view.findViewById(R.id.fbp_dob);
         uname = view.findViewById(R.id.fbp_user_name);
@@ -173,7 +172,7 @@ public class BasicProfileFragment extends Fragment implements View.OnClickListen
                     user.setUserPersonalMail(oEmail);
                     if(buff!=null && !buff.isEmpty())
                         user.setImageUrl(buff);
-                    new FirebaseUserHelper().updateUser(getActivity(), user);
+                    new FirebaseUserHelper().updateUser(context, user);
                 }
             }
             @Override
@@ -231,7 +230,7 @@ public class BasicProfileFragment extends Fragment implements View.OnClickListen
             case R.id.fbp_fab:
                 animateFab();
                 fab.setImageResource(R.drawable.ic_check);
-                Snackbar.make(view, "Click on each component to edit.", Snackbar.LENGTH_LONG)
+                Snackbar.make(view, "Click on each component to edit.", Snackbar.LENGTH_LONG).setTextColor(Color.WHITE)
                         .setAction("Action", null).show();
                 name.setEnabled(true);
                 image.setEnabled(true);
@@ -263,7 +262,7 @@ public class BasicProfileFragment extends Fragment implements View.OnClickListen
                     public void onClick(DialogInterface dialog, int which) {
                         name.setText(ETFirstName.getEditableText().toString()+" "+ETLastName.getEditableText().toString());
                         uploadData();
-                        Toast.makeText(getActivity(),"Name has been successfully changed",Toast.LENGTH_LONG).show();
+                        Toast.makeText(context,"Name has been successfully changed",Toast.LENGTH_LONG).show();
                     }
                 });
 
@@ -297,12 +296,12 @@ public class BasicProfileFragment extends Fragment implements View.OnClickListen
                         if(isValidMail(mail)) {
                             oemail.setText(mail);
                             uploadData();
-                            Toast.makeText(getActivity(),"Email has been successfully changed",Toast.LENGTH_SHORT).show();
+                            Toast.makeText(context,"Email has been successfully changed",Toast.LENGTH_SHORT).show();
                         }
                         else {
                             ETOEmail.setError("Not a valid Email", null);
                             ETOEmail.requestFocus();
-                            Toast.makeText(getActivity(),"Not a Valid Email, Try Again",Toast.LENGTH_SHORT).show();
+                            Toast.makeText(context,"Not a Valid Email, Try Again",Toast.LENGTH_SHORT).show();
                         }
                     }
                     private boolean isValidMail(String mail) {
@@ -337,7 +336,7 @@ public class BasicProfileFragment extends Fragment implements View.OnClickListen
                     public void onClick(DialogInterface dialog, int which) {
                         uname.setText(ETUName.getEditableText().toString());
                         uploadData();
-                        Toast.makeText(getActivity(),"Name has been successfully changed",Toast.LENGTH_LONG).show();
+                        Toast.makeText(context,"Name has been successfully changed",Toast.LENGTH_LONG).show();
                     }
                 });
 
@@ -370,7 +369,7 @@ public class BasicProfileFragment extends Fragment implements View.OnClickListen
                         pb.setVisibility(View.VISIBLE);
                         startActivityForResult(Intent.createChooser(gallery,"Seclect Picture"),PICK_IMAGE);
                         uploadData();
-                        Toast.makeText(getActivity(),"Image has been successfully changed",Toast.LENGTH_LONG).show();
+                        Toast.makeText(context,"Image has been successfully changed",Toast.LENGTH_LONG).show();
 
                     }
                 });
@@ -382,14 +381,14 @@ public class BasicProfileFragment extends Fragment implements View.OnClickListen
                 uname.setEnabled(true);
                 oemail.setEnabled(true);
                 dob.setEnabled(true);
-                final FragmentManager fm = ((AppCompatActivity)getActivity()).getSupportFragmentManager();
+                final FragmentManager fm = ((AppCompatActivity)context).getSupportFragmentManager();
                 AppCompatDialogFragment newFragment = new DatePickerFragment();
                 // set the targetFragment to receive the results, specifying the request code
                 newFragment.setTargetFragment(BasicProfileFragment.this, REQUEST_CODE);
                 // show the datePicker
                 newFragment.show(fm, "datePicker");
                 uploadData();
-                Toast.makeText(getActivity(),"Date of Birth has been successfully changed",Toast.LENGTH_LONG).show();
+                Toast.makeText(context,"Date of Birth has been successfully changed",Toast.LENGTH_LONG).show();
                 break;
         }
     }
@@ -405,7 +404,7 @@ public class BasicProfileFragment extends Fragment implements View.OnClickListen
             imageUri = data.getData();
 
             try{
-                Bitmap bitmap = MediaStore.Images.Media.getBitmap(getActivity().getApplicationContext().getContentResolver(),imageUri);
+                Bitmap bitmap = MediaStore.Images.Media.getBitmap(context.getApplicationContext().getContentResolver(),imageUri);
                 image.setImageBitmap(bitmap);
                 uploadImageToFirebase();
             }catch (IOException e){
