@@ -19,11 +19,7 @@
         android:theme="@style/AppTheme">
         <activity android:name=".LabPageActivity"></activity>
         <activity android:name=".FacultyProfileDisplay">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity android:name=".StudentProfileDisplay">
 
@@ -55,7 +51,11 @@
         <activity android:name=".NewDashboard" />
         <activity android:name=".LabsRecyclerView" /><!-- <activity android:name=".VerifyActivity" /> -->
         <activity android:name=".StudentProfile" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity android:name=".UserProfile" />
         <activity android:name=".Rooms" />

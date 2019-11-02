@@ -28,6 +28,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
+import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -291,23 +292,24 @@ public class StudentProfile extends AppCompatActivity implements View.OnClickLis
         progressDialog.setTitle("Uploading File");
         progressDialog.setProgress(0);
         progressDialog.show();
-        final String fileName = System.currentTimeMillis()+"";
-        StorageReference storageReference = storage.getReference();
 
-        storageReference.child("Uploads").child(fileName).putFile(pdfUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+
+        final String fileName = System.currentTimeMillis()+"";
+        final StorageReference storageReference = storage.getReference().child(fileName);
+
+        storageReference.putFile(pdfUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
             @Override
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                resumeUrl = taskSnapshot.getMetadata().getReference().getDownloadUrl().toString().trim();
-                DatabaseReference reference = database.getReference();
-                reference.child(fileName).setValue(resumeUrl).addOnCompleteListener(new OnCompleteListener<Void>() {
+                storageReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                     @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        if(task.isSuccessful())
-                            Toast.makeText(StudentProfile.this,"File successfully uploaded",Toast.LENGTH_SHORT).show();
-                        else
-                            Toast.makeText(StudentProfile.this,"File not uploaded", Toast.LENGTH_SHORT).show();
+                    public void onSuccess(Uri uri) {
+                        final Uri downloadUrl = uri;
+                        resumeUrl = downloadUrl.toString();
+                        Log.d("Url",resumeUrl);
+
                     }
                 });
+
 
 
             }
@@ -323,6 +325,8 @@ public class StudentProfile extends AppCompatActivity implements View.OnClickLis
                 progressDialog.setProgress(currentProgess);
             }
         });
+
+
 
     }
 
