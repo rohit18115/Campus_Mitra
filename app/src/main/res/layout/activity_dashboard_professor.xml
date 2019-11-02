@@ -173,7 +173,7 @@
                     >
 
                     <ImageView
-                        android:src="@drawable/labs"
+                        android:src="@drawable/labs_dash"
                         android:layout_width="80dp"
                         android:layout_height="80dp"
                         />
