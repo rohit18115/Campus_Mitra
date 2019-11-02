@@ -160,17 +160,19 @@
                     android:gravity="center">
 
                     <ImageView
-                        android:src="@drawable/labs"
                         android:layout_width="80dp"
                         android:layout_height="80dp"
-                        />
+                        android:onClick="send_to_ResearchLabs"
+                        android:src="@drawable/labs" />
+
                     <TextView
 
-                        android:text="Know your Labs"
-                        android:textSize="14sp"
-                        android:layout_marginTop="12dp"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="12dp"
+                        android:onClick="send_to_ResearchLabs"
+                        android:text="Know your Labs"
+                        android:textSize="14sp" />
                 </LinearLayout>
 
 

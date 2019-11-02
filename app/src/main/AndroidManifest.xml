@@ -38,6 +38,8 @@
         <activity android:name=".AddCourseActivity" />
         <activity android:name=".AddTimeTableActivity" />
         <activity android:name=".DashboardAdmin" />
+        <activity android:name=".ProjectImageEdit"/>
+        <activity android:name=".ResearchLabImageEdit"/>
         <activity android:name=".DashboardProfessor" />
         <activity android:name=".SelectCoursesRecyclerViewAdaptor" />
         <activity android:name=".SelectCoursesRecyclerView" />

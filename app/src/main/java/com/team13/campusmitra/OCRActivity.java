@@ -202,6 +202,7 @@ public class OCRActivity extends AppCompatActivity {
                         Intent intent = new Intent(getApplicationContext(),R_Lab.class);
                         intent.putExtra("ROOM",room);
                         intent.putExtra("RL",researchLab);
+                        intent.putExtra("Come from", "OCR");
                         startActivity(intent);
                         finish();
                     }
