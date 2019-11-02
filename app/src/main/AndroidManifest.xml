@@ -18,6 +18,7 @@
         android:theme="@style/AppTheme">
         <activity android:name=".EditRoomsDetails"></activity>
         <activity android:name=".RoomListDisplayActivity" />
+        <activity android:name=".viewcourse_student"></activity>
         <activity android:name=".LabPageActivity" android:screenOrientation="portrait" />
         <activity android:name=".FacultyProfileDisplay" android:screenOrientation="portrait" />
         <activity android:name=".StudentProfileDisplay" android:screenOrientation="portrait"/>

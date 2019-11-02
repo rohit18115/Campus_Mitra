@@ -18,6 +18,8 @@ public class StudentProfileDisplay extends AppCompatActivity  {
         getSupportActionBar().setElevation(0);
 
         TabLayout tabLayout = findViewById(R.id.spd_tab_layout);
+        tabLayout.addTab(tabLayout.newTab().setText("Basic Info"));
+        tabLayout.addTab(tabLayout.newTab().setText("Advanced Info"));
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
         final ViewPager viewPager = findViewById(R.id.spd_pager);

@@ -7,6 +7,7 @@ import androidx.cardview.widget.CardView;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Vibrator;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -31,7 +32,6 @@ public class DashboardProfessor extends AppCompatActivity {
     ImageView image;
     TextView nameTV;
     User user;
-
 
     protected void loadImage() {
 
@@ -80,6 +80,20 @@ public class DashboardProfessor extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dashboard_professor);
+
+        ImageView imageView = (ImageView) findViewById(R.id.imgViewProf);
+        imageView.setOnLongClickListener(new View.OnLongClickListener() {
+
+            @Override
+            public boolean onLongClick(View v) {
+                Intent intent2 = new Intent(getApplicationContext(), FacultyProfileDisplay.class);
+
+                startActivity(intent2);
+                return true;
+            }
+        });
+
+
         rl = findViewById(R.id.proff_views_rl);
         rl.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -137,6 +151,13 @@ public class DashboardProfessor extends AppCompatActivity {
 
         }
         return super.onOptionsItemSelected(item);
+    }
+
+
+    public void sendtoViewCourse(View view){
+        Intent intent = new Intent(getApplicationContext(), viewcourse_student.class);
+        //intent.putExtra("userType",1);
+        startActivity(intent);
     }
 
     public void send_to_recyc(View view)
