@@ -384,5 +384,14 @@ public class StudentProfile extends AppCompatActivity implements View.OnClickLis
 
     }
 
+    @Override
+    public void onBackPressed () {
+
+        super.onBackPressed();
+        FirebaseAuth auth = FirebaseAuth.getInstance();
+        auth.signOut();
+
+    }
+
 }
 

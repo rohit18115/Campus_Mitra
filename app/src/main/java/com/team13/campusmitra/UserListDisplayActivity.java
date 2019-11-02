@@ -24,6 +24,7 @@ import com.team13.campusmitra.adaptors.StudentListDisplayAdaptor;
 import com.team13.campusmitra.dataholder.Faculty;
 import com.team13.campusmitra.dataholder.Student;
 import com.team13.campusmitra.dataholder.User;
+import com.team13.campusmitra.firebaseassistant.FirebaseStudentHelper;
 import com.team13.campusmitra.firebaseassistant.FirebaseUserHelper;
 
 import java.util.ArrayList;
@@ -59,48 +60,6 @@ public class UserListDisplayActivity extends AppCompatActivity {
            loadStudentData();
         else
             loadProfData();
-    }
-
-    private void initProfComponent() {
-        Log.d(TAG, "initImage: started");
-        String url = "https://drive.google.com/uc?export=download&id=1y72ODb4maSRFbO-rjuJTVIEJC20LUmti";
-        User user = new User();
-        user.setUserFirstName("Rohit");
-        user.setUserLastName("Arora");
-        user.setUserEmail("rohit18115@iiitd.ac.in");
-        User user1 = new User();
-        user1.setUserFirstName("Himanshi");
-        user1.setUserLastName("Singh");
-        user1.setUserEmail("himanshi18073@iiitd.ac.in");
-        Faculty prof = new Faculty();
-        for (int i = 0; i < 15; i++) {
-            items.add(user);
-            profs.add(prof);
-            items.add(user1);
-            profs.add(prof);
-        }
-    }
-
-    private void initStudentComponents() {
-
-        Log.d(TAG, "initImage: started");
-        String url = "https://drive.google.com/uc?export=download&id=1y72ODb4maSRFbO-rjuJTVIEJC20LUmti";
-        User user = new User();
-        user.setImageUrl(url);
-        user.setUserFirstName("Himanshi");
-        user.setUserLastName("Singh");
-        user.setUserEmail("himanshi18073@iiitd.ac.in");
-        User user1 = new User();
-        user1.setUserFirstName("Rohit");
-        user1.setUserLastName("Arora");
-        user1.setUserEmail("rohit18115@iiitd.ac.in");
-        Student student = new Student();
-        for (int i = 0; i < 1; i++) {
-            items.add(user);
-            students.add(student);
-//            items.add(user1);
-//            students.add(student);
-        }
     }
 
     private void initRecycler() {
@@ -162,7 +121,7 @@ public class UserListDisplayActivity extends AppCompatActivity {
                     User user = snapshot.getValue(User.class);
                     if(user.getUserType()==0) {
                         items.add(user);
-                        students.add(new Student());
+                        FirebaseStudentHelper help = new FirebaseStudentHelper();
                         Log.d("lololo", "onDataChange: " + user.getUserLastName());
                     }
                 }

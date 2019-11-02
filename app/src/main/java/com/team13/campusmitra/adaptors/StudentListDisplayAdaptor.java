@@ -56,11 +56,26 @@ public class StudentListDisplayAdaptor extends RecyclerView.Adapter<StudentListD
         Log.d(TAG, "onBindViewHolder: called");
         final User user = items.get(position);
         //final Student student = students.get(position);
-        Glide.with(mContext)
+        String gender=user.getGender();
+        if (gender.equals("Male")) {
+            Glide.with(mContext)
+                    .asBitmap()
+                    .load(user.getImageUrl())
+                    .placeholder(R.drawable.blankboy)
+                    .into(holder.image);
+        }
+        else{
+            Glide.with(mContext)
+                    .asBitmap()
+                    .load(user.getImageUrl())
+                    .placeholder(R.drawable.blankgirl)
+                    .into(holder.image);
+        }
+        /*Glide.with(mContext)
                 .asBitmap()
                 .load(user.getImageUrl())
-                .placeholder(R.drawable.ic_loading)
-                .into(holder.image);
+                .placeholder(R.drawable.blankgirl)
+                .into(holder.image);*/
         holder.tv1.setText(user.getUserFirstName() + " " + user.getUserLastName());
         holder.tv2.setText("Departments");
         holder.tv3.setText(user.getUserEmail());

@@ -2,6 +2,7 @@ package com.team13.campusmitra;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatCheckBox;
 
 import android.content.Context;
 import android.content.Intent;
@@ -9,10 +10,13 @@ import android.graphics.Color;
 import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.os.Handler;
+import android.text.method.HideReturnsTransformationMethod;
+import android.text.method.PasswordTransformationMethod;
 import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
@@ -48,6 +52,7 @@ public class SignInSplash extends AppCompatActivity {
     Button signupbtn,forgotPasswordbtn;
     RelativeLayout coordinatorLayout;
     EditText etEmail,etPassword;
+    private AppCompatCheckBox checkbox;
     Button loginbtn;
 
     Handler handler = new Handler();
@@ -57,13 +62,34 @@ public class SignInSplash extends AppCompatActivity {
             launchActivity();
         }
     };
+
+
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_in_splash);
 
         //Mukul added this
-//        startActivity(new Intent(this,OpenDialogue.class));
+        //startActivity(new Intent(this,VacantRoomDetails.class));
+
+        checkbox = (AppCompatCheckBox) findViewById(R.id.checkbox);
+        etPassword = (EditText) findViewById(R.id.et_signin_pswd);
+
+        checkbox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
+                if (isChecked) {
+                    // show password
+                    etPassword.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+                } else {
+                    // hide password
+                    etPassword.setTransformationMethod(PasswordTransformationMethod.getInstance());
+                }
+            }
+        });
 
         emailHolders = new ArrayList<>();
         loadFacultyEmail();
@@ -252,12 +278,15 @@ public class SignInSplash extends AppCompatActivity {
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                     User myuser = dataSnapshot.getValue(User.class);
                     if(myuser==null){
+                        Log.d("lol", "onDataChange: dashboard  myuser null");
                         Intent intent = new Intent(getApplicationContext(), UserProfile.class);
                         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                         startActivity(intent);
 
                     }
                     else if(myuser.getProfileCompleteCount()==0) {
+                        Log.d("lol", "onDataChange: "+myuser.getUserEmail());
+                        Log.d("lol", "onDataChange: dashboard  profile count 0");
                         Intent intent = new Intent(getApplicationContext(), UserProfile.class);
                         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                         startActivity(intent);
@@ -285,11 +314,15 @@ public class SignInSplash extends AppCompatActivity {
                             }
                             else{
                                 Toast.makeText(getApplicationContext(),"You are not Approved as faculty contact admin",Toast.LENGTH_LONG).show();
+                                FirebaseAuth auth = FirebaseAuth.getInstance();
+                                auth.signOut();
+                                finish();
                             }
 
                         }
                     }
                     else{
+                        Log.d("lol", "onDataChange: dashboard ");
                         if(myuser.getUserType()==0){
                             Intent intent = new Intent(getApplicationContext(),NewDashboard.class);
                             intent.putExtra("MYKEY",myuser);
@@ -298,6 +331,7 @@ public class SignInSplash extends AppCompatActivity {
                         }
                         else {
                             Intent intent = new Intent(getApplicationContext(), DashboardProfessor.class);
+                            intent.putExtra("MYKEY",myuser);
                             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                             startActivity(intent);
                         }
@@ -354,12 +388,13 @@ public class SignInSplash extends AppCompatActivity {
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                         User myuser = dataSnapshot.getValue(User.class);
                         if(myuser==null){
+                            Log.d("lolo", "My user null");
                             Intent intent = new Intent(SignInSplash.this, UserProfile.class);
                             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                             startActivity(intent);
 
                         }
-                        else if(myuser.getProfileCompleteCount()==2){
+                        else if(myuser.getProfileCompleteCount()==1){
                             if(myuser.getUserType()==0){
                                 Intent intent = new Intent(SignInSplash.this, StudentProfile.class);
                                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
@@ -367,6 +402,7 @@ public class SignInSplash extends AppCompatActivity {
 
                             }
                             else{
+                                Log.d("lolo", "lolollkyuuunn ");
                                 String em = user.getEmail();
                                 boolean flag = false;
                                 for(EmailHolder h :emailHolders){
@@ -387,6 +423,7 @@ public class SignInSplash extends AppCompatActivity {
                             }
                         }
                         else{
+                            Log.d("lol", "lol"+myuser.getProfileCompleteCount());
                             if(myuser.getUserType()==0){
                                 Intent intent = new Intent(SignInSplash.this,NewDashboard.class);
                                 intent.putExtra("MYKEY",myuser);
@@ -395,6 +432,7 @@ public class SignInSplash extends AppCompatActivity {
                             }
                             else {
                                 Intent intent = new Intent(SignInSplash.this, DashboardProfessor.class);
+                                intent.putExtra("MYKEY",myuser);
                                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                                 startActivity(intent);
                             }

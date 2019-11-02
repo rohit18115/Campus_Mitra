@@ -1,10 +1,16 @@
 package com.team13.campusmitra;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.ValueEventListener;
 import com.team13.campusmitra.dataholder.Course;
+import com.team13.campusmitra.firebaseassistant.FirebaseCoursesHelper;
 
 import android.content.Intent;
 import android.view.Menu;
@@ -27,7 +33,7 @@ public class SelectCoursesRecyclerView extends AppCompatActivity {
 
     private static final String TAG = "SelectCoursesRecyclerView";
 
-    private List<CourseSelectModel> mModelList;
+    private List<CourseSelectModel> items;
     FloatingActionButton fab;
     Animation rotateForward, rotateBackward;
     boolean isOpen = false;
@@ -50,10 +56,9 @@ public class SelectCoursesRecyclerView extends AppCompatActivity {
             public void onClick(View view) {
 //                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
 //                        .setAction("Action", null).show();
-                for (CourseSelectModel model : mModelList) {
+                for (CourseSelectModel model : items) {
                     if (model.isSelected()) {
                         selected.add(model.getCourse().getCourseName());
-                        //text += model.getCourse().getCourseName()+"\n";
                     }
                 }
                 Intent intent1 = new Intent();
@@ -67,7 +72,6 @@ public class SelectCoursesRecyclerView extends AppCompatActivity {
         });
 
         initComponents();
-        initRecycler();
     }
 
     private void animateFab(){
@@ -77,29 +81,40 @@ public class SelectCoursesRecyclerView extends AppCompatActivity {
 
     }
 
-    private List<CourseSelectModel> initComponents() {
+    private void initComponents() {
 
-        Log.d(TAG, "initImage: started");
-        String prof = "saku baby";
-        String code = "A-403";
-        String name = "Machine Learning";
-        mModelList = new ArrayList<>();
-        Course c = new Course();
-        c.setCourseCode(code);
-        c.setFacultyEmail(prof);
-        c.setCourseName(name);
-        mModelList.add(new CourseSelectModel(c));
-        mModelList.add(new CourseSelectModel(c));
-        mModelList.add(new CourseSelectModel(c));
-        mModelList.add(new CourseSelectModel(c));
+        items = new ArrayList<>();
+        FirebaseCoursesHelper helper = new FirebaseCoursesHelper();
+        DatabaseReference reference = helper.getReference();
+        reference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                items.clear();
+                for(DataSnapshot snapshot:dataSnapshot.getChildren()){
+                    Course course = snapshot.getValue(Course.class);
+                    CourseSelectModel fm = new CourseSelectModel(course);
+                    items.add(fm);
+                }
+                //progressBar.setVisibility(View.GONE);
+                if (items.size()>0) {
+                    Log.d("lololo", "onDataChange: ");
+                    initRecycler();
+                }
 
-        return mModelList;
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+
+        });
     }
 
     private void initRecycler() {
         Log.d(TAG, "initComponents: started");
         RecyclerView recyclerView = findViewById(R.id.select_courses_recycler_view);
-        adapter = new SelectCoursesRecyclerViewAdaptor(initComponents(),this);
+        adapter = new SelectCoursesRecyclerViewAdaptor(items,this);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
     }

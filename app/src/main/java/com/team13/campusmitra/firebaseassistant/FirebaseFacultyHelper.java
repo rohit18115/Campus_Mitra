@@ -18,11 +18,11 @@ public class FirebaseFacultyHelper {
         return  firebaseDatabase;
     }
 
-    public void addStudent(Context context, Faculty faculty) {
+    public void addFaculty(Context context, Faculty faculty) {
 
         String uid = faculty.getUserID();
         firebaseDatabase.child(uid).setValue(faculty);
-        Toast.makeText(context,"Student added successfully!!",Toast.LENGTH_SHORT).show();
+        Toast.makeText(context,"Faculty added successfully!!",Toast.LENGTH_SHORT).show();
 
     }
 }

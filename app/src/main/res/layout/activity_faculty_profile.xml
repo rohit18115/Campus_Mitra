@@ -55,23 +55,26 @@
             android:layout_marginRight="8dp"
             android:text="Select Room"
             android:textSize="16sp"/>
-        <com.google.android.material.textfield.TextInputLayout
+
+        <Button
+            android:id="@+id/FPBdesignation"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-        </com.google.android.material.textfield.TextInputLayout>
-        <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <com.google.android.material.textfield.TextInputEditText
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:fontFamily="sans-serif"
-                android:id="@+id/FPdesignation"
-                android:hint="Designation"
-                android:inputType="text"
-                android:maxLines="1"
-                android:textSize="16sp" />
-        </com.google.android.material.textfield.TextInputLayout>
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:fontFamily="sans-serif"
+            android:text="Select Designation"
+            android:textSize="16dp"
+            android:textStyle="bold" />
+        <TextView
+            android:id="@+id/FPTVdesignation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            android:text="Designation"
+            android:textSize="16sp"/>
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content" >
@@ -167,7 +170,7 @@
             android:gravity="center"
             android:orientation="vertical">
             <Button
-                android:id="@+id/SPnext"
+                android:id="@+id/FPnext"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="16dp"

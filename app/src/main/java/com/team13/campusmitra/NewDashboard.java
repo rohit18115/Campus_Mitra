@@ -8,6 +8,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
+import android.net.Uri;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.team13.campusmitra.dataholder.User;
@@ -21,6 +22,7 @@ public class NewDashboard extends AppCompatActivity {
         setContentView(R.layout.activity_new_dashboard);
         nameTV = findViewById(R.id.student_dashboard_name);
         user  = (User) getIntent().getSerializableExtra("MYKEY");
+
         nameTV.setText("Hello "+user.getUserFirstName()+" "+user.getUserLastName());
     }
     @Override
@@ -42,6 +44,12 @@ public class NewDashboard extends AppCompatActivity {
                 Intent intent2 = new Intent(getApplicationContext(), StudentProfileDisplay.class);
 
                 startActivity(intent2);
+                return true;
+            case R.id.timetable:
+                String url = "https://www.iiitd.ac.in/sites/default/files/docs/admissions/2019/Time%20Table-Monsoon%202019V6.pdf";
+                Intent i = new Intent(Intent.ACTION_VIEW);
+                i.setData(Uri.parse(url));
+                startActivity(i);
                 return true;
             case R.id.logout:
                 FirebaseAuth auth = FirebaseAuth.getInstance();
@@ -79,12 +87,12 @@ public class NewDashboard extends AppCompatActivity {
     }
 
 
-    @Override
-    public void onBackPressed() {
-        super.onBackPressed();
-        FirebaseAuth auth = FirebaseAuth.getInstance();
-        auth.signOut();
-    }
+//    @Override
+//    public void onBackPressed() {
+//        super.onBackPressed();
+//        FirebaseAuth auth = FirebaseAuth.getInstance();
+//        auth.signOut();
+//    }
 
     public void sentToAddRoom(View view) {
     }

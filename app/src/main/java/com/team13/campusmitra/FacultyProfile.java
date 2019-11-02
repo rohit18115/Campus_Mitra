@@ -44,25 +44,26 @@ import java.util.List;
 public class FacultyProfile extends AppCompatActivity implements View.OnClickListener, TimePickerDialog.OnTimeSetListener {
     private static final int PICK_CONTACT_REQUEST = 1 ;
     Button setOfficeHours, courseTaken;
-    private ListView listView,listViewDept,listViewRoom;
+    private ListView listView,listViewDept,listViewRoom,listViewDesignation;
     public static SharedPreferences sharedPreferences;
     public static String SEL_DAY;
     private Toolbar toolbar;
-    AlertDialog dialog,dialog1,dialogDept,dialogRoom;
+    AlertDialog dialog,dialog1,dialogDept,dialogRoom,dialogDesig;
     TextView Day;
     TextView venue;
     WeekAdapter venueadapter;
     TextView display_courses;
     TextView sTime , eTime;
-    Button department, room;
-    TextView dept,rm,designation,domain;
+    Button department, room,designation;
+    TextView dept,rm,desig,domain;
     ArrayList<String> selected;
     int num=0;
 
     protected void initComponents() {
         dept = findViewById(R.id.display_dept);
         rm = findViewById(R.id.display_room);
-        designation = findViewById(R.id.FPdesignation);
+        designation = findViewById(R.id.FPBdesignation);
+        desig = findViewById(R.id.FPTVdesignation);
         domain = findViewById(R.id.FPdomain);
         Day = findViewById(R.id.FPTVday);
         venue = findViewById(R.id.FPTVVenue);
@@ -76,7 +77,7 @@ public class FacultyProfile extends AppCompatActivity implements View.OnClickLis
         try {
             dep = dept.getText().toString();
             room = rm.getText().toString();
-            desi = designation.getText().toString();
+            desi = desig.getText().toString();
             dom = domain.getText().toString();
             day = Day.getText().toString();
             oVenue = venue.getText().toString();
@@ -85,40 +86,45 @@ public class FacultyProfile extends AppCompatActivity implements View.OnClickLis
         } catch (NullPointerException e) {
             Log.d("lolo", "Null pointer exception: ");
         }
-        if(dep.isEmpty()) {
-            dept.setError("Roll Number Can't be empty", null);
+        if(dep.equals("Select Department")) {
+            dept.setError("Department Can't be empty", null);
             department.requestFocus();
-        } else if(desi.isEmpty()) {
-            designation.setError("Roll Number Can't be empty", null);
+        } else if(desi.equals("Select Room")) {
+            desig.setError("Designation Can't be empty", null);
             designation.requestFocus();
         } else {
+            Log.d("lola", "onClick: button next1");
             Faculty faculty = new Faculty();
             faculty.setAvailability(1);
             faculty.setDepartment(dep);
             faculty.setDesignation(desi);
             OfficeHours of = new OfficeHours();
-            if(!day.isEmpty()) {
+            if(!day.equals("Day")) {
                 of.setDay(day);
                 of.setStartTime(oStart);
                 of.setEndTime(oEnd);
                 of.setVenue(oVenue);
                 faculty.setOfficeHours(of);
             }
-            if(!room.isEmpty()) {
+            if(!room.equals("Select Room")) {
+                Log.d("lola", "onClick: button next3");
                 faculty.setRoomNo(room);
 
             }
             if(!dom.isEmpty()) {
+                Log.d("lola", "onClick: button next4");
                 faculty.setDomains(dom);
             }
             if(selected.size()==0) {
+                Log.d("lola", "onClick: button next5");
                 faculty.setCoursesTaken(selected);
             }
             FirebaseAuth auth = FirebaseAuth.getInstance();
             String uid = auth.getCurrentUser().getUid();
             faculty.setUserID(uid);
             FirebaseFacultyHelper helper = new FirebaseFacultyHelper();
-            helper.addStudent(this,faculty);
+            Log.d("lola", "onClick: button next6");
+            helper.addFaculty(this,faculty);
             incrementCount();
         }
     }
@@ -156,6 +162,7 @@ public class FacultyProfile extends AppCompatActivity implements View.OnClickLis
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_faculty_profile);
         Day = findViewById(R.id.FPTVday);
+        initComponents();
         initToolbar();
         setupUIViews();
         setupListView();
@@ -171,6 +178,12 @@ public class FacultyProfile extends AppCompatActivity implements View.OnClickLis
         builderRoom.setCancelable(true);
         builderRoom.setView(listViewRoom);
         dialogRoom = builderRoom.create();
+        AlertDialog.Builder builderDesig = new AlertDialog.Builder(FacultyProfile.this);
+        builderDesig.setCancelable(true);
+        builderDesig.setView(listViewDesignation);
+        dialogDesig = builderDesig.create();
+        Button bt = findViewById(R.id.FPnext);
+        bt.setOnClickListener(this);
     }
 
     @Override
@@ -190,6 +203,7 @@ public class FacultyProfile extends AppCompatActivity implements View.OnClickLis
         listView = new ListView(this);
         listViewDept = new ListView(this);
         listViewRoom = new ListView(this);
+        listViewDesignation = new ListView(this);
         sharedPreferences = getSharedPreferences("MY_DAY", MODE_PRIVATE);
         display_courses = findViewById(R.id.FPTVdisplay_courses);
         department = findViewById(R.id.selectDept);
@@ -198,6 +212,7 @@ public class FacultyProfile extends AppCompatActivity implements View.OnClickLis
         setOfficeHours.setOnClickListener(this);
         courseTaken.setOnClickListener(this);
         department.setOnClickListener(this);
+        designation.setOnClickListener(this);
         room=findViewById(R.id.FPselectroom);
         room.setOnClickListener(this);
         rm=findViewById(R.id.display_room);
@@ -218,6 +233,9 @@ public class FacultyProfile extends AppCompatActivity implements View.OnClickLis
         String[] optionroom = getResources().getStringArray(R.array.Venue);
         final WeekAdapter adapterRoom = new WeekAdapter(this, R.layout.activity_office_hours_day_single_item, optionroom);
         listViewRoom.setAdapter(adapterRoom);
+        String[] optionDesig = getResources().getStringArray(R.array.Designation);
+        final WeekAdapter adapterDesig = new WeekAdapter(this, R.layout.activity_office_hours_day_single_item, optionDesig);
+        listViewDesignation.setAdapter(adapterDesig);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -269,6 +287,19 @@ public class FacultyProfile extends AppCompatActivity implements View.OnClickLis
                                                     //adapter.getItem(position).toString()
                                                     rm.setText(adapterRoom.getItem(position).toString());
                                                     dialogRoom.dismiss();
+
+
+                                                }
+
+                                            }
+
+        );
+        listViewDesignation.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                                                @Override
+                                                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                                                    //adapter.getItem(position).toString()
+                                                    desig.setText(adapterDesig.getItem(position).toString());
+                                                    dialogDesig.dismiss();
 
 
                                                 }
@@ -346,7 +377,11 @@ public class FacultyProfile extends AppCompatActivity implements View.OnClickLis
             case R.id.FPselectroom:
                 dialogRoom.show();
                 break;
-            case R.id.SPnext:
+            case R.id.FPBdesignation:
+                dialogDesig.show();
+                break;
+            case R.id.FPnext:
+                Log.d("lola", "onClick: button next");
                 uploadData();
                 break;
 
@@ -374,6 +409,15 @@ public class FacultyProfile extends AppCompatActivity implements View.OnClickLis
                 }
             }
         }
+    }
+
+    @Override
+    public void onBackPressed () {
+
+        super.onBackPressed();
+        FirebaseAuth auth = FirebaseAuth.getInstance();
+        auth.signOut();
+
     }
 
 }

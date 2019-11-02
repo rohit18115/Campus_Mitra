@@ -1,27 +1,32 @@
 package com.team13.campusmitra;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
-
-import androidx.appcompat.widget.Toolbar;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.ValueEventListener;
+import com.team13.campusmitra.dataholder.Course;
+import com.team13.campusmitra.dataholder.Faculty;
+import com.team13.campusmitra.dataholder.Student;
+import com.team13.campusmitra.dataholder.User;
+import com.team13.campusmitra.firebaseassistant.FirebaseCoursesHelper;
+import com.team13.campusmitra.firebaseassistant.FirebaseUserHelper;
 
 import android.content.Intent;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.content.Context;
-import android.graphics.ColorSpace;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.view.inputmethod.EditorInfo;
 import android.widget.SearchView;
-import android.widget.Toast;
 
 
 import java.util.ArrayList;
@@ -31,12 +36,13 @@ public class FacultyCourseTakenRecyclerView extends AppCompatActivity {
 
     private static final String TAG = "FacultyCourseTakenRecyclerView";
 
-    private List<FacultyCourseTakenModel> mModelList;
+    private List<FacultyCourseTakenModel> items;
     FloatingActionButton fab;
     Animation rotateForward, rotateBackward;
     boolean isOpen = false;
     FacultyCourseTakenRecyclerViewAdaptor adapter;
     String text = "";
+    ArrayList<String> selected = new ArrayList<>();
 
 
 
@@ -58,22 +64,22 @@ public class FacultyCourseTakenRecyclerView extends AppCompatActivity {
             public void onClick(View view) {
 //                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
 //                        .setAction("Action", null).show();
-                for (FacultyCourseTakenModel model : mModelList) {
+                for (FacultyCourseTakenModel model : items) {
                     if (model.isSelected()) {
-                        text += model.getCourseCode();
+                        selected.add(model.getCourse().getCourseName());
                     }
-
-                    Intent intent1 = new Intent(FacultyCourseTakenRecyclerView.this, FacultyProfile.class);
-                    intent1.putExtra("selected_course_code",text);
-                    startActivity(intent1);
-
                 }
+                Intent intent1 = new Intent();
+                Bundle args = new Bundle();
+                args.putSerializable("ARRAYLIST",selected);
+                intent1.putExtra("selected_course_Name",args);
+                setResult(FacultyProfile.RESULT_OK,intent1);
+                finish();
                 animateFab();
             }
         });
 
         initComponents();
-        initRecycler();
     }
 
     private void animateFab(){
@@ -83,27 +89,40 @@ public class FacultyCourseTakenRecyclerView extends AppCompatActivity {
 
     }
 
-    private List<FacultyCourseTakenModel> initComponents() {
+    private void initComponents() {
 
-        Log.d(TAG, "initImage: started");
-        String code = "A-403";
-        String name = "Machine Learning";
-        mModelList = new ArrayList<>();
-        mModelList.add(new FacultyCourseTakenModel(name, code));
-        mModelList.add(new FacultyCourseTakenModel("Deep Learning", "DL101"));
-        mModelList.add(new FacultyCourseTakenModel("Artificial intelligence", "MV101"));
-        mModelList.add(new FacultyCourseTakenModel("qwerty", "hgkghk"));
-        mModelList.add(new FacultyCourseTakenModel(name, code));
-        mModelList.add(new FacultyCourseTakenModel("Deep Learning", "DL101"));
-        mModelList.add(new FacultyCourseTakenModel("Artificial intelligence", "MV101"));
-        mModelList.add(new FacultyCourseTakenModel("qwerty", "hgkghk"));
-        return mModelList;
+        items = new ArrayList<>();
+        FirebaseCoursesHelper helper = new FirebaseCoursesHelper();
+        DatabaseReference reference = helper.getReference();
+        reference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                items.clear();
+                for(DataSnapshot snapshot:dataSnapshot.getChildren()){
+                    Course course = snapshot.getValue(Course.class);
+                    FacultyCourseTakenModel fm = new FacultyCourseTakenModel(course);
+                    items.add(fm);
+                }
+                //progressBar.setVisibility(View.GONE);
+                if (items.size()>0) {
+                    Log.d("lololo", "onDataChange: ");
+                    initRecycler();
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+
+        });
     }
 
     private void initRecycler() {
         Log.d(TAG, "initComponents: started");
         RecyclerView recyclerView = findViewById(R.id.faculty_course_taken_recycler_view);
-        adapter = new FacultyCourseTakenRecyclerViewAdaptor(initComponents(),this);
+        adapter = new FacultyCourseTakenRecyclerViewAdaptor(items,this);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
     }
@@ -135,21 +154,13 @@ public class FacultyCourseTakenRecyclerView extends AppCompatActivity {
 }
 
 class FacultyCourseTakenModel {
-
-    private String courseName, courseCode;
+    private Course course;
     private boolean isSelected = false;
 
-    public FacultyCourseTakenModel(String courseName, String courseCode) {
-        this.courseName = courseName;
-        this.courseCode =  courseCode;
+    public FacultyCourseTakenModel(Course course) {
+        this.course = course;
     }
 
-    public String getCourseName() {
-        return courseName;
-    }
-    public String getCourseCode() {
-        return courseCode;
-    }
 
     public void setSelected(boolean selected) {
         isSelected = selected;
@@ -159,6 +170,13 @@ class FacultyCourseTakenModel {
         return isSelected;
     }
 
+    public Course getCourse() {
+        return course;
+    }
+
+    public void setCourse(Course course) {
+        this.course = course;
+    }
 }
 
 

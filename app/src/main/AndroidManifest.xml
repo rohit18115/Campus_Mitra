@@ -20,15 +20,16 @@
         <activity android:name=".LabPageActivity"></activity>
         <activity android:name=".FacultyProfileDisplay"></activity>
         <activity android:name=".StudentProfileDisplay">
-        </activity>
-        <activity android:name=".AddReasearchLabActivity" />
-        <activity android:name=".VacantRoomDetails" />
-        <activity android:name=".SignInSplash">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity android:name=".AddReasearchLabActivity" />
+        <activity android:name=".VacantRoomDetails" />
+        <activity android:name=".SignInSplash">
+
         </activity>
         <activity android:name=".OpenDialogue" />
         <activity android:name=".ApproveFacultyActivity" />
@@ -44,6 +45,7 @@
         <activity android:name=".TestActivity" />
         <activity android:name=".FacultyCourseTakenRecyclerView" />
         <activity android:name=".FacultyProfile" >
+
         </activity>
         <activity android:name=".SplashActivity" />
         <activity android:name=".OCRActivity" />

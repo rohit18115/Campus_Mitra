@@ -64,7 +64,8 @@
         android:layout_marginRight="16dp"
         android:layout_marginLeft="16dp"
         android:fontFamily="sans-serif"
-        style="@style/Widget.MaterialComponents.Button.Icon"
+        android:textColor="@color/white"
+        android:background="@color/colorPrimary"
         android:text="Add Project"
         android:textStyle="bold"
         android:textSize="16dp" />
