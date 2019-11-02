@@ -23,6 +23,7 @@
                 android:background="@drawable/back">
 
                 <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/imgViewStudent"
                     android:layout_width="90dp"
                     android:layout_height="90dp"
                     android:layout_gravity="center"
@@ -75,8 +76,7 @@
                         android:onClick="send_to_recyc_pro"
                         android:src="@drawable/tchr" />
                     <TextView
-
-                        android:text="Professor Details"
+                        android:text="View Professors"
                         android:textSize="14sp"
                         android:layout_marginTop="12dp"
                         android:layout_width="wrap_content"
@@ -108,7 +108,7 @@
                         android:src="@drawable/studnt" />
                     <TextView
 
-                        android:text="Student Details"
+                        android:text="View Students"
                         android:textSize="14sp"
                         android:layout_marginTop="12dp"
                         android:layout_width="wrap_content"
@@ -131,7 +131,7 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-
+                    android:onClick="sendtoViewCourse"
                     android:orientation="vertical"
                     android:padding="16dp"
                     android:gravity="center">
@@ -173,8 +173,9 @@
                         android:src="@drawable/labs"
                         android:onClick="send_to_recyc_lab"
                         android:layout_width="80dp"
-                        android:layout_height="80dp"
-                        />
+                        android:layout_height="80dp"/>
+
+
                     <TextView
 
                         android:text="Know your Labs"
@@ -182,7 +183,7 @@
                         android:onClick="send_to_recyc_lab"
                         android:layout_marginTop="12dp"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
+                        android:layout_height="wrap_content"/>
                 </LinearLayout>
 
 
@@ -201,6 +202,7 @@
                     android:layout_height="match_parent"
                     android:orientation="vertical"
                     android:padding="16dp"
+                    android:onClick="send_to_stud_profile"
                     android:gravity="center">
 
                     <ImageView
@@ -210,7 +212,7 @@
                         />
                     <TextView
 
-                        android:text="Find Occupancy"
+                        android:text="Edit Profile"
                         android:textSize="14sp"
                         android:layout_marginTop="12dp"
                         android:layout_width="wrap_content"
@@ -240,10 +242,11 @@
                         android:src="@drawable/task"
                         android:layout_width="80dp"
                         android:layout_height="80dp"
+                        android:onClick="send_to_task"
                         />
                     <TextView
 
-                        android:text="Today's task"
+                        android:text="@string/your_appointments"
                         android:textSize="14sp"
                         android:layout_marginTop="12dp"
                         android:layout_width="wrap_content"

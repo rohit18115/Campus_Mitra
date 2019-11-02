@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 public class ResearchLab implements Serializable {
     private  String roomID;
+    private String researchLabNumber;
     private String researchLabName;
     private String imageURL;
     private String videoURL;
@@ -20,6 +21,9 @@ public class ResearchLab implements Serializable {
         this.roomID = roomID;
     }
     public ResearchLab(){
+
+        mentors = new ArrayList<>();
+        projects= new ArrayList<>();
 
     }
     public ResearchLab(String roomID){
@@ -50,12 +54,19 @@ public class ResearchLab implements Serializable {
     public void removeMentor(String mentorID){
         mentors.remove(mentorID);
     }
-       public String getResearchLabName() {
+    public String getResearchLabName() {
         return researchLabName;
     }
 
     public void setResearchLabName(String researchLabName) {
         this.researchLabName = researchLabName;
+    }
+    public String getResearchLabNumber() {
+        return researchLabNumber;
+    }
+
+    public void setResearchLabNumber(String researchLabNumber) {
+        this.researchLabNumber = researchLabNumber;
     }
 
     public String getImageURL() {

@@ -27,6 +27,6 @@ public class FirebaseResearchLabHelper {
     public void updateReseachLab(Context context, ResearchLab rl){
         String uid = rl.getRoomID();
         firebaseDatabase.child(uid).setValue(rl);
-        Toast.makeText(context,"Course updated successfully!!",Toast.LENGTH_SHORT).show();
+        Toast.makeText(context,"Research updated successfully!!",Toast.LENGTH_SHORT).show();
     }
 }

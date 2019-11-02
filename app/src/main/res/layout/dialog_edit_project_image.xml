@@ -12,7 +12,7 @@
         android:id="@+id/edit_project_imagr_cv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-
+        android:layout_gravity="center"
         android:layout_margin="10dp"
         app:cardCornerRadius="16dp"
         app:cardElevation="10dp">
@@ -54,7 +54,7 @@
                     android:paddingBottom="15dp"
                     android:textColorHint="@color/colorPrimaryDark">
 
-                    <com.google.android.material.textfield.TextInputEditText
+                    <TextView
                         android:id="@+id/update_project_img"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -73,7 +73,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="right"
+                android:gravity="center"
                 android:orientation="horizontal">
 
                 <Button
@@ -81,12 +81,16 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="5dp"
+                    android:background="@color/gradStart"
+                    android:textColor="@color/white"
                     android:text="@string/update" />
 
                 <Button
                     android:id="@+id/dialog_edit_projectimg_delete_btn"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:background="@color/gradStart"
+                    android:textColor="@color/white"
                     android:layout_margin="5dp"
                     android:text="@string/delete" />
             </LinearLayout>

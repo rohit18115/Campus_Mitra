@@ -86,7 +86,7 @@
         android:layout_height="1dp"
         android:layout_marginBottom="7dp"
         android:layout_marginTop="7dp"
-        android:background="@color/colorPrimaryDark"
+        android:background="@color/gradStart"
         android:layout_below="@+id/afe_courses"/>
 
     <androidx.appcompat.widget.AppCompatTextView
@@ -114,14 +114,14 @@
         android:layout_height="1dp"
         android:layout_marginBottom="7dp"
         android:layout_marginTop="7dp"
-        android:background="@color/colorPrimaryDark"
+        android:background="@color/gradStart"
         android:layout_below="@+id/afe_domains"/>
 
 
 	<Button
 	    android:id="@+id/afe_appointment"
 	    android:textColor="@color/white"
-	    android:background="@color/colorPrimary"
+	    android:background="@color/gradStart"
 	    android:layout_marginTop="8dp"
 	    android:text="Book Appointment"
 	    android:textSize="17sp"

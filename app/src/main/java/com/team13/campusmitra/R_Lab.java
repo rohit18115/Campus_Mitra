@@ -1,22 +1,35 @@
 package com.team13.campusmitra;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.text.Spanned;
+
+import com.bumptech.glide.Glide;
+import com.team13.campusmitra.dataholder.TimeTableElement;
 import com.team13.campusmitra.dataholder.User;
 import android.text.Html;
 import android.text.method.LinkMovementMethod;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.animation.AnimationUtils;
 import android.view.animation.LayoutAnimationController;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -29,6 +42,8 @@ import com.team13.campusmitra.dataholder.Room;
 import com.team13.campusmitra.firebaseassistant.FirebaseResearchLabHelper;
 import com.team13.campusmitra.firebaseassistant.FirebaseCoursesHelper;
 import com.team13.campusmitra.firebaseassistant.FirebaseProjectHelper;
+import com.team13.campusmitra.firebaseassistant.FirebaseTimeTableHelper;
+import com.team13.campusmitra.firebaseassistant.FirebaseUserHelper;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -39,78 +54,205 @@ public class R_Lab extends AppCompatActivity {
     TextView HyperLink;
     TextView mentor;
     TextView labName;
+    TextView labNumber;
     Spanned Text;
     Projects_Adapter adaptor;
     Button add_proj;
     Room room;
     ResearchLab researchLab;
     Intent myIntent;
-    CircleImageView lab_Image;
+    LinearLayout rl_info;
+    ImageView lab_Image;
     ArrayList<String> proffesors_email;
     ArrayList<String> professors;
     ArrayList<Project> projects;
     //ArrayList<Project> projects_present;
     RecyclerView project_list;
     private int new_project = 0;
+    private boolean editFlag = false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_r_lab);
         myIntent = getIntent();
-        room = (Room) myIntent.getSerializableExtra("ROOM");
-        researchLab = (ResearchLab) myIntent.getSerializableExtra("RL");
+        String from = (String) myIntent.getStringExtra("Come from");
+        String userType = (String) myIntent.getStringExtra("UTYPE");
+        editFlag = false;
+        if(userType.equals("1")){
+            editFlag=true;
+        }
+        if(from!=null&&from.equals("OCR")){
+
+            room = (Room) myIntent.getSerializableExtra("ROOM");
+            researchLab = (ResearchLab) myIntent.getSerializableExtra("RL");
+        }
+        else
+            researchLab = (ResearchLab) myIntent.getSerializableExtra("Research Lab") ;
         HyperLink = findViewById(R.id.r_lab_link);
         mentor = findViewById(R.id.r_lab_mentor);
         labName = findViewById(R.id.r_lab_name);
-        HyperLink.setText(researchLab.getWebPageURL());
+        labNumber = findViewById(R.id.r_lab_number);
         proffesors_email = researchLab.getMentors();
-        FirebaseResearchLabHelper helper = new FirebaseResearchLabHelper();
-            DatabaseReference reference = helper.getReference();
-            reference.addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                    for(DataSnapshot snapshot:dataSnapshot.getChildren()){
-                        User u = snapshot.getValue(User.class);
-                        if(proffesors_email.contains(u.getUserEmail()));
-                            professors.add(u.getUserName());
-                    }
-                }
-
-                @Override
-                public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                }
-            });
-        String proff = "";
-        for(int i = 0; i < professors.size(); i++)
-            proff = proff +", "+professors.get(i);
-        mentor.setText(proff);
-        labName.setText(researchLab.getResearchLabName());
-        //HyperLink = (TextView)findViewById(R.id.r_lab_et3);
+        rl_info = findViewById(R.id.rl_information);
+        lab_Image = findViewById(R.id.r_lab_img);
+        professors = new ArrayList<>();
+        proffesors_email = new ArrayList<>();
         add_proj = findViewById(R.id.add_proj_btn);
         projects = new ArrayList<>();
         project_list = (RecyclerView) findViewById(R.id.proj_list);
+        loadObject();
         loadProjects();
-        add_proj.setOnClickListener(new View.OnClickListener() {
+
+        add_proj.setVisibility(View.GONE);
+        if(editFlag) {
+            add_proj.setVisibility(View.VISIBLE);
+            add_proj.setOnClickListener(new View.OnClickListener() {
+                @Override
+                //************************Have to update intent*********************
+                public void onClick(View view) {
+                    Intent intent = new Intent(R_Lab.this, Add_Project.class);
+                    intent.putExtra("R Lab", researchLab);
+                    startActivity(intent);
+                    loadProjects();
+                }
+            });
+            rl_info.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View view) {
+                    showEditDialog(researchLab, room);
+                    loadObject();
+                    return false;
+                }
+            });
+            lab_Image.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View view) {
+                    Intent intent = new Intent(R_Lab.this, ResearchLabImageEdit.class);
+                    intent.putExtra("Reseach Lab", researchLab);
+                    startActivity(intent);
+                    loadObject();
+                    //finish();
+                    //showEditImageDialog(current);
+
+                    return false;
+                }
+            });
+        }
+
+    }
+
+
+    private void loadObject(){
+        proffesors_email = researchLab.getMentors();
+        Log.d("emails ", String.valueOf(proffesors_email.size()));
+        FirebaseUserHelper helper = new FirebaseUserHelper();
+        DatabaseReference reference = helper.getReference();
+        reference.addValueEventListener(new ValueEventListener() {
+
             @Override
-            //************************Have to update intent*********************
-            public void onClick(View view) {
-                Intent intent = new Intent(R_Lab.this, Add_Project.class);
-                startActivity(intent);
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                professors.clear();
+                for(DataSnapshot snapshot:dataSnapshot.getChildren()){
+                    User u = snapshot.getValue(User.class);
+                    if(proffesors_email.contains(u.getUserEmail())){
+
+                        professors.add(u.getUserName());}
+                }
+
+                String proff = professors.get(0);
+                for(int i = 1; i < professors.size(); i++)
+                    proff = proff +", "+professors.get(i);
+                mentor.setText(proff);
+                labNumber.setText(researchLab.getResearchLabNumber());
+                Glide.with(R_Lab.this)
+                        .asBitmap()
+                        .load(researchLab.getImageURL())
+                        .placeholder(R.drawable.lab_sample)
+                        .into(lab_Image);
+                labName.setText(researchLab.getResearchLabName());
+                HyperLink.setText(researchLab.getWebPageURL());
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
             }
         });
-        //String[] project_items = {"Project 1", "Project 2", "Project 3", "Project 4", "Project 5", "Project 6","Project 7","Project 8","Project 9","Project 10"};
-        /*RecyclerView project_list;
-        project_list = (RecyclerView) findViewById(R.id.proj_list);
-        project_list.setLayoutManager(new LinearLayoutManager(this));
-        String[] project_items = {"Project 1", "Project 2", "Project 3", "Project 4", "Project 5", "Project 6","Project 7","Project 8","Project 9","Project 10"};
-        project_list.setAdapter(new Projects_Adapter(project_items));*/
+    }
+
+    private void showEditDialog(ResearchLab rl, Room r){
+        final AlertDialog dialog;
+        final AlertDialog.Builder alertDialog = new AlertDialog.Builder(R_Lab.this);
+        LayoutInflater inflater = this.getLayoutInflater();
+        final View view = inflater.inflate(R.layout.dialog_edit_researchlab, null);
+        final Spinner actionSpinner = view.findViewById(R.id.dialog_edit_researchlab_spinner);
+        final EditText et = view.findViewById(R.id.dialog_edit_researchlab_et);
+        Button updateBtn = view.findViewById(R.id.dialog_edit_researchlab_update_btn);
+        loadDataInSpinner(actionSpinner,getActions());
+        alertDialog.setView(view);
+        alertDialog.setTitle("Edit Lab Record");
+        dialog= alertDialog.create();
+        dialog.show();
+        updateBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                int i = actionSpinner.getSelectedItemPosition();
+                if(checkEditText(et)){
+                    String data = et.getText().toString().trim();
+                    switch (i){
+                        case 1:
+                            researchLab.setResearchLabName(data);
+                            break;
+                        case 2:
+                            ArrayList<String> ment = new ArrayList<String>();
+                            String[] m;
+                            m = data.split(",");
+                            for(int j = 0; j < m.length; j++)
+                                ment.add(m[j]);
+                            researchLab.setMentors(ment);
+                            break;
+                        case 3:
+                            researchLab.setWebPageURL(data);
+                            break;
+                        default:
+                            et.setError("Some Error occured");
+                            et.requestFocus();
+                            actionSpinner.requestFocus();
+
+                    }
+                    FirebaseResearchLabHelper helper = new FirebaseResearchLabHelper();
+                    helper.updateReseachLab(R_Lab.this, researchLab);
+                    dialog.cancel();
+                }
+            }
+        });
+
+
+
+    }
+
+
+    private void loadDataInSpinner(Spinner daySpinner, ArrayList<String> data) {
+
+        ArrayAdapter<String> areasAdapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_spinner_item, data);
+        areasAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        daySpinner.setAdapter(areasAdapter);
+
+    }
+
+    private ArrayList<String> getActions(){
+        ArrayList<String> arr = new ArrayList<>();
+        arr.add("None");
+        arr.add("Edit Lab name");
+        arr.add("Edit Mentors");
+        arr.add("Edit webLink");
+        return arr;
     }
 
     private void loadProjects(){
+        final ArrayList<String> rprojects = researchLab.getProjects();
         FirebaseProjectHelper helper = new FirebaseProjectHelper();
         DatabaseReference reference = helper.getReference();
-        final ArrayList<String> rprojects = researchLab.getProjects();
         reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -132,6 +274,17 @@ public class R_Lab extends AppCompatActivity {
             }
         });
     }
+
+    private boolean checkEditText(EditText editText){
+        if (editText.getText().toString().trim().length()>0){
+            return true;
+        }
+        else{
+            editText.setError("Enter valid value");
+            editText.requestFocus();
+            return false;
+        }
+    }
     private void loadRecyclerView(){
         Object[] objects = projects.toArray();
         adaptor = new Projects_Adapter(Arrays.copyOf(objects,objects.length, Project[].class),this);
@@ -149,4 +302,5 @@ public class R_Lab extends AppCompatActivity {
         recyclerView.getAdapter().notifyDataSetChanged();
         recyclerView.scheduleLayoutAnimation();
     }
+
 }
