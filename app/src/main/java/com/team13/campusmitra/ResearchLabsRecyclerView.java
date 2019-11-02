@@ -52,9 +52,10 @@ public class ResearchLabsRecyclerView extends AppCompatActivity  {
         String url = "https://drive.google.com/uc?export=download&id=1y72ODb4maSRFbO-rjuJTVIEJC20LUmti";
         //Room room = new Room("123","A-403","RnD Block",0,url,"",40,"","",10);
         ResearchLab room = new ResearchLab();
-        for (int i = 0; i < 15; i++) {
-            items.add(room);
-        }
+        //for (int i = 0; i < 15; i++) {
+        //    items.add(room);
+        //}
+        loadLabData();
     }
 
     private void loadLabData() {

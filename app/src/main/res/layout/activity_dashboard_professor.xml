@@ -151,6 +151,7 @@
                 android:layout_columnWeight="1"
                 android:layout_rowWeight="1"
                 app:cardElevation="6dp"
+                android:id = "@+id/proff_views_rl"
                 app:cardCornerRadius="12dp" >
 
                 <LinearLayout
@@ -159,7 +160,7 @@
                     android:orientation="vertical"
                     android:padding="16dp"
                     android:gravity="center"
-                    android:id = "@+id/proff_views_rl">
+                    >
 
                     <ImageView
                         android:src="@drawable/labs"

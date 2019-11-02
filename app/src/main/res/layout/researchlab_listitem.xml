@@ -30,20 +30,39 @@
         </androidx.appcompat.widget.AppCompatImageView>
 
 
-
-        <TextView
-            android:id="@+id/rl_item_tv1"
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_weight="1"
-            android:layout_marginLeft="50dp"
-            android:textColor="#000000"
-            android:fontFamily="sans-serif"
-            android:gravity="left"
-            android:textSize="20sp"
-            android:paddingLeft="16dp"
-            android:text="Lab name" />
+            android:orientation="horizontal"
+            android:layout_gravity="center">
+            <TextView
+                android:id="@+id/rl_item_tv1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:layout_marginLeft="20dp"
+                android:textColor="#000000"
+                android:fontFamily="sans-serif"
+                android:gravity="left"
+                android:textSize="20sp"
+                android:paddingLeft="16dp"
+                android:text="Lab num" />
+            <TextView
+                android:id="@+id/rl_item_tv2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:layout_marginLeft="50dp"
+                android:textColor="#000000"
+                android:fontFamily="sans-serif"
+                android:gravity="left"
+                android:textSize="20sp"
+                android:paddingLeft="16dp"
+                android:text="Lab name" />
+        </LinearLayout>
+
 
 
 

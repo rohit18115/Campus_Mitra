@@ -15,21 +15,21 @@ public class GotoAddEditRL extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.temp_to_check_labs);
-        add.findViewById(R.id.click_to_add_rl);
-        view.findViewById(R.id.click_to_view_rl);
+        add = findViewById(R.id.click_to_add_rl);
+        view = findViewById(R.id.click_to_view_rl);
         add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(GotoAddEditRL.this, AddReasearchLabActivity.class);
-                startActivity(intent);
+                Intent intent1 = new Intent(GotoAddEditRL.this, AddReasearchLabActivity.class);
+                startActivity(intent1);
             }
         });
 
         view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(GotoAddEditRL.this, ResearchLabsRecyclerView.class);
-                startActivity(intent);
+                Intent intent2 = new Intent(GotoAddEditRL.this, ResearchLabsRecyclerView.class);
+                startActivity(intent2);
             }
         });
     }
