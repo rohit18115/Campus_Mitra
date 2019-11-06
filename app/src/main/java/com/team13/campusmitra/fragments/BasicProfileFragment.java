@@ -77,6 +77,7 @@ public class BasicProfileFragment extends Fragment implements View.OnClickListen
     public static final int REQUEST_CODE = 11; // Used to identify the result
 
     private Context context;
+    private String uid;
 
     public BasicProfileFragment(Context context) {
         // Required empty public constructor
@@ -103,20 +104,19 @@ public class BasicProfileFragment extends Fragment implements View.OnClickListen
         pb = view.findViewById(R.id.fbp_pb);
         fab = view.findViewById(R.id.fbp_fab);
         buffer = view.findViewById(R.id.BPFBuffer);
-
+        FirebaseAuth auth = FirebaseAuth.getInstance();
+        uid = auth.getCurrentUser().getUid();
     }
 
     protected void loadData(View view) {
-        FirebaseAuth auth = FirebaseAuth.getInstance();
-        final String uid = auth.getCurrentUser().getUid();
         FirebaseUserHelper helper = new FirebaseUserHelper();
         DatabaseReference reference = helper.getReference().child(uid);
         reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if (getActivity() == null) {
-                    return;
-                }
+//                if (getActivity() == null) {
+//                    return;
+//                }
                 User user = dataSnapshot.getValue(User.class);
                 if(user.getUserId().equals(uid)) {
                     Log.d("lololo", "onDataChange: " + user.getUserLastName());
@@ -138,14 +138,15 @@ public class BasicProfileFragment extends Fragment implements View.OnClickListen
                     name.setText(user.getUserFirstName() + " " + user.getUserLastName());
                     oemail.setText(user.getUserPersonalMail());
                     dob.setText(user.getDob());
-                    uname.setText(user.getUserName());
+                    String username = user.getUserName();
+                    if(username!=null && !username.isEmpty())
+                        uname.setText(username);
+                    pb.setVisibility(View.GONE);
                 }
             }
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-
             }
-
         });
     }
 
@@ -157,9 +158,9 @@ public class BasicProfileFragment extends Fragment implements View.OnClickListen
         reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if (getActivity() == null) {
-                    return;
-                }
+//                if (getActivity() == null) {
+//                    return;
+//                }
                 User user = dataSnapshot.getValue(User.class);
                 if(user.getUserId().equals(uid)) {
                     String fname = "", lname = "", oEmail = "", dobi = "",uName = "",buff = "";
@@ -195,15 +196,13 @@ public class BasicProfileFragment extends Fragment implements View.OnClickListen
         fab.startAnimation(rotateForward);
         fab.startAnimation(rotateBackward);
     }
+
     private void setUpUIView(View view){
         ETFirstName = new TextInputEditText(view.getContext());
         ETLastName = new TextInputEditText(view.getContext());
         ETUName = new TextInputEditText(view.getContext());
         ETOEmail = new TextInputEditText(view.getContext());
         ETOEmail.setInputType(InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS);
-//        ETRollNumber = new TextInputEditText(this);
-//        ETInterests = new TextInputEditText(this);
-//        ETDepartment = new TextInputEditText(this);
     }
 
     @Override
@@ -212,6 +211,7 @@ public class BasicProfileFragment extends Fragment implements View.OnClickListen
         View view = inflater.inflate(R.layout.fragment_basic_profile, container, false);
 
         initComponent(view);
+        pb.setVisibility(View.VISIBLE);
         loadData(view);
         setUpUIView(view);
 
@@ -228,9 +228,6 @@ public class BasicProfileFragment extends Fragment implements View.OnClickListen
         dob.setEnabled(false);
         uname.setEnabled(false);
         oemail.setEnabled(false);
-
-
-
         return view;
     }
 
@@ -365,25 +362,18 @@ public class BasicProfileFragment extends Fragment implements View.OnClickListen
 
                 break;
             case R.id.fbp_profile_image:
+                Log.d("imagel", "onClick: entered");
                 name.setEnabled(true);
                 image.setEnabled(true);
                 uname.setEnabled(true);
                 oemail.setEnabled(true);
                 dob.setEnabled(true);
-                image.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Intent gallery = new Intent();
-                        gallery.setType("image/*");
-                        gallery.setAction(Intent.ACTION_GET_CONTENT);
-                        pb.setVisibility(View.VISIBLE);
-                        startActivityForResult(Intent.createChooser(gallery,"Seclect Picture"),PICK_IMAGE);
-                        uploadData();
-                        Toast.makeText(context,"Image has been successfully changed",Toast.LENGTH_LONG).show();
-
-                    }
-                });
-
+                Log.d("imagel", "onClick: listening");
+                Intent gallery = new Intent();
+                gallery.setType("image/*");
+                gallery.setAction(Intent.ACTION_GET_CONTENT);
+                pb.setVisibility(View.VISIBLE);
+                startActivityForResult(Intent.createChooser(gallery,"Seclect Picture"),PICK_IMAGE);
                 break;
             case R.id.fbp_dob:
                 name.setEnabled(true);
@@ -422,8 +412,8 @@ public class BasicProfileFragment extends Fragment implements View.OnClickListen
             }
         }
     }
-    private String uploadImageToFirebase() {
-        final StorageReference ProfileImageREf = FirebaseStorage.getInstance().getReference("ProfileImageRef.jpg");
+    private void uploadImageToFirebase() {
+        final StorageReference ProfileImageREf = FirebaseStorage.getInstance().getReference("ProfileImageRef/"+uid+".jpg");
         String result="";
         if (imageUri != null) {
             ProfileImageREf.putFile(imageUri).continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
@@ -440,12 +430,13 @@ public class BasicProfileFragment extends Fragment implements View.OnClickListen
                     if(task.isSuccessful()){
                         Uri uri = task.getResult();
                         buffer.setText(uri.toString());
+                        uploadData();
+                        Toast.makeText(context,"Image has been successfully changed",Toast.LENGTH_LONG).show();
                         pb.setVisibility(View.GONE);
                         Log.d("URL", "onComplete: " + uri.toString());
                     }
                 }
             });
         }
-        return "";
     }
 }
