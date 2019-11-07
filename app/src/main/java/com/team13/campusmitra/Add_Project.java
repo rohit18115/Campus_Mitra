@@ -95,7 +95,7 @@ public class Add_Project extends AppCompatActivity implements View.OnClickListen
             String[] m;
             m = members_string.split(",");
             for(int i = 0;i < m.length; i++)
-                members.add(m[i]);
+                members.add(m[i].replaceAll("\\s", ""));
             p.setMembers(members);
             FirebaseProjectHelper helper = new FirebaseProjectHelper();
             //helper.addProject(getApplicationContext(),p);

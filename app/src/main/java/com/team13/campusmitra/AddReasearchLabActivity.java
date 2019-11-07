@@ -81,7 +81,7 @@ public class AddReasearchLabActivity extends AppCompatActivity implements View.O
             m = mentor_string.split(",");
             if(m!=null) {
                 for (int i = 0; i < m.length; i++)
-                    mentors.add(m[i]);
+                    mentors.add(m[i].replaceAll("\\s", ""));
 
                 rl.setMentors(mentors);
             }

@@ -128,6 +128,12 @@
             android:exported="true"
             android:screenOrientation="portrait" />
         <activity
+            android:name=".ResearchLabImageEdit"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ProjectImageEdit"
+            android:screenOrientation="portrait" />
+        <activity
             android:name=".Regular_Labs"
             android:exported="true"
             android:screenOrientation="portrait" />

@@ -106,7 +106,7 @@ public class Projects_Adapter extends RecyclerView.Adapter<Projects_Adapter.Proj
             }
         });
 
-        if(rights) {
+        if( rights) {
             holder.info_linear.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override
                 public boolean onLongClick(View view) {
@@ -143,8 +143,8 @@ public class Projects_Adapter extends RecyclerView.Adapter<Projects_Adapter.Proj
         public ImageView img, push_icon;
         public TextView txt;
         public View subItem;
-        ArrayList<String> mem;
-        ArrayList<String> members;
+        ArrayList<String> mem ;
+        ArrayList<String> members ;
         public LinearLayout image_linear;
         public LinearLayout info_linear;
         public TextView sub_part_tv1, sub_part_tv2;
@@ -169,7 +169,6 @@ public class Projects_Adapter extends RecyclerView.Adapter<Projects_Adapter.Proj
             //current.getProjectImageURL());
 
             mem =  current.getMembers();
-            Log.d("members", String.valueOf(mem.size()));
             members =new ArrayList<>();
             FirebaseUserHelper helper = new FirebaseUserHelper();
             DatabaseReference reference = helper.getReference();

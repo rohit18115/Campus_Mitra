@@ -118,7 +118,7 @@
                 android:paddingTop="20dp"
                 android:textColor="@color/colorPrimaryDark"
                 android:textColorHint="@color/colorPrimaryDark"
-                android:hint = "eg: Pushpendra Singh, Nikhil"
+                android:hint = "eg: rachita18044@iiitd.ac.in, .."
                 app:backgroundTint="@color/colorPrimaryDark"
                 android:textSize="16sp" />
     </com.google.android.material.textfield.TextInputLayout>

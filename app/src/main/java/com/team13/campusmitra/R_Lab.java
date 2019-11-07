@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Handler;
 import android.text.Spanned;
 
 import com.bumptech.glide.Glide;
@@ -45,12 +46,14 @@ import com.team13.campusmitra.firebaseassistant.FirebaseProjectHelper;
 import com.team13.campusmitra.firebaseassistant.FirebaseTimeTableHelper;
 import com.team13.campusmitra.firebaseassistant.FirebaseUserHelper;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class R_Lab extends AppCompatActivity {
+
     TextView HyperLink;
     TextView mentor;
     TextView labName;
@@ -59,6 +62,7 @@ public class R_Lab extends AppCompatActivity {
     Projects_Adapter adaptor;
     Button add_proj;
     Room room;
+    boolean isActive;
     ResearchLab researchLab;
     Intent myIntent;
     LinearLayout rl_info;
@@ -66,6 +70,8 @@ public class R_Lab extends AppCompatActivity {
     ArrayList<String> proffesors_email;
     ArrayList<String> professors;
     ArrayList<Project> projects;
+    Context context;
+
     //ArrayList<Project> projects_present;
     RecyclerView project_list;
     private int new_project = 0;
@@ -74,6 +80,7 @@ public class R_Lab extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_r_lab);
+        context = getApplicationContext();
         myIntent = getIntent();
         String from = (String) myIntent.getStringExtra("Come from");
         String userType = (String) myIntent.getStringExtra("UTYPE");
@@ -113,6 +120,7 @@ public class R_Lab extends AppCompatActivity {
                     Intent intent = new Intent(R_Lab.this, Add_Project.class);
                     intent.putExtra("R Lab", researchLab);
                     startActivity(intent);
+
                     //loadProjects();
                 }
             });
@@ -130,6 +138,11 @@ public class R_Lab extends AppCompatActivity {
                     Intent intent = new Intent(R_Lab.this, ResearchLabImageEdit.class);
                     intent.putExtra("Reseach Lab", researchLab);
                     startActivity(intent);
+                    Glide.with(R_Lab.this)
+                            .asBitmap()
+                            .load(researchLab.getImageURL())
+                            .placeholder(R.drawable.lab_sample)
+                            .into(lab_Image);
                     //loadObject();
                     //finish();
                     //showEditImageDialog(current);
@@ -144,6 +157,7 @@ public class R_Lab extends AppCompatActivity {
 
     private void loadObject(){
         proffesors_email = researchLab.getMentors();
+        //final ArrayList<String> professors = new ArrayList<>();
         Log.d("emails ", String.valueOf(proffesors_email.size()));
         FirebaseUserHelper helper = new FirebaseUserHelper();
         DatabaseReference reference = helper.getReference();
@@ -151,17 +165,18 @@ public class R_Lab extends AppCompatActivity {
 
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                professors.clear();
+                //professors.clear();
                 for(DataSnapshot snapshot:dataSnapshot.getChildren()){
                     User u = snapshot.getValue(User.class);
                     if(proffesors_email.contains(u.getUserEmail())){
 
                         professors.add(u.getUserName());}
                 }
-
+                Log.d("proff", String.valueOf(professors.size()));
                 String proff = professors.get(0);
-                for(int i = 1; i < professors.size(); i++)
-                    proff = proff +", "+professors.get(i);
+                for(int i = 1; i < professors.size(); i++){
+
+                    proff = proff +", "+professors.get(i);}
                 mentor.setText(proff);
                 labNumber.setText(researchLab.getResearchLabNumber());
                 Glide.with(R_Lab.this)
@@ -180,6 +195,19 @@ public class R_Lab extends AppCompatActivity {
         });
     }
 
+
+    private void refresh(int milliseconds){
+        final Handler handler = new Handler();
+        final Runnable runnable = new Runnable() {
+            @Override
+            public void run() {
+                Log.d("run", "kkk");
+                loadObject();
+                loadProjects();
+                isActive = false;
+            }
+        };
+    }
     private void showEditDialog(ResearchLab rl, Room r){
         final AlertDialog dialog;
         final AlertDialog.Builder alertDialog = new AlertDialog.Builder(R_Lab.this);
@@ -204,6 +232,9 @@ public class R_Lab extends AppCompatActivity {
                             researchLab.setResearchLabName(data);
                             break;
                         case 2:
+                            researchLab.setResearchLabNumber(data);
+                            break;
+                        case 3:
                             ArrayList<String> ment = new ArrayList<String>();
                             String[] m;
                             m = data.split(",");
@@ -211,7 +242,7 @@ public class R_Lab extends AppCompatActivity {
                                 ment.add(m[j]);
                             researchLab.setMentors(ment);
                             break;
-                        case 3:
+                        case 4:
                             researchLab.setWebPageURL(data);
                             break;
                         default:
@@ -222,6 +253,7 @@ public class R_Lab extends AppCompatActivity {
                     }
                     FirebaseResearchLabHelper helper = new FirebaseResearchLabHelper();
                     helper.updateReseachLab(R_Lab.this, researchLab);
+                    loadObject();
                     dialog.cancel();
                 }
             }
@@ -244,6 +276,7 @@ public class R_Lab extends AppCompatActivity {
         ArrayList<String> arr = new ArrayList<>();
         arr.add("None");
         arr.add("Edit Lab name");
+        arr.add("Edit Lab Number");
         arr.add("Edit Mentors");
         arr.add("Edit webLink");
         return arr;
