@@ -98,7 +98,7 @@ public class StudentProfile extends AppCompatActivity implements View.OnClickLis
             rollNo.setError("Roll Number Can't be empty", null);
             rollNo.requestFocus();
         }if(isInvalid(roll)) {
-            rollNo.setError("Roll Number Can't be empty", null);
+            rollNo.setError("Roll Number Invalid", null);
             rollNo.requestFocus();
         } else if(deptText.equals("Select Department")) {
             dept.setError("First Name Can't be empty", null);

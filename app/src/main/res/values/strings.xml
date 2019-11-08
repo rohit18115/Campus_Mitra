@@ -89,4 +89,11 @@
         <item> "Associate Professor" </item>
         <item> "Director" </item>
     </string-array>
+
+    <string-array name="EnrollCourse">
+        <item> M.Tech.</item>
+        <item> B.Tech.</item>
+        <item> PhD </item>
+    </string-array>
+
 </resources>

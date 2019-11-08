@@ -192,7 +192,6 @@ public class FacultyProfileFragment extends Fragment implements View.OnClickList
         });
     }
 
-
     private void animateFab() {
         fab.startAnimation(rotateForward);
         fab.startAnimation(rotateBackward);

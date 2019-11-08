@@ -112,10 +112,16 @@ public class SelectCoursesRecyclerViewAdaptor extends RecyclerView.Adapter<Selec
 
         @Override
         protected void publishResults(CharSequence constraint, FilterResults results) {
-            mModelList.clear();
-            mModelList.addAll((List) results.values);
             notifyDataSetChanged();
-
+            if (results.count > 0) {
+                Log.println(Log.INFO, "Results", "FOUND");
+                mModelList.clear();
+                mModelList.addAll((List) results.values);
+                notifyDataSetChanged();
+            } else {
+                Log.println(Log.INFO, "Results", "-");
+                //notifyDataSetInvalidated();
+            }
         }
     };
 }
