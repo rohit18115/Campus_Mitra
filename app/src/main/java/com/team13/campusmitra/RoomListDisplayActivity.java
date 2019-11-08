@@ -113,4 +113,9 @@ public class RoomListDisplayActivity extends AppCompatActivity {
 
         });
     }
+    public void sendToLab(View view)
+    {
+        Intent intent=new Intent(getApplicationContext(),LabsRecyclerView.class);
+        startActivity(intent);
+    }
 }
