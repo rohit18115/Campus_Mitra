@@ -67,7 +67,7 @@
         android:layout_height="1dp"
         android:layout_marginBottom="7dp"
         android:layout_marginTop="7dp"
-        android:background="@color/colorPrimaryDark"
+        android:background="@color/gradStart"
         android:layout_below="@+id/ase_email_id"/>
 
     <androidx.appcompat.widget.AppCompatTextView
@@ -95,7 +95,7 @@
         android:layout_height="1dp"
         android:layout_marginBottom="7dp"
         android:layout_marginTop="7dp"
-        android:background="@color/colorPrimaryDark"
+        android:background="@color/gradStart"
         android:layout_below="@+id/ase_enrolled_courses"/>
 
     <androidx.appcompat.widget.AppCompatTextView
@@ -123,7 +123,7 @@
         android:layout_height="1dp"
         android:layout_marginBottom="7dp"
         android:layout_marginTop="7dp"
-        android:background="@color/colorPrimaryDark"
+        android:background="@color/gradStart"
         android:layout_below="@+id/ase_interests"/>
 
     <Button

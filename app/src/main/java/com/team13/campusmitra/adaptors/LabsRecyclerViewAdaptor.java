@@ -1,15 +1,18 @@
 package com.team13.campusmitra.adaptors;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Filter;
+import android.widget.LinearLayout;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.AppCompatImageView;
 import androidx.appcompat.widget.AppCompatTextView;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -18,6 +21,7 @@ import com.team13.campusmitra.dataholder.Room;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class LabsRecyclerViewAdaptor extends RecyclerView.Adapter<LabsRecyclerViewAdaptor.ViewHolder> {
     private static final String TAG = "LabsRecyclerViewAdaptor";
@@ -49,9 +53,20 @@ public class LabsRecyclerViewAdaptor extends RecyclerView.Adapter<LabsRecyclerVi
                 .load(room.getRoomImageURL())
                 .placeholder(R.drawable.labs)
                 .into(holder.image);
+        int cap = getPeople(room);
+        if(cap>0.7*room.getCapacity()) {
+            Log.d("setcol", "onBindViewHolder: "+getPeople(room));
+            holder.tv2.setBackgroundColor(Color.RED);
+        }
+        else if(cap<0.3*room.getCapacity())
+            holder.tv2.setBackgroundColor(Color.GREEN);
+        else
+            holder.tv2.setBackgroundColor(Color.YELLOW);
         holder.tv1.setText("Lab: "+room.getRoomNumber());
-        holder.tv2.setText("Capacity: "+room.getCapacity());
-        holder.tv3.setText("Situated at "+room.getRoomBuilding()+" System Count: "+room.getSystemCount());
+        holder.tv2.setText("Occupancy: "+ cap);
+        holder.tv3.setText("Situated at "+room.getRoomBuilding());
+        holder.tv4.setText("Capacity: "+ room.getCapacity());
+        holder.tv5.setText("System Count: "+ room.getSystemCount());
     }
 
     @Override
@@ -65,13 +80,21 @@ public class LabsRecyclerViewAdaptor extends RecyclerView.Adapter<LabsRecyclerVi
         AppCompatTextView tv1;
         AppCompatTextView tv2;
         AppCompatTextView tv3;
+        AppCompatTextView tv4;
+        AppCompatTextView tv5;
+        CardView v1;
+        LinearLayout l1;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             image = itemView.findViewById(R.id.lrv_image);
             tv1 = itemView.findViewById(R.id.lrv_text1);
             tv2 = itemView.findViewById(R.id.lrv_text2);
+            tv4=itemView.findViewById(R.id.lrv_text4);
             tv3 = itemView.findViewById(R.id.lrv_text3);
+            tv5=itemView.findViewById(R.id.lrv_text5);
+            v1=itemView.findViewById(R.id.list_item_layout);
+            l1=itemView.findViewById(R.id.l2);
         }
     }
     public Filter getFilter(){
@@ -108,5 +131,28 @@ public class LabsRecyclerViewAdaptor extends RecyclerView.Adapter<LabsRecyclerVi
             notifyDataSetChanged();
 
         }
+
     };
+    public static int getPeople(Room r){
+        int n=r.getCapacity();
+        int x=0;
+        int s;
+        Random ran = new Random();
+        if (n>0){
+
+            x = ran.nextInt(n);
+
+        }
+        else{
+            s=r.getSystemCount();
+            if(s>0){
+                x=ran.nextInt(s);
+            }
+            else{
+                x=ran.nextInt(10);
+            }
+
+        }
+        return x;
+    }
 }

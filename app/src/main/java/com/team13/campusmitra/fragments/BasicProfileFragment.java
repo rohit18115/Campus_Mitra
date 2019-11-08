@@ -115,8 +115,7 @@ public class BasicProfileFragment extends Fragment implements View.OnClickListen
         reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if (getActivity() == null) {
-                    return;
+                while(getActivity() == null) {
                 }
                 User user = dataSnapshot.getValue(User.class);
                 if(user.getUserId().equals(uid)) {
@@ -160,9 +159,9 @@ public class BasicProfileFragment extends Fragment implements View.OnClickListen
         reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-//                if (getActivity() == null) {
-//                    return;
-//                }
+                while(getActivity() == null) {
+                    Log.d("crash", "onDataChange: still null ");
+                }
                 User user = dataSnapshot.getValue(User.class);
                 if(user.getUserId().equals(uid)) {
                     String fname = "", lname = "", oEmail = "", dobi = "",uName = "",buff = "";
@@ -426,6 +425,8 @@ public class BasicProfileFragment extends Fragment implements View.OnClickListen
             try{
                 Bitmap bitmap = MediaStore.Images.Media.getBitmap(context.getApplicationContext().getContentResolver(),imageUri);
                 image.setImageBitmap(bitmap);
+                pb.setVisibility(View.GONE);
+                Toast.makeText(context,"Image has been successfully changed",Toast.LENGTH_LONG).show();
                 //uploadImageToFirebase();
             }catch (IOException e){
                 e.printStackTrace();
@@ -451,8 +452,6 @@ public class BasicProfileFragment extends Fragment implements View.OnClickListen
                         Uri uri = task.getResult();
                         buffer.setText(uri.toString());
                         //uploadData();
-                        Toast.makeText(context,"Image has been successfully changed",Toast.LENGTH_LONG).show();
-                        pb.setVisibility(View.GONE);
                         Log.d("URL", "onComplete: " + uri.toString());
                     }
                 }

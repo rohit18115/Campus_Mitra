@@ -289,8 +289,6 @@ public class Projects_Adapter extends RecyclerView.Adapter<Projects_Adapter.Proj
                 FirebaseProjectHelper helper = new FirebaseProjectHelper();
                 DatabaseReference ref = helper.getReference().child(element.getProjectID());
                 ref.removeValue();
-
-
             }
         });
 

@@ -67,6 +67,7 @@ public class UserProfile extends AppCompatActivity implements DatePickerDialog.O
     RadioGroup gen;
     TextInputEditText optEmail;
     Button button_datepicker;
+    private String uid;
 
     public void initComponents() {
         firstName = findViewById(R.id.firstName);
@@ -78,6 +79,8 @@ public class UserProfile extends AppCompatActivity implements DatePickerDialog.O
         progressBar = findViewById(R.id.UPpbar);
         utype = findViewById(R.id.UPRBuserType);
         buffer = findViewById(R.id.UPBuffer);
+        FirebaseAuth auth = FirebaseAuth.getInstance();
+        uid = auth.getCurrentUser().getUid();
     }
 
     protected void getUserObject() {
@@ -123,10 +126,8 @@ public class UserProfile extends AppCompatActivity implements DatePickerDialog.O
             user.setDob(dobi);
             user.setUserPersonalMail(oemail);
             user.setImageUrl(buff);
-            FirebaseAuth auth = FirebaseAuth.getInstance();
-            String uid = auth.getCurrentUser().getUid();
             user.setUserId(uid);
-
+            FirebaseAuth auth = FirebaseAuth.getInstance();
             String email = auth.getCurrentUser().getEmail();
             Log.d("Email", "getUserObject: " + email);
             Log.d("User Name", "getUserObject: " + userName.getText().toString());
@@ -191,7 +192,7 @@ public class UserProfile extends AppCompatActivity implements DatePickerDialog.O
 
     }
     private String uploadImageToFirebase() {
-        final StorageReference ProfileImageREf = FirebaseStorage.getInstance().getReference("ProfileImageRef.jpg");
+        final StorageReference ProfileImageREf = FirebaseStorage.getInstance().getReference("ProfileImageRef/"+uid+".jpg");
         String result="";
         if (imageUri != null) {
             ProfileImageREf.putFile(imageUri).continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
