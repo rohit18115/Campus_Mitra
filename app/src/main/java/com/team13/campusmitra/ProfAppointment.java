@@ -60,7 +60,7 @@ public class ProfAppointment extends AppCompatActivity {
                 appointmentslist.clear();
                 for(DataSnapshot snapshot:dataSnapshot.getChildren()){
                     Appointment appointment = snapshot.getValue(Appointment.class);
-                    if(user.getUid().equals(appointment.getUserID1())) {
+                    if(user.getUid().equals(appointment.getUserID1())||user.getUid().equals(appointment.getUserID2())) {
                         if(currentDate.compareTo(appointment.getDate())<0)
                         {
                             appointmentslist.add(appointment);
