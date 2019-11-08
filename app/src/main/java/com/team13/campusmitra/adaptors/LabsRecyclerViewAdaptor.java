@@ -18,6 +18,7 @@ import com.team13.campusmitra.dataholder.Room;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class LabsRecyclerViewAdaptor extends RecyclerView.Adapter<LabsRecyclerViewAdaptor.ViewHolder> {
     private static final String TAG = "LabsRecyclerViewAdaptor";
@@ -50,7 +51,7 @@ public class LabsRecyclerViewAdaptor extends RecyclerView.Adapter<LabsRecyclerVi
                 .placeholder(R.drawable.labs)
                 .into(holder.image);
         holder.tv1.setText("Lab: "+room.getRoomNumber());
-        holder.tv2.setText("Capacity: "+room.getCapacity());
+        holder.tv2.setText("Occupancy: "+ LabsRecyclerViewAdaptor.getPeople(room)+" Capacity:"+ room.getCapacity());
         holder.tv3.setText("Situated at "+room.getRoomBuilding()+" System Count: "+room.getSystemCount());
     }
 
@@ -108,5 +109,28 @@ public class LabsRecyclerViewAdaptor extends RecyclerView.Adapter<LabsRecyclerVi
             notifyDataSetChanged();
 
         }
+
     };
+    public static int getPeople(Room r){
+        int n=r.getCapacity();
+        int x=0;
+        int s;
+        Random ran = new Random();
+        if (n>0){
+
+            x = ran.nextInt(n);
+
+        }
+        else{
+            s=r.getSystemCount();
+            if(s>0){
+                x=ran.nextInt(s);
+            }
+            else{
+                x=ran.nextInt(10);
+            }
+
+        }
+        return x;
+    }
 }
