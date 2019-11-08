@@ -24,6 +24,7 @@
         </androidx.appcompat.widget.AppCompatImageView>
 
         <LinearLayout
+            android:id="@+id/lay1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
@@ -42,6 +43,27 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/l2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="2"
+            android:paddingLeft="4dp"
+            android:paddingRight="4dp">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/lrv_text2"
+                android:paddingLeft="8dp"
+                android:paddingRight="4dp"
+                android:textColor="#000000"
+                android:text="Occupancy: "
+                android:layout_weight="1" />
+
+        </LinearLayout>
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
@@ -52,7 +74,27 @@
             <androidx.appcompat.widget.AppCompatTextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/lrv_text2"
+                android:id="@+id/lrv_text4"
+                android:paddingLeft="8dp"
+                android:paddingRight="4dp"
+                android:textColor="#000000"
+                android:text="Occupancy: "
+                android:layout_weight="1" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="2"
+            android:paddingLeft="4dp"
+            android:paddingRight="4dp">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/lrv_text5"
                 android:paddingLeft="8dp"
                 android:paddingRight="4dp"
                 android:textColor="#000000"

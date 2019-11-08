@@ -126,7 +126,7 @@
         android:background="@color/gradStart"
         android:textColor="@color/white"
         android:onClick="onClick"
-        android:text="Book Now" />
+        android:text="Find Vacant Room" />
     </LinearLayout>
 </androidx.cardview.widget.CardView>
     <SearchView
