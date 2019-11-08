@@ -12,6 +12,7 @@ import android.content.Intent;
 import android.drm.DrmStore;
 import android.net.Uri;
 import android.os.Handler;
+import android.os.Parcelable;
 import android.text.Spanned;
 
 import com.bumptech.glide.Glide;

@@ -57,6 +57,7 @@ public class Add_Project extends AppCompatActivity implements View.OnClickListen
     TextView buffer;
     TextInputEditText proj_desc;
     Button add_btn;
+    Projects_Adapter adapter;
     ResearchLab researchLab;
     String members_string;
     ArrayList<String> members;
@@ -197,7 +198,6 @@ public class Add_Project extends AppCompatActivity implements View.OnClickListen
         switch (v.getId()){
             case R.id.add_btn:
                 getProjectObject();
-                setResult(1,return_intent);
                 finish();
         }
     }

@@ -20,7 +20,7 @@
             android:layout_width="80dp"
             android:layout_height="80dp"
             android:id="@+id/rl_lrv_image"
-            android:src="@mipmap/ic_launcher"
+            android:src="@drawable/lab_sample"
             android:backgroundTint="@color/Green"
             android:scaleType="fitXY"
             android:adjustViewBounds="true"
