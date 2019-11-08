@@ -72,15 +72,13 @@ public class FacultyProfileFragment extends Fragment implements View.OnClickList
     int num=0;
     WeekAdapter adapterRoom;
     ArrayList<String> selected;
-    //    TextInputEditText ETFName;
     TextInputEditText ETDomain;
-//    TextInputEditText ETUname;
-//    TextInputEditText ETOEmail;
     ProgressBar pb;
     public static SharedPreferences sharedPreferences;
     private String[] roomNoo;
     private String[] roomID;
     ArrayList<Room> roomsData = new ArrayList<>();
+    private int count = 0;
 
 
     private void setupUIViews(View view){
@@ -126,13 +124,12 @@ public class FacultyProfileFragment extends Fragment implements View.OnClickList
                             domains.setText(cor);
                         ArrayList<String> s = fac.getCoursesTaken();
                         cor = "";
-                        if(s!=null) {
+                        if(s!=null && s.size()!=0) {
                             for (int i = 0; i < s.size(); i++) {
                                 cor = cor + s.get(i) + "\n";
                             }
                             coursesTaken.setText(cor);
                         }
-
                     }
                 }
             }
@@ -244,17 +241,39 @@ public class FacultyProfileFragment extends Fragment implements View.OnClickList
         switch (v.getId()) {
             case R.id.ffp_fab:
                 animateFab();
-                fab.setImageResource(R.drawable.ic_check);
-                Snackbar.make(v, "Click on each component to edit.", Snackbar.LENGTH_LONG).setTextColor(Color.WHITE)
-                        .setAction("Action", null).show();
-                //Toast.makeText(getActivity(),"Click on each component to edit.",Toast.LENGTH_LONG).show();
-                designation.setEnabled(true);
-                department.setEnabled(true);
-                roomNo.setEnabled(true);
-                coursesTaken.setEnabled(true);
-                domains.setEnabled(true);
-
-
+                count++;
+                if(count%2==1) {
+                    fab.setImageResource(R.drawable.ic_check);
+                    Snackbar.make(v, "Click on each component to edit.", Snackbar.LENGTH_LONG).setTextColor(Color.WHITE)
+                            .setAction("Action", null).show();
+                    //Toast.makeText(getActivity(),"Click on each component to edit.",Toast.LENGTH_LONG).show();
+                    designation.setEnabled(true);
+                    department.setEnabled(true);
+                    roomNo.setEnabled(true);
+                    coursesTaken.setEnabled(true);
+                    domains.setEnabled(true);
+                } else {
+                    fab.setImageResource(R.drawable.ic_mode_edit);
+                    designation.setEnabled(false);
+                    department.setEnabled(false);
+                    roomNo.setEnabled(false);
+                    coursesTaken.setEnabled(false);
+                    domains.setEnabled(false);
+                    android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(getActivity());
+                    builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            uploadData();
+                        }
+                    });
+                    builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            Toast.makeText(getContext(),"No Changes Saved",Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                    builder.setTitle("Are you Sure you want to save the changes?");
+                    android.app.AlertDialog dialog = builder.create();
+                    dialog.show();
+                }
                 break;
             case R.id.ffp_desig:
                 designation.setEnabled(true);
@@ -263,8 +282,6 @@ public class FacultyProfileFragment extends Fragment implements View.OnClickList
                 coursesTaken.setEnabled(true);
                 domains.setEnabled(true);
                 dialogDesig.show();
-
-
 
                 break;
             case R.id.ffp_dept:
@@ -300,8 +317,6 @@ public class FacultyProfileFragment extends Fragment implements View.OnClickList
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         domains.setText(ETDomain.getEditableText().toString());
-                        uploadData();
-                        Toast.makeText(getActivity(),"Name has been successfully changed",Toast.LENGTH_LONG).show();
                     }
                 });
 
@@ -313,8 +328,6 @@ public class FacultyProfileFragment extends Fragment implements View.OnClickList
                 });
                 if(ETDomain.getParent() != null) {
                     ((ViewGroup)ETDomain.getParent()).removeView(ETDomain); // <- fix
-
-
                 }
                 builderDomain.show();
 
@@ -414,7 +427,6 @@ public class FacultyProfileFragment extends Fragment implements View.OnClickList
                                                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                                                     //adapter.getItem(position).toString()
                                                     department.setText(adapterDept.getItem(position).toString());
-                                                    uploadData();
                                                     dialogDept.dismiss();
 
 
@@ -428,7 +440,6 @@ public class FacultyProfileFragment extends Fragment implements View.OnClickList
                                                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                                                     //adapter.getItem(position).toString()
                                                     roomNo.setText(adapterRoom.getItem(position).toString());
-                                                    uploadData();
                                                     dialogRoom.dismiss();
 
 
@@ -442,7 +453,6 @@ public class FacultyProfileFragment extends Fragment implements View.OnClickList
                                                        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                                                            //adapter.getItem(position).toString()
                                                            designation.setText(adapterDesig.getItem(position).toString());
-                                                           uploadData();
                                                            dialogDesig.dismiss();
 
 
@@ -509,7 +519,6 @@ public class FacultyProfileFragment extends Fragment implements View.OnClickList
                         t = t + selected.get(i) + " ";
                     }
                     coursesTaken.setText(t);
-                    uploadData();
                 }
             }
         }

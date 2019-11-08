@@ -78,6 +78,7 @@ public class BasicProfileFragment extends Fragment implements View.OnClickListen
 
     private Context context;
     private String uid;
+    private int count = 0;
 
     public BasicProfileFragment(Context context) {
         // Required empty public constructor
@@ -108,15 +109,15 @@ public class BasicProfileFragment extends Fragment implements View.OnClickListen
         uid = auth.getCurrentUser().getUid();
     }
 
-    protected void loadData(View view) {
+    protected void loadData() {
         FirebaseUserHelper helper = new FirebaseUserHelper();
         DatabaseReference reference = helper.getReference().child(uid);
         reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-//                if (getActivity() == null) {
-//                    return;
-//                }
+                if (getActivity() == null) {
+                    return;
+                }
                 User user = dataSnapshot.getValue(User.class);
                 if(user.getUserId().equals(uid)) {
                     Log.d("lololo", "onDataChange: " + user.getUserLastName());
@@ -151,6 +152,7 @@ public class BasicProfileFragment extends Fragment implements View.OnClickListen
     }
 
     public void uploadData() {
+        uploadImageToFirebase();
         FirebaseAuth auth = FirebaseAuth.getInstance();
         final String uid = auth.getCurrentUser().getUid();
         FirebaseUserHelper helper = new FirebaseUserHelper();
@@ -183,7 +185,7 @@ public class BasicProfileFragment extends Fragment implements View.OnClickListen
                     user.setUserPersonalMail(oEmail);
                     if(buff!=null && !buff.isEmpty())
                         user.setImageUrl(buff);
-                    new FirebaseUserHelper().updateUser(context, user);
+                    new FirebaseUserHelper().addUser(context, user);
                 }
             }
             @Override
@@ -212,7 +214,7 @@ public class BasicProfileFragment extends Fragment implements View.OnClickListen
 
         initComponent(view);
         pb.setVisibility(View.VISIBLE);
-        loadData(view);
+        loadData();
         setUpUIView(view);
 
         rotateForward = AnimationUtils.loadAnimation(getContext(), R.anim.rotate_forward);
@@ -236,14 +238,38 @@ public class BasicProfileFragment extends Fragment implements View.OnClickListen
         switch (view.getId()) {
             case R.id.fbp_fab:
                 animateFab();
-                fab.setImageResource(R.drawable.ic_check);
-                Snackbar.make(view, "Click on each component to edit.", Snackbar.LENGTH_LONG).setTextColor(Color.WHITE)
-                        .setAction("Action", null).show();
-                name.setEnabled(true);
-                image.setEnabled(true);
-                uname.setEnabled(true);
-                oemail.setEnabled(true);
-                dob.setEnabled(true);
+                count++;
+                if(count%2==1) {
+                    fab.setImageResource(R.drawable.ic_check);
+                    Snackbar.make(view, "Click on each component to edit.", Snackbar.LENGTH_LONG).setTextColor(Color.WHITE)
+                            .setAction("Action", null).show();
+                    name.setEnabled(true);
+                    image.setEnabled(true);
+                    uname.setEnabled(true);
+                    oemail.setEnabled(true);
+                    dob.setEnabled(true);
+                } else {
+                    fab.setImageResource(R.drawable.ic_mode_edit);
+                    name.setEnabled(false);
+                    image.setEnabled(false);
+                    uname.setEnabled(false);
+                    oemail.setEnabled(false);
+                    dob.setEnabled(false);
+                    AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                    builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            uploadData();
+                        }
+                    });
+                    builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            Toast.makeText(context,"No Changes Saved",Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                    builder.setTitle("Are you Sure you want to save the changes?");
+                    AlertDialog dialog = builder.create();
+                    dialog.show();
+                }
                 break;
             case R.id.fbp_profile_name:
                 name.setEnabled(true);
@@ -268,8 +294,6 @@ public class BasicProfileFragment extends Fragment implements View.OnClickListen
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         name.setText(ETFirstName.getEditableText().toString()+" "+ETLastName.getEditableText().toString());
-                        uploadData();
-                        Toast.makeText(context,"Name has been successfully changed",Toast.LENGTH_LONG).show();
                     }
                 });
 
@@ -302,8 +326,6 @@ public class BasicProfileFragment extends Fragment implements View.OnClickListen
                         String mail = ETOEmail.getEditableText().toString();
                         if(isValidMail(mail)) {
                             oemail.setText(mail);
-                            uploadData();
-                            Toast.makeText(context,"Email has been successfully changed",Toast.LENGTH_SHORT).show();
                         }
                         else {
                             ETOEmail.setError("Not a valid Email", null);
@@ -341,9 +363,10 @@ public class BasicProfileFragment extends Fragment implements View.OnClickListen
                 builderUName.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        uname.setText(ETUName.getEditableText().toString());
-                        uploadData();
-                        Toast.makeText(context,"Name has been successfully changed",Toast.LENGTH_LONG).show();
+                        String txt = ETUName.getEditableText().toString();
+                        if(txt!=null && !txt.isEmpty()) {
+                            uname.setText(txt);
+                        }
                     }
                 });
 
@@ -359,7 +382,6 @@ public class BasicProfileFragment extends Fragment implements View.OnClickListen
 
                 }
                 builderUName.show();
-
                 break;
             case R.id.fbp_profile_image:
                 Log.d("imagel", "onClick: entered");
@@ -387,8 +409,6 @@ public class BasicProfileFragment extends Fragment implements View.OnClickListen
                 newFragment.setTargetFragment(BasicProfileFragment.this, REQUEST_CODE);
                 // show the datePicker
                 newFragment.show(fm, "datePicker");
-                uploadData();
-                Toast.makeText(context,"Date of Birth has been successfully changed",Toast.LENGTH_LONG).show();
                 break;
         }
     }
@@ -406,7 +426,7 @@ public class BasicProfileFragment extends Fragment implements View.OnClickListen
             try{
                 Bitmap bitmap = MediaStore.Images.Media.getBitmap(context.getApplicationContext().getContentResolver(),imageUri);
                 image.setImageBitmap(bitmap);
-                uploadImageToFirebase();
+                //uploadImageToFirebase();
             }catch (IOException e){
                 e.printStackTrace();
             }
@@ -430,7 +450,7 @@ public class BasicProfileFragment extends Fragment implements View.OnClickListen
                     if(task.isSuccessful()){
                         Uri uri = task.getResult();
                         buffer.setText(uri.toString());
-                        uploadData();
+                        //uploadData();
                         Toast.makeText(context,"Image has been successfully changed",Toast.LENGTH_LONG).show();
                         pb.setVisibility(View.GONE);
                         Log.d("URL", "onComplete: " + uri.toString());
