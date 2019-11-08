@@ -39,6 +39,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:fontFamily="sans-serif"
+                android:background="@color/gradStart"
+                android:textColor="@color/white"
                 android:text="Select Department"
                 android:textSize="16dp"
                 android:textStyle="bold" />
@@ -84,6 +86,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:fontFamily="sans-serif"
+                android:background="@color/gradStart"
+                android:textColor="@color/white"
                 android:text="Select Courses"
                 android:textSize="16dp"
                 android:textStyle="bold" />
@@ -103,6 +107,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:fontFamily="sans-serif"
+                android:background="@color/gradStart"
+                android:textColor="@color/white"
                 android:text="Upload Resume"
                 android:textSize="16dp"
                 android:textStyle="bold" />
@@ -130,6 +136,8 @@
                     android:layout_marginLeft="16dp"
                     android:layout_marginRight="16dp"
                     android:fontFamily="sans-serif"
+                    android:background="@color/gradStart"
+                    android:textColor="@color/white"
                     android:text="Next"
                     android:textSize="16dp"
                     android:textStyle="bold" />
