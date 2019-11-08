@@ -45,6 +45,7 @@
                 android:layout_marginBottom="30dp"
                 android:fontFamily="sans-serif"
                 android:text="ROOM DETAILS"
+                android:onClick="sendToLab"
                 android:textAppearance="?android:attr/textAppearanceLarge" />
 
             <ImageButton

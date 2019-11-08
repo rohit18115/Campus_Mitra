@@ -25,7 +25,6 @@ public class FirebaseApprovFacultyHelper {
     }
     public void updateEmail(Context context, EmailHolder holder){
         String uid = holder.getEmailID();
-
         firebaseDatabase.child(uid).setValue(holder);
         Toast.makeText(context,"Email updated successfully!!",Toast.LENGTH_SHORT).show();
     }

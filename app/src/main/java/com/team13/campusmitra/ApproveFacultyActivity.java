@@ -3,17 +3,24 @@ package com.team13.campusmitra;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatTextView;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.SearchView;
+import android.widget.Toast;
 
+import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -21,6 +28,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.team13.campusmitra.dataholder.Course;
 import com.team13.campusmitra.dataholder.EmailHolder;
 import com.team13.campusmitra.firebaseassistant.FirebaseApprovFacultyHelper;
+import com.team13.campusmitra.firebaseassistant.FirebaseProjectHelper;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -32,6 +40,10 @@ public class ApproveFacultyActivity extends AppCompatActivity {
     SearchView searchView;
     ArrayList<EmailHolder> emailHolders;
     ArrayAdapter<String> adapter;
+    String []items;
+    private TextInputEditText text;
+    private ArrayList<Object> emailid;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -66,13 +78,61 @@ public class ApproveFacultyActivity extends AppCompatActivity {
     }
     private void fitData(){
         ArrayList<String> ar = new ArrayList<>();
+        emailid = new ArrayList<>();
         for(EmailHolder holder:emailHolders){
             ar.add(holder.getEmail());
+            emailid.add(holder.getEmailID());
         }
         Object[] objects = ar.toArray();
-        String []items = Arrays.copyOf(objects,objects.length, String[].class);
+        items = Arrays.copyOf(objects,objects.length, String[].class);
         adapter = new ArrayAdapter<>(this,R.layout.emailholder_list_element,R.id.ap_list_ele_tv,items);
         mylist.setAdapter(adapter);
+        mylist.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                final int pos = position;
+                android.app.AlertDialog.Builder builderDomain = new android.app.AlertDialog.Builder(ApproveFacultyActivity.this);
+                builderDomain.setTitle("Delete Email");
+                builderDomain.setPositiveButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+//                        final String txt = text.getText().toString();
+//                        if(txt!=null && !txt.isEmpty()) {
+//                            FirebaseApprovFacultyHelper helper = new FirebaseApprovFacultyHelper();
+//                            Log.d("tagemail", "onClick: "+pos+ " "+items[pos]);
+//                            DatabaseReference ref = helper.getReference().child(emailid.get(pos).toString());
+//                            ref.addValueEventListener(new ValueEventListener() {
+//                                @Override
+//                                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+//                                    EmailHolder holder = dataSnapshot.getValue(EmailHolder.class);
+//                                    if(holder!=null)
+//                                        holder.setEmail(txt);
+//                                    new FirebaseApprovFacultyHelper().updateEmail(getApplicationContext(),holder);
+//                                }
+//                                @Override
+//                                public void onCancelled(@NonNull DatabaseError databaseError) {
+//                                }
+//                            });
+//                            //ref.removeValue();
+//                        } else {
+//                            Toast.makeText(ApproveFacultyActivity.this,"Email cant be empty",Toast.LENGTH_SHORT).show();
+//                        }
+                    }
+                });
+
+                builderDomain.setNegativeButton("Delete", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        FirebaseApprovFacultyHelper helper = new FirebaseApprovFacultyHelper();
+                        DatabaseReference ref = helper.getReference().child(emailid.get(pos).toString());
+                        ref.removeValue();
+                        dialog.cancel();
+                    }
+                });
+                builderDomain.show();
+            }
+        });
 
     }
     private void loadData(){
@@ -87,7 +147,6 @@ public class ApproveFacultyActivity extends AppCompatActivity {
                 }
                 fitData();
             }
-
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
 
@@ -100,7 +159,6 @@ public class ApproveFacultyActivity extends AppCompatActivity {
         LayoutInflater inflater = getLayoutInflater();
         final View view = inflater.inflate(R.layout.dialog_add_approv_faculty, null);
         final EditText email  = view.findViewById(R.id.dialog_add_approv_email);
-        final EditText pass = view.findViewById(R.id.dialog_add_approv_pass);
         Button button = view.findViewById(R.id.dialog_add_approv_btn);
 
 
@@ -113,21 +171,16 @@ public class ApproveFacultyActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 String em = email.getText().toString().trim();
-                String pas = pass.getText().toString().trim();
                 if(em.length()<1){
                     email.setError("Enter Email");
                 }
                 else if(!em.contains("@iiitd.ac.in")){
                     email.setError("Enter valid iiitd email");
                 }
-                else if(pas.length()<1){
-                    pass.setError("Enter password");
-                }
                 else{
                     FirebaseApprovFacultyHelper helper = new FirebaseApprovFacultyHelper();
                     EmailHolder holder = new EmailHolder();
                     holder.setEmail(em);
-                    holder.setPassword(pas);
                     helper.addToApproveList(getApplicationContext(),holder);
                     dialog.cancel();
                 }

@@ -72,6 +72,7 @@ public class StudentProfile extends AppCompatActivity implements View.OnClickLis
     public static SharedPreferences sharedPreferences;
 
     static final int PICK_CONTACT_REQUEST = 1;
+    private String uid;
 
     private void initComponents() {
         display_courses = findViewById(R.id.display_courses_id);
@@ -82,6 +83,8 @@ public class StudentProfile extends AppCompatActivity implements View.OnClickLis
         next = findViewById(R.id.SPnext);
         selected_file = findViewById(R.id.display_selected_file);
         dept = findViewById(R.id.display_dept);
+        FirebaseAuth auth = FirebaseAuth.getInstance();
+        uid = auth.getCurrentUser().getUid();
     }
 
     private void getStudentObject() {
@@ -118,8 +121,6 @@ public class StudentProfile extends AppCompatActivity implements View.OnClickLis
                 stream = "B. Tech.";
             }
             student.setEnrollCourse(stream);
-            FirebaseAuth auth = FirebaseAuth.getInstance();
-            String uid = auth.getCurrentUser().getUid();
             student.setUserID(uid);
             FirebaseStudentHelper helper = new FirebaseStudentHelper();
             helper.addStudent(this,student);
@@ -219,8 +220,6 @@ public class StudentProfile extends AppCompatActivity implements View.OnClickLis
                 //adapter.getItem(position).toString()
                 dept.setText(adapter.getItem(position).toString());
                 dialog.dismiss();
-
-
             }
 
         });
@@ -299,7 +298,7 @@ public class StudentProfile extends AppCompatActivity implements View.OnClickLis
         progressDialog.show();
 
 
-        final String fileName = System.currentTimeMillis()+"";
+        final String fileName = "ResumeRef/"+uid+".pdf";
         final StorageReference storageReference = storage.getReference().child(fileName);
 
         storageReference.putFile(pdfUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
@@ -381,14 +380,17 @@ public class StudentProfile extends AppCompatActivity implements View.OnClickLis
             if(pdfUri!=null){
                 Log.d("lolo", "uploaded  granted");
                 uploadFile(pdfUri);
+                selected_file.setText("A file is selected");
             }
             else{
                 Toast.makeText(StudentProfile.this,"Select a file....",Toast.LENGTH_SHORT).show();
+                selected_file.setText("No file is selected");
             }
-            selected_file.setText("A file is selected");
+
         }
         else{
             Toast.makeText(StudentProfile.this,"Please select a file....",Toast.LENGTH_SHORT).show();
+            selected_file.setText("No file is selected");
         }
 
     }

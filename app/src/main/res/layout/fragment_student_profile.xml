@@ -17,7 +17,8 @@ tools:context=".fragments.StudentProfileFragment">
 
     <ScrollView
         android:layout_width="match_parent"
-        android:paddingTop="70dp"
+        android:paddingTop="30dp"
+        android:paddingBottom="30dp"
         android:layout_height="match_parent" >
 
         <LinearLayout
@@ -162,6 +163,12 @@ tools:context=".fragments.StudentProfileFragment">
                 android:padding="8dp"
                 android:layout_centerHorizontal="true"
                 />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_gravity="center"
+                android:id="@+id/fsp_file" />
 
         </LinearLayout>
 

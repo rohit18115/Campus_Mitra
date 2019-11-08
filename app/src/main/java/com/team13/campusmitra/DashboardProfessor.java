@@ -170,6 +170,10 @@ public class DashboardProfessor extends AppCompatActivity {
 
                 startActivity(intent4);
                 return true;
+            case R.id.viewBooking:
+                Intent intent6 = new Intent(getApplicationContext(),BookingListActivity.class);
+                startActivity(intent6);
+                return true;
             case R.id.dnd:
                 if(f!=null){
                     OfficeHours officeHours = f.getOfficeHours();

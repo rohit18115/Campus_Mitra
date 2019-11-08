@@ -16,7 +16,6 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
-import com.team13.campusmitra.adaptors.AppointmentListAdapter;
 import com.team13.campusmitra.adaptors.ProfAppointmentListAdaptor;
 import com.team13.campusmitra.dataholder.Appointment;
 import com.team13.campusmitra.dataholder.User;
