@@ -37,11 +37,14 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.team13.campusmitra.Add_Project;
 import com.team13.campusmitra.ProjectImageEdit;
 import com.team13.campusmitra.ProjectModel;
 import com.team13.campusmitra.R;
+import com.team13.campusmitra.R_Lab;
 import com.team13.campusmitra.dataholder.Course;
 import com.team13.campusmitra.dataholder.Project;
+import com.team13.campusmitra.dataholder.ResearchLab;
 import com.team13.campusmitra.dataholder.User;
 import com.team13.campusmitra.firebaseassistant.FirebaseCoursesHelper;
 import com.team13.campusmitra.firebaseassistant.FirebaseProjectHelper;
@@ -62,6 +65,8 @@ public class Projects_Adapter extends RecyclerView.Adapter<Projects_Adapter.Proj
     private ArrayList<Project> data;
     private Project[] projectArray;
     boolean rights;
+    Button add_proj;
+    ResearchLab researchLab;
     private AppCompatActivity activity;
     private Context mContext;
     //private static final String TAG = "Research Labs Project Adapter";
@@ -69,8 +74,9 @@ public class Projects_Adapter extends RecyclerView.Adapter<Projects_Adapter.Proj
         this.data = data;
         this.mContext = mContext;
     }
-    public Projects_Adapter(Project[] projectArray, AppCompatActivity activity, boolean rights) {
+    public Projects_Adapter(Project[] projectArray, AppCompatActivity activity, boolean rights, ResearchLab researchLab) {
         this.projectArray = projectArray;
+        this.researchLab = researchLab;
         this.rights = rights;
         this.activity = activity;
     }
@@ -86,7 +92,6 @@ public class Projects_Adapter extends RecyclerView.Adapter<Projects_Adapter.Proj
     @Override
     public void onBindViewHolder(@NonNull Projects_ViewHolder holder, final int position) {
         final Project current = projectArray[position];//data.get(position);
-
         Glide.with(activity)
                 .asBitmap()
                 .load(current.getProjectImageURL())
@@ -107,6 +112,7 @@ public class Projects_Adapter extends RecyclerView.Adapter<Projects_Adapter.Proj
         });
 
         if( rights) {
+
             holder.info_linear.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override
                 public boolean onLongClick(View view) {
@@ -148,8 +154,12 @@ public class Projects_Adapter extends RecyclerView.Adapter<Projects_Adapter.Proj
         public LinearLayout image_linear;
         public LinearLayout info_linear;
         public TextView sub_part_tv1, sub_part_tv2;
+
+
+
         public Projects_ViewHolder(View itemView) {
             super(itemView);
+
             image_linear = itemView.findViewById(R.id.project_image_linear);
             info_linear = itemView.findViewById(R.id.project_info_linear);
             img = itemView.findViewById(R.id.item_iv1);
@@ -158,6 +168,7 @@ public class Projects_Adapter extends RecyclerView.Adapter<Projects_Adapter.Proj
             sub_part_tv2 = itemView.findViewById(R.id.sub_item_memb);
             subItem = itemView.findViewById(R.id.sub_item);
             push_icon = itemView.findViewById(R.id.push_icon);
+
         }
         private void bind(Project current) {
             boolean expanded = current.isExpanded();

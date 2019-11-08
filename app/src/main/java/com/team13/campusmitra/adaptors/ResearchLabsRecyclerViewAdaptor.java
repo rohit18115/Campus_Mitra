@@ -1,16 +1,21 @@
 package com.team13.campusmitra.adaptors;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Filter;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatImageView;
 import androidx.appcompat.widget.AppCompatTextView;
@@ -18,10 +23,15 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.google.firebase.database.DatabaseReference;
 import com.team13.campusmitra.R;
 import com.team13.campusmitra.R_Lab;
+import com.team13.campusmitra.dataholder.Project;
 import com.team13.campusmitra.dataholder.ResearchLab;
 import com.team13.campusmitra.dataholder.Room;
+import com.team13.campusmitra.firebaseassistant.FirebaseProjectHelper;
+import com.team13.campusmitra.firebaseassistant.FirebaseResearchLabHelper;
+import com.team13.campusmitra.firebaseassistant.FirebaseRoomHelper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,7 +42,7 @@ public class ResearchLabsRecyclerViewAdaptor extends RecyclerView.Adapter<Resear
     private ArrayList<Room> items;
     private ArrayList<ResearchLab> itemsFull;
     private ArrayList<ResearchLab> researchLabs;
-
+    boolean rights;
     public ResearchLabsRecyclerViewAdaptor(ArrayList<Room> items, ArrayList<ResearchLab> researchLabs, Context mContext) {
         this.items = items;
         this.researchLabs = researchLabs;
@@ -45,8 +55,9 @@ public class ResearchLabsRecyclerViewAdaptor extends RecyclerView.Adapter<Resear
         this.mContext = mContext;
     }
     private String uid;
-    public  ResearchLabsRecyclerViewAdaptor(ArrayList<ResearchLab> items, Context mContext,String uid){
+    public  ResearchLabsRecyclerViewAdaptor(ArrayList<ResearchLab> items, Context mContext,String uid,AppCompatActivity activity ){
         this.researchLabs = items;
+        this.activity = activity;
         this.mContext = mContext;
         this.uid = uid;
     }
@@ -91,7 +102,76 @@ public class ResearchLabsRecyclerViewAdaptor extends RecyclerView.Adapter<Resear
                 }
             }
         });
+        rights = false;
+        if(uid!=null && uid.equals("1")){
+            rights=true;
+        }
+        if(rights){
+            holder.layout.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View view) {
+                    showEditDialog(room);
+                    return false;
+                }
+            });
+        }
 
+    }
+
+    private void showEditDialog(final ResearchLab room){
+        final AlertDialog dialog;
+        final AlertDialog.Builder alertDialog = new AlertDialog.Builder(activity);
+        LayoutInflater inflater = activity.getLayoutInflater();
+        final View view = inflater.inflate(R.layout.dialog_delete_rlab, null);
+        Button cancelBtn = view.findViewById(R.id.dialog_cancel_rl_btn);
+        Button deleteBtn = view.findViewById(R.id.dialog_delete_rl_btn);
+        alertDialog.setView(view);
+        alertDialog.setTitle("Delete Research Lab");
+        dialog= alertDialog.create();
+        dialog.show();
+        deleteBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showDialog(room);
+                dialog.cancel();
+            }
+        });
+        cancelBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.cancel();
+            }
+        });
+    }
+
+    public void showDialog(final ResearchLab element) {
+
+        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
+        dialogBuilder.setTitle("Are you sure want to delete ?");
+
+        dialogBuilder.setPositiveButton("Next", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                FirebaseResearchLabHelper helper = new FirebaseResearchLabHelper();
+                DatabaseReference ref = helper.getReference().child(element.getRoomID());
+                ref.removeValue();
+                FirebaseRoomHelper helper2 = new FirebaseRoomHelper();
+                DatabaseReference ref2 = helper2.getReference().child(element.getRoomID());
+                ref2.removeValue();
+
+
+            }
+        });
+
+        dialogBuilder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+            }
+
+        });
+
+        dialogBuilder.show();
     }
 
     @Override

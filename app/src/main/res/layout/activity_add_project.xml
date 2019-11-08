@@ -62,7 +62,7 @@
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
-            android:id="@+id/proj_UPpbar"
+            android:id="@+id/proj_add_UPpbar"
             android:visibility="gone"></ProgressBar>
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/sample_image"

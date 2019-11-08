@@ -61,6 +61,7 @@ public class ResearchLab implements Serializable {
     public void setResearchLabName(String researchLabName) {
         this.researchLabName = researchLabName;
     }
+
     public String getResearchLabNumber() {
         return researchLabNumber;
     }
