@@ -58,6 +58,9 @@ public class BookingListActivity extends AppCompatActivity {
                     if(b.getUserID().toLowerCase().equals(uid.toLowerCase())){
                         bookings.add(b);
                     }
+                    else{
+                        bookings.add(b);
+                    }
                 }
                 DatabaseReference reference1 = new FirebaseRoomHelper().getReference();
                 reference1.addValueEventListener(new ValueEventListener() {
