@@ -87,7 +87,9 @@ public class ResearchLabImageEdit extends AppCompatActivity{
 
     }
     private String uploadImageToFirebase() {
-        final StorageReference RLImageREf = FirebaseStorage.getInstance().getReference("RLImageRef.jpg");
+        Long tsLong = System.currentTimeMillis()/1000;
+        String ts = tsLong.toString();
+        final StorageReference RLImageREf = FirebaseStorage.getInstance().getReference("RLImageRef/r"+ts+".jpg");
         String result="";
         if (imageUri != null) {
             RLImageREf.putFile(imageUri).continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {

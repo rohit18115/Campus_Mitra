@@ -9,6 +9,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.drm.DrmStore;
+import android.net.Uri;
 import android.os.Handler;
 import android.text.Spanned;
 
@@ -107,6 +109,22 @@ public class R_Lab extends AppCompatActivity {
         add_proj = findViewById(R.id.add_proj_btn);
         projects = new ArrayList<>();
         project_list = (RecyclerView) findViewById(R.id.proj_list);
+        HyperLink.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String uri = HyperLink.getText().toString();
+                if(uri.length()<6){
+                    Toast.makeText(getApplicationContext(),"Invalid URL!!!",Toast.LENGTH_SHORT).show();
+
+                }
+                else{
+                    Intent intent = new Intent(Intent.ACTION_VIEW);
+                    intent.setData(Uri.parse(uri));
+                    startActivity(intent);
+                }
+            }
+        });
+
         loadObject();
         loadProjects();
 
@@ -119,7 +137,7 @@ public class R_Lab extends AppCompatActivity {
                 public void onClick(View view) {
                     Intent intent = new Intent(R_Lab.this, Add_Project.class);
                     intent.putExtra("R Lab", researchLab);
-                    startActivity(intent);
+                    startActivityForResult(intent, 1);
 
                     //loadProjects();
                 }
@@ -165,7 +183,7 @@ public class R_Lab extends AppCompatActivity {
 
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                //professors.clear();
+                professors.clear();
                 for(DataSnapshot snapshot:dataSnapshot.getChildren()){
                     User u = snapshot.getValue(User.class);
                     if(proffesors_email.contains(u.getUserEmail())){
