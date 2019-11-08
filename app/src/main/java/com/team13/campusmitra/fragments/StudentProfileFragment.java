@@ -101,12 +101,12 @@ public class StudentProfileFragment extends Fragment implements View.OnClickList
                         interests.setText(student.getAreaOfInterest());
                         ArrayList<String> s = student.getCourses();
                         String cor = "";
-                        if (s != null) {
+                        if (s != null && s.size()!=0) {
                             for (int i = 0; i < s.size(); i++) {
                                 cor = cor + s.get(i) + "\n";
                             }
+                            coursesTaken.setText(cor);
                         }
-                        coursesTaken.setText(cor);
                         url = student.getResumeURL();
                         pb.setVisibility(View.GONE);
                     }
@@ -186,6 +186,20 @@ public class StudentProfileFragment extends Fragment implements View.OnClickList
                     enrollCourse.setEnabled(false);
                     coursesTaken.setEnabled(false);
                     interests.setEnabled(false);
+                    android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(getActivity());
+                    builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            uploadData();
+                        }
+                    });
+                    builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            Toast.makeText(getContext(),"No Changes Saved",Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                    builder.setTitle("Are you Sure you want to save the changes?");
+                    android.app.AlertDialog dialog = builder.create();
+                    dialog.show();
                 }
                 break;
             case R.id.fsp_interests:
@@ -203,7 +217,6 @@ public class StudentProfileFragment extends Fragment implements View.OnClickList
                         String txt = dbInterests.getEditableText().toString();
                         if(txt!=null && !txt.isEmpty()) {
                             interests.setText(txt);
-                            uploadData();
                         }
                     }
                 });
@@ -233,10 +246,10 @@ public class StudentProfileFragment extends Fragment implements View.OnClickList
                     public void onClick(DialogInterface dialog, int which) {
                         String txt = dbRoll.getEditableText().toString();
                         if(txt!=null && !txt.isEmpty()) {
-                            if(isInvalid(txt))
-                            rollNo.setText(txt);
-                            uploadData();
-                        }
+                            if(!isInvalid(txt))
+                                rollNo.setText(txt);
+                            else
+                                Toast.makeText(getActivity(), "Invalid RollNumber, Try Again", Toast.LENGTH_SHORT).show();                         }
                     }
 
                     private boolean isInvalid(String roll) {
@@ -361,14 +374,12 @@ public class StudentProfileFragment extends Fragment implements View.OnClickList
                                                 @Override
                                                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                                                     department.setText(adapterDept.getItem(position).toString());
-                                                    uploadData();
                                                     dialogDept.dismiss();
                                                 }});
         listViewCourse.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                                                 @Override
                                                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                                                     enrollCourse.setText(adapterCourse.getItem(position).toString());
-                                                    uploadData();
                                                     dialogCourses.dismiss();
                                                 }
                                             });
@@ -432,11 +443,9 @@ public class StudentProfileFragment extends Fragment implements View.OnClickList
                         t = t + selected.get(i) + "\n";
                     }
                     coursesTaken.setText(t.trim());
-                    uploadData();
                 }
             }
         }
     }
-
 }
 
