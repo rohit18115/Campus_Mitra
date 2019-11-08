@@ -86,7 +86,9 @@ public class ProjectImageEdit extends AppCompatActivity {
 
     }
     private String uploadImageToFirebase() {
-        final StorageReference ProjectImageREf = FirebaseStorage.getInstance().getReference("ProjectImageRef.jpg");
+        Long tsLong = System.currentTimeMillis()/1000;
+        String ts = tsLong.toString();
+        final StorageReference ProjectImageREf = FirebaseStorage.getInstance().getReference("ProjectImageRef/p"+ts+".jpg");
         String result="";
         if (imageUri != null) {
             ProjectImageREf.putFile(imageUri).continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
