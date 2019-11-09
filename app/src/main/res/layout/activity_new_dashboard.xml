@@ -202,7 +202,7 @@
                     android:layout_height="match_parent"
                     android:orientation="vertical"
                     android:padding="16dp"
-                    android:onClick="send_to_stud_profile"
+                    android:onClick="sendToLab"
                     android:gravity="center">
 
                     <ImageView
@@ -212,9 +212,10 @@
                         />
                     <TextView
 
-                        android:text="Edit Profile"
+                        android:text="View Occupancy"
                         android:textSize="14sp"
                         android:layout_marginTop="12dp"
+                        android:onClick="sendToLab"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
                 </LinearLayout>

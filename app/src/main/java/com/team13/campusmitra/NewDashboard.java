@@ -152,4 +152,9 @@ public class NewDashboard extends AppCompatActivity {
         startActivity(intent);
         //finish();
     }
+    public void sendToLab(View view)
+    {
+        Intent intent=new Intent(getApplicationContext(),LabsRecyclerView.class);
+        startActivity(intent);
+    }
 }
