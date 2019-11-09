@@ -155,8 +155,12 @@ public class StudentProfile extends AppCompatActivity implements View.OnClickLis
                         Log.d("lololo", "onDataChange: " + user[0].getUserLastName());
                         user[0].setProfileCompleteCount(2);
                         helper.updateUser(getApplicationContext(), user[0]);
+                        break;
                     }
                 }
+                Intent i = new Intent(getApplicationContext(),SignInSplash.class);
+                startActivity(i);
+                finish();
             }
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
