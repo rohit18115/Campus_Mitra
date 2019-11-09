@@ -115,28 +115,30 @@ public class BasicProfileFragment extends Fragment implements View.OnClickListen
         reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                while(getActivity() == null) {
-                }
                 User user = dataSnapshot.getValue(User.class);
                 if(user.getUserId().equals(uid)) {
                     Log.d("lololo", "onDataChange: " + user.getUserLastName());
                     String str = user.getGender();
+                    Log.d("lololo", "onDataChange: " + user.getImageUrl());
                     if(str.equals("Male")) {
-                        Glide.with(BasicProfileFragment.this)
+                        Glide.with(context)
                                 .asBitmap()
                                 .load(user.getImageUrl())
                                 .placeholder(R.drawable.blankboy)
                                 .into(image);
+                        Log.d("lololo", "onDataChange:inside " + user.getImageUrl());
                     }
                     else{
-                        Glide.with(BasicProfileFragment.this)
+                        Glide.with(context)
                                 .asBitmap()
                                 .load(user.getImageUrl())
                                 .placeholder(R.drawable.blankgirl)
                                 .into(image);
                     }
                     name.setText(user.getUserFirstName() + " " + user.getUserLastName());
-                    oemail.setText(user.getUserPersonalMail());
+                    String txt = user.getUserPersonalMail();
+                    if(txt!=null && !txt.isEmpty())
+                        oemail.setText(txt);
                     dob.setText(user.getDob());
                     String username = user.getUserName();
                     if(username!=null && !username.isEmpty())
@@ -151,7 +153,6 @@ public class BasicProfileFragment extends Fragment implements View.OnClickListen
     }
 
     public void uploadData() {
-        uploadImageToFirebase();
         FirebaseAuth auth = FirebaseAuth.getInstance();
         final String uid = auth.getCurrentUser().getUid();
         FirebaseUserHelper helper = new FirebaseUserHelper();
@@ -159,11 +160,12 @@ public class BasicProfileFragment extends Fragment implements View.OnClickListen
         reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                while(getActivity() == null) {
-                    Log.d("crash", "onDataChange: still null ");
-                }
+//                while(getActivity() == null) {
+//                    Log.d("crash", "onDataChange: still null ");
+//                }
                 User user = dataSnapshot.getValue(User.class);
                 if(user.getUserId().equals(uid)) {
+                    Log.d("upload", "onDataChange: entered upload");
                     String fname = "", lname = "", oEmail = "", dobi = "",uName = "",buff = "";
 
                     try {
@@ -257,7 +259,7 @@ public class BasicProfileFragment extends Fragment implements View.OnClickListen
                     AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
                     builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int id) {
-                            uploadData();
+                            uploadImageToFirebase();
                         }
                     });
                     builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -451,11 +453,14 @@ public class BasicProfileFragment extends Fragment implements View.OnClickListen
                     if(task.isSuccessful()){
                         Uri uri = task.getResult();
                         buffer.setText(uri.toString());
-                        //uploadData();
+                        uploadData();
                         Log.d("URL", "onComplete: " + uri.toString());
                     }
                 }
             });
+        }
+        else {
+            uploadData();
         }
     }
 }

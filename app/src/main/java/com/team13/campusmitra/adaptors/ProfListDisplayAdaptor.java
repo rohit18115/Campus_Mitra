@@ -71,8 +71,6 @@ public class ProfListDisplayAdaptor extends RecyclerView.Adapter<ProfListDisplay
                     .into(holder.image);
         }
         holder.tv1.setText(user.getUserFirstName()+ " "+user.getUserLastName());
-        //holder.tv2.setText(prof.getDepartment()+ " Department");
-        holder.tv2.setText(user.getUserName());
         holder.tv3.setText(user.getUserEmail());
         holder.layout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -107,7 +105,6 @@ public class ProfListDisplayAdaptor extends RecyclerView.Adapter<ProfListDisplay
             super(itemView);
             image = itemView.findViewById(R.id.pdl_image);
             tv1 = itemView.findViewById(R.id.pdl_name);
-            tv2 = itemView.findViewById(R.id.pdl_department);
             tv3 = itemView.findViewById(R.id.pdl_emailid);
             layout = itemView.findViewById((R.id.pdl_layout));
         }

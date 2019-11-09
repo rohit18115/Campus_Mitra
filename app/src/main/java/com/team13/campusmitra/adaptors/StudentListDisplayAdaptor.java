@@ -77,8 +77,6 @@ public class StudentListDisplayAdaptor extends RecyclerView.Adapter<StudentListD
                 .placeholder(R.drawable.blankgirl)
                 .into(holder.image);*/
         holder.tv1.setText(user.getUserFirstName() + " " + user.getUserLastName());
-        //holder.tv2.setText("Departments");\
-        holder.tv2.setText(user.getUserName());
         holder.tv3.setText(user.getUserEmail());
         holder.layout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -113,7 +111,6 @@ public class StudentListDisplayAdaptor extends RecyclerView.Adapter<StudentListD
             super(itemView);
             image = itemView.findViewById(R.id.sdl_image);
             tv1 = itemView.findViewById(R.id.sdl_name);
-            tv2 = itemView.findViewById(R.id.sdl_department);
             tv3 = itemView.findViewById(R.id.sdl_emailid);
             layout = itemView.findViewById((R.id.sdl_layout));
         }

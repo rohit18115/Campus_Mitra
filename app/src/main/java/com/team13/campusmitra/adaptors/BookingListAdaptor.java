@@ -46,8 +46,9 @@ public class BookingListAdaptor extends RecyclerView.Adapter<BookingListAdaptor.
     public void onBindViewHolder(@NonNull MYViewHolder holder, int position) {
         final Booking booking = bookings.get(position);
         holder.roomNumber.setText(getRoomNumber(booking.getRoomID()));
-        holder.toTime.setText(booking.getEndTime());;
-        holder.fromTime.setText(booking.getStartTime());
+        holder.toTime.setText(getTimeInAMPM(Integer.parseInt(booking.getEndTime())));
+        holder.fromTime.setText(getTimeInAMPM(Integer.parseInt(booking.getStartTime())));
+        holder.date.setText(booking.getDate());
         holder.cancelButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -60,6 +61,41 @@ public class BookingListAdaptor extends RecyclerView.Adapter<BookingListAdaptor.
         DatabaseReference reference = helper.getReference().child(booking.getBookingID());
         reference.removeValue();
 
+    }
+
+    private String getTimeInAMPM(int time){
+        String mins = "";
+        String ampm="";
+        int min = time%100;
+        if(min<10){
+            mins = "0"+min;
+        }
+        else{
+            mins = ""+min;
+        }
+        int hour = time/100;
+        String hours = "";
+        if(hour==0){
+            hours="12";
+            ampm="am";
+
+        }
+        else if(hour>0 && hour<12){
+            hours = ""+hour;
+            ampm = "am";
+        }
+        else if (hour==12){
+            hours="12";
+            ampm="pm";
+
+
+        }
+        else{
+            hour = hour%12;
+            hours=""+hour;
+            ampm="pm";
+        }
+        return hours+":"+mins+ampm;
     }
     private String getRoomNumber(String roomid){
         for(Room r:rooms){
@@ -78,6 +114,7 @@ public class BookingListAdaptor extends RecyclerView.Adapter<BookingListAdaptor.
     TextView roomNumber;
     TextView fromTime;
     TextView toTime;
+    TextView date;
     Button cancelButton;
     public MYViewHolder(@NonNull View itemView) {
         super(itemView);
@@ -85,6 +122,7 @@ public class BookingListAdaptor extends RecyclerView.Adapter<BookingListAdaptor.
         fromTime=itemView.findViewById(R.id.booking_list_starttime);
         toTime = itemView.findViewById(R.id.booking_list_endtime);
         cancelButton = itemView.findViewById(R.id.booking_list_cancel);
+        date = itemView.findViewById(R.id.booking_list_day);
 
     }
 }

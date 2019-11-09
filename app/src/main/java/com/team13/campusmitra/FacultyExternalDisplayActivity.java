@@ -19,6 +19,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
 import com.team13.campusmitra.dataholder.Faculty;
+import com.team13.campusmitra.dataholder.OfficeHours;
 import com.team13.campusmitra.dataholder.Student;
 import com.team13.campusmitra.dataholder.User;
 import com.team13.campusmitra.firebaseassistant.FirebaseFacultyHelper;
@@ -37,6 +38,7 @@ public class FacultyExternalDisplayActivity extends AppCompatActivity implements
     AppCompatTextView email;
     AppCompatTextView courses;
     AppCompatTextView domain;
+    AppCompatTextView officeHours;
     Button book;
     //ProgressBar pb;
 
@@ -50,6 +52,7 @@ public class FacultyExternalDisplayActivity extends AppCompatActivity implements
         courses = findViewById(R.id.afe_courses);
         domain = findViewById(R.id.afe_domains);
         book = findViewById(R.id.afe_appointment);
+        officeHours = findViewById(R.id.afe_office_hours);
         //pb = findViewById(R.id.afe_pb);
     }
 
@@ -117,6 +120,11 @@ public class FacultyExternalDisplayActivity extends AppCompatActivity implements
                         }
                         if(cor!=null && !cor.isEmpty()) {
                             courses.setText(cor);
+                        }
+                        OfficeHours of = faculty.getOfficeHours();
+                        if(of!=null) {
+                            String set = of.getDay()+ " From "+of.getStartTime()+" to "+of.getEndTime()+" "+" "+of.getVenue()+" (R&D Block)";
+                            officeHours.setText(set);
                         }
                         if(faculty.getAvailability()==0) {
                             CircleImageView cim = findViewById(R.id.dnd);

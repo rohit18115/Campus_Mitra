@@ -13,8 +13,8 @@ android:id="@+id/sdl_layout">
         android:orientation="horizontal" >
 
         <de.hdodenhof.circleimageview.CircleImageView
-            android:layout_width="100dp"
-            android:layout_height="100dp"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
             android:id="@+id/sdl_image"
             android:src="@mipmap/ic_launcher" >
         </de.hdodenhof.circleimageview.CircleImageView>
@@ -37,16 +37,6 @@ android:id="@+id/sdl_layout">
                 android:text="Name"
                 android:textColor="#000000"
                 android:textSize="24sp" />
-
-            <androidx.appcompat.widget.AppCompatTextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/sdl_department"
-                android:paddingLeft="12dp"
-                android:paddingRight="4dp"
-                android:textColor="#000000"
-                android:paddingBottom="4dp"
-                android:text="Department" />
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:layout_width="match_parent"

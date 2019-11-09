@@ -11,6 +11,7 @@ import android.view.animation.LayoutAnimationController;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.TimePicker;
@@ -62,6 +63,7 @@ public class VacantRoomDetails extends FragmentActivity {
     RecyclerView recyclerView;
     VacantRoomRecyclerViewAdaptor adaptor;
     SearchView searchView;
+    ProgressBar progressBar;
     String dates, stimes, etimes;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,6 +73,7 @@ public class VacantRoomDetails extends FragmentActivity {
         rooms = new ArrayList<>();
         elements = new ArrayList<>();
         bookings = new ArrayList<>();
+        progressBar=findViewById(R.id.vacantroomprog);
         //::::::::::Initialization::::::::::
         date = findViewById(R.id.vacant_room_date);
         start_time = findViewById(R.id.vacant_room_start_time);
@@ -121,7 +124,7 @@ public class VacantRoomDetails extends FragmentActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        loadData();
+        loadData(0);
     }
 
     public void setStartTime(View view) {
@@ -210,8 +213,7 @@ public class VacantRoomDetails extends FragmentActivity {
 
 
                  */
-                //loadData();
-                loadRecyclerView();
+                loadData(1);
 
 
             }
@@ -221,9 +223,10 @@ public class VacantRoomDetails extends FragmentActivity {
         }
     }
 
-    private void loadData(){
+    private void loadData(final int i){
         FirebaseRoomHelper helper=new FirebaseRoomHelper();
         DatabaseReference reference = helper.getReference();
+        progressBar.setVisibility(View.VISIBLE);
         reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -250,6 +253,9 @@ public class VacantRoomDetails extends FragmentActivity {
                                     TimeTableElement element = snapshot.getValue(TimeTableElement.class);
                                     elements.add(element);
                                 }
+                                progressBar.setVisibility(View.GONE);
+                                if(i==1)
+                                loadRecyclerView();
 
                             }
 
@@ -282,7 +288,7 @@ public class VacantRoomDetails extends FragmentActivity {
         manager.setStartTime(Integer.parseInt(stimes));
 
         ArrayList<Room> r =  manager.getVacantRoomsWithCapacity(Integer.parseInt(capacity.getText().toString().trim()));
-        adaptor = new VacantRoomRecyclerViewAdaptor(r,VacantRoomDetails.this,getApplicationContext());
+        adaptor = new VacantRoomRecyclerViewAdaptor(r,VacantRoomDetails.this,getApplicationContext(),dates,stimes,etimes);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         loadAdaptorToRecyclerView(recyclerView,adaptor);

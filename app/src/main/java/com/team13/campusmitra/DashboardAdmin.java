@@ -36,6 +36,10 @@ public class DashboardAdmin extends AppCompatActivity {
             startActivity(i);
             finish();
             return true;
+            case R.id.viewbook:
+                Intent intent6 = new Intent(getApplicationContext(),BookingListActivity.class);
+                startActivity(intent6);
+                return true;
 
     }
     return super.onOptionsItemSelected(item);
