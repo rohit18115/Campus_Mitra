@@ -81,6 +81,10 @@
                     android:id="@+id/dialog_edit_rlimg_update_btn"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:textColor="@color/white"
+                    android:background="@color/gradStart"
+                    android:textStyle="bold"
+                    android:textSize="16dp"
                     android:layout_margin="5dp"
                     android:text="@string/update" />
 
@@ -88,6 +92,10 @@
                     android:id="@+id/dialog_edit_rlimg_delete_btn"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:textColor="@color/white"
+                    android:background="@color/gradStart"
+                    android:textStyle="bold"
+                    android:textSize="16dp"
                     android:layout_margin="5dp"
                     android:text="@string/delete" />
             </LinearLayout>

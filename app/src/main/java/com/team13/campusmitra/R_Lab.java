@@ -12,6 +12,7 @@ import android.content.Intent;
 import android.drm.DrmStore;
 import android.net.Uri;
 import android.os.Handler;
+import android.os.Parcelable;
 import android.text.Spanned;
 
 import com.bumptech.glide.Glide;
@@ -73,7 +74,7 @@ public class R_Lab extends AppCompatActivity {
     ArrayList<String> professors;
     ArrayList<Project> projects;
     Context context;
-
+    String regex = "^(https?|ftp|file)://[-a-zA-Z0-9+&@#/%?=~_|!:,.;]*[-a-zA-Z0-9+&@#/%=~_|]";
     //ArrayList<Project> projects_present;
     RecyclerView project_list;
     private int new_project = 0;
@@ -87,6 +88,7 @@ public class R_Lab extends AppCompatActivity {
         String from = (String) myIntent.getStringExtra("Come from");
         String userType = (String) myIntent.getStringExtra("UTYPE");
         editFlag = false;
+
         if(userType!=null && userType.equals("1")){
             editFlag=true;
         }
@@ -101,12 +103,13 @@ public class R_Lab extends AppCompatActivity {
         mentor = findViewById(R.id.r_lab_mentor);
         labName = findViewById(R.id.r_lab_name);
         labNumber = findViewById(R.id.r_lab_number);
+        add_proj = findViewById(R.id.add_proj_btn);
         proffesors_email = researchLab.getMentors();
         rl_info = findViewById(R.id.rl_information);
         lab_Image = findViewById(R.id.r_lab_img);
         professors = new ArrayList<>();
         proffesors_email = new ArrayList<>();
-        add_proj = findViewById(R.id.add_proj_btn);
+
         projects = new ArrayList<>();
         project_list = (RecyclerView) findViewById(R.id.proj_list);
         HyperLink.setOnClickListener(new View.OnClickListener() {
@@ -117,9 +120,12 @@ public class R_Lab extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(),"Invalid URL!!!",Toast.LENGTH_SHORT).show();
 
                 }
+                else if(!uri.matches(regex)){
+                    Toast.makeText(getApplicationContext(),"Invalid URL!!! Write complete URL",Toast.LENGTH_SHORT).show();
+                }
                 else{
-                    Intent intent = new Intent(Intent.ACTION_VIEW);
-                    intent.setData(Uri.parse(uri));
+                    Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(uri));
+                    //intent.setData(Uri.parse(uri));
                     startActivity(intent);
                 }
             }
@@ -130,18 +136,20 @@ public class R_Lab extends AppCompatActivity {
 
         add_proj.setVisibility(View.GONE);
         if(editFlag) {
-            add_proj.setVisibility(View.VISIBLE);
-            add_proj.setOnClickListener(new View.OnClickListener() {
-                @Override
-                //************************Have to update intent*********************
-                public void onClick(View view) {
-                    Intent intent = new Intent(R_Lab.this, Add_Project.class);
-                    intent.putExtra("R Lab", researchLab);
-                    startActivityForResult(intent, 1);
+            Toast.makeText(getApplicationContext(),"Long Click on Items to Modify",Toast.LENGTH_SHORT).show();
+                add_proj.setVisibility(View.VISIBLE);
+                add_proj.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    //************************Have to update intent*********************
+                    public void onClick(View view) {
+                        Intent intent = new Intent(R_Lab.this, Add_Project.class);
+                        intent.putExtra("R Lab", researchLab);
+                        startActivity(intent);
+                        //adaptor.notifyDataSetChanged();
+                        //loadProjects();
+                    }
+                });
 
-                    //loadProjects();
-                }
-            });
             rl_info.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override
                 public boolean onLongClick(View view) {
@@ -170,6 +178,17 @@ public class R_Lab extends AppCompatActivity {
             });
         }
 
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data)
+    {
+        super.onActivityResult(requestCode, resultCode, data);
+        // check if the request code is same as what is passed  here it is 2
+        if(resultCode==RESULT_OK)
+        {
+            loadProjects();
+        }
     }
 
 
@@ -202,6 +221,7 @@ public class R_Lab extends AppCompatActivity {
                         .load(researchLab.getImageURL())
                         .placeholder(R.drawable.lab_sample)
                         .into(lab_Image);
+
                 labName.setText(researchLab.getResearchLabName());
                 HyperLink.setText(researchLab.getWebPageURL());
             }
@@ -261,7 +281,16 @@ public class R_Lab extends AppCompatActivity {
                             researchLab.setMentors(ment);
                             break;
                         case 4:
-                            researchLab.setWebPageURL(data);
+                            String regex = "^(https?|ftp|file)://[-a-zA-Z0-9+&@#/%?=~_|!:,.;]*[-a-zA-Z0-9+&@#/%=~_|]";
+                            if(data.length()<6){
+                                Toast.makeText(getApplicationContext(),"Invalid URL!!!",Toast.LENGTH_SHORT).show();
+
+                            }
+                            else if(!data.matches(regex)){
+                                Toast.makeText(getApplicationContext(),"Invalid URL!!! Write complete URL",Toast.LENGTH_SHORT).show();
+                            }
+                            else
+                                researchLab.setWebPageURL(data);
                             break;
                         default:
                             et.setError("Some Error occured");
@@ -338,7 +367,8 @@ public class R_Lab extends AppCompatActivity {
     }
     private void loadRecyclerView(){
         Object[] objects = projects.toArray();
-        adaptor = new Projects_Adapter(Arrays.copyOf(objects,objects.length, Project[].class),this, editFlag);
+        adaptor = new Projects_Adapter(Arrays.copyOf(objects,objects.length, Project[].class),this, editFlag, researchLab);
+        adaptor.notifyDataSetChanged();
         project_list.setHasFixedSize(true);
         project_list.setLayoutManager(new LinearLayoutManager(this));
         loadAdaptorToRecyclerView(project_list,adaptor);

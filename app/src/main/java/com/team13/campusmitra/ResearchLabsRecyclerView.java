@@ -13,6 +13,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.inputmethod.EditorInfo;
 import android.widget.SearchView;
+import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -41,6 +42,7 @@ public class ResearchLabsRecyclerView extends AppCompatActivity  {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_research_labs_recycler_view);
         Log.d(TAG, "onCreate: started");
+        Toast.makeText(getApplicationContext(),"Long Click Item to Delete",Toast.LENGTH_SHORT).show();
         uid = getIntent().getStringExtra("UTYPE");
         loadLabData();
     }
@@ -77,7 +79,7 @@ public class ResearchLabsRecyclerView extends AppCompatActivity  {
     private void initRecycler() {
         Log.d(TAG, "initComponents: started");
         RecyclerView recyclerView = findViewById(R.id.research_labs_recycler_view);
-        ResearchLabsRecyclerViewAdaptor adapter = new ResearchLabsRecyclerViewAdaptor(items, this,uid);
+        ResearchLabsRecyclerViewAdaptor adapter = new ResearchLabsRecyclerViewAdaptor(items, this,uid, this);
         recyclerView.setAdapter(adapter);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);

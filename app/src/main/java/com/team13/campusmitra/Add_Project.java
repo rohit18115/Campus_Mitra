@@ -57,6 +57,7 @@ public class Add_Project extends AppCompatActivity implements View.OnClickListen
     TextView buffer;
     TextInputEditText proj_desc;
     Button add_btn;
+    Projects_Adapter adapter;
     ResearchLab researchLab;
     String members_string;
     ArrayList<String> members;
@@ -77,7 +78,7 @@ public class Add_Project extends AppCompatActivity implements View.OnClickListen
         members = new ArrayList<>();
         proj_name = findViewById(R.id.text_project_name);
         proj_desc = findViewById(R.id.text_desc);
-        progressBar = findViewById(R.id.proj_UPpbar);
+        progressBar = findViewById(R.id.proj_add_UPpbar);
         member_list = findViewById(R.id.add_members_list);
         projects = new ArrayList<>();
         buffer = findViewById(R.id.Add_proj_Buffer);
@@ -97,6 +98,7 @@ public class Add_Project extends AppCompatActivity implements View.OnClickListen
             for(int i = 0;i < m.length; i++)
                 members.add(m[i].replaceAll("\\s", ""));
             p.setMembers(members);
+
             FirebaseProjectHelper helper = new FirebaseProjectHelper();
             //helper.addProject(getApplicationContext(),p);
             helper.addProjectInResearchLab(Add_Project.this, p, researchLab);
