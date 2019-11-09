@@ -78,18 +78,20 @@
                 android:id="@+id/booking_list_endtime">
 
             </TextView>
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="10dp"
+                android:text="DDDD"
                 android:id="@+id/booking_list_day">
 
             </TextView>
-        </LinearLayout>
-
-
-
-    </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -100,8 +102,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Cancel Booking"
+            android:background="@color/materialgreen"
             android:id="@+id/booking_list_cancel"
             android:padding="10dp"
+            android:textColor="@color/white"
             >
 
         </Button>

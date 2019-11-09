@@ -87,7 +87,7 @@ public class VacantRoomFragment extends Fragment {
         end_time = v.findViewById(R.id.vacant_room_end_time);
         capacity = v.findViewById(R.id.vacant_room_capacity);
         send_button = v.findViewById(R.id.vacant_room_send);
-        searchView = v.findViewById(R.id.vacant_room_search_view);
+      //  searchView = v.findViewById(R.id.vacant_room_search_view);
         recyclerView = v.findViewById(R.id.vacant_room_rview);
         cardView = v.findViewById(R.id.vacant_room_card);
         calendar = Calendar.getInstance();
@@ -125,17 +125,6 @@ public class VacantRoomFragment extends Fragment {
             @Override
             public boolean onClose() {
                 cardView.setVisibility(View.VISIBLE);
-                return false;
-            }
-        });
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String s) {
-                return false;
-            }
-
-            @Override
-            public boolean onQueryTextChange(String s) {
                 return false;
             }
         });
