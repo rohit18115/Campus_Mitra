@@ -108,7 +108,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:fontFamily="sans-serif"
-                            android:hint="Eg nikhil@iiitd.ac.in, himma@iiitd.ac.in"
+                            android:hint="Enter Email IDs"
                             android:inputType="text"
                             android:maxLines="1"
                             android:textSize="16sp" />

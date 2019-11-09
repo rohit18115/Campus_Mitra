@@ -53,7 +53,7 @@ public class LabsRecyclerView extends AppCompatActivity {
                 items.clear();
                 for(final DataSnapshot snapshot:dataSnapshot.getChildren()){
                     Room room = snapshot.getValue(Room.class);
-                    if(room.getRoomType()==0) {
+                    if(room.getRoomType()<6) {
                         items.add(room);
                     }
                 }
