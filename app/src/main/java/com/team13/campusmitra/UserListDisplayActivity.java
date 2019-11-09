@@ -133,10 +133,8 @@ public class UserListDisplayActivity extends AppCompatActivity {
                                     students.add(new Student());
                                 }
                             }
-
                             @Override
                             public void onCancelled(@NonNull DatabaseError databaseError) {
-
                             }
                         });
                     }
