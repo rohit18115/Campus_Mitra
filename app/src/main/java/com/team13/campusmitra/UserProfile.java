@@ -167,11 +167,16 @@ public class UserProfile extends AppCompatActivity implements DatePickerDialog.O
                 progressBar.setVisibility(View.VISIBLE);
 
                 startActivityForResult(Intent.createChooser(gallery,"Seclect Picture"),PICK_IMAGE);
+
             }
         });
+        Calendar c = Calendar.getInstance();
+        final int mYear = c.get(Calendar.YEAR);
+        final int mMonth = c.get(Calendar.MONTH);
+        final int mDay = c.get(Calendar.DAY_OF_MONTH);
         button_datepicker.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                datePickerDialog = DatePickerDialog.newInstance(UserProfile.this, Year, Month, Day);
+                datePickerDialog = DatePickerDialog.newInstance(UserProfile.this, mYear, mMonth, mDay);
                 datePickerDialog.setThemeDark(false);
                 datePickerDialog.showYearPickerFirst(false);
                 datePickerDialog.setTitle("Date Picker");
