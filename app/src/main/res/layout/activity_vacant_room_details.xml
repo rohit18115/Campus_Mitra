@@ -126,6 +126,7 @@
         android:background="@color/gradStart"
         android:textColor="@color/white"
         android:onClick="onClick"
+        android:padding="10dp"
         android:text="Find Vacant Room" />
     </LinearLayout>
 </androidx.cardview.widget.CardView>
@@ -133,9 +134,20 @@
         android:id="@+id/vacant_room_search_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:id="@+id/vacantroomprog">
 
+        </ProgressBar>
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/vacant_room_rview"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
+    </RelativeLayout>
 </LinearLayout>

@@ -48,11 +48,84 @@ public class BookingDialogue extends DialogFragment {
 
     private int type;
     private String mYear, mMonth, mDay, mFromHour, mFromMinute, mToHour, mToMinute;
-
+    private String dd;
+    private String ftime;
+    private String ttime;
+    boolean ff=false;
     public BookingDialogue(int type) {
         this.type = type;
     }
+    public BookingDialogue(int type,String date,String fromTime,String toTime) {
+        this.type = type;
+        this.dd = date;
+        this.ftime = fromTime;
+        this.ttime = toTime;
+        ff=true;
+    }
 
+    public void setDate(String date,String fromTime,String toTime ){
+        this.date.setText(date);
+        this.date.setEnabled(false);
+        this.from_time.setText(fromTime);
+        mFromHour = gethr(fromTime,1);
+        mFromMinute = gethr(fromTime,0);
+        mToHour = gethr(toTime,1);
+        mToMinute = gethr(toTime,0);
+        this.from_time.setEnabled(false);
+        this.to_time.setText(toTime);
+        this.to_time.setEnabled(false);
+    }
+    private String gethr(String h,int i){
+        int t = Integer.parseInt(h);
+        if(i==0){
+            return ""+(t%100);
+
+        }
+        t=t/100;
+        return ""+t;
+    }
+    private int getTime(String t){
+        String[] ti = t.split(":");
+        int hr=Integer.parseInt(ti[0]);
+        int min = Integer.parseInt(ti[1]);
+        hr*=100;
+        hr+=min;
+        return  hr;
+    }
+    private String getTimeInAMPM(int time){
+        String mins = "";
+        String ampm="";
+        int min = time%100;
+        if(min<10){
+            mins = "0"+min;
+        }
+        else{
+            mins = ""+min;
+        }
+        int hour = time/100;
+        String hours = "";
+        if(hour==0){
+            hours="12";
+            ampm="am";
+
+        }
+        else if(hour>0 && hour<12){
+            hours = ""+hour;
+            ampm = "am";
+        }
+        else if (hour==12){
+            hours="12";
+            ampm="pm";
+
+
+        }
+        else{
+            hour = hour%12;
+            hours=""+hour;
+            ampm="pm";
+        }
+        return hours+":"+mins+ampm;
+    }
     public Appointment setAppointmentDetails(User userID1, User userID2) {
         appointment = new Appointment();
         appointment.setUserID1(userID1.getUserId());
@@ -100,7 +173,6 @@ public class BookingDialogue extends DialogFragment {
         }
         comment = view.findViewById(R.id.appointment_comments);
     }
-
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         // Use the Builder class for convenient dialog construction
@@ -119,10 +191,26 @@ public class BookingDialogue extends DialogFragment {
 //                String toast_string = "Date:" + date.getText() + "From Time:" + from_time.getText() +
 //                        "To Time:" + to_time.getText() + "Comments:" + comment.getText();
 //                Toast.makeText(getContext(), toast_string, Toast.LENGTH_LONG).show();
+                if(ff){
+                    booking.setDate(date.getText().toString());//::::::::: dd/MM/yyyy
+                    booking.setStartTime(mFromHour + mFromMinute);//::::::::: HHmm
+                    booking.setEndTime(mToHour + mToMinute);//::::::::: HHmm
+                    booking.setDescription(comment.getText().toString());
+                    booking.setBookingStatus("active");
+                    //::::::::::This is where i get good data::::::::::
+                    Toast.makeText(getContext(), date.getText() + " " + from_time.getText() + " " + to_time.getText() + " " + comment.getText().toString(), Toast.LENGTH_SHORT).show();
+
+                    //TODO send data to firebase here!
+
+                    BookingManager manager = new BookingManager(getActivity().getApplicationContext(), booking);
+                    manager.bookiingWithData();
+
+                }
+                else{
                 if ((date.getText() != "" && from_time.getText() != "" && !comment.getText().toString().isEmpty())) {
                     Date sDate = null;
                     try {
-                        sDate = (new SimpleDateFormat("dd/MM/yyyy HH:mm")).parse(mDay + "/" + mMonth + "/" + mYear + " " + mFromHour + ":" + mFromMinute);
+                        sDate = (new SimpleDateFormat("dd-MM-yyyy HH:mm")).parse(mDay + "-" + mMonth + "-" + mYear + " " + mFromHour + ":" + mFromMinute);
                         Log.i("BDlog", "sDate:" + sDate);
                     } catch (ParseException e) {
                         e.printStackTrace();
@@ -189,9 +277,13 @@ public class BookingDialogue extends DialogFragment {
 
 
             }
+            }
         });
         builder.setTitle(title);
         initializer(view);
+        if(ff){
+            //setDate(dd,ftime,ttime);
+        }
         addListenerToDialogWidgets();
         return builder.create();
     }
@@ -209,7 +301,7 @@ public class BookingDialogue extends DialogFragment {
                             mYear = String.valueOf(year);
                             mMonth = ((monthOfYear < 9) ? "0" : "") + (monthOfYear + 1);
                             mDay = ((dayOfMonth < 10) ? "0" : "") + dayOfMonth;
-                            date.setText(mDay + "/" + mMonth + "/" + mYear);
+                            date.setText(mDay + "-" + mMonth + "-" + mYear);
 //
 //                        try {
 //                            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");

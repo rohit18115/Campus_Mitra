@@ -31,6 +31,18 @@ public class VacantRoomRecyclerViewAdaptor extends RecyclerView.Adapter<VacantRo
     private FragmentActivity activity;
     private Context context;
     private DialogFragment fragment;
+    private String date;
+    private String ftime;
+    private String ttime;
+
+    public VacantRoomRecyclerViewAdaptor(ArrayList<Room> roomArrayList, FragmentActivity activity, Context context, String date, String ftime, String ttime) {
+        this.roomArrayList = roomArrayList;
+        this.activity = activity;
+        this.context = context;
+        this.date = date;
+        this.ftime = ftime;
+        this.ttime = ttime;
+    }
 
     public VacantRoomRecyclerViewAdaptor(ArrayList<Room> roomArrayList, FragmentActivity activity, Context context) {
         this.roomArrayList = roomArrayList;
@@ -78,9 +90,11 @@ public class VacantRoomRecyclerViewAdaptor extends RecyclerView.Adapter<VacantRo
 
 
 
-                BookingDialogue bookingDialogue = new BookingDialogue(BookingDialogue.ROOMBOOKING);
+                BookingDialogue bookingDialogue = new BookingDialogue(BookingDialogue.ROOMBOOKING,date,ftime,ttime);
                 bookingDialogue.setBookingDetails(uid,roomid);
+
                 bookingDialogue.show(activity.getSupportFragmentManager(),"What the hell");
+                //bookingDialogue.setDate(date,ftime,ttime);
             }
         });
         Glide.with(activity)
