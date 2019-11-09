@@ -147,7 +147,6 @@ public class ApproveFacultyActivity extends AppCompatActivity {
                 }
                 fitData();
             }
-
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
 

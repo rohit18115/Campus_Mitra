@@ -5,7 +5,20 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     >
-
+    <Button
+        android:id="@+id/add_proj_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="16dp"
+        android:layout_marginLeft="16dp"
+        android:fontFamily="sans-serif"
+        android:textColor="@color/white"
+        android:background="@color/gradStart"
+        android:text="Add Project"
+        android:textStyle="bold"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:textSize="16dp" />
     <!-- TODO: Update blank fragment layout -->
     <androidx.recyclerview.widget.RecyclerView
 

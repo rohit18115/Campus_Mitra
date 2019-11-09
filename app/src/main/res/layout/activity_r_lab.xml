@@ -12,7 +12,8 @@
         android:layout_height="230dp"
         android:orientation="vertical"
         android:gravity="center"
-        android:background="@drawable/lab_sample">
+        android:src="@drawable/lab_sample"
+        android:background="@drawable/back">
 
     </ImageView>
 

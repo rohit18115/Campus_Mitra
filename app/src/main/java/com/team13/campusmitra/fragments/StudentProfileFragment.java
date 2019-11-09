@@ -1,8 +1,11 @@
 package com.team13.campusmitra.fragments;
 
+import android.Manifest;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
@@ -24,8 +27,12 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.AppCompatTextView;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputEditText;
@@ -34,14 +41,20 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.OnProgressListener;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 import com.team13.campusmitra.R;
 import com.team13.campusmitra.SelectCoursesRecyclerView;
+import com.team13.campusmitra.StudentProfile;
 import com.team13.campusmitra.Utils.LetterImageView;
 import com.team13.campusmitra.dataholder.Faculty;
 import com.team13.campusmitra.dataholder.Student;
 import com.team13.campusmitra.firebaseassistant.FirebaseFacultyHelper;
 import com.team13.campusmitra.firebaseassistant.FirebaseStudentHelper;
 
+import java.text.CollationElementIterator;
 import java.util.ArrayList;
 
 import static android.app.Activity.RESULT_OK;
@@ -56,6 +69,7 @@ public class StudentProfileFragment extends Fragment implements View.OnClickList
     AppCompatTextView enrollCourse;
     AppCompatTextView coursesTaken;
     AppCompatTextView interests;
+    FirebaseStorage storage;
     Button resume;
     String url;
     private int count = 0;
@@ -64,6 +78,11 @@ public class StudentProfileFragment extends Fragment implements View.OnClickList
     ProgressBar pb;
     private AlertDialog dialogCourses,dialogDept;
     private ArrayList<String> selected;
+    private Uri pdfUri;
+    private String uid;
+    private ProgressDialog progressDialog;
+    private TextView selected_file;
+    private String resumeUrl;
 
     protected void initComponent(View view) {
         rollNo = view.findViewById(R.id.fsp_roll);
@@ -77,12 +96,14 @@ public class StudentProfileFragment extends Fragment implements View.OnClickList
         fab = view.findViewById(R.id.fsp_fab);
         dbRoll = new TextInputEditText(view.getContext());
         dbInterests = new TextInputEditText(view.getContext());
+        storage = FirebaseStorage.getInstance();
+        selected_file = view.findViewById(R.id.fsp_file);
+        FirebaseAuth auth = FirebaseAuth.getInstance();
+        uid = auth.getCurrentUser().getUid();
     }
 
     protected void loadData(View view) {
         Log.d("lolo", "on loaddata");
-        FirebaseAuth auth = FirebaseAuth.getInstance();
-        final String uid = auth.getCurrentUser().getUid();
         FirebaseStudentHelper helper = new FirebaseStudentHelper();
         DatabaseReference reference = helper.getReference();
         reference.addValueEventListener(new ValueEventListener() {
@@ -179,6 +200,7 @@ public class StudentProfileFragment extends Fragment implements View.OnClickList
                     enrollCourse.setEnabled(true);
                     coursesTaken.setEnabled(true);
                     interests.setEnabled(true);
+                    resume.setText("Upload Resume");
                 } else {
                     fab.setImageResource(R.drawable.ic_mode_edit);
                     rollNo.setEnabled(false);
@@ -186,6 +208,9 @@ public class StudentProfileFragment extends Fragment implements View.OnClickList
                     enrollCourse.setEnabled(false);
                     coursesTaken.setEnabled(false);
                     interests.setEnabled(false);
+                    resume.setText("");
+                    resume.setText("Download resume");
+                    selected_file.setText(" ");
                     android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(getActivity());
                     builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int id) {
@@ -300,17 +325,35 @@ public class StudentProfileFragment extends Fragment implements View.OnClickList
                 startActivityForResult(intent1, PICK_CONTACT_REQUEST);
                 break;
             case R.id.fsp_resume:
-                if (url != null && !url.isEmpty()) {
-                    if (!url.contains("http://"))
-                        url = "http://" + url;
-                    Intent i = new Intent(Intent.ACTION_VIEW);
-                    i.setData(Uri.parse(url));
-                    startActivity(i);
-                } else {
-                    Toast.makeText(getActivity(), "No Resume Uploaded", Toast.LENGTH_SHORT).show();
+                if(count%2==0) {
+                    if (url != null && !url.isEmpty()) {
+//                        if (!url.contains("http://"))
+//                            url = "http://" + url;
+                        Intent i = new Intent(Intent.ACTION_VIEW);
+                        i.setData(Uri.parse(url));
+                        startActivity(i);
+                    } else {
+                        Toast.makeText(getActivity(), "No Resume Uploaded", Toast.LENGTH_SHORT).show();
+                    }
+                }
+                else {
+                    if(ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.READ_EXTERNAL_STORAGE )== PackageManager.PERMISSION_GRANTED){
+                        select_pdf();
+
+                    }
+                    else{
+                        ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, 9);
+                    }
                 }
                 break;
         }
+    }
+
+    private void select_pdf() {
+        Intent intentfile = new Intent();
+        intentfile.setType("application/pdf");
+        intentfile.setAction(Intent.ACTION_GET_CONTENT);
+        startActivityForResult(intentfile,86);
     }
 
     private void uploadData() {
@@ -446,6 +489,62 @@ public class StudentProfileFragment extends Fragment implements View.OnClickList
                 }
             }
         }
+        else if (requestCode==86 && resultCode==RESULT_OK && data!=null) {
+            pdfUri = data.getData();
+            if(pdfUri!=null){
+                Log.d("lolo", "uploaded  granted");
+                uploadFile(pdfUri);
+                selected_file.setText("A file is selected");
+            }
+            else{
+                Toast.makeText(getActivity(),"Select a file....",Toast.LENGTH_SHORT).show();
+                selected_file.setText("No file is selected");
+            }
+
+        }
+    }
+
+    private void uploadFile(Uri pdfUri) {
+        progressDialog = new ProgressDialog(getActivity());
+        progressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
+        progressDialog.setTitle("Uploading File");
+        progressDialog.setProgress(0);
+        progressDialog.show();
+
+
+        final String fileName = "ResumeRef/"+uid+".pdf";
+        Log.d("Url",fileName+ " Filename");
+        final StorageReference storageReference = storage.getReference().child(fileName);
+
+        storageReference.putFile(pdfUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                storageReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                    @Override
+                    public void onSuccess(Uri uri) {
+                        final Uri downloadUrl = uri;
+                        resumeUrl = downloadUrl.toString();
+                        Log.d("Url",resumeUrl);
+
+                    }
+                });
+
+
+
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Toast.makeText(getActivity(),"File not uploaded", Toast.LENGTH_SHORT).show();
+            }
+        }).addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onProgress(@NonNull UploadTask.TaskSnapshot taskSnapshot) {
+                int currentProgess = (int) (100*taskSnapshot.getBytesTransferred()/taskSnapshot.getTotalByteCount());
+                progressDialog.setProgress(currentProgess);
+            }
+        });
+
     }
 }
 

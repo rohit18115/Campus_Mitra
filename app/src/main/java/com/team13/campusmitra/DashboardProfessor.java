@@ -176,14 +176,9 @@ public class DashboardProfessor extends AppCompatActivity {
                 return true;
             case R.id.dnd:
                 if(f!=null){
-                    OfficeHours officeHours = f.getOfficeHours();
-                    int i  = officeHours.getDnd();
-                    if(i==0){
-                        i=1;
-                    }
-                    else{i=0;}
-                    officeHours.setDnd(i);
-                    f.setOfficeHours(officeHours);
+                    int i = f.getAvailability();
+                    i = 1-i;
+                    f.setAvailability(i);
                     FirebaseFacultyHelper helper = new FirebaseFacultyHelper();
                     helper.addFaculty(getApplicationContext(),f);
                 }
@@ -198,7 +193,6 @@ public class DashboardProfessor extends AppCompatActivity {
                 startActivity(intent1);
                 finish();
                 return true;
-
 
         }
         return super.onOptionsItemSelected(item);

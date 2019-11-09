@@ -13,6 +13,9 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_margin="20dp"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            android:background="@color/gradStart"
             android:text="Add Research labs"
              />
 
@@ -22,7 +25,9 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_margin="20dp"
-
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            android:background="@color/gradStart"
             android:text="View Research Labs"
             />
 
