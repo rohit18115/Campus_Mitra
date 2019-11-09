@@ -238,9 +238,16 @@ public class Projects_Adapter extends RecyclerView.Adapter<Projects_Adapter.Proj
                             project.setProjectDescription(data);
                             break;
                         case 3:
-                            ArrayList<String> members;
-                            members = (ArrayList<String>) Arrays.asList(data.split(","));
-                            project.setMembers(members);
+                            ArrayList<String> mentors;
+                            String[] members;
+                            members = data.split(",");
+                            mentors = new ArrayList<>();
+                            if(members!=null) {
+                                for (int k = 0; k < members.length; k++)
+                                    mentors.add(members[k].replaceAll("\\s", ""));
+
+                            }
+                            project.setMembers(mentors);
                             break;
                         default:
                             et.setError("Some Error occured");
