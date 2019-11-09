@@ -433,7 +433,7 @@ public class SignInSplash extends AppCompatActivity {
                                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                                 startActivity(intent);
                             }
-                            Toast.makeText(getApplicationContext(),"Nothing to login",Toast.LENGTH_LONG).show();
+                            //Toast.makeText(getApplicationContext(),"Nothing to login",Toast.LENGTH_LONG).show();
                         }
                     }
 
