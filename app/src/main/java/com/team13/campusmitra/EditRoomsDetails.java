@@ -192,8 +192,8 @@ public class EditRoomsDetails extends AppCompatActivity {
         });
         int roomType = room.getRoomType();
         //hideEditText(roomType);
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.type_of_room, android.R.layout.simple_spinner_item);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.type_of_room, R.layout.spinner_item);
+        adapter.setDropDownViewResource(R.layout.spinner_item);
         // ArrayAdapter<String>(Rooms.this,R.array.type_of_room, android.R.layout.simple_spinner_dropdown_item );
         room_type_spinner.setAdapter(adapter);
         room_type_spinner.setSelection(room.getRoomType());

@@ -18,7 +18,10 @@
 
         app:cardCornerRadius="16dp"
         app:cardElevation="10dp">
-
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -36,7 +39,7 @@
                     android:textStyle="bold"
                     android:fontFamily="sans-serif"
                     android:textColor="@color/white"
-                    android:background="@color/gradStart"
+                    android:background="@color/Green"
                     android:textSize="16dp"
                     android:text="@string/delete" />
 
@@ -48,11 +51,11 @@
                     android:textSize="16dp"
                     android:fontFamily="sans-serif"
                     android:textColor="@color/white"
-                    android:background="@color/gradStart"
+                    android:background="@color/Green"
                     android:layout_margin="5dp"
                     android:text="@string/mdtp_cancel" />
             </LinearLayout>
-
+        </LinearLayout>
             <TextView
                 android:id="@+id/Add_rlimg_Buffer"
                 android:layout_width="wrap_content"

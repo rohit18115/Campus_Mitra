@@ -157,10 +157,12 @@
              android:layout_height="wrap_content"
              android:layout_marginRight="20dp"
              android:text="Add to TimeTable"
+             android:fontFamily="sans-serif"
+             android:textColor="@color/white"
+             android:background="@color/Green"
+             android:textSize="16dp"
              android:textStyle="bold"
              android:padding="10dp"
-             android:textColor="@color/mdtp_white"
-             android:background="@drawable/button_background"
              android:id="@+id/add_tt_btn">
 
          </Button>

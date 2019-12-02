@@ -54,6 +54,8 @@
             android:layout_height="wrap_content"
             android:text="@string/update"
             android:layout_margin="5dp"
+            android:textColor="@color/white"
+            android:background="@color/Green"
             android:id="@+id/dialog_edit_researchlab_update_btn"
             >
 

@@ -51,7 +51,7 @@ tools:context=".fragments.StudentProfileFragment">
                 android:layout_height="1dp"
                 android:layout_marginBottom="7dp"
                 android:layout_marginTop="7dp"
-                android:background="@color/gradStart" />
+                android:background="@color/Green" />
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:layout_width="wrap_content"
@@ -75,7 +75,7 @@ tools:context=".fragments.StudentProfileFragment">
                 android:layout_height="1dp"
                 android:layout_marginBottom="7dp"
                 android:layout_marginTop="7dp"
-                android:background="@color/gradStart" />
+                android:background="@color/Green" />
 
 
             <androidx.appcompat.widget.AppCompatTextView
@@ -100,7 +100,7 @@ tools:context=".fragments.StudentProfileFragment">
                 android:layout_height="1dp"
                 android:layout_marginBottom="7dp"
                 android:layout_marginTop="7dp"
-                android:background="@color/gradStart" />
+                android:background="@color/Green" />
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:layout_width="wrap_content"
@@ -124,7 +124,7 @@ tools:context=".fragments.StudentProfileFragment">
                 android:layout_height="1dp"
                 android:layout_marginBottom="7dp"
                 android:layout_marginTop="7dp"
-                android:background="@color/gradStart" />
+                android:background="@color/Green" />
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:layout_width="wrap_content"
@@ -148,11 +148,11 @@ tools:context=".fragments.StudentProfileFragment">
                 android:layout_height="1dp"
                 android:layout_marginBottom="7dp"
                 android:layout_marginTop="7dp"
-                android:background="@color/gradStart" />
+                android:background="@color/Green" />
 
             <Button
                 android:id="@+id/fsp_resume"
-                android:background="@color/gradStart"
+                android:background="@color/Green"
                 android:textColor="@color/white"
                 android:layout_marginTop="8dp"
                 android:text="Download Resume"
