@@ -132,10 +132,11 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginRight="20dp"
-                            android:background="@drawable/button_background"
+                            android:background="@color/Green"
                             android:padding="10dp"
                             android:text="Add Course"
-                            android:textColor="@color/mdtp_white"
+                            android:textSize="16sp"
+                            android:textColor="@color/white"
                             android:textStyle="bold">
 
                         </Button>

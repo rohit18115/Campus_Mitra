@@ -16,8 +16,7 @@
         android:layout_height="wrap_content"
         android:paddingBottom="10dp"
         android:orientation="horizontal"
-        android:padding="5dp">
-
+        android:padding="15dp">
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:layout_width="70dp"

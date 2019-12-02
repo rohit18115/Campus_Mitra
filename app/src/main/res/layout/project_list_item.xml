@@ -5,12 +5,7 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
-    <View
-        android:id="@+id/item_divider"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_marginBottom="7dp"
-        android:background="@color/colorPrimaryDark" />
+
     <LinearLayout
         android:id="@+id/sub_item_above"
         android:layout_width="match_parent"
@@ -53,11 +48,13 @@
                 android:layout_width="20dp"
                 android:layout_height="20dp"
                 android:paddingTop="2dp"
+                android:foregroundGravity="center_vertical"
                 android:paddingLeft="2dp"
                 android:paddingRight="2dp"
+                android:layout_marginTop="2dp"
                 android:paddingBottom="2dp"
                 android:layout_marginRight="15dp"
-                android:layout_gravity="right"
+                android:layout_gravity="center_vertical"
                 android:src="@drawable/push_down">
             </de.hdodenhof.circleimageview.CircleImageView>
         </LinearLayout>
@@ -87,5 +84,10 @@
             android:textSize="20sp"/>
 
     </LinearLayout>
-
+    <View
+        android:id="@+id/item_divider"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginBottom="7dp"
+        android:background="@color/Green" />
 </LinearLayout>

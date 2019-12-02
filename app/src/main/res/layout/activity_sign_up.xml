@@ -17,7 +17,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="email"
-        android:textColorHint="@color/colorPrimaryDark"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginTop="8dp">
@@ -26,7 +25,6 @@
             android:id="@+id/et_email"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:backgroundTint="@color/colorPrimaryDark"
             android:inputType="textEmailAddress"
             />
 
@@ -36,19 +34,17 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="password"
-        android:textColorHint="@color/colorPrimaryDark"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginTop="8dp"
         app:passwordToggleEnabled = "true"
-        app:passwordToggleTint="@color/colorPrimaryDark">
+        >
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/et_pswd"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="textPassword"
-            app:backgroundTint="@color/colorPrimaryDark"
             />
 
     </com.google.android.material.textfield.TextInputLayout>
@@ -57,12 +53,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="confirm password"
-        android:textColorHint="@color/colorPrimaryDark"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginTop="8dp"
         app:passwordToggleEnabled = "true"
-        app:passwordToggleTint="@color/colorPrimaryDark"
         >
 
         <com.google.android.material.textfield.TextInputEditText
@@ -70,14 +64,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="textPassword"
-            app:backgroundTint="@color/colorPrimaryDark"
             />
 
     </com.google.android.material.textfield.TextInputLayout>
 
     <Button
         android:id="@+id/btn_sign_up"
-        android:background="@color/gradStart"
+        android:background="@color/Green"
         android:textColor="@color/white"
         android:layout_marginTop="8dp"
         android:text="Sign Up"
@@ -94,8 +87,6 @@
         android:layout_marginTop="4dp"
         android:id="@+id/tv_sign_in"
         android:autoLink="none"
-        android:textColor="@android:color/black"
-        android:textColorLink="@color/colorPrimaryDark"
         android:linksClickable="true"
         android:layout_gravity="center"
         android:layout_width="wrap_content"

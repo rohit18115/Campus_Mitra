@@ -102,9 +102,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Cancel Booking"
-            android:background="@color/materialgreen"
+            android:background="@color/Green"
             android:id="@+id/booking_list_cancel"
             android:padding="10dp"
+            android:layout_marginBottom="20dp"
             android:textColor="@color/white"
             >
 
