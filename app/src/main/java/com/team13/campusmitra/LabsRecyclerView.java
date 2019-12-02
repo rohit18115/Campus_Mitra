@@ -79,8 +79,8 @@ public class LabsRecyclerView extends AppCompatActivity {
         recyclerView.setAdapter(adapter);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
-        DividerItemDecoration did = new DividerItemDecoration(this,layoutManager.getOrientation());
-        recyclerView.addItemDecoration(did);
+//        DividerItemDecoration did = new DividerItemDecoration(this,layoutManager.getOrientation());
+//        recyclerView.addItemDecoration(did);
     }
 
     public boolean onCreateOptionsMenu(Menu menu) {
