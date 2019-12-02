@@ -98,7 +98,7 @@ public class SelectCoursesRecyclerViewAdaptor extends RecyclerView.Adapter<Selec
                 String filterPattern = constraint.toString().toLowerCase().trim();
 
                 for (CourseSelectModel item : mModelListFull){
-                    if (item.getCourse().getCourseCode().toLowerCase().contains(filterPattern) || item.getCourse().getCourseName().toLowerCase().contains(filterPattern) || item.getCourse().getFacultyEmail().toLowerCase().contains(filterPattern)){
+                    if (item.getCourse().getCourseCode().toLowerCase().contains(filterPattern) || item.getCourse().getCourseName().toLowerCase().contains(filterPattern)){
                         filteredList.add(item);
                     }
                 }
@@ -112,16 +112,19 @@ public class SelectCoursesRecyclerViewAdaptor extends RecyclerView.Adapter<Selec
 
         @Override
         protected void publishResults(CharSequence constraint, FilterResults results) {
+//            notifyDataSetChanged();
+//            if (results.count > 0) {
+//                Log.println(Log.INFO, "Results", "FOUND");
+//                mModelList.clear();
+//                mModelList.addAll((List) results.values);
+//                notifyDataSetChanged();
+//            } else {
+//                Log.println(Log.INFO, "Results", "-");
+//                //notifyDataSetInvalidated();
+//            }
+            mModelList.clear();
+            mModelList.addAll((List) results.values);
             notifyDataSetChanged();
-            if (results.count > 0) {
-                Log.println(Log.INFO, "Results", "FOUND");
-                mModelList.clear();
-                mModelList.addAll((List) results.values);
-                notifyDataSetChanged();
-            } else {
-                Log.println(Log.INFO, "Results", "-");
-                //notifyDataSetInvalidated();
-            }
         }
     };
 }
