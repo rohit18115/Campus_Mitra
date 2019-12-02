@@ -76,8 +76,7 @@ public class UserListDisplayActivity extends AppCompatActivity {
         }
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
-        DividerItemDecoration did = new DividerItemDecoration(this,layoutManager.getOrientation());
-        recyclerView.addItemDecoration(did);
+
     }
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
