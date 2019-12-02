@@ -11,29 +11,35 @@
 <androidx.cardview.widget.CardView
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:elevation="5dp"
-    app:cardCornerRadius="5dp"
+    app:cardCornerRadius="15dp"
+    android:background="@drawable/roundcorners"
     android:id="@+id/vacant_room_card">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:padding="6dp">
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:text="Vacant Room"
+        android:textStyle="bold"
         android:textSize="28sp" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:padding="6dp">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:gravity="center"
+            android:textStyle="bold"
+            android:textAllCaps="true"
             android:text="Date" />
 
         <TextView
@@ -43,6 +49,7 @@
             android:layout_margin="6sp"
             android:layout_weight="1"
             android:hint="DD/MM/YYYY"
+            android:gravity="center"
             android:onClick="setDate"
             android:textSize="18sp" />
     </LinearLayout>
@@ -50,12 +57,16 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:padding="6dp">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:textAllCaps="true"
             android:text="From" />
 
         <TextView
@@ -65,6 +76,7 @@
             android:layout_margin="6sp"
             android:layout_weight="1"
             android:hint="HH:MM (From)"
+            android:gravity="center"
             android:onClick="setStartTime"
             android:textSize="18sp" />
     </LinearLayout>
@@ -72,12 +84,16 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:padding="6dp">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:textAllCaps="true"
             android:text="To" />
 
         <TextView
@@ -87,6 +103,7 @@
             android:layout_margin="6sp"
             android:layout_weight="1"
             android:hint="HH:MM (To)"
+            android:gravity="center"
             android:onClick="setEndTime"
             android:textColor="@color/mdtp_done_text_color"
             android:textColorLink="@color/common_google_signin_btn_text_light"
@@ -96,13 +113,17 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:padding="6dp">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="Capacity"
+            android:gravity="center"
+            android:textStyle="bold"
+            android:textAllCaps="true"
             android:textColor="@color/mdtp_ampm_text_color"
             android:textColorLink="@color/mdtp_done_text_color" />
 
@@ -112,6 +133,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:ems="10"
+            android:gravity="center"
             android:hint="0"
             android:inputType="number"
             android:textSize="18sp" />
@@ -127,6 +149,7 @@
         android:textColor="@color/white"
         android:layout_marginBottom="20dp"
         android:onClick="onClick"
+        android:layout_margin="10dp"
         android:padding="10dp"
         android:text="Find Vacant Room" />
     </LinearLayout>
